@@ -1,3 +1,35 @@
 <resources>
-    <string name="app_name">CommuteScheduler</string>
+    <string name="name_app">CommuteScheduler</string>
+
+    <string name="title_edit">Edit</string>
+    <string name="title_map_view">Map view</string>
+    <string name="title_commutes_list">Commutes list</string>
+    <string name="title_quick_commute_view">Quickly add a commute</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_validate">Ok</string>
+    <string name="action_cancel">Cancel</string>
+
+    <string name="text_commute_name">Commute:</string>
+    <string name="text_commute_start">Starting point:</string>
+    <string name="text_commute_end">Destination:</string>
+    <string name="text_commute_departure">Leave at:</string>
+    <string name="text_commute_arrival">Arrive at:</string>
+    <string name="text_commute_duration">Duration:</string>
+    <string name="from">from</string>
+    <string name="to">to</string>
+    <string name="in">in</string>
+
+    <string name="field_commute_name">COMMUTE NAME</string>
+    <string name="field_departure">START</string>
+    <string name="field_arrival">ARRIVAL</string>
+    <string name="field_time">HH:MM</string>
+
+    <string name="description_map">Extend view of the map</string>
+    <string name="description_commutes_list">Complete view of the saved commutes</string>
+    <string name="description_enhance_map_button">Switch to the extended view of the map</string>
+    <string name="description_enhance_commutes_button">Switch to the view of the commutes</string>
+
+    <string name="button_return">Return to home view</string>
+    <string name="button_add">Create new commute</string>
 </resources>
