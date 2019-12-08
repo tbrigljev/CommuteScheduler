@@ -1,5 +1,6 @@
 package com.mobop.commutescheduler
 
+/* Import ******************************************************** */
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class FragmentCommutes(screen: Int) : Fragment(){
+
+/* FragmentCommutes ********************************************** */
+/* Contains the list of commutes and the related buttons ********* */
+/* Contained in FragmentHome and in its standalone fragment ****** */
+class FragmentCommutes(screen : Int) : Fragment(){
 
     var mRecyclerView : RecyclerView? = null
     private var mListener : OnFragmentInteractionListener? = null
@@ -19,27 +24,34 @@ class FragmentCommutes(screen: Int) : Fragment(){
     private var source = 0
     private val commutesScreen = screen
 
-    private lateinit var returnCommutesButton: ImageButton
-    private lateinit var addCommutesButton: ImageButton
-    private lateinit var enhanceCommutesButton: ImageButton
+    private lateinit var returnCommutesButton : ImageButton
+    private lateinit var addCommutesButton : ImageButton
+    private lateinit var enhanceCommutesButton : ImageButton
 
-    override fun onCreate(savedInstanceState : Bundle?) {
+    override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
         inflater : LayoutInflater,
         container : ViewGroup?,
-        savecInstanceState : Bundle?) : View? {
+        savecInstanceState : Bundle?) : View?{
 
         val view = inflater.inflate(
             R.layout.fragment_commutes,
-            container, false
+            container,
+            false
         )
 
-        returnCommutesButton = view.findViewById(R.id.commutes_button_return) as ImageButton
-        addCommutesButton = view.findViewById(R.id.commutes_button_add) as ImageButton
-        enhanceCommutesButton = view.findViewById(R.id.commutes_button_enhance) as ImageButton
+        returnCommutesButton =
+            view.findViewById(R.id.commutes_button_return)
+                    as ImageButton
+        addCommutesButton =
+            view.findViewById(R.id.commutes_button_add)
+                    as ImageButton
+        enhanceCommutesButton =
+            view.findViewById(R.id.commutes_button_enhance)
+                    as ImageButton
 
         enhanceCommutesButton.setOnClickListener{
             doCommutesEnhance(fragmentID)
@@ -61,9 +73,9 @@ class FragmentCommutes(screen: Int) : Fragment(){
             }
         }
 
-        /* Creation of the RecyclerView, LayoutManager and Adapter    */
+        /* Creation of the RecyclerView, LayoutManager and Adapter */
         mRecyclerView = view.findViewById(R.id.commutes_list)
-        //mRecyclerView!!.setHasFixedSize(true)
+        // mRecyclerView!!.setHasFixedSize(true)
 
         var mLayoutManager = LinearLayoutManager(context)
         mRecyclerView!!.layoutManager = mLayoutManager
@@ -72,7 +84,8 @@ class FragmentCommutes(screen: Int) : Fragment(){
             CommutesAdapter(
                 R.layout.element_commute_simple,
                 commutesList!!.commutesItemsList,
-                { partItem: Int -> listItemClicked(partItem) })
+                { partItem : Int -> listItemClicked(partItem) }
+            )
 
         mRecyclerView!!.adapter = mAdapter
 
@@ -94,22 +107,24 @@ class FragmentCommutes(screen: Int) : Fragment(){
         mListener = null
     }
 
-    private fun doCommutesEnhance(fragmentCaller : Int) {
-        if (mListener != null) {
+    private fun doCommutesEnhance(fragmentCaller : Int){
+        if (mListener != null){
             source = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
 
-    private fun doCommutesReturn(fragmentCaller : Int) {
-        if (mListener != null) {
+    private fun doCommutesReturn(fragmentCaller : Int){
+        if (mListener != null){
             source = 1
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
 
     interface OnFragmentInteractionListener{
-        fun onFragmentInteraction(fragmentCaller : Int, fragmentState : Int)
+        fun onFragmentInteraction(
+            fragmentCaller : Int,
+            fragmentState : Int)
     }
 
     private fun listItemClicked(pos : Int){

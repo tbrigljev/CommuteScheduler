@@ -1,11 +1,15 @@
 package com.mobop.commutescheduler
 
+/* Import ******************************************************** */
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
+/* FragmentHome ************************************************** */
+/* Shows up when launching the app, combines the map, commutes and */
+/* quick-route on one screen ************************************* */
 class FragmentHome :
     Fragment(){
 
@@ -19,9 +23,12 @@ class FragmentHome :
     override fun onCreateView(
         inflater : LayoutInflater,
         container : ViewGroup?,
-        savecInstanceState : Bundle?) : View? {
+        savecInstanceState : Bundle?) : View?{
 
-        val view = inflater.inflate(R.layout.activity_main_home, container, false)
+        val view = inflater.inflate(
+            R.layout.activity_main_home,
+            container,
+            false)
 
         val mFragmentManager = childFragmentManager
 
@@ -30,10 +37,9 @@ class FragmentHome :
             .commit()
 
         mFragmentManager.beginTransaction()
-            .add(R.id.main_container_commutes, commutesFragment)
+            .replace(R.id.main_container_commutes, commutesFragment)
             .commit()
 
         return view
     }
-
 }

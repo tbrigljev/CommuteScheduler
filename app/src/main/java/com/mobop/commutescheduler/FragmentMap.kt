@@ -1,5 +1,6 @@
 package com.mobop.commutescheduler
 
+/* Import ******************************************************** */
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +9,10 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 
-class FragmentMap(screen: Int) : Fragment(){
+/* FragmentMap *************************************************** */
+/* Contains the map element and the related buttons ************** */
+/* Contained in FragmentHome and in its standalone fragment ****** */
+class FragmentMap(screen : Int) : Fragment(){
 
     private var mListener : OnFragmentInteractionListener? = null
 
@@ -17,9 +21,9 @@ class FragmentMap(screen: Int) : Fragment(){
     private var fragmentID = 1
     private var source = 0
 
-    private lateinit var returnMapButton: ImageButton
-    private lateinit var addMapButton: ImageButton
-    private lateinit var enhanceMapButton: ImageButton
+    private lateinit var returnMapButton : ImageButton
+    private lateinit var addMapButton : ImageButton
+    private lateinit var enhanceMapButton : ImageButton
 
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
@@ -28,21 +32,25 @@ class FragmentMap(screen: Int) : Fragment(){
     override fun onCreateView(
         inflater : LayoutInflater,
         container : ViewGroup?,
-        savecInstanceState : Bundle?) : View? {
+        savecInstanceState : Bundle?) : View?{
 
         val view = inflater.inflate(
             R.layout.fragment_map,
-            container, false
+            container,
+            false
         )
 
-
-        returnMapButton = view.findViewById(R.id.map_button_return) as ImageButton
-        addMapButton = view.findViewById(R.id.map_button_add) as ImageButton
-        enhanceMapButton = view.findViewById(R.id.map_button_enhance) as ImageButton
+        returnMapButton =
+            view.findViewById(R.id.map_button_return) as ImageButton
+        addMapButton =
+            view.findViewById(R.id.map_button_add) as ImageButton
+        enhanceMapButton =
+            view.findViewById(R.id.map_button_enhance) as ImageButton
 
         enhanceMapButton.setOnClickListener{
             doMapEnhance(fragmentID)
         }
+
         returnMapButton.setOnClickListener{
             doMapReturn(fragmentID)
         }
@@ -59,9 +67,6 @@ class FragmentMap(screen: Int) : Fragment(){
                 enhanceMapButton.visibility = View.VISIBLE
             }
         }
-
-
-        /* Creation of the RecyclerView, LayoutManager and Adapter    */
 
         return view
     }
@@ -82,20 +87,22 @@ class FragmentMap(screen: Int) : Fragment(){
     }
 
     private fun doMapEnhance(fragmentCaller : Int){
-        if (mListener != null) {
+        if (mListener != null){
             source = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
 
     private fun doMapReturn(fragmentCaller : Int){
-        if (mListener != null) {
+        if (mListener != null){
             source = 1
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
 
     interface OnFragmentInteractionListener{
-        fun onFragmentInteraction(fragmentCaller : Int, fragmentState : Int)
+        fun onFragmentInteraction(
+            fragmentCaller : Int,
+            fragmentState : Int)
     }
 }

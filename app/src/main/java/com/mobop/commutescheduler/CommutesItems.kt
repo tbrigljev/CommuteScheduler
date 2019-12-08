@@ -1,5 +1,7 @@
 package com.mobop.commutescheduler
 
+/* CommutesItems ************************************************* */
+/* Contents of the recycler view (list) of commutes items ******** */
 class CommutesItemsList{
     var commutesItemsList = ArrayList<CommutesItemsElement>()
 
@@ -15,7 +17,8 @@ class CommutesItemsList{
             "Work",
             "00:25")
         val longNameTest = CommutesItemsElement(
-            "This should be long enough to fill the screen to make sure ellipsis works",
+            "This should be long enough to" +
+                    "fill the screen to make sure ellipsis works",
             "Wherever",
             "Wherever",
             "00:00")
@@ -33,7 +36,7 @@ class CommutesItemsList{
 }
 
 data class CommutesItemsElement(
-    var commutesName: String,
-    var commutesStart: String,
-    var commutesEnd: String,
-    var commutesTime: String)
+    var commutesName : String,
+    var commutesStart : String,
+    var commutesEnd : String,
+    var commutesTime : String)
