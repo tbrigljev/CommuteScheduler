@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
 class FragmentHome :
     Fragment(){
 
-    var commutesFragment = FragmentCommutesRecycler(1)
+    var commutesFragment = FragmentCommutes(1)
     var mapFragment = FragmentMap(1)
 
     override fun onCreate(savedInstanceState : Bundle?){

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class FragmentCommutesRecycler(screen: Int) : Fragment(){
+class FragmentCommutes(screen: Int) : Fragment(){
 
     var mRecyclerView : RecyclerView? = null
     private var mListener : OnFragmentInteractionListener? = null
@@ -69,7 +69,7 @@ class FragmentCommutesRecycler(screen: Int) : Fragment(){
         mRecyclerView!!.layoutManager = mLayoutManager
 
         var mAdapter =
-            CommutesAdapterRecycler(
+            CommutesAdapter(
                 R.layout.element_commute_simple,
                 commutesList!!.commutesItemsList,
                 { partItem: Int -> listItemClicked(partItem) })

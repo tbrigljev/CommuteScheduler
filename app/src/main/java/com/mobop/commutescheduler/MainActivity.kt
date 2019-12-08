@@ -9,11 +9,7 @@ package com.mobop.commutescheduler
 
 /* Import *********************************************************** */
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageButton
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 /* Global variables ************************************************* */
 const val MAP = 1
@@ -27,7 +23,7 @@ var commutesList : CommutesItemsList? = null
 /* ****************************************************************** */
 class MainActivity :
     FragmentMap.OnFragmentInteractionListener,
-    FragmentCommutesRecycler.OnFragmentInteractionListener,
+    FragmentCommutes.OnFragmentInteractionListener,
     FragmentQuick.OnFragmentInteractionListener,
     FragmentSettings.OnFragmentInteractionListener,
     AppCompatActivity(){
@@ -35,7 +31,7 @@ class MainActivity :
     private var mFragmentManager = supportFragmentManager
 
     var homeFragment = FragmentHome()
-    var commutesFragment = FragmentCommutesRecycler(0)
+    var commutesFragment = FragmentCommutes(0)
     var mapFragment = FragmentMap(0)
 
     /* ************************************************************** */

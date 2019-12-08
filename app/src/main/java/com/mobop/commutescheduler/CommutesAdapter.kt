@@ -1,13 +1,12 @@
 package com.mobop.commutescheduler
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CommutesAdapterRecycler(
+class CommutesAdapter(
     viewRes: Int,
     commutesItemsList2: ArrayList<CommutesItemsElement>,
     val clickListener: (Int) -> Unit):
@@ -36,7 +35,7 @@ class CommutesAdapterRecycler(
     }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
-            CommutesAdapterRecycler.ViewHolder {
+            CommutesAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.element_commute_simple, parent, false)
         return ViewHolder(v)
@@ -68,15 +67,15 @@ class CommutesAdapterRecycler(
 
         fun bind(commutesItemsList: ArrayList<CommutesItemsElement>,
                  position : Int, clickListener : (Int) -> Unit){
-            val commutesItems = commutesItemsList[position]
-            if (commutesItems != null){
-                val elementTitle = commutesItems.commutesName
+            val itemInList = commutesItemsList[position]
+            if (itemInList != null){
+                val elementTitle = itemInList.commutesName
                 title.setText(elementTitle)
-                val elementStart = commutesItems.commutesStart
+                val elementStart = itemInList.commutesStart
                 start.setText(elementStart)
-                val elementEnd = commutesItems.commutesEnd
+                val elementEnd = itemInList.commutesEnd
                 end.setText(elementEnd)
-                val elementTime = commutesItems.commutesTime
+                val elementTime = itemInList.commutesTime
                 time.setText(elementTime)
             }
             itemView.setOnClickListener{ clickListener(position) }
