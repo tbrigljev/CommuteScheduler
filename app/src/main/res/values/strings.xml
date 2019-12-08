@@ -22,7 +22,10 @@
 
     <string name="field_commute_name">COMMUTE NAME</string>
     <string name="field_departure">START</string>
+    <string name="field_departure_time">LEAVE AT</string>
     <string name="field_arrival">ARRIVAL</string>
+    <string name="field_arrival_time">ARRIVE AT</string>
+    <string name="field_distance">LENGTH</string>
     <string name="field_time">HH:MM</string>
 
     <string name="description_map">Extend view of the map</string>
@@ -32,4 +35,11 @@
 
     <string name="button_return">Return to home view</string>
     <string name="button_add">Create new commute</string>
+    <string name="button_go">GO</string>
+
+    <string name="checkbox_view_traffic">View traffic</string>
+
+    <string name="GoogleMapsKey"
+        templateMergeStrategy="preserve"
+        translatable="false">AIzaSyCvHGKUjPP7Bd07ReF_jF2392Uie8y1qlg</string>
 </resources>

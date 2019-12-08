@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+/* *************************************************************** */
 
 /* FragmentMap *************************************************** */
 /* Contains the map element and the related buttons ************** */

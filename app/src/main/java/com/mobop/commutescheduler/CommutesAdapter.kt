@@ -6,17 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+/* *************************************************************** */
 
 /* CommutesAdapter *********************************************** */
 /* Adapter for the recycler view managing the list of commutes *** */
 /* Contained in FragmentCommutes ********************************* */
 class CommutesAdapter(
     viewRes : Int,
-    commutesItemsList: ArrayList<CommutesItemsElement>,
+    commutesItemsList: ArrayList<Commute>,
     val clickListener : (Int) -> Unit) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    var commutesItemsList : ArrayList<CommutesItemsElement>
+    var commutesItemsList : ArrayList<Commute>
     private var viewRes : Int = 0
 
     init{
@@ -71,18 +72,18 @@ class CommutesAdapter(
         }
 
         fun bind(
-            commutesItemsList : ArrayList<CommutesItemsElement>,
+            commutesItemsList : ArrayList<Commute>,
             position : Int,
             clickListener : (Int) -> Unit){
             val itemInList = commutesItemsList[position]
             if (itemInList != null){
-                val elementTitle = itemInList.commutesName
+                val elementTitle = itemInList.name
                 title.setText(elementTitle)
-                val elementStart = itemInList.commutesStart
+                val elementStart = itemInList.start
                 start.setText(elementStart)
-                val elementEnd = itemInList.commutesEnd
+                val elementEnd = itemInList.arrival
                 end.setText(elementEnd)
-                val elementTime = itemInList.commutesTime
+                val elementTime = itemInList.duration
                 time.setText(elementTime)
             }
             itemView.setOnClickListener{ clickListener(position) }
