@@ -59,6 +59,7 @@ class GoogleAPI{
             .supportFragmentManager
             .findFragmentById(R.id.fragment_start)
                 as AutocompleteSupportFragment
+
         autocompleteFragment_start
             .setPlaceFields(placeFields)
         autocompleteFragment_start

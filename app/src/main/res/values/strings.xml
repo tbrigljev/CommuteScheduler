@@ -1,5 +1,5 @@
 <resources>
-    <string name="name_app">CommuteScheduler</string>
+    <string name="name_app">Commute Scheduler</string>
 
     <string name="title_edit">Edit</string>
     <string name="title_map_view">Map view</string>

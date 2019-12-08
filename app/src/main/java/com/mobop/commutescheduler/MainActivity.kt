@@ -81,6 +81,7 @@ class MainActivity :
             .add(R.id.main_container_fragments, homeFragment)
             .commit()
 
+        /*
         // mResult = findViewById<TextView>(R.id.result)
         mTextArrival = findViewById(R.id.text_arrival)
         mTextDistance = findViewById(R.id.text_distance)
@@ -129,6 +130,7 @@ class MainActivity :
             if(isChecked){ mMap.isTrafficEnabled = true }
             else { mMap.isTrafficEnabled = false }
         }
+        */
     }
 
     /* *********************************************************** */
