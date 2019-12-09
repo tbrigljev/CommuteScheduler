@@ -19,14 +19,21 @@
     <string name="from">from</string>
     <string name="to">to</string>
     <string name="in">in</string>
+    <string name="text_reminder">Reminder</string>
+    <string name="text_alarm">Alarm</string>
 
     <string name="field_commute_name">COMMUTE NAME</string>
     <string name="field_departure">START</string>
+    <string name="field_departure_address">START_ADDRESS</string>
     <string name="field_departure_time">LEAVE AT</string>
     <string name="field_arrival">ARRIVAL</string>
+    <string name="field_arrival_address">ARRIVAL_ADDRESS</string>
     <string name="field_arrival_time">ARRIVE AT</string>
     <string name="field_distance">LENGTH</string>
     <string name="field_time">HH:MM</string>
+    <string name="field_reminder">REMINDER</string>
+    <string name="field_alarm">ALARM</string>
+    <string name="field_alarm_time">XX min</string>
 
     <string name="description_map">Extend view of the map</string>
     <string name="description_commutes_list">Complete view of the saved commutes</string>

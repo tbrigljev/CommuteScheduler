@@ -1,9 +1,11 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 /* *************************************************************** */
@@ -56,6 +58,8 @@ class CommutesAdapter(
         val end : TextView
         val time : TextView
 
+        val layout : LinearLayout = view.findViewById(R.id.element_simple) as LinearLayout
+
         init{
             title =
                 view.findViewById(R.id.element_simple_title)
@@ -67,7 +71,7 @@ class CommutesAdapter(
                 view.findViewById(R.id.element_simple_end)
                         as TextView
             time =
-                view.findViewById(R.id.element_simple__time)
+                view.findViewById(R.id.element_simple_time)
                         as TextView
         }
 
@@ -76,15 +80,22 @@ class CommutesAdapter(
             position : Int,
             clickListener : (Int) -> Unit){
             val itemInList = commutesItemsList[position]
+
+            if (position % 2 == 0){
+                layout.setBackgroundColor(Color.RED)
+            } else{
+                layout.setBackgroundColor(Color.BLUE)
+            }
+
             if (itemInList != null){
                 val elementTitle = itemInList.name
-                title.setText(elementTitle)
+                title.text = elementTitle
                 val elementStart = itemInList.start
-                start.setText(elementStart)
+                start.text = elementStart
                 val elementEnd = itemInList.arrival
-                end.setText(elementEnd)
-                val elementTime = itemInList.duration
-                time.setText(elementTime)
+                end.text = elementEnd
+                val elementTime = itemInList.start_time
+                time.text = elementTime
             }
             itemView.setOnClickListener{ clickListener(position) }
         }

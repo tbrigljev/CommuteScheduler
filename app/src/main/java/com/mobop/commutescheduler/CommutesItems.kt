@@ -15,24 +15,60 @@ class CommutesItemsList{
         val homeToSchool = Commute(
             name = "Home2School",
             start = "Home",
+            start_address = "Route des Arsenaux 29, 1700 Fribourg",
+            start_time = "07:12",
             arrival = "School",
-            duration = "01:12")
+            arrival_address = "Avenue de Provence 6, 1007 Lausanne",
+            arrival_time = "08:24",
+            duration = "01:12",
+            reminder_on = true,
+            reminder_tune = "Kimmunicator",
+            alarm_on = false,
+            alarm_time = "20 min",
+            alarm_tune = "Ribbit")
         val homeToWork = Commute(
             name = "Home2Work",
             start = "Home",
+            start_address = "Route des Arsenaux 29, 1700 Fribourg",
+            start_time = "06:35",
             arrival = "Work",
-            duration = "00:25")
+            arrival_address = "Route de Morat 135, 1763 Granges-Paccot",
+            arrival_time = "07:00",
+            duration = "00:25",
+            reminder_on = false,
+            reminder_tune = "Kimmunicator",
+            alarm_on = true,
+            alarm_time = "10 min",
+            alarm_tune = "Ribbit")
         val longNameTest = Commute(
-            name = "This should be long enough to" +
+            name = "This should be long enough to " +
                     "fill the screen to make sure ellipsis works",
             start = "Wherever",
+            start_address = "Street of Road, 10000 City",
+            start_time = "00:00",
             arrival = "Wherever",
-            duration = "00:00")
+            arrival_address = "Avenue of Path, 20000 City",
+            arrival_time = "00:00",
+            duration = "00:00",
+            reminder_on = false,
+            reminder_tune = "DING",
+            alarm_on = false,
+            alarm_time = "0 min",
+            alarm_tune = "DONG")
         val longParamTest = Commute(
             name = "A test for parameters",
             start = "That one place that has a very long name",
+            start_address = "Place of Bridge, 30000 City",
+            start_time = "00:00",
             arrival = "That other place that has a very long name",
-            duration = "00:00")
+            arrival_address = "Alley of Way, 40000 City",
+            arrival_time = "00:00",
+            duration = "00:00",
+            reminder_on = true,
+            reminder_tune = "DING",
+            alarm_on = false,
+            alarm_time = "0 min",
+            alarm_tune = "DONG")
 
         commutesItemsList.add(homeToWork)
         commutesItemsList.add(homeToSchool)
@@ -100,5 +136,12 @@ data class Commute(
 
     var path : MutableList<List<LatLng>> = ArrayList(),
     var raw_data : String? = null,
-    var errorTraffic : Long? = null
+    var errorTraffic : Long? = null,
+
+    var reminder_on : Boolean = false,
+    var reminder_tune : String? = null,
+
+    var alarm_on : Boolean = false,
+    var alarm_time : String? = null,
+    var alarm_tune : String? = null
 )
