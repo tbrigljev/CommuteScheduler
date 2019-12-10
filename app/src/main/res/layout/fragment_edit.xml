@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_edit_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="0"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:autofillHints=""
+        android:ellipsize="end"
+        android:inputType="text"
+        android:maxLines="1"
+        android:text="@string/field_commute_name"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/edit_container_days"
+        app:layout_constraintEnd_toEndOf="@id/fragment_edit_main"
+        app:layout_constraintStart_toStartOf="@id/fragment_edit_main"
+        app:layout_constraintTop_toTopOf="@id/fragment_edit_main" />
+
+    <LinearLayout
+        android:id="@+id/edit_container_days"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/edit_container_start_end"
+        app:layout_constraintEnd_toEndOf="@id/edit_title"
+        app:layout_constraintStart_toStartOf="@id/edit_title"
+        app:layout_constraintTop_toBottomOf="@id/edit_title">
+
+        <ToggleButton
+            android:id="@+id/edit_toggle_MO"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/Monday"
+            android:textOff="@string/Monday"
+            android:textOn="@string/Monday"
+            android:textSize="14sp" />
+
+        <ToggleButton
+            android:id="@+id/edit_toggle_TU"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/Tuesday"
+            android:textOff="@string/Tuesday"
+            android:textOn="@string/Tuesday"
+            android:textSize="14sp" />
+
+        <ToggleButton
+            android:id="@+id/edit_toggle_WE"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/Wednesday"
+            android:textOff="@string/Wednesday"
+            android:textOn="@string/Wednesday"
+            android:textSize="14sp" />
+
+        <ToggleButton
+            android:id="@+id/edit_toggle_TH"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/Thursday"
+            android:textOff="@string/Thursday"
+            android:textOn="@string/Thursday"
+            android:textSize="14sp" />
+
+        <ToggleButton
+            android:id="@+id/edit_toggle_FR"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/Friday"
+            android:textOff="@string/Friday"
+            android:textOn="@string/Friday"
+            android:textSize="14sp" />
+
+        <ToggleButton
+            android:id="@+id/edit_toggle_SA"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/Saturday"
+            android:textOff="@string/Saturday"
+            android:textOn="@string/Saturday"
+            android:textSize="14sp" />
+
+        <ToggleButton
+            android:id="@+id/edit_toggle_SU"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/Sunday"
+            android:textOff="@string/Sunday"
+            android:textOn="@string/Sunday"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/edit_container_start_end"
+        android:layout_width="match_parent"
+        android:layout_height="146dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/edit_container_time"
+        app:layout_constraintEnd_toEndOf="@id/edit_title"
+        app:layout_constraintStart_toStartOf="@id/edit_title"
+        app:layout_constraintTop_toBottomOf="@id/edit_container_days">
+
+        <EditText
+            android:id="@+id/edit_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:ellipsize="end"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text="@string/field_departure"
+            android:textSize="20sp" />
+
+        <fragment
+            android:id="@+id/fragment_start"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:hint="@string/field_departure"
+            app:layout_constraintStart_toStartOf="@+id/fragment_map_container"
+            app:layout_constraintTop_toTopOf="@+id/fragment_map_container" />
+
+        <EditText
+            android:id="@+id/edit_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:autofillHints=""
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/field_arrival"
+            android:textSize="20sp" />
+
+        <fragment
+            android:id="@+id/fragment_arrival"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:hint="@string/field_arrival"
+            app:layout_constraintStart_toStartOf="@+id/fragment_start"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_start" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/edit_container_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/edit_container_reminder"
+        app:layout_constraintEnd_toEndOf="@id/edit_title"
+        app:layout_constraintStart_toStartOf="@id/edit_title"
+        app:layout_constraintTop_toBottomOf="@+id/edit_container_start_end">
+
+        <TextView
+            android:id="@+id/leave_at"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:text="@string/text_commute_departure"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+
+        <TextView
+            android:id="@+id/edit_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/time_filler"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/arrive_at"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="4"
+            android:text="@string/text_commute_arrival"
+            android:textAlignment="textEnd"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+
+        <EditText
+            android:id="@+id/edit_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/field_time"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <!--        <TimePicker
+            android:id="@+id/timePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>-->
+
+        <TextView
+            android:id="@+id/travel_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:text="@string/text_commute_duration"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+
+        <TextView
+            android:id="@+id/edit_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            android:text="@string/time_filler"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/edit_container_reminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/edit_container_alarm"
+        app:layout_constraintEnd_toEndOf="@id/edit_title"
+        app:layout_constraintStart_toStartOf="@id/edit_title"
+        app:layout_constraintTop_toBottomOf="@+id/edit_container_time">
+
+        <Switch
+            android:id="@+id/sw_reminder"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="0.78"
+            android:text="@string/text_reminder"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+
+        <EditText
+            android:id="@+id/reminder_tune"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/field_reminder" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/edit_container_alarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/edit_title"
+        app:layout_constraintStart_toStartOf="@id/edit_title"
+        app:layout_constraintTop_toBottomOf="@id/edit_container_reminder">
+
+        <Switch
+            android:id="@+id/sw_alarm"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:text="@string/text_alarm"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+
+        <EditText
+            android:id="@+id/alarm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:gravity="center"
+            android:text="@string/field_alarm_time" />
+
+        <EditText
+            android:id="@+id/alarm_tune"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.9"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/field_alarm" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/edit_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="@+id/fragment_edit_main"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_edit_main"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_main">
+
+        <ImageButton
+            android:id="@+id/edit_button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="32dp"
+            android:background="@color/colorPrimaryDark"
+            android:contentDescription="@string/button_cancel"
+            android:onClick="doEditCancel"
+            android:scaleX="2"
+            android:scaleY="2"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_buttons"
+            app:layout_constraintStart_toStartOf="@+id/edit_buttons"
+            app:srcCompat="@android:drawable/ic_delete" />
+
+        <ImageButton
+            android:id="@+id/edit_button_validate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:background="@color/colorPrimaryDark"
+            android:contentDescription="@string/button_validate"
+            android:onClick="doEditValidate"
+            android:scaleX="3.1"
+            android:scaleY="3.1"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_buttons"
+            app:layout_constraintEnd_toEndOf="@+id/edit_buttons"
+            app:srcCompat="@android:drawable/checkbox_on_background" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
