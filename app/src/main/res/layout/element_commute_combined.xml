@@ -1,29 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/element_extended"
+    android:id="@+id/element_combined"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_weight="0"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/element_extended_title"
+        android:id="@+id/element_combined_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="@string/field_commute_name"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/element_combined"
+        app:layout_constraintEnd_toEndOf="@id/element_combined"
+        app:layout_constraintTop_toTopOf="@id/element_combined" />
+
+    <LinearLayout
+        android:id="@+id/element_simple_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/element_combined"
+        app:layout_constraintEnd_toEndOf="@id/element_combined"
+        app:layout_constraintTop_toBottomOf="@id/element_combined_title">
+
+        <TextView
+            android:id="@+id/element_simple_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="0"
+            android:text="@string/from" />
+
+        <TextView
+            android:id="@+id/element_simple_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/field_departure"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/element_simple_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="0"
+            android:text="@string/to" />
+
+        <TextView
+            android:id="@+id/element_simple_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/field_arrival"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/element_simple_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="0"
+            android:text="@string/in" />
+
+        <TextView
+            android:id="@+id/element_simple_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="0"
+            android:text="@string/field_time"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/element_extended_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@id/element_combined"
+        app:layout_constraintStart_toStartOf="@id/element_combined"
+        app:layout_constraintTop_toBottomOf="@id/element_combined_title">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/element_extended_start_end"
@@ -97,7 +169,7 @@
         <LinearLayout
             android:id="@+id/element_extended_time"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
@@ -154,12 +226,12 @@
             android:id="@+id/element_divider_bottom"
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="?android:attr/listDivider"/>
+            android:background="?android:attr/listDivider" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/element_extended_notif"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <Switch
                 android:id="@+id/sw_reminder"
@@ -216,4 +288,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

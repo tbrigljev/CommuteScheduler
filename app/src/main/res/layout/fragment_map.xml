@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_map_main"
     android:layout_width="match_parent"
@@ -202,7 +203,6 @@
             android:text="@string/field_departure_time"
             app:layout_constraintEnd_toEndOf="@+id/text_arrival"
             app:layout_constraintTop_toBottomOf="@+id/text_duration_traffic" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

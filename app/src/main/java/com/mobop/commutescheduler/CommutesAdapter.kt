@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import org.jetbrains.anko.find
+import org.w3c.dom.Text
+
 /* *************************************************************** */
 
 /* CommutesAdapter *********************************************** */
@@ -32,7 +36,7 @@ class CommutesAdapter(
         viewType : Int) :
             CommutesAdapter.ViewHolder{
         val v = LayoutInflater.from(parent.context).inflate(
-                R.layout.element_commute_simple,
+                R.layout.element_commute_combined,
                 parent,
                 false)
         return ViewHolder(v)
@@ -54,25 +58,42 @@ class CommutesAdapter(
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
         val title : TextView
-        val start : TextView
-        val end : TextView
-        val time : TextView
 
-        val layout : LinearLayout = view.findViewById(R.id.element_simple) as LinearLayout
+        val simpleStart : TextView
+        val simpleEnd : TextView
+        val simpleTimeDuration : TextView
+
+        val extendedStart : TextView
+        val extendedStartAddress : TextView
+        val extendedEnd : TextView
+        val extendedEndAddress : TextView
+        val extendedTimeStart : TextView
+        val extendedTimeEnd : TextView
+        val extendedTimeDuration : TextView
+
+        val layoutCombined : ConstraintLayout =
+            view.findViewById(R.id.element_combined) as ConstraintLayout
+        val layoutSimple : LinearLayout =
+            view.findViewById(R.id.element_simple_container) as LinearLayout
+        val layoutExtended : LinearLayout =
+            view.findViewById(R.id.element_extended_container) as LinearLayout
 
         init{
-            title =
-                view.findViewById(R.id.element_simple_title)
-                        as TextView
-            start =
-                view.findViewById(R.id.element_simple_start)
-                        as TextView
-            end =
-                view.findViewById(R.id.element_simple_end)
-                        as TextView
-            time =
-                view.findViewById(R.id.element_simple_time)
-                        as TextView
+            title = view.findViewById(R.id.element_combined_title) as TextView
+
+            simpleStart = view.findViewById(R.id.element_simple_start) as TextView
+            simpleEnd = view.findViewById(R.id.element_simple_end) as TextView
+            simpleTimeDuration = view.findViewById(R.id.element_simple_time) as TextView
+
+            extendedStart = view.findViewById(R.id.element_extended_start) as TextView
+            extendedStartAddress = view.findViewById(R.id.element_extended_start_address) as TextView
+            extendedEnd = view.findViewById(R.id.element_extended_end) as TextView
+            extendedEndAddress = view.findViewById(R.id.element_extended_end_address) as TextView
+            extendedTimeStart = view.findViewById(R.id.element_extended_start_time) as TextView
+            extendedTimeEnd = view.findViewById(R.id.element_extended_end_time) as TextView
+            extendedTimeDuration = view.findViewById(R.id.element_extended_duration) as TextView
+
+            layoutExtended.visibility = View.GONE
         }
 
         fun bind(
@@ -82,22 +103,50 @@ class CommutesAdapter(
             val itemInList = commutesItemsList[position]
 
             if (position % 2 == 0){
-                layout.setBackgroundColor(Color.RED)
+                layoutCombined.setBackgroundColor(Color.RED)
             } else{
-                layout.setBackgroundColor(Color.BLUE)
+                layoutCombined.setBackgroundColor(Color.BLUE)
             }
 
             if (itemInList != null){
                 val elementTitle = itemInList.name
                 title.text = elementTitle
-                val elementStart = itemInList.start
-                start.text = elementStart
-                val elementEnd = itemInList.arrival
-                end.text = elementEnd
-                val elementTime = itemInList.start_time
-                time.text = elementTime
+
+                val elementSimpleStart = itemInList.start
+                simpleStart.text = elementSimpleStart
+                val elementSimpleEnd = itemInList.arrival
+                simpleEnd.text = elementSimpleEnd
+                val elementSimpleTime = itemInList.start_time
+                simpleTimeDuration.text = elementSimpleTime
+
+                val elementExtendedStart = itemInList.start
+                extendedStart.text = elementExtendedStart
+                val elementExtendedStartAddress = itemInList.start_address
+                extendedStartAddress.text = elementExtendedStartAddress
+                val elementExtendedEnd = itemInList.arrival
+                extendedEnd.text = elementExtendedEnd
+                val elementExtendedEndAddress = itemInList.arrival_address
+                extendedEndAddress.text = elementExtendedEndAddress
+                val elementTimeDeparture = itemInList.start_time
+                extendedTimeStart.text = elementTimeDeparture
+                val elementTimeArrival = itemInList.arrival_time
+                extendedTimeEnd.text = elementTimeArrival
+                val elementTimeDuration = itemInList.duration
+                extendedTimeDuration.text = elementTimeDuration
             }
-            itemView.setOnClickListener{ clickListener(position) }
+            itemView.setOnClickListener{
+                clickListener(position)
+                when(layoutExtended.visibility){
+                    View.GONE -> {
+                        layoutExtended.visibility = View.VISIBLE
+                        layoutSimple.visibility = View.GONE
+                    }
+                    View.VISIBLE -> {
+                        layoutExtended.visibility = View.GONE
+                        layoutSimple.visibility = View.VISIBLE
+                    }
+                }
+            }
         }
     }
 }
