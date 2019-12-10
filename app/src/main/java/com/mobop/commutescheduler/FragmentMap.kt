@@ -41,17 +41,19 @@ class FragmentMap(screen : Int) : Fragment(){
             false
         )
 
-        returnMapButton =
-            view.findViewById(R.id.map_button_return) as ImageButton
-        addMapButton =
-            view.findViewById(R.id.map_button_add) as ImageButton
         enhanceMapButton =
             view.findViewById(R.id.map_button_enhance) as ImageButton
+        addMapButton =
+            view.findViewById(R.id.map_button_add) as ImageButton
+        returnMapButton =
+            view.findViewById(R.id.map_button_return) as ImageButton
 
         enhanceMapButton.setOnClickListener{
             doMapEnhance(fragmentID)
         }
-
+        addMapButton.setOnClickListener {
+            doMapAdd(fragmentID)
+        }
         returnMapButton.setOnClickListener{
             doMapReturn(fragmentID)
         }
@@ -97,6 +99,13 @@ class FragmentMap(screen : Int) : Fragment(){
     private fun doMapReturn(fragmentCaller : Int){
         if (mListener != null){
             source = 1
+            mListener!!.onFragmentInteraction(fragmentCaller, source)
+        }
+    }
+
+    private fun doMapAdd(fragmentCaller : Int){
+        if (mListener != null){
+            source = 2
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }

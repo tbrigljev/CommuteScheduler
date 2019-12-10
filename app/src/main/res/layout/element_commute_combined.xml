@@ -9,18 +9,77 @@
     android:layout_weight="0"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/element_combined_title"
+    <LinearLayout
+        android:id="@+id/element_combined_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="@string/field_commute_name"
-        android:textSize="18sp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="@id/element_combined"
         app:layout_constraintEnd_toEndOf="@id/element_combined"
-        app:layout_constraintTop_toTopOf="@id/element_combined" />
+        app:layout_constraintTop_toTopOf="@id/element_combined">
+
+        <TextView
+            android:id="@+id/element_combined_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/field_commute_name"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/element_combined_MO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="@string/Monday" />
+
+        <TextView
+            android:id="@+id/element_combined_TU"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/Tuesday" />
+
+        <TextView
+            android:id="@+id/element_combined_WE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/Wednesday" />
+
+        <TextView
+            android:id="@+id/element_combined_TH"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/Thursday" />
+
+        <TextView
+            android:id="@+id/element_combined_FR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/Friday" />
+
+        <TextView
+            android:id="@+id/element_combined_SA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/Saturday" />
+
+        <TextView
+            android:id="@+id/element_combined_SU"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="@string/Sunday" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/element_simple_container"
@@ -29,7 +88,7 @@
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="@id/element_combined"
         app:layout_constraintEnd_toEndOf="@id/element_combined"
-        app:layout_constraintTop_toBottomOf="@id/element_combined_title">
+        app:layout_constraintTop_toBottomOf="@id/element_combined_top">
 
         <TextView
             android:id="@+id/element_simple_from"
@@ -95,7 +154,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="@id/element_combined"
         app:layout_constraintStart_toStartOf="@id/element_combined"
-        app:layout_constraintTop_toBottomOf="@id/element_combined_title">
+        app:layout_constraintTop_toBottomOf="@id/element_combined_top">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/element_extended_start_end"
@@ -157,6 +216,18 @@
                 app:layout_constraintStart_toEndOf="@+id/element_extended_start"
                 app:layout_constraintTop_toBottomOf="@+id/element_extended_start"
                 app:layout_constraintWidth_percent="0.7" />
+
+            <ImageButton
+                android:id="@+id/commutes_button_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:alpha="0.8"
+                android:contentDescription="@string/description_edit_button"
+                android:onClick="doCommutesEditExisting"
+                app:layout_constraintBottom_toBottomOf="@+id/element_extended_start_end"
+                app:layout_constraintEnd_toEndOf="@+id/element_extended_start_end"
+                app:layout_constraintTop_toTopOf="@+id/element_extended_start_end"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -248,7 +319,9 @@
                 android:id="@+id/reminder_tune"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:maxLines="1"
                 android:text="@string/field_reminder"
                 app:layout_constraintEnd_toEndOf="@+id/sw_reminder"
                 app:layout_constraintStart_toStartOf="@+id/sw_reminder"
@@ -279,7 +352,9 @@
                 android:id="@+id/alarm_tune"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:maxLines="1"
                 android:text="@string/field_alarm"
                 app:layout_constraintEnd_toEndOf="@+id/sw_alarm"
                 app:layout_constraintTop_toBottomOf="@+id/sw_alarm"

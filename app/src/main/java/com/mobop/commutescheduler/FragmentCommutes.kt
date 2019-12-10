@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_edit.*
+
 /* *************************************************************** */
 
 
@@ -28,6 +31,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
     private lateinit var returnCommutesButton : ImageButton
     private lateinit var addCommutesButton : ImageButton
     private lateinit var enhanceCommutesButton : ImageButton
+    private lateinit var editCommutesButton : ImageButton
 
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
@@ -44,22 +48,31 @@ class FragmentCommutes(screen : Int) : Fragment(){
             false
         )
 
-        returnCommutesButton =
-            view.findViewById(R.id.commutes_button_return)
+        enhanceCommutesButton =
+            view.findViewById(R.id.commutes_button_enhance)
                     as ImageButton
         addCommutesButton =
             view.findViewById(R.id.commutes_button_add)
                     as ImageButton
-        enhanceCommutesButton =
-            view.findViewById(R.id.commutes_button_enhance)
+        returnCommutesButton =
+            view.findViewById(R.id.commutes_button_return)
                     as ImageButton
+        /*editCommutesButton =
+            view.findViewById(R.id.commutes_button_edit)
+                    as ImageButton*/
 
         enhanceCommutesButton.setOnClickListener{
             doCommutesEnhance(fragmentID)
         }
+        addCommutesButton.setOnClickListener{
+            doCommutesAdd(fragmentID)
+        }
         returnCommutesButton.setOnClickListener{
             doCommutesReturn(fragmentID)
         }
+        /*editCommutesButton.setOnClickListener{
+            doCommutesEditExisting()
+        }*/
 
         when(commutesScreen){
             0 -> {
@@ -118,6 +131,23 @@ class FragmentCommutes(screen : Int) : Fragment(){
     private fun doCommutesReturn(fragmentCaller : Int){
         if (mListener != null){
             source = 1
+            mListener!!.onFragmentInteraction(fragmentCaller, source)
+        }
+    }
+
+    private fun doCommutesEditExisting(){
+        if (mListener != null){
+            val text = "No function implemented"
+            val duration = Toast.LENGTH_SHORT
+
+            val toast = Toast.makeText(context, text, duration)
+            toast.show()
+        }
+    }
+
+    private fun doCommutesAdd(fragmentCaller : Int){
+        if (mListener != null){
+            source = 2
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }

@@ -28,7 +28,7 @@ import com.google.android.material.textfield.TextInputEditText
 /* Global variables ********************************************** */
 const val MAP = 1
 const val COMMUTES = 2
-const val QUICK = 3
+const val EDIT = 3
 
 var commutesList : CommutesItemsList? = null
 /* *************************************************************** */
@@ -39,6 +39,7 @@ var commutesList : CommutesItemsList? = null
 class MainActivity :
     FragmentMap.OnFragmentInteractionListener,
     FragmentCommutes.OnFragmentInteractionListener,
+    FragmentEdit.OnFragmentInteractionListener,
     FragmentQuick.OnFragmentInteractionListener,
     FragmentSettings.OnFragmentInteractionListener,
     OnMapReadyCallback,
@@ -49,6 +50,7 @@ class MainActivity :
     var homeFragment = FragmentHome()
     var commutesFragment = FragmentCommutes(0)
     var mapFragment = FragmentMap(0)
+    var editFragment = FragmentEdit()
 
     companion object{
         lateinit var mMap : GoogleMap
@@ -223,6 +225,16 @@ class MainActivity :
                     1 -> {
                         supportFragmentManager.popBackStack()
                     }
+                    2 -> {
+                        mFragmentManager.beginTransaction()
+                            .add(
+                                R.id.main_container_fragments,
+                                editFragment,
+                                "edit"
+                            )
+                            .addToBackStack("edit")
+                            .commit()
+                    }
                 }
             }
             COMMUTES -> {
@@ -238,6 +250,23 @@ class MainActivity :
                             .commit()
                     }
                     1 -> {
+                        supportFragmentManager.popBackStack()
+                    }
+                    2 -> {
+                        mFragmentManager.beginTransaction()
+                            .add(
+                                R.id.main_container_fragments,
+                                editFragment,
+                                "edit"
+                            )
+                            .addToBackStack("edit")
+                            .commit()
+                    }
+                }
+            }
+            EDIT -> {
+                when(fragmentState){
+                    0 -> {
                         supportFragmentManager.popBackStack()
                     }
                 }

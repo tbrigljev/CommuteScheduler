@@ -20,6 +20,7 @@ class CommutesItemsList{
             arrival = "School",
             arrival_address = "Avenue de Provence 6, 1007 Lausanne",
             arrival_time = "08:24",
+            days = mutableListOf(R.string.Tuesday, R.string.Thursday),
             duration = "01:12",
             reminder_on = true,
             reminder_tune = "Kimmunicator",
@@ -34,6 +35,7 @@ class CommutesItemsList{
             arrival = "Work",
             arrival_address = "Route de Morat 135, 1763 Granges-Paccot",
             arrival_time = "07:00",
+            days = mutableListOf(R.string.Monday, R.string.Wednesday, R.string.Friday),
             duration = "00:25",
             reminder_on = false,
             reminder_tune = "Kimmunicator",
@@ -49,6 +51,7 @@ class CommutesItemsList{
             arrival = "Wherever",
             arrival_address = "Avenue of Path, 20000 City",
             arrival_time = "00:00",
+            days = mutableListOf(R.string.Saturday, R.string.Sunday),
             duration = "00:00",
             reminder_on = false,
             reminder_tune = "DING",
@@ -62,6 +65,7 @@ class CommutesItemsList{
             start_time = "00:00",
             arrival = "That other place that has a very long name",
             arrival_address = "Alley of Way, 40000 City",
+            days = mutableListOf(R.string.Sunday),
             arrival_time = "00:00",
             duration = "00:00",
             reminder_on = true,
@@ -127,6 +131,8 @@ data class Commute(
 
     var arrival_time : String = "",
     var arrival_time_UTC : Long? = null,
+
+    var days : MutableList<Int?> = ArrayList(),
 
     var distance : String? = null,
     var duration : String? = null,

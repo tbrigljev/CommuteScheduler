@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Switch
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -70,6 +71,11 @@ class CommutesAdapter(
         val extendedTimeStart : TextView
         val extendedTimeEnd : TextView
         val extendedTimeDuration : TextView
+        val extendedReminderOn : Switch
+        val extendedReminder : TextView
+        val extendedAlarmOn : Switch
+        val extendedAlarmTime : TextView
+        val extendedAlarm : TextView
 
         val layoutCombined : ConstraintLayout =
             view.findViewById(R.id.element_combined) as ConstraintLayout
@@ -92,6 +98,11 @@ class CommutesAdapter(
             extendedTimeStart = view.findViewById(R.id.element_extended_start_time) as TextView
             extendedTimeEnd = view.findViewById(R.id.element_extended_end_time) as TextView
             extendedTimeDuration = view.findViewById(R.id.element_extended_duration) as TextView
+            extendedReminderOn = view.findViewById(R.id.sw_reminder) as Switch
+            extendedReminder = view.findViewById(R.id.reminder_tune) as TextView
+            extendedAlarmOn = view.findViewById(R.id.sw_alarm) as Switch
+            extendedAlarmTime = view.findViewById(R.id.alarm_time) as TextView
+            extendedAlarm = view.findViewById(R.id.alarm_tune) as TextView
 
             layoutExtended.visibility = View.GONE
         }
@@ -108,7 +119,7 @@ class CommutesAdapter(
                 layoutCombined.setBackgroundColor(Color.BLUE)
             }
 
-            if (itemInList != null){
+            if (itemInList != null) {
                 val elementTitle = itemInList.name
                 title.text = elementTitle
 
@@ -133,7 +144,18 @@ class CommutesAdapter(
                 extendedTimeEnd.text = elementTimeArrival
                 val elementTimeDuration = itemInList.duration
                 extendedTimeDuration.text = elementTimeDuration
+                val elementReminderOn = itemInList.reminder_on
+                extendedReminderOn.isChecked = elementReminderOn
+                val elementReminder = itemInList.reminder_tune
+                extendedReminder.text = elementReminder
+                val elementAlarmOn = itemInList.alarm_on
+                extendedAlarmOn.isChecked = elementAlarmOn
+                val elementAlarmTime = itemInList.alarm_time
+                extendedAlarmTime.text = elementAlarmTime
+                val elementAlarm = itemInList.alarm_tune
+                extendedAlarm.text = elementAlarm
             }
+
             itemView.setOnClickListener{
                 clickListener(position)
                 when(layoutExtended.visibility){
