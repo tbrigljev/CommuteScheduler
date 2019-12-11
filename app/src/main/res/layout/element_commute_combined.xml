@@ -217,18 +217,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/element_extended_start"
                 app:layout_constraintWidth_percent="0.7" />
 
-            <ImageButton
-                android:id="@+id/commutes_button_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:alpha="0.8"
-                android:contentDescription="@string/description_edit_button"
-                android:onClick="doCommutesEditExisting"
-                app:layout_constraintBottom_toBottomOf="@+id/element_extended_start_end"
-                app:layout_constraintEnd_toEndOf="@+id/element_extended_start_end"
-                app:layout_constraintTop_toTopOf="@+id/element_extended_start_end"
-                app:srcCompat="@android:drawable/ic_menu_edit" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
@@ -362,5 +350,45 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/element_combined"
+        app:layout_constraintEnd_toEndOf="@id/element_combined"
+        app:layout_constraintStart_toStartOf="@id/element_combined"
+        app:layout_constraintTop_toTopOf="@id/element_combined">
+
+        <ImageButton
+            android:id="@+id/commutes_button_edit"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="#2979FF"
+            android:contentDescription="@string/description_edit_button"
+            android:scaleX="1"
+            android:scaleY="1"
+            app:layout_constraintBottom_toBottomOf="@id/buttons_container"
+            app:layout_constraintEnd_toEndOf="@id/buttons_container"
+            app:layout_constraintStart_toEndOf="@id/commutes_button_delete"
+            app:layout_constraintTop_toTopOf="@id/buttons_container"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
+
+        <ImageButton
+            android:id="@+id/commutes_button_delete"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:backgroundTint="#F50057"
+            android:contentDescription="@string/description_delete_button"
+            android:scaleX="1"
+            android:scaleY="1"
+            app:layout_constraintBottom_toBottomOf="@id/buttons_container"
+            app:layout_constraintEnd_toStartOf="@id/commutes_button_edit"
+            app:layout_constraintStart_toStartOf="@id/buttons_container"
+            app:layout_constraintTop_toTopOf="@id/buttons_container"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

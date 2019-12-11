@@ -1,6 +1,7 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -83,6 +84,8 @@ class CommutesAdapter(
             view.findViewById(R.id.element_simple_container) as LinearLayout
         val layoutExtended : LinearLayout =
             view.findViewById(R.id.element_extended_container) as LinearLayout
+        val layoutButtons : ConstraintLayout =
+            view.findViewById(R.id.buttons_container) as ConstraintLayout
 
         init{
             title = view.findViewById(R.id.element_combined_title) as TextView
@@ -105,6 +108,7 @@ class CommutesAdapter(
             extendedAlarm = view.findViewById(R.id.alarm_tune) as TextView
 
             layoutExtended.visibility = View.GONE
+            layoutButtons.visibility = View.GONE
         }
 
         fun bind(
@@ -114,9 +118,9 @@ class CommutesAdapter(
             val itemInList = commutesItemsList[position]
 
             if (position % 2 == 0){
-                layoutCombined.setBackgroundColor(Color.RED)
+                layoutCombined.setBackgroundColor(Color.parseColor("#CCFFCC"))
             } else{
-                layoutCombined.setBackgroundColor(Color.BLUE)
+                layoutCombined.setBackgroundColor(Color.parseColor("#CCFFFF"))
             }
 
             if (itemInList != null) {
@@ -156,6 +160,7 @@ class CommutesAdapter(
                 extendedAlarm.text = elementAlarm
             }
 
+
             itemView.setOnClickListener{
                 clickListener(position)
                 when(layoutExtended.visibility){
@@ -169,6 +174,29 @@ class CommutesAdapter(
                     }
                 }
             }
+
+            /*
+            itemView.setOnTouchListener(object : OnSwipeTouchListener() {
+                override fun onClick() {
+                    clickListener(position)
+                    when(layoutExtended.visibility){
+                        View.GONE -> {
+                            layoutExtended.visibility = View.VISIBLE
+                            layoutSimple.visibility = View.GONE
+                        }
+                        View.VISIBLE -> {
+                            layoutExtended.visibility = View.GONE
+                            layoutSimple.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            })
+
+            itemView.setOnTouchListener(object : OnSwipeTouchListener() {
+                override fun onSwipeRight() {
+                    layoutButtons.visibility = View.VISIBLE
+                }
+            })*/
         }
     }
 }

@@ -49,6 +49,7 @@
     <string name="description_commutes_list">Complete view of the saved commutes</string>
     <string name="description_enhance_map_button">Switch to the extended view of the map</string>
     <string name="description_enhance_commutes_button">Switch to the view of the commutes</string>
+    <string name="description_delete_button">Delete existing element</string>
     <string name="description_edit_button">Edit existing element</string>
 
     <string name="button_return">Return to home view</string>
