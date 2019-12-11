@@ -42,7 +42,6 @@ class MainActivity :
     FragmentEdit.OnFragmentInteractionListener,
     FragmentQuick.OnFragmentInteractionListener,
     FragmentSettings.OnFragmentInteractionListener,
-    OnMapReadyCallback,
     AppCompatActivity(){
 
     private var mFragmentManager = supportFragmentManager
@@ -53,12 +52,10 @@ class MainActivity :
     var editFragment = FragmentEdit()
 
     companion object{
-        lateinit var mMap : GoogleMap
         var commutes : Commutes? = null
-        var start : String = "Fribourg"
-        var arrival : String = "Granges-Paccot"
         var start_time : String = "Now"
         lateinit var GoogleKey:String
+        var mGoogleAPI : GoogleAPI?=null
     }
 
     // var mResult : TextView? = null,
@@ -93,46 +90,19 @@ class MainActivity :
         mTextDate = findViewById(R.id.text_date)
         // result!!.setMovementMethod(ScrollingMovementMethod())
 
-        /* Set Fragment for Google Map *************************** */
-/*        val googleMapFragment = supportFragmentManager
-            .findFragmentById(R.id.google_map)
-                as SupportMapFragment
-        googleMapFragment.getMapAsync(this)*/
 
-        val googleMapFragment = homeFragment.childFragmentManager
-            .findFragmentById(R.id.google_map)
-                as SupportMapFragment
-        googleMapFragment.getMapAsync(this)
+
+
 
         /* Create a singleton of the class Commutes for the list * */
         /* *** of commutes and database instance ***************** */
         commutes = Commutes.getSingleton(this)
-
+*/
         /* This object contains all the methods fo using the ***** */
         /* *** Google API **************************************** */
         GoogleKey = getString(R.string.GoogleMapsKey)
-        val mGoogleAPI = GoogleAPI()
-        mGoogleAPI.setActivityContext(this)
+        mGoogleAPI = GoogleAPI(this)
 
-        val buttonGo = findViewById(R.id.button_go) as Button
-        buttonGo.setOnClickListener{
-            view ->
-            var arrival_time = mTextDate!!.text
-            mGoogleAPI.requestRoute(
-                "Main",
-                start,
-                arrival,
-                arrival_time.toString())
-        }
-
-        val checkBox_viewTraffic = findViewById(R.id.view_traffic)
-                as CheckBox
-        checkBox_viewTraffic.setOnCheckedChangeListener{
-            buttonView, isChecked ->
-            if(isChecked){ mMap.isTrafficEnabled = true }
-            else { mMap.isTrafficEnabled = false }
-        }
-        */
     }
 
     /* *********************************************************** */
@@ -140,12 +110,12 @@ class MainActivity :
     /* Function that receives the result of the Google request *** */
     /* already formatted ***************************************** */
     fun routeRequestedReady(mCommute : Commute){
-        mTextArrival!!.text = mCommute.arrival_time
-        mTextDistance!!.text = mCommute.distance
-        mTextDuration!!.text = mCommute.duration
-        mTextDurationTraffic!!.text = mCommute.duration_traffic
-        mTextDeparture!!.text = mCommute.start_time
-        // result!!.text = mCommute.raw_data
+//        mTextArrival!!.text = mCommute.arrival_time
+//        mTextDistance!!.text = mCommute.distance
+//        mTextDuration!!.text = mCommute.duration
+//        mTextDurationTraffic!!.text = mCommute.duration_traffic
+//        mTextDeparture!!.text = mCommute.start_time
+//        // result!!.text = mCommute.raw_data
 
         var builder : LatLngBounds.Builder = LatLngBounds.Builder()
         builder.include(mCommute.start_address_LatLng)
@@ -153,16 +123,16 @@ class MainActivity :
 
         var bounds : LatLngBounds = builder.build()
 
-        mMap.clear()
+        FragmentMap.mMap.clear()
 
         /* Creating the start and arrival markers *************** */
-        mMap.addMarker(MarkerOptions()
+        FragmentMap.mMap.addMarker(MarkerOptions()
             .position(mCommute.start_address_LatLng!!)
             .title(mCommute.start_address))
-        mMap.addMarker(MarkerOptions()
+        FragmentMap.mMap.addMarker(MarkerOptions()
             .position(mCommute.arrival_address_LatLng!!)
             .title(mCommute.arrival_address))
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 60))
+        FragmentMap.mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 60))
 
         /* Drawing the segments of the commute on the map ******** */
         for(i in 0 until mCommute.path.size){
@@ -173,33 +143,12 @@ class MainActivity :
                     .addAll(mCommute.path[i])
                     .color(Color.BLUE)
                     .width(10.toFloat())
-                mMap.addPolyline(polyLineOptions)
+                FragmentMap.mMap.addPolyline(polyLineOptions)
             }
         }
     }
 
-    /* *********************************************************** */
-    /* onMapReady() ********************************************** */
-    /* Manipulates the map once available ************************ */
-    /* This callback is triggered when the map is ready to be used */
-    /* This is where markers, lines or listeners are added ******* */
-    /* This is where we can move the camera ********************** */
-    /* If Google Play Services is not installed on the device, *** */
-    /* *** the user will be prompter to install it inside of the * */
-    /* *** SupportMapFragment ************************************ */
-    /* The method is then only triggered after the user has ****** */
-    /* *** installed Google Play Services and has returned to the  */
-    /* *** app *************************************************** */
-    /* *********************************************************** */
-    override fun onMapReady(googleMap : GoogleMap){
-        mMap = googleMap
 
-        val dbv = LatLng(42.0, 18.0)
-        mMap.addMarker(MarkerOptions()
-            .position(dbv)
-            .title("DBV marker"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(dbv))
-    }
 
     /* *********************************************************** */
     /* onFragmentInteraction() *********************************** */

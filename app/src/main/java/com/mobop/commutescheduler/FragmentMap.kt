@@ -6,15 +6,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.material.textfield.TextInputEditText
+
 /* *************************************************************** */
 
 /* FragmentMap *************************************************** */
 /* Contains the map element and the related buttons ************** */
 /* Contained in FragmentHome and in its standalone fragment ****** */
-class FragmentMap(screen : Int) : Fragment(){
+class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
 
+    companion object {
+        lateinit var mMap: GoogleMap
+        var start: String = "Fribourg"
+        var arrival: String = "Granges-Paccot"
+    }
     private var mListener : OnFragmentInteractionListener? = null
 
     private val mapScreen = screen
@@ -25,6 +41,10 @@ class FragmentMap(screen : Int) : Fragment(){
     private lateinit var returnMapButton : ImageButton
     private lateinit var addMapButton : ImageButton
     private lateinit var enhanceMapButton : ImageButton
+    private lateinit var goMapButton : Button
+    private lateinit var arriveDateMapInput : TextInputEditText
+    private lateinit var viewTrafficMapCheck : CheckBox
+
 
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
@@ -41,12 +61,26 @@ class FragmentMap(screen : Int) : Fragment(){
             false
         )
 
+        MainActivity.mGoogleAPI!!.setActivityContext(this, getActivity()!!.getApplicationContext())
+
+        /* Set Fragment for Google Map *************************** */
+        val googleMapFragment = childFragmentManager
+            .findFragmentById(R.id.google_map)
+                as SupportMapFragment
+        googleMapFragment.getMapAsync(this)
+
         enhanceMapButton =
             view.findViewById(R.id.map_button_enhance) as ImageButton
         addMapButton =
             view.findViewById(R.id.map_button_add) as ImageButton
         returnMapButton =
             view.findViewById(R.id.map_button_return) as ImageButton
+        goMapButton =
+            view.findViewById(R.id.button_go) as Button
+        arriveDateMapInput=
+            view.findViewById(R.id.text_date) as TextInputEditText
+        viewTrafficMapCheck = view.findViewById(R.id.view_traffic) as CheckBox
+
 
         enhanceMapButton.setOnClickListener{
             doMapEnhance(fragmentID)
@@ -56,6 +90,19 @@ class FragmentMap(screen : Int) : Fragment(){
         }
         returnMapButton.setOnClickListener{
             doMapReturn(fragmentID)
+        }
+        goMapButton.setOnClickListener{view ->
+            var arrival_time = arriveDateMapInput!!.text
+            MainActivity.mGoogleAPI!!.requestRoute(
+                "Activity",
+                start,
+                arrival,
+                arrival_time.toString())
+        }
+        viewTrafficMapCheck.setOnCheckedChangeListener{
+                buttonView, isChecked ->
+            if(isChecked){ mMap.isTrafficEnabled = true }
+            else { mMap.isTrafficEnabled = false }
         }
 
         when(mapScreen){
@@ -89,6 +136,8 @@ class FragmentMap(screen : Int) : Fragment(){
         mListener = null
     }
 
+
+
     private fun doMapEnhance(fragmentCaller : Int){
         if (mListener != null){
             source = 0
@@ -110,9 +159,34 @@ class FragmentMap(screen : Int) : Fragment(){
         }
     }
 
+
     interface OnFragmentInteractionListener{
         fun onFragmentInteraction(
             fragmentCaller : Int,
             fragmentState : Int)
+    }
+    /* *********************************************************** */
+    /* onMapReady() ********************************************** */
+    /* Manipulates the map once available ************************ */
+    /* This callback is triggered when the map is ready to be used */
+    /* This is where markers, lines or listeners are added ******* */
+    /* This is where we can move the camera ********************** */
+    /* If Google Play Services is not installed on the device, *** */
+    /* *** the user will be prompter to install it inside of the * */
+    /* *** SupportMapFragment ************************************ */
+    /* The method is then only triggered after the user has ****** */
+    /* *** installed Google Play Services and has returned to the  */
+    /* *** app *************************************************** */
+    /* *********************************************************** */
+
+    override fun onMapReady(googleMap : GoogleMap){
+        mMap = googleMap
+
+        val suisse = LatLng(46.204391, 6.143158)
+        mMap.addMarker(
+            MarkerOptions()
+                .position(suisse)
+                .title("Suisse marker"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(suisse))
     }
 }

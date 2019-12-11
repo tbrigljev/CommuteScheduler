@@ -1,6 +1,7 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
+import android.content.Context
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
@@ -19,23 +20,26 @@ import java.text.SimpleDateFormat
 
 /* *************************************************************** */
 
-class GoogleAPI{
+class GoogleAPI(activity:MainActivity){
 
     /* Google Places ********************************************* */
     lateinit var placesClient : PlacesClient
     var mCommute : Commute = Commute()
     var responseReceived = 0
     var responseReceivedMAX = 5
-    var GoogleKey = R.string.GoogleMapsKey
-    var mActivity : MainActivity? = null
+    //var GoogleKey = R.string.GoogleMapsKey
+    var mFragmentMap : FragmentMap? = null
+    val mActivity= activity
+    var mContext : Context? = null
     var mService : NotificationService? = null
     var mSender : String? = null
 
     val errorLimitUp = 60
     val errorLimitDown = -300
 
-    fun setActivityContext(activity : MainActivity){
-        mActivity = activity
+    fun setActivityContext(activity : FragmentMap, context: Context){
+        mFragmentMap = activity
+        mContext = context
         setupPlacesAutocomplete()
     }
 
@@ -52,11 +56,11 @@ class GoogleAPI{
             Place.Field.ADDRESS
         )
 
-        Places.initialize(mActivity!!, MainActivity.GoogleKey!!)
-        placesClient = Places.createClient(mActivity!!)
+        Places.initialize(mContext!!, MainActivity.GoogleKey!!)
+        placesClient = Places.createClient(mContext!!)
 
-        val autocompleteFragment_start = mActivity!!
-            .supportFragmentManager
+        val autocompleteFragment_start = mFragmentMap!!
+            .childFragmentManager
             .findFragmentById(R.id.fragment_start)
                 as AutocompleteSupportFragment
 
@@ -68,15 +72,15 @@ class GoogleAPI{
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
-                        MainActivity.start = p0.address!!
+                        FragmentMap.start = p0.address!!
                         // getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}
                 }
             )
 
-        val autocompleteFragment_arrival = mActivity!!
-            .supportFragmentManager
+        val autocompleteFragment_arrival = mFragmentMap!!
+            .childFragmentManager
             .findFragmentById(R.id.fragment_arrival)
                 as AutocompleteSupportFragment
         autocompleteFragment_arrival
@@ -87,7 +91,7 @@ class GoogleAPI{
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
-                        MainActivity.arrival = p0.address!!
+                        FragmentMap.arrival = p0.address!!
                         // getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}
@@ -128,7 +132,7 @@ class GoogleAPI{
                     "&destination=" + mCommute.arrival +
                     "&departure_time=" + start_time +
                     "&traffic_model=best_guess" +
-                    "&key=" + GoogleKey
+                    "&key=" + MainActivity.GoogleKey
 
         val httpRequest = HTTPRequest()
         httpRequest.setActivityContext(this)
@@ -172,8 +176,8 @@ class GoogleAPI{
                         if(mSender == "Service"){
                             mService!!.routeRequestedReady(mCommute)
                         }
-                        else if(mSender == "Main"){
-                            mActivity!!.routeRequestedReady(mCommute)
+                        else if(mSender == "Activity"){
+                            mActivity.routeRequestedReady(mCommute)
                         }
                         responseReceived = 0
                     }
