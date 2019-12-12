@@ -1,5 +1,7 @@
 package com.mobop.commutescheduler
 
+// https://stackoverflow.com/questions/49754979/capture-events-by-sliding-left-or-right-using-kotlin
+
 
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -10,20 +12,21 @@ open class OnSwipeTouchListener : View.OnTouchListener {
     private val gestureDetector = GestureDetector(GestureListener())
 
     fun onTouch(event: MotionEvent): Boolean {
+        onClick()
         return gestureDetector.onTouchEvent(event)
     }
 
     private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
 
-        private val SWIPE_THRESHOLD = 100
-        private val SWIPE_VELOCITY_THRESHOLD = 100
+        private val SWIPE_THRESHOLD = 10
+        private val SWIPE_VELOCITY_THRESHOLD = 60
 
         override fun onDown(e: MotionEvent): Boolean {
             return true
         }
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            onClick()
+            //onClick()
             onTouch(e)
             return true
         }

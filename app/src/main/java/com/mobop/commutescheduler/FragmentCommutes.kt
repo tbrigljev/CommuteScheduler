@@ -1,6 +1,7 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
+import android.content.ClipData
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_edit.*
@@ -23,6 +25,8 @@ class FragmentCommutes(screen : Int) : Fragment(){
 
     var mRecyclerView : RecyclerView? = null
     private var mListener : OnFragmentInteractionListener? = null
+
+    /*private var mItemTouchHelper : ItemTouchHelper? = null*/
 
     private val fragmentID = 2
     private var source = 0
@@ -120,6 +124,11 @@ class FragmentCommutes(screen : Int) : Fragment(){
         super.onDetach()
         mListener = null
     }
+
+    /*
+    fun onSwipe(viewHolder : RecyclerView.ViewHolder){
+        mItemTouchHelper.swipe(viewHolder)
+    }*/
 
     private fun doCommutesEnhance(fragmentCaller : Int){
         if (mListener != null){

@@ -1,19 +1,24 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
+import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import org.jetbrains.anko.find
 import org.w3c.dom.Text
-
+import androidx.core.view.ViewCompat.setY
+import androidx.recyclerview.widget.ItemTouchHelper
 /* *************************************************************** */
 
 /* CommutesAdapter *********************************************** */
@@ -22,7 +27,7 @@ import org.w3c.dom.Text
 class CommutesAdapter(
     viewRes : Int,
     commutesItemsList: ArrayList<Commute>,
-    val clickListener : (Int) -> Unit) :
+    val touchListener : (Int) -> Unit) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     var commutesItemsList : ArrayList<Commute>
@@ -47,11 +52,11 @@ class CommutesAdapter(
     override fun onBindViewHolder(
         holder : RecyclerView.ViewHolder,
         position : Int){
-        val ViewHolder = holder as ViewHolder
-        ViewHolder.bind(
+        val viewHolder = holder as ViewHolder
+        viewHolder.bind(
             this.commutesItemsList,
             position,
-            clickListener)
+            touchListener)
     }
 
     override fun getItemCount() : Int{
@@ -114,7 +119,7 @@ class CommutesAdapter(
         fun bind(
             commutesItemsList : ArrayList<Commute>,
             position : Int,
-            clickListener : (Int) -> Unit){
+            touchListener : (Int) -> Unit){
             val itemInList = commutesItemsList[position]
 
             if (position % 2 == 0){
@@ -160,43 +165,96 @@ class CommutesAdapter(
                 extendedAlarm.text = elementAlarm
             }
 
-
+            /*
             itemView.setOnClickListener{
                 clickListener(position)
-                when(layoutExtended.visibility){
+                when(layoutExtended.visibility) {
                     View.GONE -> {
                         layoutExtended.visibility = View.VISIBLE
                         layoutSimple.visibility = View.GONE
+                        Log.i("Expand", "Item is expanded")
                     }
                     View.VISIBLE -> {
                         layoutExtended.visibility = View.GONE
                         layoutSimple.visibility = View.VISIBLE
+                        Log.i("Collapse", "Item is collapsed")
                     }
                 }
-            }
+            }*/
 
-            /*
             itemView.setOnTouchListener(object : OnSwipeTouchListener() {
                 override fun onClick() {
-                    clickListener(position)
-                    when(layoutExtended.visibility){
-                        View.GONE -> {
-                            layoutExtended.visibility = View.VISIBLE
-                            layoutSimple.visibility = View.GONE
-                        }
-                        View.VISIBLE -> {
-                            layoutExtended.visibility = View.GONE
-                            layoutSimple.visibility = View.VISIBLE
+                    //touchListener(position)
+                    if(layoutButtons.visibility == View.VISIBLE) {
+                        layoutButtons.visibility = View.GONE
+                    } else {
+                        when(layoutExtended.visibility){
+                            View.GONE -> {
+                                layoutExtended.visibility = View.VISIBLE
+                                layoutSimple.visibility = View.GONE
+                            }
+                            View.VISIBLE -> {
+                                layoutExtended.visibility = View.GONE
+                                layoutSimple.visibility = View.VISIBLE
+                            }
                         }
                     }
                 }
-            })
-
-            itemView.setOnTouchListener(object : OnSwipeTouchListener() {
                 override fun onSwipeRight() {
                     layoutButtons.visibility = View.VISIBLE
                 }
-            })*/
+                override fun onSwipeLeft() {
+                    layoutButtons.visibility = View.VISIBLE
+                }
+            })
+
+            /*
+            val swipeCallback = object :
+                ItemTouchHelper.SimpleCallback(
+                    0,
+                    ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
+
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                    //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    //To change body of created functions use File | Settings | File Templates.
+                    Log.i("Swipe detected", "A SWIPE WAS SEEN")
+                }
+
+                override fun onChildDraw(
+                    c: Canvas,
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    dX: Float,
+                    dY: Float,
+                    actionState: Int,
+                    isCurrentlyActive: Boolean
+                ) {
+                    val itemView = viewHolder.itemView
+                    layoutButtons.y = itemView.top.toFloat()
+                    if (isCurrentlyActive) {
+                        layoutButtons.visibility = View.VISIBLE
+                    } else {
+                        layoutButtons.visibility = View.GONE
+                    }
+                    super.onChildDraw(
+                        c,
+                        recyclerView,
+                        viewHolder,
+                        dX,
+                        dY,
+                        actionState,
+                        isCurrentlyActive
+                    )
+                }
+            }*/
         }
     }
 }
