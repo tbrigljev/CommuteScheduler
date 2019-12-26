@@ -52,11 +52,13 @@
     <string name="description_delete_button">Delete existing element</string>
     <string name="description_edit_button">Edit existing element</string>
 
-    <string name="button_return">Return to home view</string>
+    <string name="button_return">Return to previous view</string>
     <string name="button_add">Create new commute</string>
     <string name="button_validate">Validate creation/edition</string>
     <string name="button_cancel">Cancel creation/edition</string>
     <string name="button_go">GO</string>
+    <string name="button_favorites">Show favorites</string>
+    <string name="button_quick">Open quick commute creation</string>
 
     <string name="checkbox_view_traffic">View traffic</string>
 

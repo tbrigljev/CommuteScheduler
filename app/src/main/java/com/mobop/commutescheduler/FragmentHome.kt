@@ -17,6 +17,7 @@ class FragmentHome :
 
     var commutesFragment = FragmentCommutes(1)
     var mapFragment = FragmentMap(1)
+    var quickFragment = FragmentQuick()
 
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
@@ -40,6 +41,10 @@ class FragmentHome :
 
         mFragmentManager.beginTransaction()
             .replace(R.id.main_container_commutes, commutesFragment)
+            .commit()
+
+        mFragmentManager.beginTransaction()
+            .replace(R.id.main_container_quick, quickFragment)
             .commit()
 
         return view

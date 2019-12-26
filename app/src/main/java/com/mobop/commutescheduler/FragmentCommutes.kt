@@ -61,9 +61,6 @@ class FragmentCommutes(screen : Int) : Fragment(){
         returnCommutesButton =
             view.findViewById(R.id.commutes_button_return)
                     as ImageButton
-        /*editCommutesButton =
-            view.findViewById(R.id.commutes_button_edit)
-                    as ImageButton*/
 
         enhanceCommutesButton.setOnClickListener{
             doCommutesEnhance(fragmentID)
@@ -74,9 +71,6 @@ class FragmentCommutes(screen : Int) : Fragment(){
         returnCommutesButton.setOnClickListener{
             doCommutesReturn(fragmentID)
         }
-        /*editCommutesButton.setOnClickListener{
-            doCommutesEditExisting()
-        }*/
 
         when(commutesScreen){
             0 -> {
@@ -106,6 +100,14 @@ class FragmentCommutes(screen : Int) : Fragment(){
             )
 
         mRecyclerView!!.adapter = mAdapter
+
+        /*editCommutesButton =
+            mRecyclerView!!.findViewById(R.id.commutes_button_edit)
+                    as ImageButton
+
+        editCommutesButton.setOnClickListener{
+            doCommutesEditExisting()
+        }*/
 
         return view
     }
