@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_quick"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
+    <ImageButton
+        android:id="@+id/quick_button_favorites"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:contentDescription="@string/button_favorites"
+        app:srcCompat="@android:drawable/star_big_on" />
+
+    <ImageButton
+        android:id="@+id/quick_button_quick"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:contentDescription="@string/button_quick"
+        app:srcCompat="@android:drawable/ic_menu_compass" />
+
+    <ImageButton
+        android:id="@+id/quick_button_add"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:contentDescription="@string/button_add"
+        app:srcCompat="@android:drawable/ic_input_add" />
 </LinearLayout>
