@@ -1,6 +1,13 @@
 <resources>
     <string name="name_app">Commute Scheduler</string>
 
+    <string name="name_main">Commute scheduler</string>
+    <string name="name_commutes">Saved commutes</string>
+    <string name="name_favorites">Favorites</string>
+    <string name="name_new">Create new commute</string>
+    <string name="name_edit">Edit commute</string>
+    <string name="name_settings">Settings</string>
+
     <string name="title_edit">Edit</string>
     <string name="title_map_view">Map view</string>
     <string name="title_commutes_list">Commutes list</string>
@@ -60,6 +67,7 @@
     <string name="button_favorites">Show favorites</string>
     <string name="button_quick">Open quick commute creation</string>
     <string name="button_overlay">Show overlay information</string>
+    <string name="button_settings">Change settings</string>
 
     <string name="checkbox_view_traffic">View traffic</string>
 

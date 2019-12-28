@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_commutes_main"
     android:layout_width="match_parent"
@@ -10,61 +11,75 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commutes_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"></androidx.recyclerview.widget.RecyclerView>
+        android:background="#AADAFF"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_commutes_buttons"
+        app:layout_constraintStart_toStartOf="@+id/fragment_commutes_main"
+        app:layout_constraintTop_toTopOf="@+id/fragment_commutes_main"></androidx.recyclerview.widget.RecyclerView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment_commutes_buttons"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageButton
-            android:id="@+id/commutes_button_return"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginBottom="32dp"
-            android:background="@color/colorPrimaryDark"
-            android:contentDescription="@string/button_return"
-            android:scaleX="2"
-            android:scaleY="2"
-            android:onClick="doCommutesReturn"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_commutes_buttons"
-            app:layout_constraintStart_toStartOf="@+id/fragment_commutes_buttons"
-            app:srcCompat="@android:drawable/ic_menu_revert" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_commutes_main"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_commutes_main"
+        app:layout_constraintStart_toStartOf="@id/fragment_commutes_main"
+        app:layout_constraintTop_toTopOf="@+id/commutes_list">
 
         <ImageButton
             android:id="@+id/commutes_button_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
-            android:background="@color/colorPrimaryDark"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#00FFFFFF"
             android:contentDescription="@string/button_add"
             android:onClick="doCommutesAdd"
-            android:scaleX="2"
-            android:scaleY="2"
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/commutes_button_return"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_commutes_buttons"
+            app:srcCompat="@drawable/add_new" />
+
+        <ImageButton
+            android:id="@+id/commutes_button_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#00FFFFFF"
+            android:contentDescription="@string/button_return"
+            android:onClick="doCommutesReturn"
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/fragment_commutes_buttons"
             app:layout_constraintEnd_toEndOf="@+id/fragment_commutes_buttons"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@drawable/commutes_reduce" />
 
         <ImageButton
             android:id="@+id/commutes_button_enhance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="2"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#00FFFFFF"
             android:contentDescription="@string/description_enhance_commutes_button"
             android:onClick="doCommutesEnhance"
-            android:scaleX="2"
-            android:scaleY="2"
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/fragment_commutes_buttons"
             app:layout_constraintEnd_toEndOf="@+id/fragment_commutes_buttons"
-            app:srcCompat="@android:drawable/ic_menu_agenda" />
+            app:srcCompat="@drawable/commutes_enhance" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -200,10 +200,10 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/edit_container_reminder"
         app:layout_constraintEnd_toEndOf="@id/edit_title"
         app:layout_constraintStart_toStartOf="@id/edit_title"
         app:layout_constraintTop_toBottomOf="@+id/edit_container_start_end">
+        <!--        app:layout_constraintBottom_toTopOf="@+id/edit_container_reminder"-->
 
         <TextView
             android:id="@+id/leave_at"
@@ -271,7 +271,7 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/edit_container_reminder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -348,7 +348,7 @@
             android:maxLines="1"
             android:text="@string/field_alarm" />
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/edit_buttons"
@@ -362,31 +362,35 @@
             android:id="@+id/edit_button_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginBottom="32dp"
-            android:background="@color/colorPrimaryDark"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#00FFFFFF"
             android:contentDescription="@string/button_cancel"
             android:onClick="doEditCancel"
-            android:scaleX="2"
-            android:scaleY="2"
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/edit_buttons"
             app:layout_constraintStart_toStartOf="@+id/edit_buttons"
-            app:srcCompat="@android:drawable/ic_delete" />
+            app:srcCompat="@drawable/cancel" />
 
         <ImageButton
             android:id="@+id/edit_button_validate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
-            android:background="@color/colorPrimaryDark"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#00FFFFFF"
             android:contentDescription="@string/button_validate"
             android:onClick="doEditValidate"
-            android:scaleX="3.1"
-            android:scaleY="3.1"
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/edit_buttons"
             app:layout_constraintEnd_toEndOf="@+id/edit_buttons"
-            app:srcCompat="@android:drawable/checkbox_on_background" />
+            app:srcCompat="@drawable/validate" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

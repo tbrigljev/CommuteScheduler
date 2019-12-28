@@ -91,18 +91,12 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
         layoutOverlay.visibility = View.GONE
 
         enhanceMapButton.setOnClickListener{
-            returnMapButton.visibility = View.VISIBLE
-            addMapButton.visibility = View.VISIBLE
-            enhanceMapButton.visibility = View.GONE
             doMapEnhance(fragmentID)
         }
         addMapButton.setOnClickListener {
             doMapAdd(fragmentID)
         }
         returnMapButton.setOnClickListener{
-            returnMapButton.visibility = View.GONE
-            addMapButton.visibility = View.GONE
-            enhanceMapButton.visibility = View.VISIBLE
             doMapReturn(fragmentID)
         }
         overlayMapButton.setOnClickListener{
@@ -172,13 +166,24 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
     private fun doMapEnhance(fragmentCaller : Int){
         if (mListener != null){
             source = 0
+
+            returnMapButton.visibility = View.VISIBLE
+            addMapButton.visibility = View.VISIBLE
+            enhanceMapButton.visibility = View.GONE
+
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
 
-    private fun doMapReturn(fragmentCaller : Int){
+    fun doMapReturn(fragmentCaller : Int){
         if (mListener != null){
             source = 1
+
+            /*
+            returnMapButton.visibility = View.GONE
+            addMapButton.visibility = View.GONE
+            enhanceMapButton.visibility = View.VISIBLE*/
+
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
@@ -189,7 +194,6 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
-
 
     interface OnFragmentInteractionListener{
         fun onFragmentInteraction(

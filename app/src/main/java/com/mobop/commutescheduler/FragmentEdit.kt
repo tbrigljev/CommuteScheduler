@@ -1,13 +1,16 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 /* *************************************************************** */
 
@@ -74,6 +77,9 @@ class FragmentEdit : Fragment(){
 
     private fun doEditCancel(fragmentCaller : Int){
         if (mListener != null){
+
+            hideKeyboard()
+
             source = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
@@ -87,6 +93,15 @@ class FragmentEdit : Fragment(){
             val toast = Toast.makeText(context, text, duration)
             toast.show()
         }
+    }
+
+    fun Fragment.hideKeyboard() {
+        view?.let { activity?.hideKeyboard(it) }
+    }
+
+    fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     interface OnFragmentInteractionListener{

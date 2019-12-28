@@ -9,7 +9,8 @@
         android:id="@+id/main_container_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/colorPrimary">
 
     </FrameLayout>
 
@@ -17,13 +18,14 @@
         android:id="@+id/main_divider_top"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="?android:attr/listDivider" />
+        android:background="@color/colorPrimaryDark" />
 
     <FrameLayout
         android:id="@+id/main_container_commutes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/colorPrimary">
 
     </FrameLayout>
 
@@ -31,13 +33,14 @@
         android:id="@+id/main_divider_bottom"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="?android:attr/listDivider" />
+        android:background="@color/colorPrimaryDark" />
 
     <FrameLayout
-        android:id="@+id/main_container_quick"
+        android:id="@+id/main_container_shortcuts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.6">
+        android:layout_weight="1.6"
+        android:background="@color/colorPrimary">
 
     </FrameLayout>
 </LinearLayout>

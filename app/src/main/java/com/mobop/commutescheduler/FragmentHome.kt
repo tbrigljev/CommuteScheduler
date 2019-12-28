@@ -44,7 +44,7 @@ class FragmentHome :
             .commit()
 
         mFragmentManager.beginTransaction()
-            .replace(R.id.main_container_quick, quickFragment)
+            .replace(R.id.main_container_shortcuts, quickFragment)
             .commit()
 
         return view

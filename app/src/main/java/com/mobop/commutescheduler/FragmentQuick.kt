@@ -23,7 +23,7 @@ class FragmentQuick : Fragment(){
         savecInstanceState : Bundle?) : View?{
 
         val view = inflater.inflate(
-            R.layout.fragment_quick,
+            R.layout.view_shortcuts,
             container,
             false
         )

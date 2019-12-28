@@ -123,9 +123,9 @@ class CommutesAdapter(
             val itemInList = commutesItemsList[position]
 
             if (position % 2 == 0){
-                layoutCombined.setBackgroundColor(Color.parseColor("#CCFFCC"))
+                layoutCombined.setBackgroundColor(Color.parseColor("#CBE5BE"))
             } else{
-                layoutCombined.setBackgroundColor(Color.parseColor("#CCFFFF"))
+                layoutCombined.setBackgroundColor(Color.parseColor("#F1EBCF"))
             }
 
             if (itemInList != null) {

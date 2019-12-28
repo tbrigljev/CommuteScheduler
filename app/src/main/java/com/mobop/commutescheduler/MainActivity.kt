@@ -9,25 +9,18 @@ package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
 import android.os.Bundle
-import android.widget.Button
 import android.graphics.Color
-import android.widget.TextView
-import android.widget.CheckBox
-import android.text.method.ScrollingMovementMethod
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.widget.FrameLayout
+import android.widget.*
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.gms.maps.CameraUpdateFactory
 
 import com.google.android.gms.maps.model.*
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.textfield.TextInputEditText
-import org.jetbrains.anko.find
 
 /* *************************************************************** */
 
@@ -56,11 +49,13 @@ class MainActivity :
     var commutesFragment = FragmentCommutes(0)
     var mapFragment = FragmentMap(0)
     var editFragment = FragmentEdit()
+    lateinit var previousTitle : String
+    lateinit var settings_item : MenuItem
 
     companion object{
         var commutes : Commutes? = null
         var start_time : String = "Now"
-        lateinit var GoogleKey:String
+        lateinit var GoogleKey : String
         var mGoogleAPI : GoogleAPI?=null
     }
 
@@ -86,7 +81,11 @@ class MainActivity :
             .add(R.id.main_container_fragments, homeFragment)
             .commit()
 
-        setSupportActionBar(findViewById(R.id.main_toolbar))
+        val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
+        setSupportActionBar(toolbar)
+
+        toolbar.title = getString(R.string.name_main)
+        previousTitle = getString(R.string.name_main)
 
         /*
         // mResult = findViewById<TextView>(R.id.result)
@@ -97,10 +96,6 @@ class MainActivity :
         mTextDeparture = findViewById(R.id.text_departure)
         mTextDate = findViewById(R.id.text_date)
         // result!!.setMovementMethod(ScrollingMovementMethod())
-
-
-
-
 
         /* Create a singleton of the class Commutes for the list * */
         /* *** of commutes and database instance ***************** */
@@ -156,7 +151,11 @@ class MainActivity :
         }
     }
 
-
+    override fun onCreateOptionsMenu(menu : Menu) : Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        settings_item = menu.findItem(R.id.action_settings)
+        return true
+    }
 
     /* *********************************************************** */
     /* onFragmentInteraction() *********************************** */
@@ -166,14 +165,21 @@ class MainActivity :
         fragmentCaller : Int,
         fragmentState : Int){
 
-        var appBar : Toolbar = findViewById(R.id.main_toolbar)
-        var dividerTop : View = findViewById(R.id.main_divider_top)
-        var containerCommutes : FrameLayout = findViewById(R.id.main_container_commutes)
-        var dividerBottom : View = findViewById(R.id.main_divider_bottom)
-        var containerQuick : FrameLayout = findViewById(R.id.main_container_quick)
+        val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
+        setSupportActionBar(toolbar)
 
         when (fragmentCaller){
             MAP -> {
+                var appBar : Toolbar = findViewById(R.id.main_toolbar)
+                var dividerTop : View = findViewById(R.id.main_divider_top)
+                var containerCommutes : FrameLayout = findViewById(R.id.main_container_commutes)
+                var dividerBottom : View = findViewById(R.id.main_divider_bottom)
+                var containerQuick : FrameLayout = findViewById(R.id.main_container_shortcuts)
+
+                var enhanceMapButton : ImageButton = findViewById(R.id.map_button_enhance)
+                var addMapButton : ImageButton = findViewById(R.id.map_button_add)
+                var returnMapButton : ImageButton =  findViewById(R.id.map_button_return)
+
                 when (fragmentState){
                     0 -> {
                         /*
@@ -194,6 +200,9 @@ class MainActivity :
                     1 -> {
                         /*
                         supportFragmentManager.popBackStack()*/
+                        enhanceMapButton.visibility = View.VISIBLE
+                        addMapButton.visibility = View.GONE
+                        returnMapButton.visibility = View.GONE
                         appBar.visibility = View.VISIBLE
                         dividerTop.visibility = View.VISIBLE
                         containerCommutes.visibility = View.VISIBLE
@@ -215,6 +224,9 @@ class MainActivity :
             COMMUTES -> {
                 when (fragmentState){
                     0 -> {
+                        toolbar.title = getString(R.string.name_commutes)
+                        previousTitle = getString(R.string.name_main)
+
                         mFragmentManager.beginTransaction()
                             .add(
                                 R.id.main_container_fragments,
@@ -225,9 +237,19 @@ class MainActivity :
                             .commit()
                     }
                     1 -> {
+                        toolbar.title = getString(R.string.name_main)
+                        previousTitle = getString(R.string.name_main)
                         supportFragmentManager.popBackStack()
                     }
                     2 -> {
+                        toolbar.title = getString(R.string.name_new )
+                        previousTitle = getString(R.string.name_commutes)
+                        /* HIDE SETTINGS IN EDITION FRAGMENT
+                           NOT WORKING
+                         */
+                        settings_item.isVisible = false
+                        settings_item.isEnabled = false
+
                         mFragmentManager.beginTransaction()
                             .add(
                                 R.id.main_container_fragments,
@@ -242,9 +264,30 @@ class MainActivity :
             EDIT -> {
                 when(fragmentState){
                     0 -> {
+                        toolbar.title = getString(R.string.name_commutes)
+                        previousTitle = getString(R.string.name_main)
+                        settings_item.isVisible = true
+                        settings_item.isEnabled = true
+
                         supportFragmentManager.popBackStack()
                     }
                 }
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
+        setSupportActionBar(toolbar)
+
+        when(toolbar.visibility){
+            View.VISIBLE -> {
+                toolbar.title = previousTitle
+                previousTitle = getString(R.string.name_main)
+                super.onBackPressed()
+            }
+            View.GONE -> {
+                onFragmentInteraction(1,1)
             }
         }
     }

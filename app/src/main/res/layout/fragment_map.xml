@@ -265,7 +265,7 @@
             android:paddingTop="2dp"
             android:paddingEnd="2dp"
             android:paddingBottom="2dp"
-            app:layout_constraintBottom_toTopOf="@+id/map_button_add"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_map_buttons"
             app:layout_constraintEnd_toEndOf="@+id/fragment_map_buttons"
             app:srcCompat="@drawable/map_reduce" />
 
@@ -282,7 +282,7 @@
             android:paddingTop="2dp"
             android:paddingEnd="2dp"
             android:paddingBottom="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_map_buttons"
+            app:layout_constraintBottom_toTopOf="@+id/map_button_return"
             app:layout_constraintEnd_toEndOf="@+id/fragment_map_buttons"
             app:srcCompat="@drawable/add_new" />
 
@@ -302,6 +302,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/fragment_map_buttons"
             app:layout_constraintEnd_toEndOf="@+id/fragment_map_buttons"
             app:srcCompat="@drawable/map_enhance" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
