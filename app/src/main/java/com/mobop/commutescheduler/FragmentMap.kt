@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageButton
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -41,6 +42,7 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
     private lateinit var returnMapButton : ImageButton
     private lateinit var addMapButton : ImageButton
     private lateinit var enhanceMapButton : ImageButton
+    private lateinit var overlayMapButton : ImageButton
     private lateinit var goMapButton : Button
     private lateinit var arriveDateMapInput : TextInputEditText
     private lateinit var viewTrafficMapCheck : CheckBox
@@ -75,21 +77,36 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
             view.findViewById(R.id.map_button_add) as ImageButton
         returnMapButton =
             view.findViewById(R.id.map_button_return) as ImageButton
+        overlayMapButton =
+            view.findViewById(R.id.map_button_overlay) as ImageButton
         goMapButton =
             view.findViewById(R.id.button_go) as Button
         arriveDateMapInput=
             view.findViewById(R.id.text_date) as TextInputEditText
         viewTrafficMapCheck = view.findViewById(R.id.view_traffic) as CheckBox
 
+        val layoutOverlay : ConstraintLayout =
+            view.findViewById(R.id.map_overlay_optional) as ConstraintLayout
+
+        layoutOverlay.visibility = View.GONE
 
         enhanceMapButton.setOnClickListener{
+            returnMapButton.visibility = View.VISIBLE
+            addMapButton.visibility = View.VISIBLE
+            enhanceMapButton.visibility = View.GONE
             doMapEnhance(fragmentID)
         }
         addMapButton.setOnClickListener {
             doMapAdd(fragmentID)
         }
         returnMapButton.setOnClickListener{
+            returnMapButton.visibility = View.GONE
+            addMapButton.visibility = View.GONE
+            enhanceMapButton.visibility = View.VISIBLE
             doMapReturn(fragmentID)
+        }
+        overlayMapButton.setOnClickListener{
+            doMapOverlay(layoutOverlay)
         }
         goMapButton.setOnClickListener{view ->
             var arrival_time = arriveDateMapInput!!.text
@@ -105,6 +122,11 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
             else { mMap.isTrafficEnabled = false }
         }
 
+        returnMapButton.visibility = View.GONE
+        addMapButton.visibility = View.GONE
+        enhanceMapButton.visibility = View.VISIBLE
+
+        /*
         when(mapScreen){
             0 -> {
                 returnMapButton.visibility = View.VISIBLE
@@ -116,7 +138,7 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
                 addMapButton.visibility = View.GONE
                 enhanceMapButton.visibility = View.VISIBLE
             }
-        }
+        }*/
 
         return view
     }
@@ -136,7 +158,16 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
         mListener = null
     }
 
-
+    private fun doMapOverlay(layoutOverlay : ConstraintLayout){
+        when(layoutOverlay.visibility){
+            View.GONE -> {
+                layoutOverlay.visibility = View.VISIBLE
+            }
+            View.VISIBLE -> {
+                layoutOverlay.visibility = View.GONE
+            }
+        }
+    }
 
     private fun doMapEnhance(fragmentCaller : Int){
         if (mListener != null){

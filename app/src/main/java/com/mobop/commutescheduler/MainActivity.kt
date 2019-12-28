@@ -14,15 +14,21 @@ import android.graphics.Color
 import android.widget.TextView
 import android.widget.CheckBox
 import android.text.method.ScrollingMovementMethod
+import android.view.View
+import android.widget.FrameLayout
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.google.android.gms.maps.CameraUpdateFactory
 
 import com.google.android.gms.maps.model.*
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.textfield.TextInputEditText
+import org.jetbrains.anko.find
+
 /* *************************************************************** */
 
 /* Global variables ********************************************** */
@@ -79,6 +85,8 @@ class MainActivity :
         mFragmentManager.beginTransaction()
             .add(R.id.main_container_fragments, homeFragment)
             .commit()
+
+        setSupportActionBar(findViewById(R.id.main_toolbar))
 
         /*
         // mResult = findViewById<TextView>(R.id.result)
@@ -158,10 +166,17 @@ class MainActivity :
         fragmentCaller : Int,
         fragmentState : Int){
 
+        var appBar : Toolbar = findViewById(R.id.main_toolbar)
+        var dividerTop : View = findViewById(R.id.main_divider_top)
+        var containerCommutes : FrameLayout = findViewById(R.id.main_container_commutes)
+        var dividerBottom : View = findViewById(R.id.main_divider_bottom)
+        var containerQuick : FrameLayout = findViewById(R.id.main_container_quick)
+
         when (fragmentCaller){
             MAP -> {
                 when (fragmentState){
                     0 -> {
+                        /*
                         mFragmentManager.beginTransaction()
                             .add(
                                 R.id.main_container_fragments,
@@ -169,10 +184,21 @@ class MainActivity :
                                 "map"
                             )
                             .addToBackStack("map")
-                            .commit()
+                            .commit()*/
+                        appBar.visibility = View.GONE
+                        dividerTop.visibility = View.GONE
+                        containerCommutes.visibility = View.GONE
+                        dividerBottom.visibility = View.GONE
+                        containerQuick.visibility = View.GONE
                     }
                     1 -> {
-                        supportFragmentManager.popBackStack()
+                        /*
+                        supportFragmentManager.popBackStack()*/
+                        appBar.visibility = View.VISIBLE
+                        dividerTop.visibility = View.VISIBLE
+                        containerCommutes.visibility = View.VISIBLE
+                        dividerBottom.visibility = View.VISIBLE
+                        containerQuick.visibility = View.VISIBLE
                     }
                     2 -> {
                         mFragmentManager.beginTransaction()

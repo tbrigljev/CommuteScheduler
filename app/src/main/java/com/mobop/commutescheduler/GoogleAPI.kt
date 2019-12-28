@@ -68,7 +68,6 @@ class GoogleAPI(activity:MainActivity){
             .setPlaceFields(placeFields)
         autocompleteFragment_start
             .setHint("Set the start of your commute")
-        autocompleteFragment_start
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){

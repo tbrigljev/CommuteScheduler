@@ -3,68 +3,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_map_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTintMode="src_over"
     android:orientation="vertical">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragment_map_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_map_container"
-        app:layout_constraintStart_toStartOf="@+id/fragment_map_main"
-        app:layout_constraintTop_toTopOf="@+id/fragment_map_main">
-
-        <TextView
-            android:id="@+id/map_text_commute_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:text="@string/text_commute_name"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/fragment_map_text"
-            app:layout_constraintTop_toTopOf="@+id/fragment_map_text" />
-
-        <TextView
-            android:id="@+id/map_field_commute_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="10dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@string/field_commute_name"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/map_text_commute_duration"
-            app:layout_constraintStart_toEndOf="@+id/map_text_commute_name"
-            app:layout_constraintTop_toTopOf="@+id/fragment_map_text" />
-
-        <TextView
-            android:id="@+id/map_text_commute_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignWithParentIfMissing="false"
-            android:layout_marginEnd="5dp"
-            android:text="@string/text_commute_duration"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/map_field_commute_duration"
-            app:layout_constraintTop_toTopOf="@+id/fragment_map_text" />
-
-        <TextView
-            android:id="@+id/map_field_commute_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:gravity="end"
-            android:text="@string/field_time"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_map_text"
-            app:layout_constraintTop_toTopOf="@+id/fragment_map_text" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment_map_container"
@@ -74,7 +18,7 @@
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/fragment_map_main"
         app:layout_constraintStart_toStartOf="@+id/fragment_map_main"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_map_text">
+        app:layout_constraintTop_toTopOf="@+id/fragment_map_main">
 
 <!--        <FrameLayout
             android:id="@+id/map"
@@ -107,103 +51,184 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom|center"/>
+            android:layout_gravity="bottom|center"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="0dp" />
 
-        <fragment
-            android:id="@+id/fragment_start"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_map_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#99FFFFFF"
+            app:layout_constraintStart_toStartOf="@+id/fragment_map_container"
+            app:layout_constraintTop_toTopOf="@+id/fragment_map_container">
+
+            <TextView
+                android:id="@+id/map_text_commute_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/text_commute_name"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/fragment_map_text"
+                app:layout_constraintTop_toTopOf="@+id/fragment_map_text" />
+
+            <TextView
+                android:id="@+id/map_field_commute_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/field_commute_name"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/map_text_commute_duration"
+                app:layout_constraintStart_toEndOf="@+id/map_text_commute_name"
+                app:layout_constraintTop_toTopOf="@+id/fragment_map_text" />
+
+            <TextView
+                android:id="@+id/map_text_commute_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_marginEnd="5dp"
+                android:text="@string/text_commute_duration"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/map_field_commute_duration"
+                app:layout_constraintTop_toTopOf="@+id/fragment_map_text" />
+
+            <TextView
+                android:id="@+id/map_field_commute_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:gravity="end"
+                android:text="@string/field_time"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/fragment_map_text"
+                app:layout_constraintTop_toTopOf="@+id/fragment_map_text" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/map_overlay_optional"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
-            android:hint="@string/field_departure"
-            app:layout_constraintStart_toStartOf="@+id/fragment_map_container"
-            app:layout_constraintTop_toTopOf="@+id/fragment_map_container" />
-
-        <fragment
-            android:id="@+id/fragment_arrival"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-            android:hint="@string/field_arrival"
-            app:layout_constraintStart_toStartOf="@+id/fragment_start"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_start" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_date_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/text_arrival"
-            app:layout_constraintStart_toStartOf="@+id/fragment_start"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_arrival">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/field_arrival_time"
-                android:text="2019-12-15 22:54:00"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <CheckBox
-            android:id="@+id/view_traffic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/checkbox_view_traffic"
-            app:layout_constraintStart_toStartOf="@+id/fragment_arrival"
-            app:layout_constraintTop_toBottomOf="@+id/text_date_input"/>
-
-        <Button
-            android:id="@+id/button_go"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/button_go"
-            app:layout_constraintStart_toStartOf="@+id/fragment_arrival"
-            app:layout_constraintTop_toBottomOf="@+id/view_traffic" />
-
-        <TextView
-            android:id="@+id/text_arrival"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
-            android:text="@string/field_arrival_time"
             app:layout_constraintEnd_toEndOf="@+id/fragment_map_container"
-            app:layout_constraintTop_toTopOf="@+id/fragment_map_container" />
+            app:layout_constraintStart_toStartOf="@+id/fragment_map_container"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_map_text">
 
-        <TextView
-            android:id="@+id/text_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/field_distance"
-            app:layout_constraintEnd_toEndOf="@+id/text_arrival"
-            app:layout_constraintTop_toBottomOf="@+id/text_arrival" />
+            <fragment
+                android:id="@+id/fragment_start"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:hint="@string/field_departure"
+                app:layout_constraintEnd_toEndOf="@+id/view_traffic"
+                app:layout_constraintStart_toStartOf="@+id/map_overlay_optional"
+                app:layout_constraintTop_toTopOf="@+id/map_overlay_optional"
+                android:layout_gravity="center_vertical|left" />
 
-        <TextView
-            android:id="@+id/text_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/field_time"
-            app:layout_constraintEnd_toEndOf="@+id/text_arrival"
-            app:layout_constraintTop_toBottomOf="@+id/text_distance" />
+            <fragment
+                android:id="@+id/fragment_arrival"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:hint="@string/field_arrival"
+                app:layout_constraintEnd_toEndOf="@+id/view_traffic"
+                app:layout_constraintStart_toStartOf="@+id/map_overlay_optional"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_start"
+                android:layout_gravity="center_vertical|left" />
 
-        <TextView
-            android:id="@+id/text_duration_traffic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/field_time"
-            app:layout_constraintEnd_toEndOf="@+id/text_arrival"
-            app:layout_constraintTop_toBottomOf="@+id/text_duration" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_date_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/map_overlay_optional"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_arrival">
 
-        <TextView
-            android:id="@+id/text_departure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/field_departure_time"
-            app:layout_constraintEnd_toEndOf="@+id/text_arrival"
-            app:layout_constraintTop_toBottomOf="@+id/text_duration_traffic" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/field_arrival_time"
+                    android:text="2019-12-15 22:54:00"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/view_traffic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/checkbox_view_traffic"
+                app:layout_constraintBottom_toBottomOf="@+id/text_date_input"
+                app:layout_constraintStart_toEndOf="@+id/text_date_input" />
+
+            <Button
+                android:id="@+id/button_go"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/button_go"
+                app:layout_constraintEnd_toEndOf="@+id/view_traffic"
+                app:layout_constraintStart_toStartOf="@+id/map_overlay_optional"
+                app:layout_constraintTop_toBottomOf="@+id/text_date_input" />
+
+            <TextView
+                android:id="@+id/text_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/field_distance"
+                app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
+                app:layout_constraintTop_toTopOf="@+id/map_overlay_optional"
+                app:layout_constraintBottom_toTopOf="@+id/text_arrival"/>
+
+            <TextView
+                android:id="@+id/text_arrival"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/field_arrival_time"
+                app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
+                app:layout_constraintTop_toBottomOf="@+id/text_distance"
+                app:layout_constraintBottom_toTopOf="@+id/text_duration"/>
+
+            <TextView
+                android:id="@+id/text_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/field_time"
+                app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
+                app:layout_constraintTop_toBottomOf="@+id/text_arrival"
+                app:layout_constraintBottom_toTopOf="@+id/text_duration_traffic"/>
+
+            <TextView
+                android:id="@+id/text_duration_traffic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/field_time"
+                app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
+                app:layout_constraintTop_toBottomOf="@+id/text_duration"
+                app:layout_constraintBottom_toTopOf="@+id/text_departure"/>
+
+            <TextView
+                android:id="@+id/text_departure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/field_departure_time"
+                app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
+                app:layout_constraintTop_toBottomOf="@+id/text_duration_traffic"
+                app:layout_constraintBottom_toTopOf="@+id/button_go"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -215,48 +240,68 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_map_container">
 
         <ImageButton
+            android:id="@+id/map_button_overlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/button_overlay"
+            android:paddingStart="5dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="@id/fragment_map_buttons"
+            app:layout_constraintStart_toStartOf="@id/fragment_map_buttons"
+            app:srcCompat="@android:drawable/ic_menu_info_details" />
+
+        <ImageButton
             android:id="@+id/map_button_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginBottom="32dp"
-            android:background="@color/colorPrimaryDark"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/button_return"
             android:onClick="doMapReturn"
-            android:scaleX="2"
-            android:scaleY="2"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_map_buttons"
-            app:layout_constraintStart_toStartOf="@+id/fragment_map_buttons"
-            app:srcCompat="@android:drawable/ic_menu_revert" />
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/map_button_add"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_map_buttons"
+            app:srcCompat="@drawable/map_reduce" />
 
         <ImageButton
             android:id="@+id/map_button_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
-            android:background="@color/colorPrimaryDark"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#00000000"
             android:contentDescription="@string/button_add"
             android:onClick="doMapAdd"
-            android:scaleX="2"
-            android:scaleY="2"
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/fragment_map_buttons"
             app:layout_constraintEnd_toEndOf="@+id/fragment_map_buttons"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@drawable/add_new" />
 
         <ImageButton
             android:id="@+id/map_button_enhance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/description_enhance_map_button"
             android:onClick="doMapEnhance"
-            android:scaleX="2"
-            android:scaleY="2"
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/fragment_map_buttons"
             app:layout_constraintEnd_toEndOf="@+id/fragment_map_buttons"
-            app:srcCompat="@android:drawable/ic_menu_mapmode" />
+            app:srcCompat="@drawable/map_enhance" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

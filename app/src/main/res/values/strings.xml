@@ -57,6 +57,7 @@
     <string name="button_validate">Validate creation/edition</string>
     <string name="button_cancel">Cancel creation/edition</string>
     <string name="button_go">GO</string>
+    <string name="button_overlay">Show overlay information</string>
 
     <string name="checkbox_view_traffic">View traffic</string>
 
