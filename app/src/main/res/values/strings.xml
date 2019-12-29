@@ -2,6 +2,7 @@
     <string name="name_app">Commute Scheduler</string>
 
     <string name="name_main">Commute scheduler</string>
+    <string name="name_map">Map view</string>
     <string name="name_commutes">Saved commutes</string>
     <string name="name_favorites">Favorites</string>
     <string name="name_new">Create new commute</string>
@@ -46,6 +47,7 @@
     <string name="field_arrival_time">ARRIVE AT</string>
     <string name="field_distance">LENGTH</string>
     <string name="field_time">HH:MM</string>
+    <string name="field_choose_time">Choose your time of arrival</string>
     <string name="field_reminder">REMINDER</string>
     <string name="field_alarm">ALARM</string>
     <string name="field_alarm_time">XX min</string>

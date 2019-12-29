@@ -1,17 +1,25 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
+
 import android.app.Activity
+import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
+import java.text.SimpleDateFormat
+import java.util.*
+
+
 /* *************************************************************** */
 
 /* FragmentEdit ************************************************** */
@@ -27,6 +35,7 @@ class FragmentEdit : Fragment(){
 
     private lateinit var cancelEditButton : ImageButton
     private lateinit var validateEditButton : ImageButton
+    private lateinit var chooseTime : TextView
 
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
@@ -47,6 +56,8 @@ class FragmentEdit : Fragment(){
             view.findViewById(R.id.edit_button_cancel) as ImageButton
         validateEditButton =
             view.findViewById(R.id.edit_button_validate) as ImageButton
+        chooseTime =
+            view.findViewById(R.id.edit_end_time) as TextView
 
         cancelEditButton.setOnClickListener{
             doEditCancel(fragmentID)
@@ -54,6 +65,16 @@ class FragmentEdit : Fragment(){
 
         validateEditButton.setOnClickListener{
             doEditValidate(fragmentID)
+        }
+
+       chooseTime.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+                cal.set(Calendar.HOUR_OF_DAY, hour)
+                cal.set(Calendar.MINUTE, minute)
+                chooseTime.text = SimpleDateFormat("HH:mm").format(cal.time)
+            }
+            TimePickerDialog(context, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
         }
 
         return view

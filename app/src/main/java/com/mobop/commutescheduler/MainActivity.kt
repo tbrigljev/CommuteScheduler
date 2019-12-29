@@ -170,7 +170,6 @@ class MainActivity :
 
         when (fragmentCaller){
             MAP -> {
-                var appBar : Toolbar = findViewById(R.id.main_toolbar)
                 var dividerTop : View = findViewById(R.id.main_divider_top)
                 var containerCommutes : FrameLayout = findViewById(R.id.main_container_commutes)
                 var dividerBottom : View = findViewById(R.id.main_divider_bottom)
@@ -182,34 +181,42 @@ class MainActivity :
 
                 when (fragmentState){
                     0 -> {
-                        /*
-                        mFragmentManager.beginTransaction()
-                            .add(
-                                R.id.main_container_fragments,
-                                mapFragment,
-                                "map"
-                            )
-                            .addToBackStack("map")
-                            .commit()*/
-                        appBar.visibility = View.GONE
+                        toolbar.visibility = View.GONE
+
+                        toolbar.title = getString(R.string.name_map)
+                        previousTitle = getString(R.string.name_main)
+
                         dividerTop.visibility = View.GONE
                         containerCommutes.visibility = View.GONE
                         dividerBottom.visibility = View.GONE
                         containerQuick.visibility = View.GONE
                     }
                     1 -> {
-                        /*
-                        supportFragmentManager.popBackStack()*/
+                        toolbar.visibility = View.VISIBLE
+
+                        toolbar.title = getString(R.string.name_main)
+                        previousTitle = getString(R.string.name_map)
+
                         enhanceMapButton.visibility = View.VISIBLE
                         addMapButton.visibility = View.GONE
                         returnMapButton.visibility = View.GONE
-                        appBar.visibility = View.VISIBLE
+
                         dividerTop.visibility = View.VISIBLE
                         containerCommutes.visibility = View.VISIBLE
                         dividerBottom.visibility = View.VISIBLE
                         containerQuick.visibility = View.VISIBLE
                     }
                     2 -> {
+                        toolbar.visibility = View.VISIBLE
+
+                        toolbar.title = getString(R.string.name_new)
+                        previousTitle = getString(R.string.name_map)
+                        /* HIDE SETTINGS IN EDITION FRAGMENT
+                           NOT WORKING
+                         */
+                        settings_item.isVisible = false
+                        settings_item.isEnabled = false
+
                         mFragmentManager.beginTransaction()
                             .add(
                                 R.id.main_container_fragments,
@@ -262,16 +269,25 @@ class MainActivity :
                 }
             }
             EDIT -> {
-                when(fragmentState){
-                    0 -> {
-                        toolbar.title = getString(R.string.name_commutes)
-                        previousTitle = getString(R.string.name_main)
+                when(previousTitle){
+                    getString(R.string.name_map) -> {
+                        toolbar.visibility = View.GONE
+
+                        toolbar.title = getString(R.string.name_map)
+                        previousTitle = getString(R.string.name_new)
                         settings_item.isVisible = true
                         settings_item.isEnabled = true
+                    }
+                    getString(R.string.name_commutes) -> {
+                        toolbar.visibility = View.VISIBLE
 
-                        supportFragmentManager.popBackStack()
+                        toolbar.title = getString(R.string.name_commutes)
+                        previousTitle = getString(R.string.name_new)
+                        settings_item.isVisible = true
+                        settings_item.isEnabled = true
                     }
                 }
+                supportFragmentManager.popBackStack()
             }
         }
     }
@@ -280,15 +296,29 @@ class MainActivity :
         val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(toolbar)
 
-        when(toolbar.visibility){
-            View.VISIBLE -> {
+        when(toolbar.title){
+            getString(R.string.name_map) -> {
+                onFragmentInteraction(1,1)
+            }
+            getString(R.string.name_new) -> {
+                onFragmentInteraction(3,0)
+                }
+            else -> {
                 toolbar.title = previousTitle
                 previousTitle = getString(R.string.name_main)
                 super.onBackPressed()
             }
-            View.GONE -> {
-                onFragmentInteraction(1,1)
-            }
         }
+
+//        when(toolbar.visibility){
+//            View.VISIBLE -> {
+//                toolbar.title = previousTitle
+//                previousTitle = getString(R.string.name_main)
+//                super.onBackPressed()
+//            }
+//            View.GONE -> {
+//                onFragmentInteraction(0,1)
+//            }
+//        }
     }
 }

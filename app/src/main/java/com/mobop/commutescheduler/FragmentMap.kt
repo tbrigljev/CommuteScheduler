@@ -175,15 +175,9 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
         }
     }
 
-    fun doMapReturn(fragmentCaller : Int){
+    private fun doMapReturn(fragmentCaller : Int){
         if (mListener != null){
             source = 1
-
-            /*
-            returnMapButton.visibility = View.GONE
-            addMapButton.visibility = View.GONE
-            enhanceMapButton.visibility = View.VISIBLE*/
-
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
