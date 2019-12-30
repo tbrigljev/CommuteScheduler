@@ -16,7 +16,10 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.DialogTitle
 import androidx.fragment.app.Fragment
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import org.jetbrains.anko.find
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,15 +30,22 @@ import java.util.*
 /* Fragment reserved for the edition of elements  **************** */
 /* This is used for both edition existing elements and adding ones */
 
-class FragmentEdit : Fragment(){
+class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(){
 
-    private var mListener : FragmentEdit.OnFragmentInteractionListener? = null
+    private var mListener : OnFragmentInteractionListener? = null
 
     private val fragmentID = 3
-    private var source = 0
+    private var source :IntArray = intArrayOf(0, 0)
 
     private lateinit var cancelEditButton : ImageButton
     private lateinit var validateEditButton : ImageButton
+
+    private lateinit var commuteName : EditText
+    private lateinit var commuteOrigin : EditText
+    private lateinit var commuteOriginAddress : AutocompleteSupportFragment
+    private lateinit var commuteDestination : EditText
+    private lateinit var commuteDestinationAddress : AutocompleteSupportFragment
+
     private lateinit var chooseDate : TextView
     private lateinit var chooseTime : TextView
 
@@ -58,6 +68,13 @@ class FragmentEdit : Fragment(){
             view.findViewById(R.id.edit_button_cancel) as ImageButton
         validateEditButton =
             view.findViewById(R.id.edit_button_validate) as ImageButton
+
+        commuteName = view.findViewById(R.id.edit_title)
+        commuteOrigin = view.findViewById(R.id.edit_start)
+        //commuteOriginAddress = .findFragmentById(R.id.fragment_start)
+        commuteDestination = view.findViewById(R.id.edit_end)
+        //commuteDestinationAddress = .findFragmentById(R.id.fragment_arrival)
+
         chooseDate =
             view.findViewById(R.id.edit_end_date) as TextView
         chooseTime =
@@ -92,6 +109,17 @@ class FragmentEdit : Fragment(){
             TimePickerDialog(context, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
         }
 
+        if(new){
+            commuteName.setText("")
+            commuteOrigin.setText("")
+            commuteDestination.setText("")
+        }
+        else{
+            commuteName.setText(commutesList!!.commutesItemsList[pos].name)
+            commuteOrigin.setText(commutesList!!.commutesItemsList[pos].start)
+            commuteDestination.setText(commutesList!!.commutesItemsList[pos].arrival)
+        }
+
         return view
     }
 
@@ -116,7 +144,7 @@ class FragmentEdit : Fragment(){
 
             hideKeyboard()
 
-            source = 0
+            source[0] = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
@@ -143,6 +171,6 @@ class FragmentEdit : Fragment(){
     interface OnFragmentInteractionListener{
         fun onFragmentInteraction(
             fragmentCaller : Int,
-            fragmentState : Int)
+            fragmentState : IntArray)
     }
 }

@@ -49,7 +49,8 @@ class MainActivity :
     var homeFragment = FragmentHome()
     var commutesFragment = FragmentCommutes(0)
     var mapFragment = FragmentMap(0)
-    var editFragment = FragmentEdit()
+    var newFragment = FragmentEdit(true, -1)
+    lateinit var editFragment : FragmentEdit
     lateinit var previousTitle : String
     lateinit var settings_item : MenuItem
 
@@ -163,14 +164,28 @@ class MainActivity :
     /* *********************************************************** */
     override fun onFragmentInteraction(
         fragmentCaller : Int,
-        fragmentState : Int){
+        fragmentState : IntArray){
 
         val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(toolbar)
 
         when (fragmentCaller){
             MAIN -> {
-                when(fragmentState){
+                when(fragmentState[0]){
+                    1 -> {
+                        val text = "No favorites implemented"
+                        val duration = Toast.LENGTH_SHORT
+
+                        val toast = Toast.makeText(this, text, duration)
+                        toast.show()
+                    }
+                    2 -> {
+                        val text = "No quick selection implemented"
+                        val duration = Toast.LENGTH_SHORT
+
+                        val toast = Toast.makeText(this, text, duration)
+                        toast.show()
+                    }
                     3 -> {
                         toolbar.title = getString(R.string.name_new)
                         previousTitle = getString(R.string.name_main)
@@ -183,10 +198,10 @@ class MainActivity :
                         mFragmentManager.beginTransaction()
                             .add(
                                 R.id.main_container_fragments,
-                                editFragment,
-                                "edit"
+                                newFragment,
+                                "new"
                             )
-                            .addToBackStack("edit")
+                            .addToBackStack("new")
                             .commit()
                     }
                 }
@@ -201,7 +216,7 @@ class MainActivity :
                 var addMapButton : ImageButton = findViewById(R.id.map_button_add)
                 var returnMapButton : ImageButton =  findViewById(R.id.map_button_return)
 
-                when (fragmentState){
+                when (fragmentState[0]){
                     0 -> {
                         toolbar.visibility = View.GONE
 
@@ -242,16 +257,16 @@ class MainActivity :
                         mFragmentManager.beginTransaction()
                             .add(
                                 R.id.main_container_fragments,
-                                editFragment,
-                                "edit"
+                                newFragment,
+                                "new"
                             )
-                            .addToBackStack("edit")
+                            .addToBackStack("new")
                             .commit()
                     }
                 }
             }
             COMMUTES -> {
-                when (fragmentState){
+                when (fragmentState[0]){
                     0 -> {
                         toolbar.title = getString(R.string.name_commutes)
                         previousTitle = getString(R.string.name_main)
@@ -282,11 +297,38 @@ class MainActivity :
                         mFragmentManager.beginTransaction()
                             .add(
                                 R.id.main_container_fragments,
+                                newFragment,
+                                "new"
+                            )
+                            .addToBackStack("new")
+                            .commit()
+                    }
+                    3 -> {
+                        previousTitle = toolbar.title.toString()
+                        toolbar.title = getString(R.string.name_edit)
+                        /* HIDE SETTINGS IN EDITION FRAGMENT
+                           NOT WORKING
+                         */
+                        settings_item.isVisible = false
+                        settings_item.isEnabled = false
+
+                        editFragment = FragmentEdit(false, fragmentState[1])
+
+                        mFragmentManager.beginTransaction()
+                            .add(
+                                R.id.main_container_fragments,
                                 editFragment,
                                 "edit"
                             )
                             .addToBackStack("edit")
                             .commit()
+                    }
+                    4 -> {
+                        val text = "No delete function implemented"
+                        val duration = Toast.LENGTH_SHORT
+
+                        val toast = Toast.makeText(this, text, duration)
+                        toast.show()
                     }
                 }
             }
@@ -320,10 +362,10 @@ class MainActivity :
 
         when(toolbar.title){
             getString(R.string.name_map) -> {
-                onFragmentInteraction(1,1)
+                onFragmentInteraction(1,intArrayOf(1,0))
             }
             getString(R.string.name_new) -> {
-                onFragmentInteraction(3,0)
+                onFragmentInteraction(3,intArrayOf(0,0))
                 }
             else -> {
                 toolbar.title = previousTitle

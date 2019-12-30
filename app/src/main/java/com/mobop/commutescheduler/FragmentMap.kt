@@ -37,7 +37,7 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
     private val mapScreen = screen
 
     private var fragmentID = 1
-    private var source = 0
+    private var source : IntArray = intArrayOf(0, 0)
 
     private lateinit var returnMapButton : ImageButton
     private lateinit var addMapButton : ImageButton
@@ -165,7 +165,7 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
 
     private fun doMapEnhance(fragmentCaller : Int){
         if (mListener != null){
-            source = 0
+            source[0] = 0
 
             returnMapButton.visibility = View.VISIBLE
             addMapButton.visibility = View.VISIBLE
@@ -177,14 +177,14 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
 
     private fun doMapReturn(fragmentCaller : Int){
         if (mListener != null){
-            source = 1
+            source[0] = 1
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
 
     private fun doMapAdd(fragmentCaller : Int){
         if (mListener != null){
-            source = 2
+            source[0] = 2
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
@@ -192,7 +192,7 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
     interface OnFragmentInteractionListener{
         fun onFragmentInteraction(
             fragmentCaller : Int,
-            fragmentState : Int)
+            fragmentState : IntArray)
     }
     /* *********************************************************** */
     /* onMapReady() ********************************************** */

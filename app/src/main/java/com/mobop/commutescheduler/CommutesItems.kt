@@ -21,12 +21,12 @@ class CommutesItemsList{
             arrival_address = "Avenue de Provence 6, 1007 Lausanne",
             arrival_time = "08:24",
             days = mutableListOf(R.string.Tuesday, R.string.Thursday),
-            duration = "01:12",
+            duration = "01:12"/*,
             reminder_on = true,
             reminder_tune = "Kimmunicator",
             alarm_on = false,
             alarm_time = "20 min",
-            alarm_tune = "Ribbit")
+            alarm_tune = "Ribbit"*/)
         val homeToWork = Commute(
             name = "Home2Work",
             start = "Home",
@@ -36,12 +36,12 @@ class CommutesItemsList{
             arrival_address = "Route de Morat 135, 1763 Granges-Paccot",
             arrival_time = "07:00",
             days = mutableListOf(R.string.Monday, R.string.Wednesday, R.string.Friday),
-            duration = "00:25",
+            duration = "00:25"/*,
             reminder_on = false,
             reminder_tune = "Kimmunicator",
             alarm_on = true,
             alarm_time = "10 min",
-            alarm_tune = "Ribbit")
+            alarm_tune = "Ribbit"*/)
         val longNameTest = Commute(
             name = "This should be long enough to " +
                     "fill the screen to make sure ellipsis works",
@@ -52,12 +52,12 @@ class CommutesItemsList{
             arrival_address = "Avenue of Path, 20000 City",
             arrival_time = "00:00",
             days = mutableListOf(R.string.Saturday, R.string.Sunday),
-            duration = "00:00",
+            duration = "00:00"/*,
             reminder_on = false,
             reminder_tune = "DING",
             alarm_on = false,
             alarm_time = "0 min",
-            alarm_tune = "DONG")
+            alarm_tune = "DONG"*/)
         val longParamTest = Commute(
             name = "A test for parameters",
             start = "That one place that has a very long name",
@@ -66,13 +66,13 @@ class CommutesItemsList{
             arrival = "That other place that has a very long name",
             arrival_address = "Alley of Way, 40000 City",
             days = mutableListOf(R.string.Sunday),
-            arrival_time = "00:00",
+            arrival_time = "00:00"/*,
             duration = "00:00",
             reminder_on = true,
             reminder_tune = "DING",
             alarm_on = false,
             alarm_time = "0 min",
-            alarm_tune = "DONG")
+            alarm_tune = "DONG"*/)
 
         commutesItemsList.add(homeToWork)
         commutesItemsList.add(homeToSchool)
@@ -142,12 +142,12 @@ data class Commute(
 
     var path : MutableList<List<LatLng>> = ArrayList(),
     var raw_data : String? = null,
-    var errorTraffic : Long? = null,
+    var errorTraffic : Long? = null/*,
 
     var reminder_on : Boolean = false,
     var reminder_tune : String? = null,
 
     var alarm_on : Boolean = false,
     var alarm_time : String? = null,
-    var alarm_tune : String? = null
+    var alarm_tune : String? = null*/
 )

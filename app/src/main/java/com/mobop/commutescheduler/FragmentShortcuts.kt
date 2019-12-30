@@ -14,7 +14,7 @@ class FragmentShortcuts : Fragment(){
     private var mListener : FragmentEdit.OnFragmentInteractionListener? = null
 
     private val fragmentID = 0
-    private var source = 3
+    private var source : IntArray = intArrayOf(0, 0)
 
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
@@ -31,9 +31,17 @@ class FragmentShortcuts : Fragment(){
             false
         )
 
-        /*        var favoritesButton : ImageButton = findViewById(R.id.shortcut_button_favorites)
-        var quickButton : ImageButton = findViewById(R.id.shortcut_button_quick)*/
+        var favoritesButton : ImageButton = view.findViewById(R.id.shortcut_button_favorites)
+        var quickButton : ImageButton = view.findViewById(R.id.shortcut_button_quick)
         var addButton : ImageButton = view.findViewById(R.id.shortcut_button_add)
+
+        favoritesButton.setOnClickListener{
+            doOpenFavorites(fragmentID)
+        }
+
+        quickButton.setOnClickListener{
+            doOpenQuick(fragmentID)
+        }
 
         addButton.setOnClickListener{
             doOpenAddNew(fragmentID)
@@ -57,9 +65,23 @@ class FragmentShortcuts : Fragment(){
         mListener = null
     }
 
+    private fun doOpenFavorites(fragmentCaller: Int){
+        if (mListener != null){
+            source[0] = 1
+            mListener!!.onFragmentInteraction(fragmentCaller, source)
+        }
+    }
+
+    private fun doOpenQuick(fragmentCaller: Int){
+        if (mListener != null){
+            source[0] = 2
+            mListener!!.onFragmentInteraction(fragmentCaller, source)
+        }
+    }
+
     private fun doOpenAddNew(fragmentCaller : Int){
         if (mListener != null){
-            source = 3
+            source[0] = 3
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
@@ -67,6 +89,6 @@ class FragmentShortcuts : Fragment(){
     interface OnFragmentInteractionListener{
         fun onFragmentInteraction(
             fragmentCaller : Int,
-            fragmentState : Int)
+            fragmentState : IntArray)
     }
 }

@@ -6,14 +6,13 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
+import android.media.Image
+import android.text.TextUtils.indexOf
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Switch
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -27,12 +26,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 /* CommutesAdapter *********************************************** */
 /* Adapter for the recycler view managing the list of commutes *** */
 /* Contained in FragmentCommutes ********************************* */
-class CommutesAdapter(
-    viewRes : Int,
-    commutesItemsList: ArrayList<Commute>,
-    val touchListener : (Int) -> Unit) :
-        RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-
+class CommutesAdapter(viewRes : Int, commutesItemsList: ArrayList<Commute>,
+                      private val touchListener : (Int, Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+                      //private val touchListener : (Commute, Int) -> Unit) :
     private lateinit var view : View
 
     var commutesItemsList : ArrayList<Commute>
@@ -43,33 +39,48 @@ class CommutesAdapter(
         this.viewRes = viewRes
     }
 
-    override fun onCreateViewHolder(
-        parent : ViewGroup,
-        viewType : Int) :
-            CommutesAdapter.ViewHolder{
+    override fun onCreateViewHolder(parent : ViewGroup, viewType : Int) : ViewHolder{
+
         view = LayoutInflater.from(parent.context).inflate(
                 R.layout.element_commute_combined,
                 parent,
                 false)
+
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(
         holder : RecyclerView.ViewHolder,
         position : Int){
+
+        /*
+        val editButton =
+            view.findViewById(R.id.commutes_button_edit) as ImageButton
+        val deleteButton =
+            view.findViewById(R.id.commutes_button_delete) as ImageButton*/
+
+        //var commute : Commute = commutesItemsList[position]
+        //editButton.setOnClickListener{ touchListener(commute, position) }
+        //deleteButton.setOnClickListener{ touchListener(commute, position) }
+        //editButton.setOnClickListener{ touchListener(position) }
+        //deleteButton.setOnClickListener{ touchListener(position) }
+
         val viewHolder = holder as ViewHolder
         viewHolder.bind(
             view,
             this.commutesItemsList,
             position,
             touchListener)
+
+        holder.editCommute(commutesItemsList.indexOf(commutesItemsList[position]), 3)
+        holder.deleteCommute(commutesItemsList.indexOf(commutesItemsList[position]), 4)
     }
 
     override fun getItemCount() : Int{
         return commutesItemsList.count()
     }
 
-    class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
+    inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
         val title : TextView
 
         val simpleStart : TextView
@@ -97,6 +108,19 @@ class CommutesAdapter(
             view.findViewById(R.id.element_extended_container) as LinearLayout
         val layoutButtons : ConstraintLayout =
             view.findViewById(R.id.buttons_container) as ConstraintLayout
+
+        val editButton =
+            view.findViewById(R.id.commutes_button_edit) as ImageButton
+        val deleteButton =
+            view.findViewById(R.id.commutes_button_delete) as ImageButton
+
+        fun editCommute(pos : Int, action : Int){
+            editButton.setOnClickListener{ touchListener(pos, action) }
+        }
+        fun deleteCommute(pos : Int, action : Int){
+
+            deleteButton.setOnClickListener{ touchListener(pos, action) }
+        }
 
         init{
             title = view.findViewById(R.id.element_combined_title) as TextView
@@ -126,7 +150,7 @@ class CommutesAdapter(
             view : View,
             commutesItemsList : ArrayList<Commute>,
             position : Int,
-            touchListener : (Int) -> Unit){
+            touchListener : (Int, Int) -> Unit){
             val itemInList = commutesItemsList[position]
 
             if (position % 2 == 0){
@@ -162,8 +186,8 @@ class CommutesAdapter(
                 extendedTimeEnd.text = elementTimeArrival
                 val elementTimeDuration = itemInList.duration
                 extendedTimeDuration.text = elementTimeDuration
-                val elementReminderOn = itemInList.reminder_on
-/*                extendedReminderOn.isChecked = elementReminderOn
+                /*val elementReminderOn = itemInList.reminder_on
+                extendedReminderOn.isChecked = elementReminderOn
                 val elementReminder = itemInList.reminder_tune
                 extendedReminder.text = elementReminder
                 val elementAlarmOn = itemInList.alarm_on

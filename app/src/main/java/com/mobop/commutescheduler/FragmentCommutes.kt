@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,13 +31,14 @@ class FragmentCommutes(screen : Int) : Fragment(){
     /*private var mItemTouchHelper : ItemTouchHelper? = null*/
 
     private val fragmentID = 2
-    private var source = 0
+    //private var source = 0
+    private var source : IntArray = intArrayOf(0,0)
     private val commutesScreen = screen
 
     private lateinit var returnCommutesButton : ImageButton
     private lateinit var addCommutesButton : ImageButton
     private lateinit var enhanceCommutesButton : ImageButton
-    private lateinit var editCommutesButton : ImageButton
+    //private lateinit var layoutButtons : ConstraintLayout
 
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
@@ -88,7 +90,6 @@ class FragmentCommutes(screen : Int) : Fragment(){
 
         /* Creation of the RecyclerView, LayoutManager and Adapter */
         mRecyclerView = view.findViewById(R.id.commutes_list)
-        // mRecyclerView!!.setHasFixedSize(true)
 
         var mLayoutManager = LinearLayoutManager(context)
         mRecyclerView!!.layoutManager = mLayoutManager
@@ -97,18 +98,10 @@ class FragmentCommutes(screen : Int) : Fragment(){
             CommutesAdapter(
                 R.layout.element_commute_simple,
                 commutesList!!.commutesItemsList,
-                { partItem : Int -> listItemClicked(partItem) }
+                { partItem : Int, action : Int -> doLayoutButtons(partItem, action) }
             )
 
         mRecyclerView!!.adapter = mAdapter
-
-        /*editCommutesButton =
-            mRecyclerView!!.findViewById(R.id.commutes_button_edit)
-                    as ImageButton
-
-        editCommutesButton.setOnClickListener{
-            doCommutesEditExisting()
-        }*/
 
         return view
     }
@@ -123,43 +116,36 @@ class FragmentCommutes(screen : Int) : Fragment(){
         }
     }
 
+    /* TO REMOVE THE BUTTONS WHEN LEAVING NEW/EDIT FRAGMENT
+    NOT WORKING
+    override fun onViewCreated(view : View, savedInstanceState : Bundle?){
+        super.onViewCreated(view, savedInstanceState)
+        layoutButtons =
+            view.findViewById(R.id.buttons_container) as ConstraintLayout
+    }*/
+
     override fun onDetach(){
         super.onDetach()
         mListener = null
     }
 
-    /*
-    fun onSwipe(viewHolder : RecyclerView.ViewHolder){
-        mItemTouchHelper.swipe(viewHolder)
-    }*/
-
     private fun doCommutesEnhance(fragmentCaller : Int){
         if (mListener != null){
-            source = 0
+            source[0] = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
 
     private fun doCommutesReturn(fragmentCaller : Int){
         if (mListener != null){
-            source = 1
+            source[0] = 1
             mListener!!.onFragmentInteraction(fragmentCaller, source)
-        }
-    }
-
-    private fun doCommutesEditExisting(){
-        if (mListener != null){
-            val text = "No function implemented"
-            val duration = Toast.LENGTH_SHORT
-
-            val toast = Toast.makeText(context, text, duration)
-            toast.show()
         }
     }
 
     private fun doCommutesAdd(fragmentCaller : Int){
         if (mListener != null){
-            source = 2
+            source[0] = 2
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
@@ -167,12 +153,14 @@ class FragmentCommutes(screen : Int) : Fragment(){
     interface OnFragmentInteractionListener{
         fun onFragmentInteraction(
             fragmentCaller : Int,
-            fragmentState : Int)
+            fragmentState : IntArray)
     }
 
-    private fun listItemClicked(pos : Int){
+    private fun doLayoutButtons(partItem : Int, action : Int){
         if(mListener != null){
-            mListener!!.onFragmentInteraction(10, 10)
+            //layoutButtons.visibility = View.GONE
+            source = intArrayOf(action, partItem)
+            mListener!!.onFragmentInteraction(fragmentID, source)
         }
     }
 }
