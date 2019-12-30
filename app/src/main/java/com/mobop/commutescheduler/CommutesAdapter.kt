@@ -3,6 +3,7 @@ package com.mobop.commutescheduler
 /* Import ******************************************************** */
 import android.app.AlertDialog
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
 import android.util.Log
@@ -14,11 +15,13 @@ import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.jetbrains.anko.find
 import org.w3c.dom.Text
 import androidx.core.view.ViewCompat.setY
 import androidx.recyclerview.widget.ItemTouchHelper
+
 /* *************************************************************** */
 
 /* CommutesAdapter *********************************************** */
@@ -29,6 +32,8 @@ class CommutesAdapter(
     commutesItemsList: ArrayList<Commute>,
     val touchListener : (Int) -> Unit) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+
+    private lateinit var view : View
 
     var commutesItemsList : ArrayList<Commute>
     private var viewRes : Int = 0
@@ -42,11 +47,11 @@ class CommutesAdapter(
         parent : ViewGroup,
         viewType : Int) :
             CommutesAdapter.ViewHolder{
-        val v = LayoutInflater.from(parent.context).inflate(
+        view = LayoutInflater.from(parent.context).inflate(
                 R.layout.element_commute_combined,
                 parent,
                 false)
-        return ViewHolder(v)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(
@@ -54,6 +59,7 @@ class CommutesAdapter(
         position : Int){
         val viewHolder = holder as ViewHolder
         viewHolder.bind(
+            view,
             this.commutesItemsList,
             position,
             touchListener)
@@ -77,11 +83,11 @@ class CommutesAdapter(
         val extendedTimeStart : TextView
         val extendedTimeEnd : TextView
         val extendedTimeDuration : TextView
-        val extendedReminderOn : Switch
+/*        val extendedReminderOn : Switch
         val extendedReminder : TextView
         val extendedAlarmOn : Switch
         val extendedAlarmTime : TextView
-        val extendedAlarm : TextView
+        val extendedAlarm : TextView*/
 
         val layoutCombined : ConstraintLayout =
             view.findViewById(R.id.element_combined) as ConstraintLayout
@@ -106,26 +112,29 @@ class CommutesAdapter(
             extendedTimeStart = view.findViewById(R.id.element_extended_start_time) as TextView
             extendedTimeEnd = view.findViewById(R.id.element_extended_end_time) as TextView
             extendedTimeDuration = view.findViewById(R.id.element_extended_duration) as TextView
-            extendedReminderOn = view.findViewById(R.id.sw_reminder) as Switch
+/*            extendedReminderOn = view.findViewById(R.id.sw_reminder) as Switch
             extendedReminder = view.findViewById(R.id.reminder_tune) as TextView
             extendedAlarmOn = view.findViewById(R.id.sw_alarm) as Switch
             extendedAlarmTime = view.findViewById(R.id.alarm_time) as TextView
-            extendedAlarm = view.findViewById(R.id.alarm_tune) as TextView
+            extendedAlarm = view.findViewById(R.id.alarm_tune) as TextView*/
 
             layoutExtended.visibility = View.GONE
             layoutButtons.visibility = View.GONE
         }
 
         fun bind(
+            view : View,
             commutesItemsList : ArrayList<Commute>,
             position : Int,
             touchListener : (Int) -> Unit){
             val itemInList = commutesItemsList[position]
 
             if (position % 2 == 0){
-                layoutCombined.setBackgroundColor(Color.parseColor("#CBE5BE"))
+                layoutCombined.setBackgroundColor(
+                    ContextCompat.getColor(view.context, R.color.colorCommutesEven))
             } else{
-                layoutCombined.setBackgroundColor(Color.parseColor("#F1EBCF"))
+                layoutCombined.setBackgroundColor(
+                    ContextCompat.getColor(view.context, R.color.colorCommutesOdd))
             }
 
             if (itemInList != null) {
@@ -154,7 +163,7 @@ class CommutesAdapter(
                 val elementTimeDuration = itemInList.duration
                 extendedTimeDuration.text = elementTimeDuration
                 val elementReminderOn = itemInList.reminder_on
-                extendedReminderOn.isChecked = elementReminderOn
+/*                extendedReminderOn.isChecked = elementReminderOn
                 val elementReminder = itemInList.reminder_tune
                 extendedReminder.text = elementReminder
                 val elementAlarmOn = itemInList.alarm_on
@@ -162,7 +171,7 @@ class CommutesAdapter(
                 val elementAlarmTime = itemInList.alarm_time
                 extendedAlarmTime.text = elementAlarmTime
                 val elementAlarm = itemInList.alarm_tune
-                extendedAlarm.text = elementAlarm
+                extendedAlarm.text = elementAlarm*/
             }
 
             /*

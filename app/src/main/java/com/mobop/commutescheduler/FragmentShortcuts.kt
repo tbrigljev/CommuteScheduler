@@ -5,13 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 
-class FragmentQuick : Fragment(){
+class FragmentShortcuts : Fragment(){
 
-    var mRecyclerView : RecyclerView? = null
-    private var mListener : FragmentCommutes.OnFragmentInteractionListener? = null
+    private var mListener : FragmentEdit.OnFragmentInteractionListener? = null
+
+    private val fragmentID = 0
+    private var source = 3
 
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
@@ -28,15 +31,23 @@ class FragmentQuick : Fragment(){
             false
         )
 
+        /*        var favoritesButton : ImageButton = findViewById(R.id.shortcut_button_favorites)
+        var quickButton : ImageButton = findViewById(R.id.shortcut_button_quick)*/
+        var addButton : ImageButton = view.findViewById(R.id.shortcut_button_add)
+
+        addButton.setOnClickListener{
+            doOpenAddNew(fragmentID)
+        }
+
         return view
     }
 
     override fun onAttach(context : Context){
         super.onAttach(context)
-        if(context is FragmentCommutes.OnFragmentInteractionListener){
+        if(context is FragmentEdit.OnFragmentInteractionListener){
             mListener = context
         } else{
-            throw RuntimeException(context!!.toString() +
+            throw RuntimeException(context.toString() +
                     " must implement OnFragmentInteractionListener")
         }
     }
@@ -46,10 +57,16 @@ class FragmentQuick : Fragment(){
         mListener = null
     }
 
-    interface OnFragmentInteractionListener {
+    private fun doOpenAddNew(fragmentCaller : Int){
+        if (mListener != null){
+            source = 3
+            mListener!!.onFragmentInteraction(fragmentCaller, source)
+        }
+    }
+
+    interface OnFragmentInteractionListener{
         fun onFragmentInteraction(
-            fragmentCaller: Int,
-            fragmentState: Int
-        )
+            fragmentCaller : Int,
+            fragmentState : Int)
     }
 }

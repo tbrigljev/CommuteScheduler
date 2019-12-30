@@ -25,6 +25,7 @@ import com.google.android.material.textfield.TextInputEditText
 /* *************************************************************** */
 
 /* Global variables ********************************************** */
+const val MAIN = 0
 const val MAP = 1
 const val COMMUTES = 2
 const val EDIT = 3
@@ -39,7 +40,7 @@ class MainActivity :
     FragmentMap.OnFragmentInteractionListener,
     FragmentCommutes.OnFragmentInteractionListener,
     FragmentEdit.OnFragmentInteractionListener,
-    FragmentQuick.OnFragmentInteractionListener,
+    FragmentShortcuts.OnFragmentInteractionListener,
     FragmentSettings.OnFragmentInteractionListener,
     AppCompatActivity(){
 
@@ -105,7 +106,6 @@ class MainActivity :
         /* *** Google API **************************************** */
         GoogleKey = getString(R.string.GoogleMapsKey)
         mGoogleAPI = GoogleAPI(this)
-
     }
 
     /* *********************************************************** */
@@ -169,6 +169,28 @@ class MainActivity :
         setSupportActionBar(toolbar)
 
         when (fragmentCaller){
+            MAIN -> {
+                when(fragmentState){
+                    3 -> {
+                        toolbar.title = getString(R.string.name_new)
+                        previousTitle = getString(R.string.name_main)
+                        /* HIDE SETTINGS IN EDITION FRAGMENT
+                           NOT WORKING
+                         */
+                        settings_item.isVisible = false
+                        settings_item.isEnabled = false
+
+                        mFragmentManager.beginTransaction()
+                            .add(
+                                R.id.main_container_fragments,
+                                editFragment,
+                                "edit"
+                            )
+                            .addToBackStack("edit")
+                            .commit()
+                    }
+                }
+            }
             MAP -> {
                 var dividerTop : View = findViewById(R.id.main_divider_top)
                 var containerCommutes : FrameLayout = findViewById(R.id.main_container_commutes)
@@ -278,11 +300,11 @@ class MainActivity :
                         settings_item.isVisible = true
                         settings_item.isEnabled = true
                     }
-                    getString(R.string.name_commutes) -> {
+                    else -> {
                         toolbar.visibility = View.VISIBLE
 
-                        toolbar.title = getString(R.string.name_commutes)
-                        previousTitle = getString(R.string.name_new)
+                        toolbar.title = previousTitle
+                        previousTitle = getString(R.string.name_main)
                         settings_item.isVisible = true
                         settings_item.isEnabled = true
                     }

@@ -8,7 +8,7 @@
     android:orientation="horizontal">
 
     <ImageButton
-        android:id="@+id/quick_button_favorites"
+        android:id="@+id/shortcut_button_favorites"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
@@ -19,13 +19,13 @@
         android:background="@color/colorPrimaryDark"
         android:contentDescription="@string/button_favorites"
         app:layout_constraintBottom_toBottomOf="@id/view_shortcuts"
-        app:layout_constraintEnd_toStartOf="@id/quick_button_quick"
+        app:layout_constraintEnd_toStartOf="@id/shortcut_button_quick"
         app:layout_constraintStart_toStartOf="@id/view_shortcuts"
         app:layout_constraintTop_toTopOf="@+id/view_shortcuts"
         app:srcCompat="@drawable/shortcut_favorites" />
 
     <ImageButton
-        android:id="@+id/quick_button_quick"
+        android:id="@+id/shortcut_button_quick"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
@@ -36,13 +36,13 @@
         android:background="@color/colorPrimaryDark"
         android:contentDescription="@string/button_quick"
         app:layout_constraintBottom_toBottomOf="@id/view_shortcuts"
-        app:layout_constraintEnd_toStartOf="@id/quick_button_add"
-        app:layout_constraintStart_toEndOf="@id/quick_button_favorites"
+        app:layout_constraintEnd_toStartOf="@id/shortcut_button_add"
+        app:layout_constraintStart_toEndOf="@id/shortcut_button_favorites"
         app:layout_constraintTop_toTopOf="@+id/view_shortcuts"
         app:srcCompat="@drawable/shortcut_quick" />
 
     <ImageButton
-        android:id="@+id/quick_button_add"
+        android:id="@+id/shortcut_button_add"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
@@ -54,7 +54,7 @@
         android:contentDescription="@string/button_add"
         app:layout_constraintBottom_toBottomOf="@id/view_shortcuts"
         app:layout_constraintEnd_toEndOf="@id/view_shortcuts"
-        app:layout_constraintStart_toEndOf="@id/quick_button_quick"
+        app:layout_constraintStart_toEndOf="@id/shortcut_button_quick"
         app:layout_constraintTop_toTopOf="@+id/view_shortcuts"
         app:srcCompat="@drawable/shortcut_add" />
 </androidx.constraintlayout.widget.ConstraintLayout>

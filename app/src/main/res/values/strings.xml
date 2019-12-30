@@ -47,7 +47,8 @@
     <string name="field_arrival_time">ARRIVE AT</string>
     <string name="field_distance">LENGTH</string>
     <string name="field_time">HH:MM</string>
-    <string name="field_choose_time">Choose your time of arrival</string>
+    <string name="field_choose_date">Choose the date</string>
+    <string name="field_choose_time">Choose the time</string>
     <string name="field_reminder">REMINDER</string>
     <string name="field_alarm">ALARM</string>
     <string name="field_alarm_time">XX min</string>
