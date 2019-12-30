@@ -141,9 +141,7 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
 
     private fun doEditCancel(fragmentCaller : Int){
         if (mListener != null){
-
             hideKeyboard()
-
             source[0] = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
@@ -151,11 +149,47 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
 
     private fun doEditValidate(fragmentCaller : Int){
         if (mListener != null){
-            val text = "No function implemented"
+
+            var newCommute : Commute = Commute()
+            var paramComplete = true
+
+            newCommute.name = commuteName.text.toString()
+            newCommute.start = commuteOrigin.text.toString()
+            newCommute.arrival = commuteDestination.text.toString()
+
+            lateinit var text : String
+
+            if(newCommute.name == ""){
+                text = "Name of commute is missing"
+                paramComplete = false
+            }
+            else if(newCommute.start == ""){
+                text = "Starting location is missing"
+                paramComplete = false
+            }
+            else if(newCommute.arrival == "") {
+                text = "Destination is missing"
+                paramComplete = false
+            }
+
+            if(paramComplete){
+                if(new){
+                    text = "Commute added"
+                    commutesList!!.commutesItemsList.add(newCommute)
+                }
+                else{
+                    text = "Commute modified"
+                    commutesList!!.commutesItemsList[pos] = newCommute
+                }
+            }
+
             val duration = Toast.LENGTH_SHORT
 
             val toast = Toast.makeText(context, text, duration)
             toast.show()
+
+            source[0] = 0
+            mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
 

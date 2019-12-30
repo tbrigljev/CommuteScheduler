@@ -324,7 +324,8 @@ class MainActivity :
                             .commit()
                     }
                     4 -> {
-                        val text = "No delete function implemented"
+                        commutesList!!.commutesItemsList.removeAt(fragmentState[1])
+                        val text = "Commute deleted"
                         val duration = Toast.LENGTH_SHORT
 
                         val toast = Toast.makeText(this, text, duration)

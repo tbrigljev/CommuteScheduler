@@ -118,7 +118,6 @@ class CommutesAdapter(viewRes : Int, commutesItemsList: ArrayList<Commute>,
             editButton.setOnClickListener{ touchListener(pos, action) }
         }
         fun deleteCommute(pos : Int, action : Int){
-
             deleteButton.setOnClickListener{ touchListener(pos, action) }
         }
 
@@ -198,23 +197,6 @@ class CommutesAdapter(viewRes : Int, commutesItemsList: ArrayList<Commute>,
                 extendedAlarm.text = elementAlarm*/
             }
 
-            /*
-            itemView.setOnClickListener{
-                clickListener(position)
-                when(layoutExtended.visibility) {
-                    View.GONE -> {
-                        layoutExtended.visibility = View.VISIBLE
-                        layoutSimple.visibility = View.GONE
-                        Log.i("Expand", "Item is expanded")
-                    }
-                    View.VISIBLE -> {
-                        layoutExtended.visibility = View.GONE
-                        layoutSimple.visibility = View.VISIBLE
-                        Log.i("Collapse", "Item is collapsed")
-                    }
-                }
-            }*/
-
             itemView.setOnTouchListener(object : OnSwipeTouchListener() {
                 override fun onClick() {
                     //touchListener(position)
@@ -240,54 +222,6 @@ class CommutesAdapter(viewRes : Int, commutesItemsList: ArrayList<Commute>,
                     layoutButtons.visibility = View.VISIBLE
                 }
             })
-
-            /*
-            val swipeCallback = object :
-                ItemTouchHelper.SimpleCallback(
-                    0,
-                    ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
-
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    return false
-                    //To change body of created functions use File | Settings | File Templates.
-                }
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    //To change body of created functions use File | Settings | File Templates.
-                    Log.i("Swipe detected", "A SWIPE WAS SEEN")
-                }
-
-                override fun onChildDraw(
-                    c: Canvas,
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    dX: Float,
-                    dY: Float,
-                    actionState: Int,
-                    isCurrentlyActive: Boolean
-                ) {
-                    val itemView = viewHolder.itemView
-                    layoutButtons.y = itemView.top.toFloat()
-                    if (isCurrentlyActive) {
-                        layoutButtons.visibility = View.VISIBLE
-                    } else {
-                        layoutButtons.visibility = View.GONE
-                    }
-                    super.onChildDraw(
-                        c,
-                        recyclerView,
-                        viewHolder,
-                        dX,
-                        dY,
-                        actionState,
-                        isCurrentlyActive
-                    )
-                }
-            }*/
         }
     }
 }

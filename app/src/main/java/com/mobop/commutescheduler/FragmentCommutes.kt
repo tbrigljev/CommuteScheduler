@@ -96,7 +96,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
 
         var mAdapter =
             CommutesAdapter(
-                R.layout.element_commute_simple,
+                R.layout.element_commute_combined,
                 commutesList!!.commutesItemsList,
                 { partItem : Int, action : Int -> doLayoutButtons(partItem, action) }
             )
