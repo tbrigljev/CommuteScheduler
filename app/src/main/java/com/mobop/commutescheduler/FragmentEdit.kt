@@ -141,6 +141,9 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
 
     private fun doEditCancel(fragmentCaller : Int){
         if (mListener != null){
+            commuteName.setText("")
+            commuteOrigin.setText("")
+            commuteDestination.setText("")
             hideKeyboard()
             source[0] = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
@@ -190,6 +193,10 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
 
             source[0] = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
+
+            commuteName.setText("")
+            commuteOrigin.setText("")
+            commuteDestination.setText("")
         }
     }
 
