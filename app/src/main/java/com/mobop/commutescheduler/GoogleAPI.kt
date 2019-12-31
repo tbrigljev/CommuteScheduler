@@ -28,7 +28,7 @@ class GoogleAPI(activity:MainActivity){
     var responseReceived = 0
     var responseReceivedMAX = 5
     //var GoogleKey = R.string.GoogleMapsKey
-    var mFragmentMap : FragmentMap? = null
+    var mFragmentEdit : FragmentEdit? = null
     val mActivity= activity
     var mContext : Context? = null
     var mService : NotificationService? = null
@@ -37,8 +37,8 @@ class GoogleAPI(activity:MainActivity){
     val errorLimitUp = 60
     val errorLimitDown = -300
 
-    fun setActivityContext(activity : FragmentMap, context: Context){
-        mFragmentMap = activity
+    fun setActivityContext(activity : FragmentEdit, context: Context){
+        mFragmentEdit = activity
         mContext = context
         setupPlacesAutocomplete()
     }
@@ -59,7 +59,7 @@ class GoogleAPI(activity:MainActivity){
         Places.initialize(mContext!!, MainActivity.GoogleKey!!)
         placesClient = Places.createClient(mContext!!)
 
-        val autocompleteFragment_start = mFragmentMap!!
+        val autocompleteFragment_start = mFragmentEdit!!
             .childFragmentManager
             .findFragmentById(R.id.fragment_start)
                 as AutocompleteSupportFragment
@@ -71,14 +71,14 @@ class GoogleAPI(activity:MainActivity){
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
-                        FragmentMap.start = p0.address!!
+                        FragmentEdit.start = p0.address!!
                         // getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}
                 }
             )
 
-        val autocompleteFragment_arrival = mFragmentMap!!
+        val autocompleteFragment_arrival = mFragmentEdit!!
             .childFragmentManager
             .findFragmentById(R.id.fragment_arrival)
                 as AutocompleteSupportFragment
@@ -90,7 +90,7 @@ class GoogleAPI(activity:MainActivity){
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
-                        FragmentMap.arrival = p0.address!!
+                        FragmentEdit.arrival = p0.address!!
                         // getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}
@@ -101,11 +101,13 @@ class GoogleAPI(activity:MainActivity){
     /* Google Routes ********************************************* */
     fun requestRoute(
         sender : String,
+        name : String,
         start : String,
         arrival : String,
         arrival_time : String){
 
         mSender = sender
+        mCommute.name = name
         mCommute.start = start
         mCommute.arrival = arrival
         mCommute.arrival_time = arrival_time

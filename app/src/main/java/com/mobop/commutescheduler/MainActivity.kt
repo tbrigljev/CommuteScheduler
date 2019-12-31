@@ -126,6 +126,7 @@ class MainActivity :
 //        mTextDurationTraffic!!.text = mCommute.duration_traffic
 //        mTextDeparture!!.text = mCommute.start_time
 //        // result!!.text = mCommute.raw_data
+        commutesList!!.commutesItemsList.add(mCommute)
 
         var builder : LatLngBounds.Builder = LatLngBounds.Builder()
         builder.include(mCommute.start_address_LatLng)

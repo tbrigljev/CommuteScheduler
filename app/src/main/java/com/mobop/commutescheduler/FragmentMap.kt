@@ -29,8 +29,7 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
 
     companion object {
         lateinit var mMap: GoogleMap
-        var start: String = "Fribourg"
-        var arrival: String = "Granges-Paccot"
+
     }
     private var mListener : OnFragmentInteractionListener? = null
 
@@ -63,7 +62,7 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
             false
         )
 
-        MainActivity.mGoogleAPI!!.setActivityContext(this, getActivity()!!.getApplicationContext())
+
 
         /* Set Fragment for Google Map *************************** */
         val googleMapFragment = childFragmentManager
@@ -103,12 +102,13 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
             doMapOverlay(layoutOverlay)
         }
         goMapButton.setOnClickListener{view ->
-            var arrival_time = arriveDateMapInput!!.text
+           /* var arrival_time = arriveDateMapInput!!.text
             MainActivity.mGoogleAPI!!.requestRoute(
                 "Activity",
+                "",
                 start,
                 arrival,
-                arrival_time.toString())
+                arrival_time.toString())*/
         }
         viewTrafficMapCheck.setOnCheckedChangeListener{
                 buttonView, isChecked ->

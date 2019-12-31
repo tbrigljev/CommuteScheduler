@@ -116,7 +116,7 @@ class Commutes private constructor(context : Context){
 
 data class Commute(
 
-    var name : String? = "",
+    var name : String = "",
 
     var start : String = "",
     var start_address : String? = null,

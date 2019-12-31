@@ -33,6 +33,10 @@ import java.util.*
 
 class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(){
 
+    companion object {
+        var start: String = "Fribourg"
+        var arrival: String = "Granges-Paccot"
+    }
     private var mListener : OnFragmentInteractionListener? = null
 
     private val fragmentID = 3
@@ -64,6 +68,7 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
             container,
             false
         )
+        MainActivity.mGoogleAPI!!.setActivityContext(this, getActivity()!!.getApplicationContext())
 
         cancelEditButton =
             view.findViewById(R.id.edit_button_cancel) as ImageButton
@@ -71,9 +76,9 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
             view.findViewById(R.id.edit_button_validate) as ImageButton
 
         commuteName = view.findViewById(R.id.edit_title)
-        commuteOrigin = view.findViewById(R.id.edit_start)
+        //commuteOrigin = view.findViewById(R.id.edit_start)
         //commuteOriginAddress = .findFragmentById(R.id.fragment_start)
-        commuteDestination = view.findViewById(R.id.edit_end)
+        //commuteDestination = view.findViewById(R.id.edit_end)
         //commuteDestinationAddress = .findFragmentById(R.id.fragment_arrival)
 
         chooseDate =
@@ -96,7 +101,7 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                     cal.set(Calendar.YEAR, year)
                     cal.set(Calendar.MONTH, month)
                     cal.set(Calendar.DAY_OF_MONTH, day)
-                    chooseDate.text = SimpleDateFormat("DD.MM.YYYY").format(cal.time)
+                    chooseDate.text = SimpleDateFormat("YYYY-MM-dd").format(cal.time)
                 }
             DatePickerDialog(context, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         }
@@ -112,13 +117,13 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
 
         if(new){
             commuteName.setText("")
-            commuteOrigin.setText("")
-            commuteDestination.setText("")
+            //commuteOrigin.setText("")
+            //commuteDestination.setText("")
         }
         else{
             commuteName.setText(commutesList!!.commutesItemsList[pos].name)
-            commuteOrigin.setText(commutesList!!.commutesItemsList[pos].start)
-            commuteDestination.setText(commutesList!!.commutesItemsList[pos].arrival)
+            //commuteOrigin.setText(commutesList!!.commutesItemsList[pos].start)
+            //commuteDestination.setText(commutesList!!.commutesItemsList[pos].arrival)
         }
 
         return view
@@ -155,31 +160,35 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
         if (mListener != null){
 
             var newCommute : Commute = Commute()
-            var paramComplete = true
+            //var paramComplete = true
 
             newCommute.name = commuteName.text.toString()
-            newCommute.start = commuteOrigin.text.toString()
-            newCommute.arrival = commuteDestination.text.toString()
-
+            newCommute.start = start
+            newCommute.arrival = arrival
+            newCommute.arrival_time = chooseDate.text.toString() + " " +
+                        chooseTime.text.toString() + ":00"
             lateinit var text : String
 
-            if(newCommute.name == ""){
+            if(newCommute.name == "")
                 text = "Name of commute is missing"
-                paramComplete = false
-            }
-            else if(newCommute.start == ""){
+            else if(newCommute.start == "")
                 text = "Starting location is missing"
-                paramComplete = false
-            }
-            else if(newCommute.arrival == "") {
+            else if(newCommute.arrival == "")
                 text = "Destination is missing"
-                paramComplete = false
-            }
-
-            if(paramComplete){
+            else {  //All minimum values introduced
                 if(new){
                     text = "Commute added"
-                    commutesList!!.commutesItemsList.add(newCommute)
+                    //var arrival_time = "2019-12-31 23:00:00"
+                    var arr = newCommute.arrival_time
+                    MainActivity.mGoogleAPI!!.requestRoute(
+                        "Activity",
+                        newCommute.name,
+                        start,
+                        arrival,
+                        newCommute.arrival_time)
+
+
+                    //commutesList!!.commutesItemsList.add(newCommute)
                 }
                 else{
                     text = "Commute modified"
@@ -200,8 +209,8 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
             mListener!!.onFragmentInteraction(fragmentCaller, source)
 
             commuteName.setText("")
-            commuteOrigin.setText("")
-            commuteDestination.setText("")
+            //commuteOrigin.setText("")
+            //commuteDestination.setText("")
         }
     }
 

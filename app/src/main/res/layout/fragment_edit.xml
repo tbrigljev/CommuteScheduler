@@ -144,51 +144,38 @@
         app:layout_constraintStart_toStartOf="@id/edit_title"
         app:layout_constraintTop_toBottomOf="@id/edit_container_days">
 
-        <EditText
-            android:id="@+id/edit_start"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:ellipsize="end"
-            android:inputType="text"
-            android:maxLines="1"
-            android:hint="@string/field_departure"
-            android:textSize="20sp" />
+
 
         <fragment
             android:id="@+id/fragment_start"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_height="40dp"
             android:hint="@string/field_departure"
-            app:layout_constraintStart_toStartOf="@+id/fragment_map_container"
-            app:layout_constraintTop_toTopOf="@+id/fragment_map_container" />
-
-        <EditText
-            android:id="@+id/edit_end"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:autofillHints=""
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:hint="@string/field_arrival"
-            android:textSize="20sp" />
+            app:layout_constraintEnd_toEndOf="@+id/view_traffic"
+            app:layout_constraintStart_toStartOf="@+id/map_overlay_optional"
+            app:layout_constraintTop_toTopOf="@+id/map_overlay_optional"
+            android:layout_gravity="center_vertical|left" />
 
         <fragment
             android:id="@+id/fragment_arrival"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_height="40dp"
             android:hint="@string/field_arrival"
-            app:layout_constraintStart_toStartOf="@+id/fragment_start"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_start" />
+            app:layout_constraintEnd_toEndOf="@+id/view_traffic"
+            app:layout_constraintStart_toStartOf="@+id/map_overlay_optional"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_start"
+            android:layout_gravity="center_vertical|left" />
+
+
+
+
+
+
+
+
+
 
     </LinearLayout>
 

@@ -126,27 +126,7 @@
             app:layout_constraintStart_toStartOf="@+id/fragment_map_container"
             app:layout_constraintTop_toBottomOf="@+id/fragment_map_text">
 
-            <fragment
-                android:id="@+id/fragment_start"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:hint="@string/field_departure"
-                app:layout_constraintEnd_toEndOf="@+id/view_traffic"
-                app:layout_constraintStart_toStartOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toTopOf="@+id/map_overlay_optional"
-                android:layout_gravity="center_vertical|left" />
 
-            <fragment
-                android:id="@+id/fragment_arrival"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:hint="@string/field_arrival"
-                app:layout_constraintEnd_toEndOf="@+id/view_traffic"
-                app:layout_constraintStart_toStartOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_start"
-                android:layout_gravity="center_vertical|left" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_date_input"
