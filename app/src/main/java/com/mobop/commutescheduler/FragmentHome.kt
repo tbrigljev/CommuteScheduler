@@ -15,9 +15,12 @@ import androidx.fragment.app.Fragment
 /* quick-route on one screen ************************************* */
 class FragmentHome : Fragment(){
 
-    var commutesFragment = FragmentCommutes(1)
-    var mapFragment = FragmentMap(1)
-    var quickFragment = FragmentShortcuts()
+    companion object {
+        var commutesFragment = FragmentCommutes(1)
+        var mapFragment = FragmentMap(1)
+        var quickFragment = FragmentShortcuts()
+    }
+
 
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
@@ -40,7 +43,7 @@ class FragmentHome : Fragment(){
             .commit()
 
         mFragmentManager.beginTransaction()
-            .replace(R.id.main_container_commutes, commutesFragment)
+            .replace(R.id.main_container_commutes, commutesFragment,"list")
             .commit()
 
         mFragmentManager.beginTransaction()

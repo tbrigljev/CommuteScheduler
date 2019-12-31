@@ -1,42 +1,34 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
-import android.app.AlertDialog
-import android.content.Context
-import android.content.res.Resources
-import android.graphics.Canvas
-import android.graphics.Color
-import android.media.Image
-import android.text.TextUtils.indexOf
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import org.jetbrains.anko.find
-import org.w3c.dom.Text
-import androidx.core.view.ViewCompat.setY
-import androidx.recyclerview.widget.ItemTouchHelper
 
 /* *************************************************************** */
 
 /* CommutesAdapter *********************************************** */
 /* Adapter for the recycler view managing the list of commutes *** */
 /* Contained in FragmentCommutes ********************************* */
-class CommutesAdapter(viewRes : Int, commutesItemsList: ArrayList<Commute>,
+class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsList: ArrayList<Commute>,
                       private val touchListener : (Int, Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                       //private val touchListener : (Commute, Int) -> Unit) :
     private lateinit var view : View
-
+    private var previousPosition: Int = 0
     var commutesItemsList : ArrayList<Commute>
     private var viewRes : Int = 0
+    private var mRecyclerView: RecyclerView? = null
 
     init{
         this.commutesItemsList = commutesItemsList
         this.viewRes = viewRes
+        this.mRecyclerView = mRecyclerView
     }
 
     override fun onCreateViewHolder(parent : ViewGroup, viewType : Int) : ViewHolder{
@@ -200,6 +192,22 @@ class CommutesAdapter(viewRes : Int, commutesItemsList: ArrayList<Commute>,
             itemView.setOnTouchListener(object : OnSwipeTouchListener() {
                 override fun onClick() {
                     //touchListener(position)
+                    if (previousPosition != getAdapterPosition()) {
+                        var view_previous: View =
+                            mRecyclerView!!.findViewHolderForAdapterPosition(previousPosition)!!.itemView
+                        val layoutButtons_previous: ConstraintLayout =
+                            view_previous!!.findViewById(R.id.buttons_container) as ConstraintLayout
+                        val layoutExtended_previous: LinearLayout =
+                            view_previous!!.findViewById(R.id.element_extended_container) as LinearLayout
+                        val layoutSimple_previous: LinearLayout =
+                            view_previous!!.findViewById(R.id.element_simple_container) as LinearLayout
+                        layoutButtons_previous.visibility = View.GONE
+                        layoutExtended_previous.visibility = View.GONE
+                        layoutSimple_previous.visibility = View.VISIBLE
+
+                        previousPosition = getAdapterPosition()
+                    }
+
                     if(layoutButtons.visibility == View.VISIBLE) {
                         layoutButtons.visibility = View.GONE
                     } else {
@@ -216,12 +224,63 @@ class CommutesAdapter(viewRes : Int, commutesItemsList: ArrayList<Commute>,
                     }
                 }
                 override fun onSwipeRight() {
+                    if (previousPosition != getAdapterPosition()) {
+                        var view_previous: View =
+                            mRecyclerView!!.findViewHolderForAdapterPosition(previousPosition)!!.itemView
+                        val layoutButtons_previous: ConstraintLayout =
+                            view_previous!!.findViewById(R.id.buttons_container) as ConstraintLayout
+                        val layoutExtended_previous: LinearLayout =
+                            view_previous!!.findViewById(R.id.element_extended_container) as LinearLayout
+                        val layoutSimple_previous: LinearLayout =
+                            view_previous!!.findViewById(R.id.element_simple_container) as LinearLayout
+                        layoutButtons_previous.visibility = View.GONE
+                        layoutExtended_previous.visibility = View.GONE
+                        layoutSimple_previous.visibility = View.VISIBLE
+
+                        previousPosition = getAdapterPosition()
+                    }
+
                     layoutButtons.visibility = View.VISIBLE
                 }
                 override fun onSwipeLeft() {
+                    if (previousPosition != getAdapterPosition()) {
+                        var view_previous: View =
+                            mRecyclerView!!.findViewHolderForAdapterPosition(previousPosition)!!.itemView
+                        val layoutButtons_previous: ConstraintLayout =
+                            view_previous!!.findViewById(R.id.buttons_container) as ConstraintLayout
+                        val layoutExtended_previous: LinearLayout =
+                            view_previous!!.findViewById(R.id.element_extended_container) as LinearLayout
+                        val layoutSimple_previous: LinearLayout =
+                            view_previous!!.findViewById(R.id.element_simple_container) as LinearLayout
+                        layoutButtons_previous.visibility = View.GONE
+                        layoutExtended_previous.visibility = View.GONE
+                        layoutSimple_previous.visibility = View.VISIBLE
+
+                        previousPosition = getAdapterPosition()
+                    }
+
                     layoutButtons.visibility = View.VISIBLE
                 }
             })
         }
+    }
+
+    fun removeAt(position: Int) {
+        commutesItemsList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+   fun viewLayoutButtons(visibility:Boolean, pos:Int){
+       var view_previous: View =
+           mRecyclerView!!.findViewHolderForAdapterPosition(pos)!!.itemView
+       val layoutButtons_previous: ConstraintLayout =
+           view_previous!!.findViewById(R.id.buttons_container) as ConstraintLayout
+       val layoutExtended_previous: LinearLayout =
+           view_previous!!.findViewById(R.id.element_extended_container) as LinearLayout
+       val layoutSimple_previous: LinearLayout =
+           view_previous!!.findViewById(R.id.element_simple_container) as LinearLayout
+       layoutButtons_previous.visibility = View.GONE
+       layoutExtended_previous.visibility = View.GONE
+       layoutSimple_previous.visibility = View.VISIBLE
     }
 }

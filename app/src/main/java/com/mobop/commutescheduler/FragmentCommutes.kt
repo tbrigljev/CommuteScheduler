@@ -24,8 +24,12 @@ import kotlinx.android.synthetic.main.fragment_edit.*
 /* Contains the list of commutes and the related buttons ********* */
 /* Contained in FragmentHome and in its standalone fragment ****** */
 class FragmentCommutes(screen : Int) : Fragment(){
+    companion object{
+        var mRecyclerView : RecyclerView? = null
 
-    var mRecyclerView : RecyclerView? = null
+    }
+
+    var mAdapter : CommutesAdapter?= null
     private var mListener : OnFragmentInteractionListener? = null
 
     /*private var mItemTouchHelper : ItemTouchHelper? = null*/
@@ -94,14 +98,15 @@ class FragmentCommutes(screen : Int) : Fragment(){
         var mLayoutManager = LinearLayoutManager(context)
         mRecyclerView!!.layoutManager = mLayoutManager
 
-        var mAdapter =
-            CommutesAdapter(
+        mAdapter =
+            CommutesAdapter(mRecyclerView!!,
                 R.layout.element_commute_combined,
                 commutesList!!.commutesItemsList,
                 { partItem : Int, action : Int -> doLayoutButtons(partItem, action) }
             )
 
         mRecyclerView!!.adapter = mAdapter
+
 
         return view
     }
@@ -115,6 +120,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
                     " must implement OnFragmentInteractionListener")
         }
     }
+
 
     /* TO REMOVE THE BUTTONS WHEN LEAVING NEW/EDIT FRAGMENT
     NOT WORKING
@@ -150,17 +156,35 @@ class FragmentCommutes(screen : Int) : Fragment(){
         }
     }
 
+    private fun doLayoutButtons(partItem : Int, action : Int){
+        when(action){
+            3 -> {
+                 if(mListener != null){
+                     //layoutButtons.visibility = View.GONE
+                     source = intArrayOf(action, partItem)
+                     mListener!!.onFragmentInteraction(fragmentID, source)
+                 }
+            }
+            4 -> {
+                mAdapter!!.removeAt(partItem)
+                mRecyclerView!!.adapter!!.notifyDataSetChanged()
+                val text = "Commute deleted"
+                val duration = Toast.LENGTH_SHORT
+
+                val toast = Toast.makeText(getActivity(), text, duration)
+                toast.show()
+            }
+
+        }
+
+
+
+    }
     interface OnFragmentInteractionListener{
         fun onFragmentInteraction(
             fragmentCaller : Int,
             fragmentState : IntArray)
     }
 
-    private fun doLayoutButtons(partItem : Int, action : Int){
-        if(mListener != null){
-            //layoutButtons.visibility = View.GONE
-            source = intArrayOf(action, partItem)
-            mListener!!.onFragmentInteraction(fragmentID, source)
-        }
-    }
+
 }

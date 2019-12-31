@@ -8,19 +8,25 @@ package com.mobop.commutescheduler
 /* *************************************************************** */
 
 /* Import ******************************************************** */
-import android.os.Bundle
+
 import android.graphics.Color
+import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.gms.maps.CameraUpdateFactory
-
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.textfield.TextInputEditText
+import com.mobop.commutescheduler.FragmentCommutes.Companion.mRecyclerView
+
 
 /* *************************************************************** */
 
@@ -80,7 +86,7 @@ class MainActivity :
         commutesList = CommutesItemsList()
 
         mFragmentManager.beginTransaction()
-            .add(R.id.main_container_fragments, homeFragment)
+            .add(R.id.main_container_fragments, homeFragment,"home")
             .commit()
 
         val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
@@ -283,6 +289,8 @@ class MainActivity :
                     1 -> {
                         toolbar.title = getString(R.string.name_main)
                         previousTitle = getString(R.string.name_main)
+
+
                         supportFragmentManager.popBackStack()
                     }
                     2 -> {
@@ -323,14 +331,14 @@ class MainActivity :
                             .addToBackStack("edit")
                             .commit()
                     }
-                    4 -> {
+                    /*4 -> {
                         commutesList!!.commutesItemsList.removeAt(fragmentState[1])
                         val text = "Commute deleted"
                         val duration = Toast.LENGTH_SHORT
 
                         val toast = Toast.makeText(this, text, duration)
                         toast.show()
-                    }
+                    }*/
                 }
             }
             EDIT -> {
@@ -353,6 +361,9 @@ class MainActivity :
                     }
                 }
                 supportFragmentManager.popBackStack()
+               /* var fragment: FragmentHome? = supportFragmentManager.findFragmentByTag("home") as FragmentHome
+                var fragment_commutes: FragmentCommutes? = fragment!!.childFragmentManager .findFragmentByTag("list") as FragmentCommutes
+                fragment_commutes!!.mAdapter!!.viewLayoutButtons(false,fragmentState[1])*/
             }
         }
     }

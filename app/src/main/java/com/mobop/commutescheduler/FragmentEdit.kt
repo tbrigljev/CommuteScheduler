@@ -17,6 +17,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.DialogTitle
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import org.jetbrains.anko.find
@@ -183,6 +184,9 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                 else{
                     text = "Commute modified"
                     commutesList!!.commutesItemsList[pos] = newCommute
+                    FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
+
+
                 }
             }
 
@@ -192,6 +196,7 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
             toast.show()
 
             source[0] = 0
+            source[1] = pos
             mListener!!.onFragmentInteraction(fragmentCaller, source)
 
             commuteName.setText("")
