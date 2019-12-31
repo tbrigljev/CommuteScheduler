@@ -175,6 +175,12 @@ class MainActivity :
         val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(toolbar)
 
+        var containerMap : FrameLayout = findViewById(R.id.main_container_map)
+        var dividerTop : View = findViewById(R.id.main_divider_top)
+        var containerCommutes : FrameLayout = findViewById(R.id.main_container_commutes)
+        var dividerBottom : View = findViewById(R.id.main_divider_bottom)
+        var containerQuick : FrameLayout = findViewById(R.id.main_container_shortcuts)
+
         when (fragmentCaller){
             MAIN -> {
                 when(fragmentState[0]){
@@ -213,11 +219,6 @@ class MainActivity :
                 }
             }
             MAP -> {
-                var dividerTop : View = findViewById(R.id.main_divider_top)
-                var containerCommutes : FrameLayout = findViewById(R.id.main_container_commutes)
-                var dividerBottom : View = findViewById(R.id.main_divider_bottom)
-                var containerQuick : FrameLayout = findViewById(R.id.main_container_shortcuts)
-
                 var enhanceMapButton : ImageButton = findViewById(R.id.map_button_enhance)
                 var addMapButton : ImageButton = findViewById(R.id.map_button_add)
                 var returnMapButton : ImageButton =  findViewById(R.id.map_button_return)
@@ -272,11 +273,21 @@ class MainActivity :
                 }
             }
             COMMUTES -> {
+                var enhanceCommutesButton : ImageButton = findViewById(R.id.commutes_button_enhance)
+                var addCommutesButton : ImageButton = findViewById(R.id.commutes_button_add)
+                var returnCommutesButton : ImageButton =  findViewById(R.id.commutes_button_return)
+
                 when (fragmentState[0]){
                     0 -> {
                         toolbar.title = getString(R.string.name_commutes)
                         previousTitle = getString(R.string.name_main)
 
+                        dividerTop.visibility = View.GONE
+                        containerMap.visibility = View.GONE
+                        dividerBottom.visibility = View.GONE
+                        containerQuick.visibility = View.GONE
+
+                        /*
                         mFragmentManager.beginTransaction()
                             .add(
                                 R.id.main_container_fragments,
@@ -284,14 +295,23 @@ class MainActivity :
                                 "commutes"
                             )
                             .addToBackStack("commutes")
-                            .commit()
+                            .commit()*/
                     }
                     1 -> {
                         toolbar.title = getString(R.string.name_main)
                         previousTitle = getString(R.string.name_main)
 
+                        enhanceCommutesButton.visibility = View.VISIBLE
+                        addCommutesButton.visibility = View.GONE
+                        returnCommutesButton.visibility = View.GONE
 
-                        supportFragmentManager.popBackStack()
+                        dividerTop.visibility = View.VISIBLE
+                        containerMap.visibility = View.VISIBLE
+                        dividerBottom.visibility = View.VISIBLE
+                        containerQuick.visibility = View.VISIBLE
+
+                        /*
+                        supportFragmentManager.popBackStack()*/
                     }
                     2 -> {
                         toolbar.title = getString(R.string.name_new )
@@ -375,6 +395,9 @@ class MainActivity :
         when(toolbar.title){
             getString(R.string.name_map) -> {
                 onFragmentInteraction(1,intArrayOf(1,0))
+            }
+            getString(R.string.name_commutes) -> {
+                onFragmentInteraction(2, intArrayOf(1,0))
             }
             getString(R.string.name_new) -> {
                 onFragmentInteraction(3,intArrayOf(0,0))

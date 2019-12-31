@@ -138,6 +138,11 @@ class FragmentCommutes(screen : Int) : Fragment(){
     private fun doCommutesEnhance(fragmentCaller : Int){
         if (mListener != null){
             source[0] = 0
+
+            returnCommutesButton.visibility = View.VISIBLE
+            addCommutesButton.visibility = View.VISIBLE
+            enhanceCommutesButton.visibility = View.GONE
+
             mListener!!.onFragmentInteraction(fragmentCaller, source)
         }
     }
