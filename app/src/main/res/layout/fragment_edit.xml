@@ -145,28 +145,27 @@
         app:layout_constraintTop_toBottomOf="@id/edit_container_days">
 
 
-
         <fragment
             android:id="@+id/fragment_start"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_gravity="center_vertical|left"
             android:hint="@string/field_departure"
             app:layout_constraintEnd_toEndOf="@+id/view_traffic"
             app:layout_constraintStart_toStartOf="@+id/map_overlay_optional"
-            app:layout_constraintTop_toTopOf="@+id/map_overlay_optional"
-            android:layout_gravity="center_vertical|left" />
+            app:layout_constraintTop_toTopOf="@+id/map_overlay_optional" />
 
         <fragment
             android:id="@+id/fragment_arrival"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_gravity="center_vertical|left"
             android:hint="@string/field_arrival"
             app:layout_constraintEnd_toEndOf="@+id/view_traffic"
             app:layout_constraintStart_toStartOf="@+id/map_overlay_optional"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_start"
-            android:layout_gravity="center_vertical|left" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_start" />
 
 
 

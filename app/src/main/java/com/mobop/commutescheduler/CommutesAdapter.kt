@@ -1,6 +1,7 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
+import android.app.PendingIntent.getActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -215,6 +216,20 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
                             View.GONE -> {
                                 layoutExtended.visibility = View.VISIBLE
                                 layoutSimple.visibility = View.GONE
+                                var pos = getAdapterPosition()
+                                var commute:Commute= commutesList!!.commutesItemsList[pos]
+
+                                MainActivity.mGoogleAPI!!.requestRoute(
+                                    "Activity",
+                                    commute.name,
+                                    commute.start_address!!,
+                                    commute.arrival_address!!,
+                                    commute.arrival_time,
+                                    false)
+
+
+                                //commutesList!!.commutesItemsList.add(newCommute)
+
                             }
                             View.VISIBLE -> {
                                 layoutExtended.visibility = View.GONE
@@ -272,17 +287,31 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
         notifyItemRemoved(position)
     }
 
-   fun viewLayoutButtons(visibility:Boolean, pos:Int){
-       var view_previous: View =
+   fun viewLayouts(visible_layoutButtons:Boolean, visible_layoutExtended:Boolean, pos:Int){
+       var view_pos: View =
            mRecyclerView!!.findViewHolderForAdapterPosition(pos)!!.itemView
-       val layoutButtons_previous: ConstraintLayout =
-           view_previous!!.findViewById(R.id.buttons_container) as ConstraintLayout
-       val layoutExtended_previous: LinearLayout =
-           view_previous!!.findViewById(R.id.element_extended_container) as LinearLayout
-       val layoutSimple_previous: LinearLayout =
-           view_previous!!.findViewById(R.id.element_simple_container) as LinearLayout
-       layoutButtons_previous.visibility = View.GONE
-       layoutExtended_previous.visibility = View.GONE
-       layoutSimple_previous.visibility = View.VISIBLE
+
+       val layoutButtons_pos: ConstraintLayout =
+           view_pos!!.findViewById(R.id.buttons_container) as ConstraintLayout
+       val layoutExtended_pos: LinearLayout =
+           view_pos!!.findViewById(R.id.element_extended_container) as LinearLayout
+       val layoutSimple_pos: LinearLayout =
+           view_pos!!.findViewById(R.id.element_simple_container) as LinearLayout
+
+
+       if (visible_layoutButtons == true){
+           layoutButtons_pos.visibility = View.VISIBLE
+       }else{
+           layoutButtons_pos.visibility = View.GONE
+       }
+
+       if (visible_layoutExtended == true){
+           layoutExtended_pos.visibility = View.VISIBLE
+           layoutSimple_pos.visibility = View.GONE
+       }else{
+           layoutExtended_pos.visibility = View.GONE
+           layoutSimple_pos.visibility = View.VISIBLE
+       }
+
     }
 }

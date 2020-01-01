@@ -33,9 +33,11 @@ class GoogleAPI(activity:MainActivity){
     var mContext : Context? = null
     var mService : NotificationService? = null
     var mSender : String? = null
+    var isNew : Boolean? = null
 
     val errorLimitUp = 60
     val errorLimitDown = -300
+
 
     fun setActivityContext(activity : FragmentEdit, context: Context){
         mFragmentEdit = activity
@@ -67,7 +69,7 @@ class GoogleAPI(activity:MainActivity){
         autocompleteFragment_start
             .setPlaceFields(placeFields)
         autocompleteFragment_start
-            .setHint("Set the start of your commute")
+            //.setHint("Set the start point")
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
@@ -85,7 +87,7 @@ class GoogleAPI(activity:MainActivity){
         autocompleteFragment_arrival
             .setPlaceFields(placeFields)
         autocompleteFragment_arrival
-            .setHint("Set the arrival of your commute")
+            //.setHint("Set the arrival point")
         autocompleteFragment_arrival
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
@@ -104,13 +106,15 @@ class GoogleAPI(activity:MainActivity){
         name : String,
         start : String,
         arrival : String,
-        arrival_time : String){
+        arrival_time : String,
+        is_new : Boolean){
 
         mSender = sender
         mCommute.name = name
         mCommute.start = start
         mCommute.arrival = arrival
         mCommute.arrival_time = arrival_time
+        isNew=is_new
 
         if(arrival_time != "Now"){
             mCommute.arrival_time_UTC =
@@ -178,7 +182,7 @@ class GoogleAPI(activity:MainActivity){
                             mService!!.routeRequestedReady(mCommute)
                         }
                         else if(mSender == "Activity"){
-                            mActivity.routeRequestedReady(mCommute)
+                            mActivity.routeRequestedReady(mCommute,isNew!!)
                         }
                         responseReceived = 0
                     }

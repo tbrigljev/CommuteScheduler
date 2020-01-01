@@ -3,6 +3,7 @@ package com.mobop.commutescheduler
 /* Import ******************************************************** */
 import android.content.ClipData
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import kotlinx.android.synthetic.main.fragment_edit.*
 
 /* *************************************************************** */
@@ -58,6 +63,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
             container,
             false
         )
+
 
         enhanceCommutesButton =
             view.findViewById(R.id.commutes_button_enhance)
@@ -171,7 +177,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
                  }
             }
             4 -> {
-                mAdapter!!.viewLayoutButtons(false,partItem)
+                mAdapter!!.viewLayouts(false,false,partItem)
                 mAdapter!!.removeAt(partItem)
 
                 mRecyclerView!!.adapter!!.notifyDataSetChanged()
@@ -187,6 +193,12 @@ class FragmentCommutes(screen : Int) : Fragment(){
 
 
     }
+
+
+
+
+
+
     interface OnFragmentInteractionListener{
         fun onFragmentInteraction(
             fragmentCaller : Int,

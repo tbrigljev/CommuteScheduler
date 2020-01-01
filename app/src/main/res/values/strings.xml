@@ -39,10 +39,10 @@
     <string name="text_alarm">Alarm</string>
 
     <string name="field_commute_name">COMMUTE NAME</string>
-    <string name="field_departure">START</string>
+    <string name="field_departure">Set the start point</string>
     <string name="field_departure_address">START_ADDRESS</string>
     <string name="field_departure_time">LEAVE AT</string>
-    <string name="field_arrival">ARRIVAL</string>
+    <string name="field_arrival">Set the arrival point</string>
     <string name="field_arrival_address">ARRIVAL_ADDRESS</string>
     <string name="field_arrival_time">ARRIVE AT</string>
     <string name="field_distance">LENGTH</string>

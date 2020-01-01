@@ -61,7 +61,7 @@ class MainActivity :
     lateinit var settings_item : MenuItem
 
     companion object{
-        var commutes : Commutes? = null
+        var commutes : Commute? = null
         var start_time : String = "Now"
         lateinit var GoogleKey : String
         var mGoogleAPI : GoogleAPI?=null
@@ -84,6 +84,7 @@ class MainActivity :
         setContentView(R.layout.activity_main)
 
         commutesList = CommutesItemsList()
+        mGoogleAPI = GoogleAPI(this)
 
         mFragmentManager.beginTransaction()
             .add(R.id.main_container_fragments, homeFragment,"home")
@@ -112,22 +113,38 @@ class MainActivity :
         /* This object contains all the methods fo using the ***** */
         /* *** Google API **************************************** */
         GoogleKey = getString(R.string.GoogleMapsKey)
-        mGoogleAPI = GoogleAPI(this)
+
+    }
+
+
+
+    override fun onCreateOptionsMenu(menu : Menu) : Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        settings_item = menu.findItem(R.id.action_settings)
+        return true
     }
 
     /* *********************************************************** */
     /* routeRequestReady() *************************************** */
     /* Function that receives the result of the Google request *** */
     /* already formatted ***************************************** */
-    fun routeRequestedReady(mCommute : Commute){
+
+    fun routeRequestedReady(mCommute : Commute, isNew : Boolean){
 //        mTextArrival!!.text = mCommute.arrival_time
 //        mTextDistance!!.text = mCommute.distance
 //        mTextDuration!!.text = mCommute.duration
 //        mTextDurationTraffic!!.text = mCommute.duration_traffic
 //        mTextDeparture!!.text = mCommute.start_time
 //        // result!!.text = mCommute.raw_data
-        commutesList!!.commutesItemsList.add(mCommute)
-        FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
+        if (isNew) {
+            commutesList!!.commutesItemsList.add(mCommute)
+            FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
+            var lastPos = commutesList!!.commutesItemsList.size - 1
+            FragmentCommutes.mRecyclerView!!.smoothScrollToPosition(lastPos);
+            //FragmentCommutes.mAdapter!!.viewLayouts(false,true,lastPos) //Gives an execption ??
+        }
+        FragmentMap.mapFieldCommuteDuration.setText(mCommute.duration)
+        FragmentMap.mapFieldCommuteName.setText(mCommute.name)
 
         var builder : LatLngBounds.Builder = LatLngBounds.Builder()
         builder.include(mCommute.start_address_LatLng)
@@ -138,12 +155,14 @@ class MainActivity :
         FragmentMap.mMap.clear()
 
         /* Creating the start and arrival markers *************** */
-        FragmentMap.mMap.addMarker(MarkerOptions()
-            .position(mCommute.start_address_LatLng!!)
-            .title(mCommute.start_address))
-        FragmentMap.mMap.addMarker(MarkerOptions()
-            .position(mCommute.arrival_address_LatLng!!)
-            .title(mCommute.arrival_address))
+        FragmentMap.mMap.addMarker(
+            MarkerOptions()
+                .position(mCommute.start_address_LatLng!!)
+                .title(mCommute.start_address))
+        FragmentMap.mMap.addMarker(
+            MarkerOptions()
+                .position(mCommute.arrival_address_LatLng!!)
+                .title(mCommute.arrival_address))
         FragmentMap.mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 60))
 
         /* Drawing the segments of the commute on the map ******** */
@@ -160,11 +179,6 @@ class MainActivity :
         }
     }
 
-    override fun onCreateOptionsMenu(menu : Menu) : Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        settings_item = menu.findItem(R.id.action_settings)
-        return true
-    }
 
     /* *********************************************************** */
     /* onFragmentInteraction() *********************************** */

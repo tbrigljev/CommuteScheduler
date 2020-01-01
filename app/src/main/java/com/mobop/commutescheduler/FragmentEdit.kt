@@ -7,6 +7,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,10 @@ import android.widget.Toast
 import androidx.appcompat.widget.DialogTitle
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import org.jetbrains.anko.find
 import java.text.SimpleDateFormat
@@ -81,6 +86,20 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
         //commuteDestination = view.findViewById(R.id.edit_end)
         //commuteDestinationAddress = .findFragmentById(R.id.fragment_arrival)
 
+
+
+        commuteOriginAddress = childFragmentManager
+            .findFragmentById(R.id.fragment_start)
+                as AutocompleteSupportFragment
+        commuteOriginAddress
+            .setHint(getString(R.string.field_departure))
+
+        commuteDestinationAddress = childFragmentManager
+            .findFragmentById(R.id.fragment_arrival)
+                as AutocompleteSupportFragment
+        commuteDestinationAddress
+            .setHint(getString(R.string.field_arrival))
+
         chooseDate =
             view.findViewById(R.id.edit_end_date) as TextView
         chooseTime =
@@ -103,6 +122,8 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                     cal.set(Calendar.DAY_OF_MONTH, day)
                     chooseDate.text = SimpleDateFormat("YYYY-MM-dd").format(cal.time)
                 }
+
+
             DatePickerDialog(context, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         }
         chooseTime.setOnClickListener {
@@ -122,6 +143,14 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
         }
         else{
             commuteName.setText(commutesList!!.commutesItemsList[pos].name)
+            commuteOriginAddress.setText(commutesList!!.commutesItemsList[pos].start)
+            commuteDestinationAddress.setText(commutesList!!.commutesItemsList[pos].arrival)
+            var date = commutesList!!.commutesItemsList[pos].arrival_time.split(" ")[0]
+            var time = commutesList!!.commutesItemsList[pos].arrival_time.split(" ")[1]
+            chooseDate.setText(date)
+            chooseTime.setText(time)
+
+
             //commuteOrigin.setText(commutesList!!.commutesItemsList[pos].start)
             //commuteDestination.setText(commutesList!!.commutesItemsList[pos].arrival)
         }
@@ -152,13 +181,17 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
             hideKeyboard()
             source[0] = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
+            if ( pos >=0 ){
+                FragmentCommutes.mAdapter!!.viewLayouts(false,false,pos)
+            }
+
         }
     }
 
     private fun doEditValidate(fragmentCaller : Int){
         if (mListener != null){
 
-            var newCommute : Commute = Commute()
+            var newCommute = Commute()
             //var paramComplete = true
 
             newCommute.name = commuteName.text.toString()
@@ -178,13 +211,13 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                 if(new){
                     text = "Commute added"
                     //var arrival_time = "2019-12-31 23:00:00"
-                    var arr = newCommute.arrival_time
                     MainActivity.mGoogleAPI!!.requestRoute(
                         "Activity",
                         newCommute.name,
                         start,
                         arrival,
-                        newCommute.arrival_time)
+                        newCommute.arrival_time,
+                        true)
 
 
                     //commutesList!!.commutesItemsList.add(newCommute)
@@ -192,7 +225,7 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                 else{
                     text = "Commute modified"
                     commutesList!!.commutesItemsList[pos] = newCommute
-                    FragmentCommutes.mAdapter!!.viewLayoutButtons(false,pos)
+                    FragmentCommutes.mAdapter!!.viewLayouts(false,false,pos)
                     FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
 
 
@@ -213,6 +246,10 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
             //commuteDestination.setText("")
         }
     }
+
+
+
+
 
     fun Fragment.hideKeyboard() {
         view?.let { activity?.hideKeyboard(it) }

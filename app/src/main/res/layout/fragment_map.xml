@@ -118,14 +118,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/map_overlay_optional"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/google_map"
             app:layout_constraintEnd_toEndOf="@+id/fragment_map_container"
             app:layout_constraintStart_toStartOf="@+id/fragment_map_container"
             app:layout_constraintTop_toBottomOf="@+id/fragment_map_text">
-
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -148,56 +148,46 @@
                 android:id="@+id/view_traffic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="50dp"
                 android:text="@string/checkbox_view_traffic"
-                app:layout_constraintBottom_toBottomOf="@+id/text_date_input"
-                app:layout_constraintStart_toEndOf="@+id/text_date_input" />
-
-            <Button
-                android:id="@+id/button_go"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/button_go"
-                app:layout_constraintEnd_toEndOf="@+id/view_traffic"
-                app:layout_constraintStart_toStartOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toBottomOf="@+id/text_date_input" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/text_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/field_distance"
+                app:layout_constraintBottom_toTopOf="@+id/text_arrival"
                 app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toTopOf="@+id/map_overlay_optional"
-                app:layout_constraintBottom_toTopOf="@+id/text_arrival"/>
+                app:layout_constraintTop_toTopOf="@+id/map_overlay_optional" />
 
             <TextView
                 android:id="@+id/text_arrival"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/field_arrival_time"
+                app:layout_constraintBottom_toTopOf="@+id/text_duration"
                 app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toBottomOf="@+id/text_distance"
-                app:layout_constraintBottom_toTopOf="@+id/text_duration"/>
+                app:layout_constraintTop_toBottomOf="@+id/text_distance" />
 
             <TextView
                 android:id="@+id/text_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/field_time"
+                app:layout_constraintBottom_toTopOf="@+id/text_duration_traffic"
                 app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toBottomOf="@+id/text_arrival"
-                app:layout_constraintBottom_toTopOf="@+id/text_duration_traffic"/>
+                app:layout_constraintTop_toBottomOf="@+id/text_arrival" />
 
             <TextView
                 android:id="@+id/text_duration_traffic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/field_time"
+                app:layout_constraintBottom_toTopOf="@+id/text_departure"
                 app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toBottomOf="@+id/text_duration"
-                app:layout_constraintBottom_toTopOf="@+id/text_departure"/>
+                app:layout_constraintTop_toBottomOf="@+id/text_duration" />
 
             <TextView
                 android:id="@+id/text_departure"
@@ -205,8 +195,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/field_departure_time"
                 app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toBottomOf="@+id/text_duration_traffic"
-                app:layout_constraintBottom_toTopOf="@+id/button_go"/>
+                app:layout_constraintTop_toBottomOf="@+id/text_duration_traffic" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

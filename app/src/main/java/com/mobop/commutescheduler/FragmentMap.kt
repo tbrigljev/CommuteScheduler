@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -29,6 +30,8 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
 
     companion object {
         lateinit var mMap: GoogleMap
+        lateinit var mapFieldCommuteName : TextView
+        lateinit var mapFieldCommuteDuration : TextView
 
     }
     private var mListener : OnFragmentInteractionListener? = null
@@ -38,11 +41,13 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
     private var fragmentID = 1
     private var source : IntArray = intArrayOf(0, 0)
 
+
+
+
     private lateinit var returnMapButton : ImageButton
     private lateinit var addMapButton : ImageButton
     private lateinit var enhanceMapButton : ImageButton
     private lateinit var overlayMapButton : ImageButton
-    private lateinit var goMapButton : Button
     private lateinit var arriveDateMapInput : TextInputEditText
     private lateinit var viewTrafficMapCheck : CheckBox
 
@@ -70,6 +75,11 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
                 as SupportMapFragment
         googleMapFragment.getMapAsync(this)
 
+        mapFieldCommuteName =
+            view.findViewById(R.id.map_field_commute_name) as TextView
+        mapFieldCommuteDuration =
+            view.findViewById(R.id.map_field_commute_duration) as TextView
+
         enhanceMapButton =
             view.findViewById(R.id.map_button_enhance) as ImageButton
         addMapButton =
@@ -78,8 +88,7 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
             view.findViewById(R.id.map_button_return) as ImageButton
         overlayMapButton =
             view.findViewById(R.id.map_button_overlay) as ImageButton
-        goMapButton =
-            view.findViewById(R.id.button_go) as Button
+
         arriveDateMapInput=
             view.findViewById(R.id.text_date) as TextInputEditText
         viewTrafficMapCheck = view.findViewById(R.id.view_traffic) as CheckBox
@@ -101,15 +110,7 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
         overlayMapButton.setOnClickListener{
             doMapOverlay(layoutOverlay)
         }
-        goMapButton.setOnClickListener{view ->
-           /* var arrival_time = arriveDateMapInput!!.text
-            MainActivity.mGoogleAPI!!.requestRoute(
-                "Activity",
-                "",
-                start,
-                arrival,
-                arrival_time.toString())*/
-        }
+
         viewTrafficMapCheck.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if(isChecked){ mMap.isTrafficEnabled = true }
