@@ -148,8 +148,7 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
     private fun doEditCancel(fragmentCaller : Int){
         if (mListener != null){
             commuteName.setText("")
-            commuteOrigin.setText("")
-            commuteDestination.setText("")
+
             hideKeyboard()
             source[0] = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
@@ -193,6 +192,7 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                 else{
                     text = "Commute modified"
                     commutesList!!.commutesItemsList[pos] = newCommute
+                    FragmentCommutes.mAdapter!!.viewLayoutButtons(false,pos)
                     FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
 
 

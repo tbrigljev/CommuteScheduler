@@ -246,6 +246,7 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
                     if (previousPosition != getAdapterPosition()) {
                         var view_previous: View =
                             mRecyclerView!!.findViewHolderForAdapterPosition(previousPosition)!!.itemView
+
                         val layoutButtons_previous: ConstraintLayout =
                             view_previous!!.findViewById(R.id.buttons_container) as ConstraintLayout
                         val layoutExtended_previous: LinearLayout =
@@ -267,6 +268,7 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
 
     fun removeAt(position: Int) {
         commutesItemsList.removeAt(position)
+        previousPosition=0
         notifyItemRemoved(position)
     }
 

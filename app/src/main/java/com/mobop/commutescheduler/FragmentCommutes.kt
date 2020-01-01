@@ -26,10 +26,10 @@ import kotlinx.android.synthetic.main.fragment_edit.*
 class FragmentCommutes(screen : Int) : Fragment(){
     companion object{
         var mRecyclerView : RecyclerView? = null
+        var mAdapter : CommutesAdapter?= null
 
     }
 
-    var mAdapter : CommutesAdapter?= null
     private var mListener : OnFragmentInteractionListener? = null
 
     /*private var mItemTouchHelper : ItemTouchHelper? = null*/
@@ -171,7 +171,9 @@ class FragmentCommutes(screen : Int) : Fragment(){
                  }
             }
             4 -> {
+                mAdapter!!.viewLayoutButtons(false,partItem)
                 mAdapter!!.removeAt(partItem)
+
                 mRecyclerView!!.adapter!!.notifyDataSetChanged()
                 val text = "Commute deleted"
                 val duration = Toast.LENGTH_SHORT

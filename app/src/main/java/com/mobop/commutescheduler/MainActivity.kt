@@ -127,6 +127,7 @@ class MainActivity :
 //        mTextDeparture!!.text = mCommute.start_time
 //        // result!!.text = mCommute.raw_data
         commutesList!!.commutesItemsList.add(mCommute)
+        FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
 
         var builder : LatLngBounds.Builder = LatLngBounds.Builder()
         builder.include(mCommute.start_address_LatLng)
