@@ -155,7 +155,7 @@
             android:background="?android:attr/listDivider" />
 
         <LinearLayout
-            android:id="@+id/element_extended_time"
+            android:id="@+id/element_extended_time1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">

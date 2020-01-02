@@ -186,17 +186,8 @@ class FragmentCommutes(screen : Int) : Fragment(){
                 val toast = Toast.makeText(getActivity(), text, duration)
                 toast.show()
             }
-
         }
-
-
-
     }
-
-
-
-
-
 
     interface OnFragmentInteractionListener{
         fun onFragmentInteraction(

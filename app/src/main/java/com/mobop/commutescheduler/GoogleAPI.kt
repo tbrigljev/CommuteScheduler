@@ -2,6 +2,7 @@ package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
 import android.content.Context
+import android.util.Log
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
@@ -34,14 +35,18 @@ class GoogleAPI(activity:MainActivity){
     var mService : NotificationService? = null
     var mSender : String? = null
     var isNew : Boolean? = null
-    var routeName:String=""
-    var routeStart:String=""
-    var routeArrival:String=""
-    var roeuteArrivalTime:String=""
-    var routeArrivalTimeUTC:Long? = null
-    var routeStartTimeUTC:Long? = null
+    var routeName : String = ""
+    var routeStart : String = ""
+    var routeArrival : String = ""
+    var routeArrivalTime : String = ""
+    var routeArrivalTimeUTC : Long? = null
+    var routeStartTimeUTC : Long? = null
     val errorLimitUp = 60
     val errorLimitDown = -300
+
+    lateinit var dateTime : List<String>
+    lateinit var date : List<String>
+    lateinit var time : List<String>
 
 
     fun setActivityContext(activity : FragmentEdit, context: Context){
@@ -113,17 +118,17 @@ class GoogleAPI(activity:MainActivity){
         arrival : String,
         arrival_time : String,
         is_new : Boolean){
-        var mCommute : Commute= Commute()
-        routeName=name
-        routeStart=start
-        routeArrival=arrival
-        roeuteArrivalTime=arrival_time
+        var mCommute : Commute = Commute()
+        routeName = name
+        routeStart = start
+        routeArrival = arrival
+        routeArrivalTime = arrival_time
         mSender = sender
         mCommute.name = routeName
         mCommute.start = routeStart
-        mCommute.arrival= routeArrival
-        mCommute.arrival_time = roeuteArrivalTime
-        isNew=is_new
+        mCommute.arrival = routeArrival
+        mCommute.arrival_time_long = routeArrivalTime
+        isNew = is_new
 
         if(arrival_time != "Now"){
             routeArrivalTimeUTC =
@@ -137,7 +142,7 @@ class GoogleAPI(activity:MainActivity){
 
     fun sendHTTP(mCommute : Commute){
         var start_time : String = "Now"
-        if(mCommute.arrival_time != "Now"){
+        if(mCommute.arrival_time_long != "Now"){
             start_time = mCommute.arrival_time_UTC.toString()
         }
 
@@ -155,16 +160,16 @@ class GoogleAPI(activity:MainActivity){
     }
 
     fun getResults(json : String){
-        var mCommute : Commute= Commute()
+        var mCommute : Commute = Commute()
         mCommute = readJSON(json)
         mCommute.name = routeName
         mCommute.start = routeStart
         mCommute.arrival= routeArrival
-        mCommute.arrival_time = roeuteArrivalTime
-        mCommute.arrival_time_UTC = routeArrivalTimeUTC
         mCommute.start_time_UTC = routeStartTimeUTC
+        mCommute.arrival_time_long = routeArrivalTime
+        mCommute.arrival_time_UTC = routeArrivalTimeUTC
 
-        if(mCommute.arrival_time != "Now"){
+        if(mCommute.arrival_time_long != "Now"){
             when(responseReceived){
                 0 -> {
                     responseReceived = 1
@@ -195,10 +200,18 @@ class GoogleAPI(activity:MainActivity){
                         val jdf =
                             SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                         jdf.setTimeZone(TimeZone.getTimeZone("GMT+1"))
-                        mCommute.start_time =
+                        mCommute.start_time_long =
                             jdf.format(mCommute.start_time_UTC!! * 1000)
-                        mCommute.name=routeName
-                        mCommute.arrival_time_UTC=routeArrivalTimeUTC
+
+                        dateTime = mCommute.start_time_long.split(" ")
+                        date = dateTime[0].split("-")
+                        time = dateTime[1].split(":")
+                        mCommute.start_time_short =
+                            "on " + date[2] +"."+ date[1] +"." + date[0] +
+                                    ", at " + time[0] + ":" + time[1]
+
+                        mCommute.name = routeName
+                        mCommute.arrival_time_UTC = routeArrivalTimeUTC
                         if(mSender == "Service"){
                             mService!!.routeRequestedReady(mCommute)
                         }
@@ -214,11 +227,19 @@ class GoogleAPI(activity:MainActivity){
     }
 
     fun readJSON(json : String) : Commute{
-        var mCommute : Commute= Commute()
+        var mCommute : Commute = Commute()
         mCommute.name = routeName
         mCommute.start = routeStart
-        mCommute.arrival= routeArrival
-        mCommute.arrival_time = roeuteArrivalTime
+        mCommute.arrival = routeArrival
+
+        mCommute.arrival_time_long = routeArrivalTime
+        dateTime = mCommute.arrival_time_long.split(" ")
+        date = dateTime[0].split("-")
+        time = dateTime[1].split(":")
+        mCommute.arrival_time_short =
+            "on " + date[2] +"."+ date[1] +"." + date[0] +
+                    ", at " + time[0] + ":" + time[1]
+
         val jsonResponse = JSONObject(json)
         val path : MutableList<List<LatLng>> = ArrayList()
 
@@ -248,7 +269,6 @@ class GoogleAPI(activity:MainActivity){
             .getJSONObject(0)
             .getJSONObject("end_location")
             .getString("lng")
-
 
         mCommute.start_address = legs
             .getJSONObject(0)

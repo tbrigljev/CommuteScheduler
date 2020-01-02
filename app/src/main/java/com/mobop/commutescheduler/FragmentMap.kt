@@ -32,17 +32,14 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
         lateinit var mMap: GoogleMap
         lateinit var mapFieldCommuteName : TextView
         lateinit var mapFieldCommuteDuration : TextView
-
     }
+
     private var mListener : OnFragmentInteractionListener? = null
 
     private val mapScreen = screen
 
     private var fragmentID = 1
     private var source : IntArray = intArrayOf(0, 0)
-
-
-
 
     private lateinit var returnMapButton : ImageButton
     private lateinit var addMapButton : ImageButton

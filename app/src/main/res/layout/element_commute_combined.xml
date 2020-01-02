@@ -229,61 +229,74 @@
             android:layout_height="5dp"
             android:background="?android:attr/listDivider" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/element_extended_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/leave_at"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="2dp"
-                android:text="@string/text_commute_departure" />
+                android:paddingBottom="1dp"
+                android:text="@string/text_commute_departure"
+                app:layout_constraintBottom_toBottomOf="@id/element_extended_start_time"
+                app:layout_constraintEnd_toEndOf="@id/travel_in" />
 
             <TextView
                 android:id="@+id/element_extended_start_time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.2"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="3dp"
                 android:text="@string/field_time"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/element_extended_end_time"
+                app:layout_constraintStart_toEndOf="@id/leave_at" />
 
             <TextView
                 android:id="@+id/arrive_at"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="2dp"
-                android:text="@string/text_commute_arrival" />
+                android:paddingBottom="1dp"
+                android:text="@string/text_commute_arrival"
+                app:layout_constraintBottom_toBottomOf="@id/element_extended_end_time"
+                app:layout_constraintEnd_toEndOf="@id/travel_in" />
 
             <TextView
                 android:id="@+id/element_extended_end_time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.2"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="3dp"
                 android:text="@string/field_time"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/element_extended_duration"
+                app:layout_constraintStart_toEndOf="@id/arrive_at" />
 
             <TextView
                 android:id="@+id/travel_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="2dp"
-                android:text="@string/text_commute_duration" />
+                android:paddingBottom="1dp"
+                android:text="@string/text_commute_duration"
+                app:layout_constraintBottom_toBottomOf="@id/element_extended_duration"
+                app:layout_constraintStart_toStartOf="@id/element_extended_time" />
 
             <TextView
                 android:id="@+id/element_extended_duration"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1.2"
+                android:layout_marginStart="8dp"
                 android:text="@string/field_time"
-                android:textSize="18sp" />
-        </LinearLayout>
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/element_extended_time"
+                app:layout_constraintStart_toEndOf="@id/travel_in" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--<View
             android:id="@+id/element_divider_bottom"
