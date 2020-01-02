@@ -29,14 +29,16 @@
     <string name="text_commute_name">Commute:</string>
     <string name="text_commute_start">Starting point:</string>
     <string name="text_commute_end">Destination:</string>
-    <string name="text_commute_departure">Leave at:</string>
-    <string name="text_commute_arrival">Arrive at:</string>
+    <string name="text_commute_departure">Leave:</string>
+    <string name="text_commute_arrival">Arrive:</string>
     <string name="text_commute_duration">Duration:</string>
     <string name="from">from</string>
     <string name="to">to</string>
     <string name="in">in</string>
     <string name="text_reminder">Reminder</string>
     <string name="text_alarm">Alarm</string>
+    <string name="text_favorite_name">The name of the favorite</string>
+    <string name="text_favorite_address">The address of the favorite</string>
 
     <string name="field_commute_name">COMMUTE NAME</string>
     <string name="field_departure">Set the start point</string>

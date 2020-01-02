@@ -36,10 +36,10 @@ class CommutesItemsList private constructor(context : Context){
             name = "Home2School",
             start = "Home",
             start_address = "Route des Arsenaux 29, 1700 Fribourg",
-            start_time = "07:12",
             arrival = "School",
             arrival_address = "Avenue de Provence 6, 1007 Lausanne",
-            arrival_time = "2020-01-15 08:24:00",
+            arrival_time_short = "on 15.01.2020, at 08:00",
+            arrival_time_long = "2020-01-15 08:00:00",
             days = mutableListOf(R.string.Tuesday, R.string.Thursday),
             duration = "01:12"/*,
             reminder_on = true,
@@ -51,10 +51,10 @@ class CommutesItemsList private constructor(context : Context){
             name = "Home2Work",
             start = "Home",
             start_address = "Route des Arsenaux 29, 1700 Fribourg",
-            start_time = "06:35",
             arrival = "Work",
             arrival_address = "Route de Morat 135, 1763 Granges-Paccot",
-            arrival_time = "2020-02-20 07:00:00",
+            arrival_time_short = "on 20.02.2020, at 07:00",
+            arrival_time_long = "2020-02-20 07:00:00",
             days = mutableListOf(R.string.Monday, R.string.Wednesday, R.string.Friday),
             duration = "00:25"/*,
             reminder_on = false,
@@ -67,10 +67,10 @@ class CommutesItemsList private constructor(context : Context){
                     "fill the screen to make sure ellipsis works",
             start = "Wherever",
             start_address = "Street of Road, 10000 City",
-            start_time = "00:00",
             arrival = "Wherever",
             arrival_address = "Avenue of Path, 20000 City",
-            arrival_time = "2020-01-15 08:24:00",
+            arrival_time_short = "on 15.01.2020, at 08:24",
+            arrival_time_long = "2020-01-15 08:24:00",
             days = mutableListOf(R.string.Saturday, R.string.Sunday),
             duration = "00:00"/*,
             reminder_on = false,
@@ -82,11 +82,11 @@ class CommutesItemsList private constructor(context : Context){
             name = "A test for parameters",
             start = "That one place that has a very long name",
             start_address = "Place of Bridge, 30000 City",
-            start_time = "00:00",
             arrival = "That other place that has a very long name",
             arrival_address = "Alley of Way, 40000 City",
             days = mutableListOf(R.string.Sunday),
-            arrival_time = "2020-01-15 08:24:00"/*,
+            arrival_time_short = "on 15.01.2020, at 08:24",
+            arrival_time_long = "2020-01-15 08:24:00"/*,
             duration = "00:00",
             reminder_on = true,
             reminder_tune = "DING",
@@ -101,12 +101,6 @@ class CommutesItemsList private constructor(context : Context){
         }
     }
 }
-
-/*data class CommutesItemsElement(
-    var commutesName : String,
-    var commutesStart : String,
-    var commutesEnd : String,
-    var commutesTime : String)*/
 
 class Commutes private constructor(context : Context){
     companion object{
@@ -147,10 +141,12 @@ data class Commute(
     var arrival_address : String? = null,
     var arrival_address_LatLng : LatLng? = null,
 
-    var start_time : String = "",
+    var start_time_short : String = "",
+    var start_time_long : String = "",
     var start_time_UTC : Long? = null,
 
-    var arrival_time : String = "",
+    var arrival_time_short : String = "",
+    var arrival_time_long : String = "",
     var arrival_time_UTC : Long? = null,
 
     var days : MutableList<Int?> = ArrayList(),
@@ -185,7 +181,7 @@ data class Commute2(
     var arrival_address : String? = null,
     var arrival_address_LatLng : LatLng? = null,
 
-    var start_time : String = "",
+    var start_time_long : String = "",
     var start_time_UTC : Long? = null,
 
     var arrival_time : String = "",

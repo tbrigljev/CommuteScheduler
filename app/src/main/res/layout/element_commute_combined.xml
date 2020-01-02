@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/element_combined"
@@ -229,61 +230,74 @@
             android:layout_height="5dp"
             android:background="?android:attr/listDivider" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/element_extended_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/leave_at"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="2dp"
-                android:text="@string/text_commute_departure" />
+                android:paddingBottom="1dp"
+                android:text="@string/text_commute_departure"
+                app:layout_constraintBottom_toBottomOf="@id/element_extended_start_time"
+                app:layout_constraintEnd_toEndOf="@id/travel_in" />
 
             <TextView
                 android:id="@+id/element_extended_start_time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.2"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="3dp"
                 android:text="@string/field_time"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/element_extended_end_time"
+                app:layout_constraintStart_toEndOf="@id/leave_at" />
 
             <TextView
                 android:id="@+id/arrive_at"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="2dp"
-                android:text="@string/text_commute_arrival" />
+                android:paddingBottom="1dp"
+                android:text="@string/text_commute_arrival"
+                app:layout_constraintBottom_toBottomOf="@id/element_extended_end_time"
+                app:layout_constraintEnd_toEndOf="@id/travel_in" />
 
             <TextView
                 android:id="@+id/element_extended_end_time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.2"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="3dp"
                 android:text="@string/field_time"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/element_extended_duration"
+                app:layout_constraintStart_toEndOf="@id/arrive_at" />
 
             <TextView
                 android:id="@+id/travel_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="2dp"
-                android:text="@string/text_commute_duration" />
+                android:paddingBottom="1dp"
+                android:text="@string/text_commute_duration"
+                app:layout_constraintBottom_toBottomOf="@id/element_extended_duration"
+                app:layout_constraintStart_toStartOf="@id/element_extended_time" />
 
             <TextView
                 android:id="@+id/element_extended_duration"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1.2"
+                android:layout_marginStart="8dp"
                 android:text="@string/field_time"
-                android:textSize="18sp" />
-        </LinearLayout>
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/element_extended_time"
+                app:layout_constraintStart_toEndOf="@id/travel_in" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--<View
             android:id="@+id/element_divider_bottom"
@@ -361,24 +375,24 @@
         android:layout_height="0dp"
         android:background="#66737373"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/element_combined"
-        app:layout_constraintEnd_toEndOf="@id/element_combined"
         app:layout_constraintStart_toStartOf="@id/element_combined"
-        app:layout_constraintTop_toTopOf="@id/element_combined">
+        app:layout_constraintEnd_toEndOf="@id/element_combined"
+        app:layout_constraintTop_toTopOf="@id/element_combined"
+        app:layout_constraintBottom_toBottomOf="@id/element_combined">
 
         <ImageButton
             android:id="@+id/commutes_button_edit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="80dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="20dp"
             android:backgroundTint="@color/colorPrimaryDark"
             android:contentDescription="@string/description_edit_button"
             android:scaleX="1"
             android:scaleY="1"
             app:layout_constraintBottom_toBottomOf="@id/buttons_container"
-            app:layout_constraintEnd_toEndOf="@id/buttons_container"
-            app:layout_constraintStart_toEndOf="@id/commutes_button_delete"
+            app:layout_constraintEnd_toStartOf="@id/commutes_button_delete"
+            app:layout_constraintStart_toStartOf="@id/buttons_container"
             app:layout_constraintTop_toTopOf="@id/buttons_container"
             app:srcCompat="@android:drawable/ic_menu_edit" />
 
@@ -386,15 +400,15 @@
             android:id="@+id/commutes_button_delete"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="80dp"
             android:backgroundTint="@color/colorAccent"
             android:contentDescription="@string/description_delete_button"
             android:scaleX="1"
             android:scaleY="1"
             app:layout_constraintBottom_toBottomOf="@id/buttons_container"
-            app:layout_constraintEnd_toStartOf="@id/commutes_button_edit"
-            app:layout_constraintStart_toStartOf="@id/buttons_container"
+            app:layout_constraintEnd_toEndOf="@id/buttons_container"
+            app:layout_constraintStart_toEndOf="@id/commutes_button_edit"
             app:layout_constraintTop_toTopOf="@id/buttons_container"
             app:srcCompat="@android:drawable/ic_menu_delete" />
 

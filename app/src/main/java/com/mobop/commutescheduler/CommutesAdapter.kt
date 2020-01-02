@@ -1,7 +1,6 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
-import android.app.PendingIntent.getActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -165,7 +164,7 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
                 simpleStart.text = elementSimpleStart
                 val elementSimpleEnd = itemInList.arrival
                 simpleEnd.text = elementSimpleEnd
-                val elementSimpleTime = itemInList.start_time
+                val elementSimpleTime = itemInList.duration
                 simpleTimeDuration.text = elementSimpleTime
 
                 val elementExtendedStart = itemInList.start
@@ -176,9 +175,9 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
                 extendedEnd.text = elementExtendedEnd
                 val elementExtendedEndAddress = itemInList.arrival_address
                 extendedEndAddress.text = elementExtendedEndAddress
-                val elementTimeDeparture = itemInList.start_time
+                val elementTimeDeparture = itemInList.start_time_short
                 extendedTimeStart.text = elementTimeDeparture
-                val elementTimeArrival = itemInList.arrival_time
+                val elementTimeArrival = itemInList.arrival_time_short
                 extendedTimeEnd.text = elementTimeArrival
                 val elementTimeDuration = itemInList.duration
                 extendedTimeDuration.text = elementTimeDuration
@@ -208,12 +207,15 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
                                 view_previous!!.findViewById(R.id.element_extended_container) as LinearLayout
                             val layoutSimple_previous: LinearLayout =
                                 view_previous!!.findViewById(R.id.element_simple_container) as LinearLayout
+
                             layoutButtons_previous.visibility = View.GONE
                             layoutExtended_previous.visibility = View.GONE
                             layoutSimple_previous.visibility = View.VISIBLE
 
                             previousPosition = getAdapterPosition()
-                        }catch(e : Exception){
+
+                        }
+                        catch(e : Exception){
                             Log.i("myTag",e.toString())
                         }
                     }
@@ -233,7 +235,7 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
                                     commute.name,
                                     commute.start_address!!,
                                     commute.arrival_address!!,
-                                    commute.arrival_time,
+                                    commute.arrival_time_long,
                                     false)
 
 
@@ -307,7 +309,6 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
        val layoutSimple_pos: LinearLayout =
            view_pos!!.findViewById(R.id.element_simple_container) as LinearLayout
 
-
        if (visible_layoutButtons == true){
            layoutButtons_pos.visibility = View.VISIBLE
        }else{
@@ -321,6 +322,5 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
            layoutExtended_pos.visibility = View.GONE
            layoutSimple_pos.visibility = View.VISIBLE
        }
-
     }
 }
