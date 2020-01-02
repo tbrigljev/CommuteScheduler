@@ -34,6 +34,7 @@ class GoogleAPI(){
     var mContext : Context? = null
     var mService : NotificationService? = null
     var mSender : String? = null
+    var mPosition : Int = -1
     var isNew : Boolean? = null
     var routeName : String = ""
     var routeStart : String = ""
@@ -116,26 +117,25 @@ class GoogleAPI(){
     /* Google Routes ********************************************* */
     fun requestRoute(
         sender : String,
-        name : String,
-        start : String,
-        arrival : String,
-        arrival_time : String,
+        pos : Int,
         is_new : Boolean){
-        var mCommute : Commute = Commute()
-        routeName = name
+
+        mPosition=pos
+        var mCommute : Commute = commutesList!!.commutesItemsList[mPosition]
+        /*routeName = name
         routeStart = start
         routeArrival = arrival
-        routeArrivalTime = arrival_time
+        routeArrivalTime = arrival_time*/
         mSender = sender
-        mCommute.name = routeName
+        /*mCommute.name = routeName
         mCommute.start = routeStart
         mCommute.arrival = routeArrival
-        mCommute.arrival_time_long = routeArrivalTime
+        mCommute.arrival_time_long = routeArrivalTime*/
         isNew = is_new
 
-        if(arrival_time != "Now"){
+        if(mCommute.arrival_time_long != "Now"){
             routeArrivalTimeUTC =
-                (Timestamp.valueOf(arrival_time).time/1000)
+                (Timestamp.valueOf(mCommute.arrival_time_long).time/1000)
             mCommute.arrival_time_UTC = routeArrivalTimeUTC
         }
 
@@ -163,84 +163,86 @@ class GoogleAPI(){
     }
 
     fun getResults(json : String){
-        var mCommute : Commute = Commute()
-        mCommute = readJSON(json)
-        mCommute.name = routeName
+
+
+        readJSON(json)
+        //var mCommute : Commute = commutesList!!.commutesItemsList[mPosition]
+        /*mCommute.name = routeName
         mCommute.start = routeStart
         mCommute.arrival= routeArrival
         mCommute.start_time_UTC = routeStartTimeUTC
         mCommute.arrival_time_long = routeArrivalTime
-        mCommute.arrival_time_UTC = routeArrivalTimeUTC
+        mCommute.arrival_time_UTC = routeArrivalTimeUTC*/
 
-        if(mCommute.arrival_time_long != "Now"){
+        if(commutesList!!.commutesItemsList[mPosition].arrival_time_long != "Now"){
             when(responseReceived){
                 0 -> {
                     responseReceived = 1
                     responseReceivedMAX = 5
-                    mCommute.arrival_time_UTC = routeArrivalTimeUTC
+                    commutesList!!.commutesItemsList[mPosition].arrival_time_UTC = routeArrivalTimeUTC
 
-                    routeStartTimeUTC = (mCommute.arrival_time_UTC!! -
-                            mCommute.duration_val!!)
-                    mCommute.start_time_UTC = routeStartTimeUTC
-                    sendHTTP(mCommute)
+                    routeStartTimeUTC = (commutesList!!.commutesItemsList[mPosition].arrival_time_UTC!! -
+                            commutesList!!.commutesItemsList[mPosition].duration_val!!)
+                    commutesList!!.commutesItemsList[mPosition].start_time_UTC = routeStartTimeUTC
+                    sendHTTP(commutesList!!.commutesItemsList[mPosition])
                 }
                 1 -> {
                     responseReceivedMAX = responseReceivedMAX - 1
 
-                    mCommute.errorTraffic =
-                        (mCommute.start_time_UTC!! +
-                                mCommute.duration_traffic_val!! -
+                    commutesList!!.commutesItemsList[mPosition].errorTraffic =
+                        (commutesList!!.commutesItemsList[mPosition].start_time_UTC!! +
+                                commutesList!!.commutesItemsList[mPosition].duration_traffic_val!! -
                                 routeArrivalTimeUTC!!)
 
-                    if(((mCommute.errorTraffic!! > errorLimitUp) or
-                                (mCommute.errorTraffic!! < errorLimitDown))
+                    if(((commutesList!!.commutesItemsList[mPosition].errorTraffic!! > errorLimitUp) or
+                                (commutesList!!.commutesItemsList[mPosition].errorTraffic!! < errorLimitDown))
                         and (responseReceived > 0)){
-                        routeStartTimeUTC = (mCommute.start_time_UTC!! -
-                                mCommute.errorTraffic!!)
-                        mCommute.start_time_UTC = routeStartTimeUTC
-                        sendHTTP(mCommute)
+                        routeStartTimeUTC = (commutesList!!.commutesItemsList[mPosition].start_time_UTC!! -
+                                commutesList!!.commutesItemsList[mPosition].errorTraffic!!)
+                        commutesList!!.commutesItemsList[mPosition].start_time_UTC = routeStartTimeUTC
+                        sendHTTP(commutesList!!.commutesItemsList[mPosition])
                     } else{
                         val jdf =
                             SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                         jdf.setTimeZone(TimeZone.getTimeZone("GMT+1"))
-                        mCommute.start_time_long =
-                            jdf.format(mCommute.start_time_UTC!! * 1000)
+                        commutesList!!.commutesItemsList[mPosition].start_time_long =
+                            jdf.format(commutesList!!.commutesItemsList[mPosition].start_time_UTC!! * 1000)
 
-                        dateTime = mCommute.start_time_long.split(" ")
+                        dateTime = commutesList!!.commutesItemsList[mPosition].start_time_long.split(" ")
                         date = dateTime[0].split("-")
                         time = dateTime[1].split(":")
-                        mCommute.start_time_short =
+                        commutesList!!.commutesItemsList[mPosition].start_time_short =
                             "on " + date[2] +"."+ date[1] +"." + date[0] +
                                     ", at " + time[0] + ":" + time[1]
 
-                        mCommute.name = routeName
-                        mCommute.arrival_time_UTC = routeArrivalTimeUTC
+                        //commutesList!!.commutesItemsList[mPosition].name = routeName
+                        commutesList!!.commutesItemsList[mPosition].arrival_time_UTC = routeArrivalTimeUTC
                         if(mSender == "Service"){
-                            mService!!.routeRequestedReady(mCommute)
+                            mService!!.routeRequestedReady(commutesList!!.commutesItemsList[mPosition])
                         }
                         else if(mSender == "Activity"){
-                            mActivity!!.routeRequestedReady(mCommute,isNew!!)
+                            mActivity!!.routeRequestedReady(mPosition,isNew!!)
                         }
                         responseReceived = 0
                     }
                 }
             }
         }
-        else mService!!.routeRequestedReady(mCommute)
+        else mService!!.routeRequestedReady(commutesList!!.commutesItemsList[mPosition])
     }
 
-    fun readJSON(json : String) : Commute{
-        var mCommute : Commute = Commute()
-        mCommute.name = routeName
+    fun readJSON(json : String) {
+        //var mCommute : Commute = commutesList!!.commutesItemsList[mPosition]
+        /*mCommute.name = routeName
         mCommute.start = routeStart
-        mCommute.arrival = routeArrival
+        mCommute.arrival = routeArrival*/
 
-        mCommute.arrival_time_long = routeArrivalTime
+        //mCommute.arrival_time_long = routeArrivalTime
         if (routeArrivalTime!="Now") {
-            dateTime = mCommute.arrival_time_long.split(" ")
+            dateTime = commutesList!!.commutesItemsList[mPosition].arrival_time_long.split(" ")
             date = dateTime[0].split("-")
             time = dateTime[1].split(":")
-            mCommute.arrival_time_short =
+            commutesList!!.commutesItemsList[mPosition].arrival_time_short =
                 "on " + date[2] + "." + date[1] + "." + date[0] +
                         ", at " + time[0] + ":" + time[1]
         }
@@ -274,41 +276,41 @@ class GoogleAPI(){
             .getJSONObject("end_location")
             .getString("lng")
 
-        mCommute.start_address = legs
+        commutesList!!.commutesItemsList[mPosition].start_address = legs
             .getJSONObject(0)
             .getString("start_address")
-        mCommute.start_address_LatLng =
+        commutesList!!.commutesItemsList[mPosition].start_address_LatLng =
             LatLng(
                 startLocationLat.toDouble(),
                 startLocationLng.toDouble())
 
-        mCommute.arrival_address = legs
+        commutesList!!.commutesItemsList[mPosition].arrival_address = legs
             .getJSONObject(0)
             .getString("end_address")
-        mCommute.arrival_address_LatLng =
+        commutesList!!.commutesItemsList[mPosition].arrival_address_LatLng =
             LatLng(
                 arrivalLocationLat.toDouble(),
                 arrivalLocationLng.toDouble())
 
-        mCommute.distance = legs
+        commutesList!!.commutesItemsList[mPosition].distance = legs
             .getJSONObject(0)
             .getJSONObject("distance")
             .getString("text")
-        mCommute.duration = legs
+        commutesList!!.commutesItemsList[mPosition].duration = legs
             .getJSONObject(0)
             .getJSONObject("duration")
             .getString("text")
-        mCommute.duration_val = legs
+        commutesList!!.commutesItemsList[mPosition].duration_val = legs
             .getJSONObject(0)
             .getJSONObject("duration")
             .getString("value").toLong()
 
         if(legs.getJSONObject(0).has("duration_in_traffic")){
-            mCommute.duration_traffic = legs
+            commutesList!!.commutesItemsList[mPosition].duration_traffic = legs
                 .getJSONObject(0)
                 .getJSONObject("duration_in_traffic")
                 .getString("text")
-            mCommute.duration_traffic_val = legs
+            commutesList!!.commutesItemsList[mPosition].duration_traffic_val = legs
                 .getJSONObject(0)
                 .getJSONObject("duration_in_traffic")
                 .getString("value").toLong()
@@ -322,13 +324,13 @@ class GoogleAPI(){
             path.add(PolyUtil.decode(points))
         }
 
-        mCommute.path = path
+        commutesList!!.commutesItemsList[mPosition].path = path
 
-        mCommute.raw_data = json
+        commutesList!!.commutesItemsList[mPosition].raw_data = json
             .substringBefore("steps")
             .substringAfter("legs")
 
-        return mCommute
+        //return mCommute
     }
 
 }

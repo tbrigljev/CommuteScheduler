@@ -103,7 +103,7 @@ class NotificationService : IntentService("NotificationService") {
 
         val mGoogleAPI=GoogleAPI()
         mGoogleAPI.setService(this )
-        mGoogleAPI.requestRoute("Service","test",origin, destination, "Now",false)
+        //mGoogleAPI.requestRoute("Service","test",origin, destination, "Now",false)
 
     }
     private fun createChannel() {

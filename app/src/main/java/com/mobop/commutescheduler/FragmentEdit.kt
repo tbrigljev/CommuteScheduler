@@ -217,12 +217,12 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                 if(new){
                     text = "Commute added"
                     //var arrival_time = "2019-12-31 23:00:00"
+
+                    commutesList!!.commutesItemsList.add(newCommute)
+                    var pos=commutesList!!.commutesItemsList.size -1
                     MainActivity.mGoogleAPI!!.requestRoute(
                         "Activity",
-                        newCommute.name,
-                        newCommute.start,
-                        newCommute.arrival,
-                        newCommute.arrival_time_long,
+                        pos,
                         true)
 
                     var prev_pos=FragmentCommutes.mAdapter!!.previousPosition

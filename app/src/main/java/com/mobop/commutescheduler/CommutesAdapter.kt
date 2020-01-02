@@ -232,10 +232,7 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
 
                                 MainActivity.mGoogleAPI!!.requestRoute(
                                     "Activity",
-                                    commute.name,
-                                    commute.start_address!!,
-                                    commute.arrival_address!!,
-                                    commute.arrival_time_long,
+                                    pos,
                                     false)
 
 

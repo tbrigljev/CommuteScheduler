@@ -34,10 +34,10 @@ class CommutesItemsList private constructor(context : Context){
 
         val homeToSchool = Commute(
             name = "Home2School",
-            start = "Home",
-            start_address = "Route des Arsenaux 29, 1700 Fribourg",
-            arrival = "School",
-            arrival_address = "Avenue de Provence 6, 1007 Lausanne",
+            start = "Route des Arsenaux 29, 1700 Fribourg",
+            start_address = "",
+            arrival = "Avenue de Provence 6, 1007 Lausanne",
+            arrival_address = "",
             arrival_time_short = "on 15.01.2020, at 08:00",
             arrival_time_long = "2020-01-15 08:00:00",
             days = mutableListOf(R.string.Tuesday, R.string.Thursday),
@@ -49,10 +49,10 @@ class CommutesItemsList private constructor(context : Context){
             alarm_tune = "Ribbit"*/)
         val homeToWork = Commute(
             name = "Home2Work",
-            start = "Home",
-            start_address = "Route des Arsenaux 29, 1700 Fribourg",
-            arrival = "Work",
-            arrival_address = "Route de Morat 135, 1763 Granges-Paccot",
+            start = "Route des Arsenaux 29, 1700 Fribourg",
+            start_address = "",
+            arrival = "Route de Morat 135, 1763 Granges-Paccot",
+            arrival_address = "",
             arrival_time_short = "on 20.02.2020, at 07:00",
             arrival_time_long = "2020-02-20 07:00:00",
             days = mutableListOf(R.string.Monday, R.string.Wednesday, R.string.Friday),

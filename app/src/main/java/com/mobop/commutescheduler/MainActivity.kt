@@ -127,10 +127,10 @@ class MainActivity :
     /* Function that receives the result of the Google request *** */
     /* already formatted ***************************************** */
 
-    fun routeRequestedReady(mCommute : Commute, isNew : Boolean){
-
+    fun routeRequestedReady(pos : Int, isNew : Boolean){
+        var mCommute=commutesList!!.commutesItemsList[pos]
         if (isNew) {
-            commutesList!!.commutesItemsList.add(mCommute)
+            //commutesList!!.commutesItemsList.add(mCommute)
             FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
             var lastPos = commutesList!!.commutesItemsList.size - 1
             FragmentCommutes.mRecyclerView!!.smoothScrollToPosition(lastPos);
@@ -147,6 +147,7 @@ class MainActivity :
             Notifications().setNotification(mCommute, checkPoint, this@MainActivity)*/
 
         }
+        FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
         FragmentMap.mapFieldCommuteDuration.setText(mCommute.duration)
         FragmentMap.mapFieldCommuteName.setText(mCommute.name)
 
