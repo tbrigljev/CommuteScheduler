@@ -140,8 +140,11 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
         }
         else{
             commuteName.setText(commutesList!!.commutesItemsList[pos].name)
-            commuteOriginAddress.setText(commutesList!!.commutesItemsList[pos].start)
-            commuteDestinationAddress.setText(commutesList!!.commutesItemsList[pos].arrival)
+            start=commutesList!!.commutesItemsList[pos].start
+            arrival=commutesList!!.commutesItemsList[pos].arrival
+
+            commuteOriginAddress.setText(start)
+            commuteDestinationAddress.setText(arrival)
             var date = commutesList!!.commutesItemsList[pos].arrival_time_long.split(" ")[0]
             var time = commutesList!!.commutesItemsList[pos].arrival_time_long.split(" ")[1]
             chooseDate.setText(date)
@@ -237,7 +240,17 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                 }
                 else{
                     text = "Commute modified"
-                    commutesList!!.commutesItemsList[pos] = newCommute
+                    commutesList!!.commutesItemsList[pos].name = newCommute.name
+                    commutesList!!.commutesItemsList[pos].start = newCommute.start
+                    commutesList!!.commutesItemsList[pos].arrival = newCommute.arrival
+                    commutesList!!.commutesItemsList[pos].arrival_time_long = newCommute.arrival_time_long
+                    commutesList!!.commutesItemsList[pos].arrival_time_short= newCommute.arrival_time_short
+
+                    MainActivity.mGoogleAPI!!.requestRoute(
+                        "Activity",
+                        pos,
+                        false)
+
                     FragmentCommutes.mAdapter!!.viewLayouts(false,false,pos)
                     FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
 
