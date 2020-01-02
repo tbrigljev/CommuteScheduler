@@ -17,9 +17,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/GoogleMapsKey" />
 
-<!--        <receiver
+       <receiver
             android:name=".AlarmReceiver"
-            android:enabled="true" />-->
+            android:enabled="true" />
 
         <service
             android:name=".NotificationService"

@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat
 
 /* *************************************************************** */
 
-class GoogleAPI(activity:MainActivity){
+class GoogleAPI(){
 
     /* Google Places ********************************************* */
     lateinit var placesClient : PlacesClient
@@ -30,7 +30,7 @@ class GoogleAPI(activity:MainActivity){
     var responseReceivedMAX = 5
     //var GoogleKey = R.string.GoogleMapsKey
     var mFragmentEdit : FragmentEdit? = null
-    val mActivity= activity
+    var mActivity: MainActivity?= null //activity
     var mContext : Context? = null
     var mService : NotificationService? = null
     var mSender : String? = null
@@ -54,8 +54,11 @@ class GoogleAPI(activity:MainActivity){
         mContext = context
         setupPlacesAutocomplete()
     }
+    fun setActivity(activity : MainActivity){
+        mActivity = activity
+    }
 
-    fun setServiceContext(activity : NotificationService){
+    fun setService(activity : NotificationService){
         mService = activity
     }
 
@@ -141,7 +144,7 @@ class GoogleAPI(activity:MainActivity){
     }
 
     fun sendHTTP(mCommute : Commute){
-        var start_time : String = "Now"
+        var start_time : String = "now"
         if(mCommute.arrival_time_long != "Now"){
             start_time = mCommute.arrival_time_UTC.toString()
         }
@@ -216,7 +219,7 @@ class GoogleAPI(activity:MainActivity){
                             mService!!.routeRequestedReady(mCommute)
                         }
                         else if(mSender == "Activity"){
-                            mActivity.routeRequestedReady(mCommute,isNew!!)
+                            mActivity!!.routeRequestedReady(mCommute,isNew!!)
                         }
                         responseReceived = 0
                     }
@@ -233,13 +236,14 @@ class GoogleAPI(activity:MainActivity){
         mCommute.arrival = routeArrival
 
         mCommute.arrival_time_long = routeArrivalTime
-        dateTime = mCommute.arrival_time_long.split(" ")
-        date = dateTime[0].split("-")
-        time = dateTime[1].split(":")
-        mCommute.arrival_time_short =
-            "on " + date[2] +"."+ date[1] +"." + date[0] +
-                    ", at " + time[0] + ":" + time[1]
-
+        if (routeArrivalTime!="Now") {
+            dateTime = mCommute.arrival_time_long.split(" ")
+            date = dateTime[0].split("-")
+            time = dateTime[1].split(":")
+            mCommute.arrival_time_short =
+                "on " + date[2] + "." + date[1] + "." + date[0] +
+                        ", at " + time[0] + ":" + time[1]
+        }
         val jsonResponse = JSONObject(json)
         val path : MutableList<List<LatLng>> = ArrayList()
 

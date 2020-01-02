@@ -84,7 +84,8 @@ class MainActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mGoogleAPI = GoogleAPI(this)
+        mGoogleAPI = GoogleAPI()
+        mGoogleAPI!!.setActivity(this)
 
         mFragmentManager.beginTransaction()
             .add(R.id.main_container_fragments, homeFragment,"home")
@@ -134,6 +135,17 @@ class MainActivity :
             var lastPos = commutesList!!.commutesItemsList.size - 1
             FragmentCommutes.mRecyclerView!!.smoothScrollToPosition(lastPos);
             //FragmentCommutes.mAdapter!!.viewLayouts(false,true,lastPos) //Gives an execption ??
+
+            /*
+            var checkPoint= 15 // 15min
+            Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
+
+            checkPoint =30 // 30min
+            Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
+
+            checkPoint =60 // 1h
+            Notifications().setNotification(mCommute, checkPoint, this@MainActivity)*/
+
         }
         FragmentMap.mapFieldCommuteDuration.setText(mCommute.duration)
         FragmentMap.mapFieldCommuteName.setText(mCommute.name)
@@ -169,6 +181,7 @@ class MainActivity :
                 FragmentMap.mMap.addPolyline(polyLineOptions)
             }
         }
+
     }
 
 
