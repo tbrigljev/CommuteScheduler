@@ -2,6 +2,7 @@ package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
 import android.app.PendingIntent.getActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +22,13 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
                       private val touchListener : (Int, Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                       //private val touchListener : (Commute, Int) -> Unit) :
     private lateinit var view : View
-    private var previousPosition: Int = 0
+
     var commutesItemsList : ArrayList<Commute>
+    var previousPosition: Int = 0
+
     private var viewRes : Int = 0
     private var mRecyclerView: RecyclerView? = null
+
 
     init{
         this.commutesItemsList = commutesItemsList
@@ -193,20 +197,25 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
             itemView.setOnTouchListener(object : OnSwipeTouchListener() {
                 override fun onClick() {
                     //touchListener(position)
-                    if (previousPosition != getAdapterPosition()) {
-                        var view_previous: View =
-                            mRecyclerView!!.findViewHolderForAdapterPosition(previousPosition)!!.itemView
-                        val layoutButtons_previous: ConstraintLayout =
-                            view_previous!!.findViewById(R.id.buttons_container) as ConstraintLayout
-                        val layoutExtended_previous: LinearLayout =
-                            view_previous!!.findViewById(R.id.element_extended_container) as LinearLayout
-                        val layoutSimple_previous: LinearLayout =
-                            view_previous!!.findViewById(R.id.element_simple_container) as LinearLayout
-                        layoutButtons_previous.visibility = View.GONE
-                        layoutExtended_previous.visibility = View.GONE
-                        layoutSimple_previous.visibility = View.VISIBLE
 
-                        previousPosition = getAdapterPosition()
+                    if (previousPosition != getAdapterPosition()) {
+                        try {
+                            var view_previous: View =
+                                mRecyclerView!!.findViewHolderForAdapterPosition(previousPosition)!!.itemView
+                            val layoutButtons_previous: ConstraintLayout =
+                                view_previous!!.findViewById(R.id.buttons_container) as ConstraintLayout
+                            val layoutExtended_previous: LinearLayout =
+                                view_previous!!.findViewById(R.id.element_extended_container) as LinearLayout
+                            val layoutSimple_previous: LinearLayout =
+                                view_previous!!.findViewById(R.id.element_simple_container) as LinearLayout
+                            layoutButtons_previous.visibility = View.GONE
+                            layoutExtended_previous.visibility = View.GONE
+                            layoutSimple_previous.visibility = View.VISIBLE
+
+                            previousPosition = getAdapterPosition()
+                        }catch(e : Exception){
+                            Log.i("myTag",e.toString())
+                        }
                     }
 
                     if(layoutButtons.visibility == View.VISIBLE) {

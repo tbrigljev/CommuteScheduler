@@ -8,10 +8,30 @@ import com.google.android.gms.maps.model.LatLng
 
 /* CommutesItems ************************************************* */
 /* Contents of the recycler view (list) of commutes items ******** */
-class CommutesItemsList{
+class CommutesItemsList private constructor(context : Context){
+    companion object{
+        @Volatile private var INSTANCE : CommutesItemsList? = null
+
+        fun getSingleton(context : Context) : CommutesItemsList{
+            val tempInstance = INSTANCE
+            if(tempInstance != null){
+                return tempInstance
+            }
+            synchronized(this){
+                val instance = CommutesItemsList(context.applicationContext)
+                INSTANCE = instance
+                return instance
+            }
+        }
+    }
+
     var commutesItemsList = ArrayList<Commute>()
 
+    /* Initialising data into the ArrayList<Items> *************** */
     init{
+        doAsync{
+
+
         val homeToSchool = Commute(
             name = "Home2School",
             start = "Home",
@@ -76,8 +96,9 @@ class CommutesItemsList{
 
         commutesItemsList.add(homeToWork)
         commutesItemsList.add(homeToSchool)
-        commutesItemsList.add(longNameTest)
-        commutesItemsList.add(longParamTest)
+        //commutesItemsList.add(longNameTest)
+        //commutesItemsList.add(longParamTest)
+        }
     }
 }
 
@@ -115,6 +136,44 @@ class Commutes private constructor(context : Context){
 }
 
 data class Commute(
+
+    var name : String = "",
+
+    var start : String = "",
+    var start_address : String? = null,
+    var start_address_LatLng : LatLng? = null,
+
+    var arrival : String = "",
+    var arrival_address : String? = null,
+    var arrival_address_LatLng : LatLng? = null,
+
+    var start_time : String = "",
+    var start_time_UTC : Long? = null,
+
+    var arrival_time : String = "",
+    var arrival_time_UTC : Long? = null,
+
+    var days : MutableList<Int?> = ArrayList(),
+
+    var distance : String? = null,
+    var duration : String? = null,
+    var duration_val : Long? = null,
+    var duration_traffic : String? = null,
+    var duration_traffic_val : Long? = null,
+
+    var path : MutableList<List<LatLng>> = ArrayList(),
+    var raw_data : String? = null,
+    var errorTraffic : Long? = null/*,
+
+    var reminder_on : Boolean = false,
+    var reminder_tune : String? = null,
+
+    var alarm_on : Boolean = false,
+    var alarm_time : String? = null,
+    var alarm_tune : String? = null*/
+)
+
+data class Commute2(
 
     var name : String = "",
 

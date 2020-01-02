@@ -24,7 +24,7 @@ class GoogleAPI(activity:MainActivity){
 
     /* Google Places ********************************************* */
     lateinit var placesClient : PlacesClient
-    var mCommute : Commute = Commute()
+
     var responseReceived = 0
     var responseReceivedMAX = 5
     //var GoogleKey = R.string.GoogleMapsKey
@@ -34,7 +34,12 @@ class GoogleAPI(activity:MainActivity){
     var mService : NotificationService? = null
     var mSender : String? = null
     var isNew : Boolean? = null
-
+    var routeName:String=""
+    var routeStart:String=""
+    var routeArrival:String=""
+    var roeuteArrivalTime:String=""
+    var routeArrivalTimeUTC:Long? = null
+    var routeStartTimeUTC:Long? = null
     val errorLimitUp = 60
     val errorLimitDown = -300
 
@@ -108,17 +113,22 @@ class GoogleAPI(activity:MainActivity){
         arrival : String,
         arrival_time : String,
         is_new : Boolean){
-
+        var mCommute : Commute= Commute()
+        routeName=name
+        routeStart=start
+        routeArrival=arrival
+        roeuteArrivalTime=arrival_time
         mSender = sender
-        mCommute.name = name
-        mCommute.start = start
-        mCommute.arrival = arrival
-        mCommute.arrival_time = arrival_time
+        mCommute.name = routeName
+        mCommute.start = routeStart
+        mCommute.arrival= routeArrival
+        mCommute.arrival_time = roeuteArrivalTime
         isNew=is_new
 
         if(arrival_time != "Now"){
-            mCommute.arrival_time_UTC =
+            routeArrivalTimeUTC =
                 (Timestamp.valueOf(arrival_time).time/1000)
+            mCommute.arrival_time_UTC = routeArrivalTimeUTC
         }
 
         responseReceived = 0
@@ -145,15 +155,25 @@ class GoogleAPI(activity:MainActivity){
     }
 
     fun getResults(json : String){
+        var mCommute : Commute= Commute()
         mCommute = readJSON(json)
+        mCommute.name = routeName
+        mCommute.start = routeStart
+        mCommute.arrival= routeArrival
+        mCommute.arrival_time = roeuteArrivalTime
+        mCommute.arrival_time_UTC = routeArrivalTimeUTC
+        mCommute.start_time_UTC = routeStartTimeUTC
+
         if(mCommute.arrival_time != "Now"){
             when(responseReceived){
                 0 -> {
                     responseReceived = 1
                     responseReceivedMAX = 5
-                    mCommute.start_time_UTC =
-                        (mCommute.arrival_time_UTC!! -
-                                mCommute.duration_val!!)
+                    mCommute.arrival_time_UTC = routeArrivalTimeUTC
+
+                    routeStartTimeUTC = (mCommute.arrival_time_UTC!! -
+                            mCommute.duration_val!!)
+                    mCommute.start_time_UTC = routeStartTimeUTC
                     sendHTTP(mCommute)
                 }
                 1 -> {
@@ -162,14 +182,14 @@ class GoogleAPI(activity:MainActivity){
                     mCommute.errorTraffic =
                         (mCommute.start_time_UTC!! +
                                 mCommute.duration_traffic_val!! -
-                                mCommute.arrival_time_UTC!!)
+                                routeArrivalTimeUTC!!)
 
                     if(((mCommute.errorTraffic!! > errorLimitUp) or
                                 (mCommute.errorTraffic!! < errorLimitDown))
                         and (responseReceived > 0)){
-                        mCommute.start_time_UTC =
-                            (mCommute.start_time_UTC!! -
-                                    mCommute.errorTraffic!!)
+                        routeStartTimeUTC = (mCommute.start_time_UTC!! -
+                                mCommute.errorTraffic!!)
+                        mCommute.start_time_UTC = routeStartTimeUTC
                         sendHTTP(mCommute)
                     } else{
                         val jdf =
@@ -177,7 +197,8 @@ class GoogleAPI(activity:MainActivity){
                         jdf.setTimeZone(TimeZone.getTimeZone("GMT+1"))
                         mCommute.start_time =
                             jdf.format(mCommute.start_time_UTC!! * 1000)
-
+                        mCommute.name=routeName
+                        mCommute.arrival_time_UTC=routeArrivalTimeUTC
                         if(mSender == "Service"){
                             mService!!.routeRequestedReady(mCommute)
                         }
@@ -193,6 +214,11 @@ class GoogleAPI(activity:MainActivity){
     }
 
     fun readJSON(json : String) : Commute{
+        var mCommute : Commute= Commute()
+        mCommute.name = routeName
+        mCommute.start = routeStart
+        mCommute.arrival= routeArrival
+        mCommute.arrival_time = roeuteArrivalTime
         val jsonResponse = JSONObject(json)
         val path : MutableList<List<LatLng>> = ArrayList()
 

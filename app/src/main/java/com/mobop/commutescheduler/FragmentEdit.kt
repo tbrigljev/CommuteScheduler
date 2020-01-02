@@ -219,7 +219,14 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                         newCommute.arrival_time,
                         true)
 
-
+                    var prev_pos=FragmentCommutes.mAdapter!!.previousPosition
+                    if ((prev_pos != -1) and (prev_pos < FragmentCommutes.mAdapter!!.commutesItemsList.size)) {
+                        FragmentCommutes.mAdapter!!.viewLayouts(
+                            false,
+                            false,
+                            FragmentCommutes.mAdapter!!.previousPosition
+                        )
+                    }
                     //commutesList!!.commutesItemsList.add(newCommute)
                 }
                 else{

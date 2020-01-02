@@ -26,6 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.textfield.TextInputEditText
 import com.mobop.commutescheduler.FragmentCommutes.Companion.mRecyclerView
+import com.mobop.commutescheduler.FragmentCommutes.Companion.mAdapter
 
 
 /* *************************************************************** */
@@ -67,13 +68,7 @@ class MainActivity :
         var mGoogleAPI : GoogleAPI?=null
     }
 
-    // var mResult : TextView? = null,
-    var mTextArrival : TextView? = null
-    var mTextDistance : TextView? = null
-    var mTextDuration : TextView? = null
-    var mTextDurationTraffic : TextView? = null
-    var mTextDeparture : TextView? = null
-    var mTextDate : TextInputEditText? = null
+
 
     /* *********************************************************** */
     /* onCreate() ************************************************ */
@@ -83,7 +78,6 @@ class MainActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        commutesList = CommutesItemsList()
         mGoogleAPI = GoogleAPI(this)
 
         mFragmentManager.beginTransaction()
@@ -96,20 +90,13 @@ class MainActivity :
         toolbar.title = getString(R.string.name_main)
         previousTitle = getString(R.string.name_main)
 
-        /*
-        // mResult = findViewById<TextView>(R.id.result)
-        mTextArrival = findViewById(R.id.text_arrival)
-        mTextDistance = findViewById(R.id.text_distance)
-        mTextDuration = findViewById(R.id.text_duration)
-        mTextDurationTraffic = findViewById(R.id.text_duration_traffic)
-        mTextDeparture = findViewById(R.id.text_departure)
-        mTextDate = findViewById(R.id.text_date)
-        // result!!.setMovementMethod(ScrollingMovementMethod())
+
+        //commutesList = CommutesItemsList()
 
         /* Create a singleton of the class Commutes for the list * */
         /* *** of commutes and database instance ***************** */
-        commutes = Commutes.getSingleton(this)
-*/
+        commutesList = CommutesItemsList.getSingleton(this)
+
         /* This object contains all the methods fo using the ***** */
         /* *** Google API **************************************** */
         GoogleKey = getString(R.string.GoogleMapsKey)
@@ -130,12 +117,7 @@ class MainActivity :
     /* already formatted ***************************************** */
 
     fun routeRequestedReady(mCommute : Commute, isNew : Boolean){
-//        mTextArrival!!.text = mCommute.arrival_time
-//        mTextDistance!!.text = mCommute.distance
-//        mTextDuration!!.text = mCommute.duration
-//        mTextDurationTraffic!!.text = mCommute.duration_traffic
-//        mTextDeparture!!.text = mCommute.start_time
-//        // result!!.text = mCommute.raw_data
+
         if (isNew) {
             commutesList!!.commutesItemsList.add(mCommute)
             FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
