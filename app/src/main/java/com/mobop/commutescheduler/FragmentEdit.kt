@@ -197,27 +197,29 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
             var arrivalDate = chooseDate.text.toString()
             var arrivalTime = chooseTime.text.toString()
 
-            newCommute.name = commuteName.text.toString()
-            newCommute.start = start
-            newCommute.arrival = arrival
 
-            newCommute.arrival_time_short = "on " + arrivalDate + ", at " + arrivalTime
-            newCommute.arrival_time_long = arrivalDate + " " + arrivalTime + ":00"
 
             lateinit var text : String
 
-            if(newCommute.name == "")
+            if(commuteName.text.toString() == "")
                 text = "Name of commute is missing"
-            else if(newCommute.start == "")
+            else if(start == "")
                 text = "Starting location is missing"
-            else if(newCommute.arrival == "")
+            else if(arrival == "")
                 text = "Destination is missing"
             else if(arrivalDate == "")
                 text = "Date information is missing"
             else if(arrivalTime == "")
                 text = "Time information is missing"
             else {  //All minimum values introduced
+
+                newCommute.name = commuteName.text.toString()
+                newCommute.start = start
+                newCommute.arrival = arrival
+                newCommute.arrival_time_short = "on " + arrivalDate + ", at " + arrivalTime
+                
                 if(new){
+                    newCommute.arrival_time_long = arrivalDate + " " + arrivalTime + ":00"
                     text = "Commute added"
                     //var arrival_time = "2019-12-31 23:00:00"
 
@@ -239,6 +241,7 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                     //commutesList!!.commutesItemsList.add(newCommute)
                 }
                 else{
+                    newCommute.arrival_time_long = arrivalDate + " " + arrivalTime
                     text = "Commute modified"
                     commutesList!!.commutesItemsList[pos].name = newCommute.name
                     commutesList!!.commutesItemsList[pos].start = newCommute.start
