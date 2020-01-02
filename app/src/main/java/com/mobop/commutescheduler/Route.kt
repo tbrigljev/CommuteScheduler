@@ -1,3 +1,4 @@
+/*
 package com.mobop.commutescheduler
 
 import android.content.Context
@@ -36,9 +37,11 @@ class Route private constructor  (context: Context){
 
     //var listRoutes = ArrayList<Route>()
 
-    /*************************************************************************
+    */
+/*************************************************************************
      * Initializes the initial data into the ArrayList<Items>
-     *************************************************************************/
+     *************************************************************************//*
+
     init {
         doAsync {
             //listRoutes.addAll(database.getAll())
@@ -93,14 +96,16 @@ class Route private constructor  (context: Context){
     )
 
 
-    @Entity(tableName = "alarm"/*,
+    @Entity(tableName = "alarm"*/
+/*,
         foreignKeys = [
             ForeignKey(
                 entity = Address::class,
                 parentColumns = ["aid"],
                 childColumns = ["aid"],
                 onDelete = CASCADE)
-        ]*/)
+        ]*//*
+)
     data class Alarm(
         @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "alid") var alid: Long=0,
         @ColumnInfo(name = "name") var name: String="",
@@ -110,6 +115,7 @@ class Route private constructor  (context: Context){
         var typeItemAl: Int=1
     )
 
+*/
 /*
     class Converter {
 
@@ -123,8 +129,10 @@ class Route private constructor  (context: Context){
             return date?.time
         }
     }
-*/
+*//*
+
 }
+*/
 /*
 data class Route (var origin:String,
                   var destination:String,
@@ -144,7 +152,8 @@ data class Route (var origin:String,
                   var end_address_LatLng:LatLng?=null,
                   var raw_data:String?=null,
                   var errorTraffic:Long?=null)
-*/
+*//*
+
 
 @Dao
 public interface RouteDao{
@@ -231,4 +240,4 @@ public abstract class AppDatabase : RoomDatabase() {
             }
         }
     }
-}
+}*/

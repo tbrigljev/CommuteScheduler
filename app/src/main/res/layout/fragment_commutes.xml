@@ -62,7 +62,7 @@
             android:paddingBottom="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/fragment_commutes_buttons"
             app:layout_constraintEnd_toEndOf="@+id/fragment_commutes_buttons"
-            app:srcCompat="@drawable/commutes_reduce" />
+            app:srcCompat="@drawable/home" />
 
         <ImageButton
             android:id="@+id/commutes_button_enhance"

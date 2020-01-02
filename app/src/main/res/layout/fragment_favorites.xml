@@ -45,7 +45,7 @@
             android:paddingBottom="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/fragment_favorites_buttons"
             app:layout_constraintEnd_toEndOf="@+id/fragment_favorites_buttons"
-            app:srcCompat="@drawable/commutes_reduce" />
+            app:srcCompat="@drawable/home" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

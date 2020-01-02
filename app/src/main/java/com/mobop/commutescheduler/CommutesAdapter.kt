@@ -164,8 +164,17 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
                 simpleStart.text = elementSimpleStart
                 val elementSimpleEnd = itemInList.arrival
                 simpleEnd.text = elementSimpleEnd
-                val elementSimpleTime = itemInList.duration
-                simpleTimeDuration.text = elementSimpleTime
+                val elementSimpleTime = itemInList.duration_val!!.toInt()/60
+                var hoursText = ""
+                var minutesText = ""
+                if(elementSimpleTime >= 60){
+                    hoursText = (elementSimpleTime/60).toString() + "h"
+                    minutesText = (elementSimpleTime%60).toString() + "min"
+                }
+                else{
+                    minutesText = elementSimpleTime.toString() + "min"
+                }
+                simpleTimeDuration.text = hoursText + minutesText
 
                 val elementExtendedStart = itemInList.start
                 extendedStart.text = elementExtendedStart
@@ -181,6 +190,7 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
                 extendedTimeEnd.text = elementTimeArrival
                 val elementTimeDuration = itemInList.duration
                 extendedTimeDuration.text = elementTimeDuration
+
                 /*val elementReminderOn = itemInList.reminder_on
                 extendedReminderOn.isChecked = elementReminderOn
                 val elementReminder = itemInList.reminder_tune

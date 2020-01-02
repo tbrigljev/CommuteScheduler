@@ -133,7 +133,7 @@
     <LinearLayout
         android:id="@+id/edit_container_start_end"
         android:layout_width="match_parent"
-        android:layout_height="146dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
@@ -166,14 +166,6 @@
             app:layout_constraintEnd_toEndOf="@+id/view_traffic"
             app:layout_constraintStart_toStartOf="@+id/map_overlay_optional"
             app:layout_constraintTop_toBottomOf="@+id/fragment_start" />
-
-
-
-
-
-
-
-
 
 
     </LinearLayout>
