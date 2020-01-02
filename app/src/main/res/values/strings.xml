@@ -37,6 +37,8 @@
     <string name="in">in</string>
     <string name="text_reminder">Reminder</string>
     <string name="text_alarm">Alarm</string>
+    <string name="text_favorite_name">The name of the favorite</string>
+    <string name="text_favorite_address">The address of the favorite</string>
 
     <string name="field_commute_name">COMMUTE NAME</string>
     <string name="field_departure">Set the start point</string>

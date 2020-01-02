@@ -36,8 +36,12 @@ const val MAIN = 0
 const val MAP = 1
 const val COMMUTES = 2
 const val EDIT = 3
+const val FAVORITES = 4
+const val QUICK = 5
+const val SETTINGS = 99
 
 var commutesList : CommutesItemsList? = null
+var favoritesList : FavoritesItemsList? = null
 /* *************************************************************** */
 
 /* *************************************************************** */
@@ -48,6 +52,7 @@ class MainActivity :
     FragmentCommutes.OnFragmentInteractionListener,
     FragmentEdit.OnFragmentInteractionListener,
     FragmentShortcuts.OnFragmentInteractionListener,
+    FragmentFavorites.OnFragmentInteractionListener,
     FragmentSettings.OnFragmentInteractionListener,
     AppCompatActivity(){
 
@@ -57,6 +62,7 @@ class MainActivity :
     var commutesFragment = FragmentCommutes(0)
     var mapFragment = FragmentMap(0)
     var newFragment = FragmentEdit(true, -1)
+    var favoritesFragment = FragmentFavorites()
     lateinit var editFragment : FragmentEdit
     lateinit var previousTitle : String
     lateinit var settings_item : MenuItem
@@ -96,6 +102,10 @@ class MainActivity :
         /* Create a singleton of the class Commutes for the list * */
         /* *** of commutes and database instance ***************** */
         commutesList = CommutesItemsList.getSingleton(this)
+
+        /* Create a singleton of the class Favorites for the list  */
+        /* *** of favorites and database instance **************** */
+        favoritesList = FavoritesItemsList.getSingleton(this)
 
         /* This object contains all the methods fo using the ***** */
         /* *** Google API **************************************** */
@@ -183,14 +193,26 @@ class MainActivity :
             MAIN -> {
                 when(fragmentState[0]){
                     1 -> {
-                        val text = "No favorites implemented"
+                        toolbar.title = getString(R.string.name_favorites)
+                        previousTitle = getString(R.string.name_main)
+
+                        mFragmentManager.beginTransaction()
+                            .add(
+                                R.id.main_container_fragments,
+                                favoritesFragment,
+                                "favorites"
+                            )
+                            .addToBackStack("favorites")
+                            .commit()
+                        /*
+                        val text = "Coming soon : Favorites !"
                         val duration = Toast.LENGTH_SHORT
 
                         val toast = Toast.makeText(this, text, duration)
-                        toast.show()
+                        toast.show()*/
                     }
                     2 -> {
-                        val text = "No quick selection implemented"
+                        val text = "Coming soon : Quick route selection !"
                         val duration = Toast.LENGTH_SHORT
 
                         val toast = Toast.makeText(this, text, duration)
@@ -382,6 +404,13 @@ class MainActivity :
                /* var fragment: FragmentHome? = supportFragmentManager.findFragmentByTag("home") as FragmentHome
                 var fragment_commutes: FragmentCommutes? = fragment!!.childFragmentManager .findFragmentByTag("list") as FragmentCommutes
                 fragment_commutes!!.mAdapter!!.viewLayoutButtons(false,fragmentState[1])*/
+            }
+            FAVORITES -> {
+                when(fragmentState[0]){
+                    0 -> {
+                        supportFragmentManager.popBackStack()
+                    }
+                }
             }
         }
     }

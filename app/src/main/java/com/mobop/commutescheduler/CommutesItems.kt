@@ -102,12 +102,6 @@ class CommutesItemsList private constructor(context : Context){
     }
 }
 
-/*data class CommutesItemsElement(
-    var commutesName : String,
-    var commutesStart : String,
-    var commutesEnd : String,
-    var commutesTime : String)*/
-
 class Commutes private constructor(context : Context){
     companion object{
         @Volatile private var INSTANCE : Commutes? = null

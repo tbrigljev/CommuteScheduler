@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_favorites_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favorites_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:background="#AADAFF"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_favorites_buttons"
+        app:layout_constraintStart_toStartOf="@+id/fragment_favorites_main"
+        app:layout_constraintTop_toTopOf="@+id/fragment_favorites_main"></androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_favorites_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_favorites_main"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_favorites_main"
+        app:layout_constraintStart_toStartOf="@id/fragment_favorites_main"
+        app:layout_constraintTop_toTopOf="@+id/favorites_list">
+
+        <ImageButton
+            android:id="@+id/favorites_button_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#00FFFFFF"
+            android:contentDescription="@string/button_return"
+            android:onClick="doFavoritesReturn"
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_favorites_buttons"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_favorites_buttons"
+            app:srcCompat="@drawable/commutes_reduce" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
