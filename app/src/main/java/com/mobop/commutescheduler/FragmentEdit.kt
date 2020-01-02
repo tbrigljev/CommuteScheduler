@@ -217,9 +217,10 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                 newCommute.start = start
                 newCommute.arrival = arrival
                 newCommute.arrival_time_short = "on " + arrivalDate + ", at " + arrivalTime
-                
+                newCommute.arrival_time_long = arrivalDate + " " + arrivalTime
+
                 if(new){
-                    newCommute.arrival_time_long = arrivalDate + " " + arrivalTime + ":00"
+                    newCommute.arrival_time_long += ":00"
                     text = "Commute added"
                     //var arrival_time = "2019-12-31 23:00:00"
 
@@ -241,7 +242,7 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                     //commutesList!!.commutesItemsList.add(newCommute)
                 }
                 else{
-                    newCommute.arrival_time_long = arrivalDate + " " + arrivalTime
+
                     text = "Commute modified"
                     commutesList!!.commutesItemsList[pos].name = newCommute.name
                     commutesList!!.commutesItemsList[pos].start = newCommute.start
