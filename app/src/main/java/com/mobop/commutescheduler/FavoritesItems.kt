@@ -79,5 +79,5 @@ class Favorites private constructor(context : Context){
 data class Favorite(
 
     var name : String = "",
-    var address : String? = ""
+    var address : String = ""
 )

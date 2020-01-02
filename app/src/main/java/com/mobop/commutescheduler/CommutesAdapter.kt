@@ -17,8 +17,12 @@ import androidx.recyclerview.widget.RecyclerView
 /* CommutesAdapter *********************************************** */
 /* Adapter for the recycler view managing the list of commutes *** */
 /* Contained in FragmentCommutes ********************************* */
-class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsList: ArrayList<Commute>,
-                      private val touchListener : (Int, Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class CommutesAdapter(
+    mRecyclerView: RecyclerView,
+    viewRes : Int,
+    commutesItemsList: ArrayList<Commute>,
+    private val touchListener : (Int, Int) -> Unit) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                       //private val touchListener : (Commute, Int) -> Unit) :
     private lateinit var view : View
 
@@ -301,7 +305,7 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
 
     fun removeAt(position: Int) {
         commutesItemsList.removeAt(position)
-        previousPosition=0
+        previousPosition = 0
         notifyItemRemoved(position)
     }
 
