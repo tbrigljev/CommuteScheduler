@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
@@ -18,7 +17,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.material.textfield.TextInputEditText
 
 /* *************************************************************** */
@@ -97,12 +95,10 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
         overlayMapButton =
             view.findViewById(R.id.map_button_overlay) as ImageButton
 
-        arriveDateMapInput =
-            view.findViewById(R.id.text_date) as TextInputEditText
         viewTrafficMapCheck = view.findViewById(R.id.view_traffic) as CheckBox
 
         val layoutOverlay : ConstraintLayout =
-            view.findViewById(R.id.map_overlay_optional) as ConstraintLayout
+            view.findViewById(R.id.map_overlay) as ConstraintLayout
 
         layoutOverlay.visibility = View.GONE
 
@@ -128,6 +124,7 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
         returnMapButton.visibility = View.GONE
         addMapButton.visibility = View.GONE
         enhanceMapButton.visibility = View.VISIBLE
+        overlayMapButton.visibility = View.GONE
 
         /*
         when(mapScreen){

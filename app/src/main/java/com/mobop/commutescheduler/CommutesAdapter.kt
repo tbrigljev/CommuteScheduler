@@ -173,9 +173,11 @@ class CommutesAdapter(
                 var minutesText = ""
                 if(elementSimpleTime >= 60){
                     hoursText = (elementSimpleTime/60).toString() + "h"
-                    minutesText = (elementSimpleTime%60).toString() + "min"
-                }
-                else{
+                    var minutes = elementSimpleTime%60
+                    if(minutes != 0){
+                        minutesText = (elementSimpleTime%60).toString() + "min"
+                    }
+                } else {
                     minutesText = elementSimpleTime.toString() + "min"
                 }
                 simpleTimeDuration.text = hoursText + minutesText

@@ -39,6 +39,8 @@
     <string name="from">from</string>
     <string name="to">to</string>
     <string name="in">in</string>
+    <string name="leave">leave at</string>
+    <string name="arrive">arrive at</string>
     <string name="text_reminder">Reminder</string>
     <string name="text_alarm">Alarm</string>
     <string name="text_favorite_name">The name of the favorite</string>

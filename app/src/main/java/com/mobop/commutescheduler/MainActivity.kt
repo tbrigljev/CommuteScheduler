@@ -10,6 +10,7 @@ package com.mobop.commutescheduler
 /* Import ******************************************************** */
 
 import android.graphics.Color
+import android.media.Image
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
+import kotlinx.android.synthetic.main.fragment_quick.*
 
 
 /* *************************************************************** */
@@ -152,8 +154,20 @@ class MainActivity :
         FragmentMap.mapFieldCommuteDText.visibility = View.VISIBLE
         FragmentMap.mapFieldCommuteName.visibility = View.VISIBLE
 
-        FragmentMap.mapFieldCommuteNText.setText(getString(R.string.text_commute_name))
-        FragmentMap.mapFieldCommuteDuration.setText(mCommute.duration)
+        FragmentMap.mapFieldCommuteNText.visibility = View.GONE
+        val elementSimpleTime = mCommute.duration_val!!.toInt()/60
+        var hoursText = ""
+        var minutesText = ""
+        if(elementSimpleTime >= 60){
+            hoursText = (elementSimpleTime/60).toString() + "h"
+            var minutes = elementSimpleTime%60
+            if(minutes != 0){
+                minutesText = (elementSimpleTime%60).toString() + "min"
+            }
+        } else {
+            minutesText = elementSimpleTime.toString() + "min"
+        }
+        FragmentMap.mapFieldCommuteDuration.setText(hoursText + minutesText)
         FragmentMap.mapFieldCommuteDText.setText(getString(R.string.text_commute_duration))
         FragmentMap.mapFieldCommuteName.setText(mCommute.name)
 
@@ -267,7 +281,10 @@ class MainActivity :
             MAP -> {
                 var enhanceMapButton : ImageButton = findViewById(R.id.map_button_enhance)
                 var addMapButton : ImageButton = findViewById(R.id.map_button_add)
-                var returnMapButton : ImageButton =  findViewById(R.id.map_button_return)
+                var returnMapButton : ImageButton = findViewById(R.id.map_button_return)
+                var overlayMap : ConstraintLayout = findViewById(R.id.map_overlay)
+                var overlayMapButton : ImageButton = findViewById(R.id.map_button_overlay)
+                var textMap : TextView = findViewById(R.id.map_text_commute_name)
 
                 when (fragmentState[0]){
                     0 -> {
@@ -275,6 +292,11 @@ class MainActivity :
 
                         toolbar.title = getString(R.string.name_map)
                         previousTitle = getString(R.string.name_main)
+
+                        if(textMap.visibility == View.GONE){
+                            overlayMapButton.visibility = View.VISIBLE
+                            overlayMap.visibility = View.VISIBLE
+                        }
 
                         dividerTop.visibility = View.GONE
                         containerCommutes.visibility = View.GONE
@@ -290,6 +312,7 @@ class MainActivity :
                         enhanceMapButton.visibility = View.VISIBLE
                         addMapButton.visibility = View.GONE
                         returnMapButton.visibility = View.GONE
+                        overlayMapButton.visibility = View.GONE
 
                         dividerTop.visibility = View.VISIBLE
                         containerCommutes.visibility = View.VISIBLE
@@ -389,10 +412,13 @@ class MainActivity :
             EDIT -> {
                 var emptyCommutes : ConstraintLayout = findViewById(R.id.commutes_empty_container)
                 var addCommutesButton : ImageButton = findViewById(R.id.commutes_button_add)
+                var overlayMap : ConstraintLayout = findViewById(R.id.map_overlay)
 
                 when(previousTitle){
                     getString(R.string.name_map) -> {
                         toolbar.visibility = View.GONE
+
+                        overlayMap.visibility = View.VISIBLE
 
                         toolbar.title = getString(R.string.name_map)
                         previousTitle = getString(R.string.name_new)

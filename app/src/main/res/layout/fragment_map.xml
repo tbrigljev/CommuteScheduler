@@ -20,32 +20,6 @@
         app:layout_constraintStart_toStartOf="@+id/fragment_map_main"
         app:layout_constraintTop_toTopOf="@+id/fragment_map_main">
 
-<!--        <FrameLayout
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitStart"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_map_container"
-            app:layout_constraintStart_toStartOf="@+id/fragment_map_container">
-
-&lt;!&ndash;            <ImageView
-                android:id="@+id/placeholder_map"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/description_map"
-                app:srcCompat="@drawable/map_placeholder2" />&ndash;&gt;
-            <fragment
-                android:id="@+id/google_map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom|center"
-                tools:context=".MainActivity" />
-
-        </FrameLayout>-->
-
         <fragment
             android:id="@+id/google_map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -116,7 +90,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/map_overlay_optional"
+            android:id="@+id/map_overlay"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="5dp"
@@ -127,75 +101,125 @@
             app:layout_constraintStart_toStartOf="@+id/fragment_map_container"
             app:layout_constraintTop_toBottomOf="@+id/fragment_map_text">
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_date_input"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_arrival">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/text_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/field_arrival_time"
-                    android:text="2019-12-15 22:54:00"
-                    android:textSize="14sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <CheckBox
-                android:id="@+id/view_traffic"
+            <TextView
+                android:id="@+id/overlay_start_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:text="@string/checkbox_view_traffic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_marginTop="5dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/from"
+                android:textColor="#000000"
+                app:layout_constraintStart_toStartOf="@+id/map_overlay"
+                app:layout_constraintTop_toTopOf="@+id/map_overlay" />
 
             <TextView
-                android:id="@+id/text_distance"
+                android:id="@+id/overlay_start_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/field_distance"
-                app:layout_constraintBottom_toTopOf="@+id/text_arrival"
-                app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toTopOf="@+id/map_overlay_optional" />
+                android:layout_marginStart="5dp"
+                android:text="@string/field_departure_address"
+                android:textColor="#FF000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/map_overlay"
+                app:layout_constraintTop_toBottomOf="@+id/overlay_start_text" />
 
             <TextView
-                android:id="@+id/text_arrival"
+                android:id="@+id/overlay_start_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/field_arrival_time"
-                app:layout_constraintBottom_toTopOf="@+id/text_duration"
-                app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toBottomOf="@+id/text_distance" />
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/leave"
+                android:textColor="#FF000000"
+                app:layout_constraintStart_toStartOf="@+id/map_overlay"
+                app:layout_constraintTop_toBottomOf="@+id/overlay_start_field" />
 
             <TextView
-                android:id="@+id/text_duration"
+                android:id="@+id/overlay_start_time_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:text="@string/field_time"
-                app:layout_constraintBottom_toTopOf="@+id/text_duration_traffic"
-                app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toBottomOf="@+id/text_arrival" />
+                android:textColor="#FF000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/map_overlay"
+                app:layout_constraintTop_toBottomOf="@+id/overlay_start_time_text" />
 
             <TextView
-                android:id="@+id/text_duration_traffic"
+                android:id="@+id/overlay_destination_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/to"
+                android:textColor="#FF000000"
+                app:layout_constraintBottom_toTopOf="@+id/overlay_destination_field"
+                app:layout_constraintEnd_toEndOf="@+id/map_overlay" />
+
+            <TextView
+                android:id="@+id/overlay_destination_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/field_arrival_address"
+                android:textColor="#FF000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/overlay_destination_time_text"
+                app:layout_constraintEnd_toEndOf="@+id/map_overlay" />
+
+            <TextView
+                android:id="@+id/overlay_destination_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/arrive"
+                android:textColor="#FF000000"
+                app:layout_constraintBottom_toTopOf="@+id/overlay_destination_time_field"
+                app:layout_constraintEnd_toEndOf="@+id/map_overlay" />
+
+            <TextView
+                android:id="@+id/overlay_destination_time_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/field_time"
-                app:layout_constraintBottom_toTopOf="@+id/text_departure"
-                app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toBottomOf="@+id/text_duration" />
+                android:textColor="#FF000000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/map_button_dummy_2"
+                app:layout_constraintEnd_toEndOf="@+id/map_overlay" />
 
-            <TextView
-                android:id="@+id/text_departure"
+            <ImageButton
+                android:id="@+id/map_button_dummy_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/field_departure_time"
-                app:layout_constraintEnd_toEndOf="@+id/map_overlay_optional"
-                app:layout_constraintTop_toBottomOf="@+id/text_duration_traffic" />
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/button_return"
+                android:paddingStart="2dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="2dp"
+                android:paddingBottom="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/map_overlay"
+                app:layout_constraintEnd_toEndOf="@+id/map_overlay"
+                app:srcCompat="@drawable/settings" />
+
+            <ImageButton
+                android:id="@+id/map_button_dummy_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/button_return"
+                android:paddingStart="2dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="2dp"
+                android:paddingBottom="2dp"
+                app:layout_constraintBottom_toTopOf="@+id/map_button_dummy_1"
+                app:layout_constraintEnd_toEndOf="@+id/map_overlay"
+                app:srcCompat="@drawable/settings" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -206,27 +230,58 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="@+id/fragment_map_container"
         app:layout_constraintStart_toStartOf="@+id/fragment_map_container"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_map_container">
+        app:layout_constraintTop_toTopOf="@+id/fragment_map_container">
+
+        <ImageButton
+            android:id="@+id/map_button_dummy_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/button_return"
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_map_buttons"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_map_buttons"
+            app:srcCompat="@drawable/settings" />
+
+        <CheckBox
+            android:id="@+id/view_traffic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="3dp"
+            android:background="#80F538A0"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+            android:text="@string/checkbox_view_traffic"
+            app:layout_constraintBottom_toBottomOf="@id/map_button_dummy_0"
+            app:layout_constraintEnd_toStartOf="@id/map_button_dummy_0" />
 
         <ImageButton
             android:id="@+id/map_button_overlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="5dp"
             android:contentDescription="@string/button_overlay"
             android:paddingStart="5dp"
             android:paddingTop="2dp"
             android:paddingEnd="5dp"
             android:paddingBottom="2dp"
-            app:layout_constraintBottom_toBottomOf="@id/fragment_map_buttons"
-            app:layout_constraintStart_toStartOf="@id/fragment_map_buttons"
+            app:layout_constraintEnd_toEndOf="@id/fragment_map_buttons"
+            app:layout_constraintTop_toTopOf="@id/fragment_map_buttons"
             app:srcCompat="@android:drawable/ic_menu_info_details" />
 
         <ImageButton
             android:id="@+id/map_button_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/button_return"
             android:onClick="doMapReturn"
@@ -242,8 +297,8 @@
             android:id="@+id/map_button_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:background="#00000000"
             android:contentDescription="@string/button_add"
             android:onClick="doMapAdd"
@@ -259,8 +314,8 @@
             android:id="@+id/map_button_enhance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/description_enhance_map_button"
             android:onClick="doMapEnhance"
