@@ -64,7 +64,7 @@ class FragmentMap(screen : Int) :
     override fun onCreateView(
         inflater : LayoutInflater,
         container : ViewGroup?,
-        savecInstanceState : Bundle?) : View?{
+        savedInstanceState : Bundle?) : View?{
 
         val view = inflater.inflate(
             R.layout.fragment_map,

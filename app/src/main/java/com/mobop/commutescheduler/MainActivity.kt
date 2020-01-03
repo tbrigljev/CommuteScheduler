@@ -1,5 +1,9 @@
 package com.mobop.commutescheduler
 
+/* TO USE FOR FIRST TIME USE
+https://www.androidhive.info/2016/05/android-build-intro-slider-app/
+ */
+
 /* *************************************************************** */
 /* HES-SO Master Mobile Operating Systems and Applications ******* */
 /* Final project: Commute scheduler ****************************** */
@@ -59,6 +63,7 @@ class MainActivity :
     private var favoritesFragment = FragmentFavorites()
     private var favoriteEditFragment = FragmentFavoritesEdit(true, -1)
     private var quickFragment = FragmentQuick()
+    private var settingsFragment = FragmentSettings()
     private lateinit var editFragment : FragmentCommutesEdit
     private lateinit var previousTitle : String
     private lateinit var settingsItem : MenuItem
@@ -108,12 +113,33 @@ class MainActivity :
 
     }
 
-
-
     override fun onCreateOptionsMenu(menu : Menu) : Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         settingsItem = menu.findItem(R.id.action_settings)
         return true
+    }
+
+    override fun onOptionsItemSelected(item : MenuItem) : Boolean {
+        if(item.itemId == R.id.action_settings){
+            showSettings()
+        }
+        return true
+    }
+
+    private fun showSettings(){
+        val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
+        setSupportActionBar(toolbar)
+        previousTitle = toolbar.title.toString()
+        toolbar.title = getString(R.string.name_settings)
+
+        mFragmentManager.beginTransaction()
+            .add(
+                R.id.main_container_fragments,
+                settingsFragment,
+                "settings"
+            )
+            .addToBackStack("settings")
+            .commit()
     }
 
     /* *********************************************************** */
@@ -566,7 +592,11 @@ class MainActivity :
                     emptyFavorites.visibility = View.GONE
                     addFavoritesButton.visibility = View.VISIBLE
                 }
-
+                supportFragmentManager.popBackStack()
+            }
+            SETTINGS -> {
+                previousTitle = toolbar.title.toString()
+                toolbar.title = getString(R.string.name_main)
 
                 supportFragmentManager.popBackStack()
             }

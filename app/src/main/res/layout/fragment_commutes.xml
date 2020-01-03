@@ -20,7 +20,7 @@
         android:background="#AADAFF"
         app:layout_constraintBottom_toBottomOf="@id/fragment_commutes_buttons"
         app:layout_constraintStart_toStartOf="@+id/fragment_commutes_main"
-        app:layout_constraintTop_toTopOf="@+id/fragment_commutes_main"></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toTopOf="@+id/fragment_commutes_main"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment_commutes_buttons"
