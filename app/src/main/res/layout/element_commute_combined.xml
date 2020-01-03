@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/element_combined"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -35,7 +34,7 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/element_combined_MO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
-            android:text="@string/Sunday" />
+            android:text="@string/Sunday" />-->
     </LinearLayout>
 
     <LinearLayout
@@ -234,9 +233,7 @@
             android:id="@+id/element_extended_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginStart="10dp">
 
             <TextView
                 android:id="@+id/leave_at"

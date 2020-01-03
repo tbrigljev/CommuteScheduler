@@ -36,6 +36,7 @@
     <string name="text_commute_arrival">Arrive:</string>
     <string name="text_commute_duration">Duration:</string>
     <string name="no_commute">No commute selected</string>
+    <string name="choose_favorites">Choose from favorites</string>
     <string name="from">from</string>
     <string name="to">to</string>
     <string name="in">in</string>

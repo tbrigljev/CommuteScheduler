@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_edit_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,20 +16,19 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
         android:layout_weight="1"
         android:ellipsize="end"
         android:hint="@string/field_commute_name"
+        android:importantForAutofill="no"
         android:inputType="text"
         android:maxLines="1"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/edit_container_days"
+        app:layout_constraintBottom_toTopOf="@+id/edit_container_start_end"
         app:layout_constraintEnd_toEndOf="@id/fragment_edit_main"
         app:layout_constraintStart_toStartOf="@id/fragment_edit_main"
-        app:layout_constraintTop_toTopOf="@id/fragment_edit_main"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toTopOf="@id/fragment_edit_main" />
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/edit_container_days"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -128,7 +126,7 @@
             android:textOn="@string/Sunday"
             android:textSize="14sp" />
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/edit_container_start_end"
@@ -137,35 +135,66 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/edit_container_time"
         app:layout_constraintEnd_toEndOf="@id/edit_title"
         app:layout_constraintStart_toStartOf="@id/edit_title"
-        app:layout_constraintTop_toBottomOf="@id/edit_container_days">
+        app:layout_constraintTop_toBottomOf="@id/edit_title">
 
+        <EditText
+            android:id="@+id/edit_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:hint="@string/choose_favorites"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_start"
+            app:layout_constraintEnd_toEndOf="@id/edit_container_start_end"
+            app:layout_constraintStart_toStartOf="@id/edit_container_start_end"
+            app:layout_constraintTop_toTopOf="@id/edit_container_start_end" />
 
         <fragment
             android:id="@+id/fragment_start"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_gravity="center_vertical|left"
+            android:layout_gravity="center_vertical|start"
             android:hint="@string/field_departure"
-            app:layout_constraintEnd_toEndOf="@+id/view_traffic"
-            app:layout_constraintStart_toStartOf="@+id/map_overlay"
-            app:layout_constraintTop_toTopOf="@+id/map_overlay" />
+            app:layout_constraintEnd_toEndOf="@+id/edit_container_start_end"
+            app:layout_constraintStart_toStartOf="@+id/edit_container_start_end"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_start" />
+
+        <EditText
+            android:id="@+id/edit_arrival"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:hint="@string/choose_favorites"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_arrival"
+            app:layout_constraintEnd_toEndOf="@id/edit_container_start_end"
+            app:layout_constraintStart_toStartOf="@id/edit_container_start_end"
+            app:layout_constraintTop_toBottomOf="@id/fragment_start" />
 
         <fragment
             android:id="@+id/fragment_arrival"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_gravity="center_vertical|left"
+            android:layout_gravity="center_vertical|start"
             android:hint="@string/field_arrival"
-            app:layout_constraintEnd_toEndOf="@+id/view_traffic"
-            app:layout_constraintStart_toStartOf="@+id/map_overlay"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_start" />
+            app:layout_constraintEnd_toEndOf="@+id/edit_container_start_end"
+            app:layout_constraintStart_toStartOf="@+id/edit_container_start_end"
+            app:layout_constraintTop_toBottomOf="@+id/edit_arrival"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_container_start_end"/>
 
 
     </LinearLayout>
@@ -253,6 +282,7 @@
         android:id="@+id/edit_container_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="@id/edit_title"
         app:layout_constraintStart_toStartOf="@id/edit_title"
@@ -320,7 +350,7 @@
             android:layout_marginEnd="5dp"
             android:orientation="horizontal">
 
-<!--            <TextView
+            <!--            <TextView
                 android:id="@+id/leave_at"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -19,7 +19,7 @@
         android:background="#AADAFF"
         app:layout_constraintBottom_toBottomOf="@id/fragment_favorites_buttons"
         app:layout_constraintStart_toStartOf="@+id/fragment_favorites_main"
-        app:layout_constraintTop_toTopOf="@+id/fragment_favorites_main"></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toTopOf="@+id/fragment_favorites_main"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment_favorites_buttons"
