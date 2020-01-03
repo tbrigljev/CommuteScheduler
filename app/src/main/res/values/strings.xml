@@ -39,8 +39,9 @@
     <string name="from">from</string>
     <string name="to">to</string>
     <string name="in">in</string>
-    <string name="leave">leave at</string>
-    <string name="arrive">arrive at</string>
+    <string name="leave">leave</string>
+    <string name="arrive">arrive</string>
+    <string name="length">Length of\nthe commute:</string>
     <string name="text_reminder">Reminder</string>
     <string name="text_alarm">Alarm</string>
     <string name="text_favorite_name">The name of the favorite</string>
@@ -55,6 +56,7 @@
     <string name="field_arrival_time">ARRIVE AT</string>
     <string name="field_distance">LENGTH</string>
     <string name="field_time">HH:MM</string>
+    <string name="field_length">XYZ km</string>
     <string name="field_choose_date">Choose the date</string>
     <string name="field_choose_time">Choose the time</string>
     <string name="field_reminder">REMINDER</string>

@@ -206,7 +206,6 @@ class GoogleAPI(){
 
     fun getResults(json : String){
 
-
         var mCommute: Commute= readJSON(json)
 
         /*mCommute.name = routeName
@@ -297,7 +296,7 @@ class GoogleAPI(){
     }
 
     fun readJSON(json : String):Commute {
-        var mCommute : Commute = Commute()
+        val mCommute : Commute = Commute()
         /*mCommute.name = routeName
         mCommute.start = routeStart
         mCommute.arrival = routeArrival*/

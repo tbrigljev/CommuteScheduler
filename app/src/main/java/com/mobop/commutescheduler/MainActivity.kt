@@ -52,25 +52,23 @@ class MainActivity :
 
     private var mFragmentManager = supportFragmentManager
 
-    var homeFragment = FragmentHome()
-    var commutesFragment = FragmentCommutes(0)
-    var mapFragment = FragmentMap(0)
-    var newFragment = FragmentCommutesEdit(true, -1)
-    var favoritesFragment = FragmentFavorites()
-    var favoriteEditFragment = FragmentFavoritesEdit(true, -1)
-    var quickFragment = FragmentQuick()
-    lateinit var editFragment : FragmentCommutesEdit
-    lateinit var previousTitle : String
-    lateinit var settings_item : MenuItem
+    private var homeFragment = FragmentHome()
+    private var commutesFragment = FragmentCommutes(0)
+    private var mapFragment = FragmentMap(0)
+    private var newFragment = FragmentCommutesEdit(true, -1)
+    private var favoritesFragment = FragmentFavorites()
+    private var favoriteEditFragment = FragmentFavoritesEdit(true, -1)
+    private var quickFragment = FragmentQuick()
+    private lateinit var editFragment : FragmentCommutesEdit
+    private lateinit var previousTitle : String
+    private lateinit var settingsItem : MenuItem
 
     companion object{
         var commutes : Commute? = null
-        var start_time : String = "Now"
+        var startTime : String = "Now"
         lateinit var GoogleKey : String
         var mGoogleAPI : GoogleAPI?=null
     }
-
-
 
     /* *********************************************************** */
     /* onCreate() ************************************************ */
@@ -114,7 +112,7 @@ class MainActivity :
 
     override fun onCreateOptionsMenu(menu : Menu) : Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
-        settings_item = menu.findItem(R.id.action_settings)
+        settingsItem = menu.findItem(R.id.action_settings)
         return true
     }
 
@@ -124,16 +122,16 @@ class MainActivity :
     /* already formatted ***************************************** */
 
     fun routeRequestedReady(pos : Int, isNew : Boolean){
-        var mCommute=commutesList!!.commutesItemsList[pos]
+        val mCommute = commutesList!!.commutesItemsList[pos]
         if (isNew) {
             //commutesList!!.commutesItemsList.add(mCommute)
             FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
-            var lastPos = commutesList!!.commutesItemsList.size - 1
+            val lastPos = commutesList!!.commutesItemsList.size - 1
             FragmentCommutes.mRecyclerView!!.smoothScrollToPosition(lastPos)
             //FragmentCommutes.mAdapter!!.viewLayouts(false,true,lastPos) //Gives an execption ??
 
 
-            var checkPoint= 15 // 15min
+            val checkPoint= 15 // 15min
             Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
 
             /*checkPoint =30 // 30min
@@ -155,22 +153,57 @@ class MainActivity :
         var minutesText = ""
         if(elementSimpleTime >= 60){
             hoursText = (elementSimpleTime/60).toString() + "h"
-            var minutes = elementSimpleTime%60
+            val minutes = elementSimpleTime%60
             if(minutes != 0){
                 minutesText = (elementSimpleTime%60).toString() + "min"
             }
         } else {
             minutesText = elementSimpleTime.toString() + "min"
         }
-        FragmentMap.mapFieldCommuteDuration.setText(hoursText + minutesText)
-        FragmentMap.mapFieldCommuteDText.setText(getString(R.string.text_commute_duration))
-        FragmentMap.mapFieldCommuteName.setText(mCommute.name)
+        FragmentMap.mapFieldCommuteDuration.text = hoursText + minutesText
+        FragmentMap.mapFieldCommuteDText.text = getString(R.string.text_commute_duration)
+        FragmentMap.mapFieldCommuteName.text = mCommute.name
 
-        var builder : LatLngBounds.Builder = LatLngBounds.Builder()
+        val startAddress =
+            mCommute.start_address.toString().split(", ")
+        var startAddressText = ""
+        for(startAddressBit in startAddress){
+            startAddressText += startAddressBit + "\n"
+        }
+        FragmentMap.mapOverlayStart.text = startAddressText.trim()
+
+        val startTime =
+            mCommute.start_time_short.split(", ")
+        var startTimeText = ""
+        for(startTimeBit in startTime){
+            startTimeText += startTimeBit + "\n"
+        }
+        FragmentMap.mapOverlayStartTime.text = startTimeText.trim()
+
+        val arrivalAddress =
+            mCommute.arrival_address.toString().split(", ")
+        var arrivalAddressText = ""
+        for (arrivalAddressBit in arrivalAddress){
+            arrivalAddressText += arrivalAddressBit + "\n"
+        }
+        FragmentMap.mapOverlayDestination.text = arrivalAddressText.trim()
+
+        val arrivalTime =
+            mCommute.arrival_time_short.split(", ")
+        var arrivalTimeText = ""
+        for(arrivalTimeBit in arrivalTime){
+            arrivalTimeText += arrivalTimeBit + "\n"
+        }
+        FragmentMap.mapOverlayDestinationTime.text = arrivalTimeText.trim()
+        //FragmentMap.mapOverlayDestinationTime.text = mCommute.arrival_time_short
+
+        FragmentMap.mapOverlayLength.text = mCommute.distance
+
+        val builder : LatLngBounds.Builder = LatLngBounds.Builder()
         builder.include(mCommute.start_address_LatLng)
         builder.include(mCommute.arrival_address_LatLng)
 
-        var bounds : LatLngBounds = builder.build()
+        val bounds : LatLngBounds = builder.build()
 
         FragmentMap.mMap.clear()
 
@@ -184,14 +217,14 @@ class MainActivity :
                 .position(mCommute.arrival_address_LatLng!!)
                 .title(mCommute.arrival_address))
         FragmentMap.mMap.moveCamera(
-            CameraUpdateFactory.newLatLngBounds(bounds, 60))
+            CameraUpdateFactory.newLatLngBounds(bounds, 140))
 
         /* Drawing the segments of the commute on the map ******** */
         for(i in 0 until mCommute.path.size){
             if(PolylineOptions()
                     .addAll(mCommute.path[i])
                     .color(Color.RED) != null){
-                var polyLineOptions = PolylineOptions()
+                val polyLineOptions = PolylineOptions()
                     .addAll(mCommute.path[i])
                     .color(Color.BLUE)
                     .width(10.toFloat())
@@ -211,19 +244,19 @@ class MainActivity :
         val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(toolbar)
 
-        var containerMap :
+        val containerMap :
                 FrameLayout =
             findViewById(R.id.main_container_map)
-        var dividerTop :
+        val dividerTop :
                 View =
             findViewById(R.id.main_divider_top)
-        var containerCommutes :
+        val containerCommutes :
                 FrameLayout =
             findViewById(R.id.main_container_commutes)
-        var dividerBottom :
+        val dividerBottom :
                 View =
             findViewById(R.id.main_divider_bottom)
-        var containerQuick :
+        val containerQuick :
                 FrameLayout =
             findViewById(R.id.main_container_shortcuts)
 
@@ -262,8 +295,8 @@ class MainActivity :
                         /* HIDE SETTINGS IN EDITION FRAGMENT
                            NOT WORKING
                          */
-                        settings_item.isVisible = false
-                        settings_item.isEnabled = false
+                        settingsItem.isVisible = false
+                        settingsItem.isEnabled = false
 
                         mFragmentManager.beginTransaction()
                             .add(
@@ -277,22 +310,22 @@ class MainActivity :
                 }
             }
             MAP -> {
-                var enhanceMapButton :
+                val enhanceMapButton :
                         ImageButton =
                     findViewById(R.id.map_button_enhance)
-                var addMapButton :
+                val addMapButton :
                         ImageButton =
                     findViewById(R.id.map_button_add)
-                var returnMapButton :
+                val returnMapButton :
                         ImageButton =
                     findViewById(R.id.map_button_return)
-                var overlayMap :
+                val overlayMap :
                         ConstraintLayout =
                     findViewById(R.id.map_overlay)
-                var overlayMapButton :
+                val overlayMapButton :
                         ImageButton =
                     findViewById(R.id.map_button_overlay)
-                var textMap :
+                val textMap :
                         TextView =
                     findViewById(R.id.map_text_commute_name)
 
@@ -338,8 +371,8 @@ class MainActivity :
                         /* HIDE SETTINGS IN EDITION FRAGMENT
                            NOT WORKING
                          */
-                        settings_item.isVisible = false
-                        settings_item.isEnabled = false
+                        settingsItem.isVisible = false
+                        settingsItem.isEnabled = false
 
                         mFragmentManager.beginTransaction()
                             .add(
@@ -353,13 +386,13 @@ class MainActivity :
                 }
             }
             COMMUTES -> {
-                var enhanceCommutesButton :
+                val enhanceCommutesButton :
                         ImageButton =
                     findViewById(R.id.commutes_button_enhance)
-                var addCommutesButton :
+                val addCommutesButton :
                         ImageButton =
                     findViewById(R.id.commutes_button_add)
-                var returnCommutesButton :
+                val returnCommutesButton :
                         ImageButton =
                     findViewById(R.id.commutes_button_return)
 
@@ -392,8 +425,8 @@ class MainActivity :
                         /* HIDE SETTINGS IN EDITION FRAGMENT
                            NOT WORKING
                          */
-                        settings_item.isVisible = false
-                        settings_item.isEnabled = false
+                        settingsItem.isVisible = false
+                        settingsItem.isEnabled = false
 
                         mFragmentManager.beginTransaction()
                             .add(
@@ -410,8 +443,8 @@ class MainActivity :
                         /* HIDE SETTINGS IN EDITION FRAGMENT
                            NOT WORKING
                          */
-                        settings_item.isVisible = false
-                        settings_item.isEnabled = false
+                        settingsItem.isVisible = false
+                        settingsItem.isEnabled = false
 
                         editFragment =
                             FragmentCommutesEdit(false, fragmentState[1])
@@ -428,13 +461,13 @@ class MainActivity :
                 }
             }
             EDIT -> {
-                var emptyCommutes :
+                val emptyCommutes :
                         ConstraintLayout =
                     findViewById(R.id.commutes_empty_container)
-                var addCommutesButton :
+                val addCommutesButton :
                         ImageButton =
                     findViewById(R.id.commutes_button_add)
-                var overlayMap :
+                val overlayMap :
                         ConstraintLayout =
                     findViewById(R.id.map_overlay)
 
@@ -446,16 +479,16 @@ class MainActivity :
 
                         toolbar.title = getString(R.string.name_map)
                         previousTitle = getString(R.string.name_new)
-                        settings_item.isVisible = true
-                        settings_item.isEnabled = true
+                        settingsItem.isVisible = true
+                        settingsItem.isEnabled = true
                     }
                     else -> {
                         toolbar.visibility = View.VISIBLE
 
                         toolbar.title = previousTitle
                         previousTitle = getString(R.string.name_main)
-                        settings_item.isVisible = true
-                        settings_item.isEnabled = true
+                        settingsItem.isVisible = true
+                        settingsItem.isEnabled = true
                     }
                 }
                 if(commutesList!!.commutesItemsList.count() > 0){
@@ -475,8 +508,8 @@ class MainActivity :
                         /* HIDE SETTINGS IN EDITION FRAGMENT
                            NOT WORKING
                          */
-                        settings_item.isVisible = false
-                        settings_item.isEnabled = false
+                        settingsItem.isVisible = false
+                        settingsItem.isEnabled = false
 
                         favoriteEditFragment =
                             FragmentFavoritesEdit(true, fragmentState[1])
@@ -496,8 +529,8 @@ class MainActivity :
                         /* HIDE SETTINGS IN EDITION FRAGMENT
                            NOT WORKING
                          */
-                        settings_item.isVisible = false
-                        settings_item.isEnabled = false
+                        settingsItem.isVisible = false
+                        settingsItem.isEnabled = false
 
                         favoriteEditFragment =
                             FragmentFavoritesEdit(false, fragmentState[1])
@@ -519,10 +552,10 @@ class MainActivity :
                 }
             }
             FAVORITESEDIT -> {
-                var emptyFavorites :
+                val emptyFavorites :
                         ConstraintLayout =
                     findViewById(R.id.favorites_empty_container)
-                var addFavoritesButton :
+                val addFavoritesButton :
                         ImageButton =
                     findViewById(R.id.favorites_button_add)
 

@@ -1,6 +1,7 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
+import android.content.ClipDescription
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +19,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.textfield.TextInputEditText
+import org.jetbrains.anko.find
+
 /* *************************************************************** */
 
 /* FragmentMap *************************************************** */
@@ -33,6 +36,11 @@ class FragmentMap(screen : Int) :
         lateinit var mapFieldCommuteName : TextView
         lateinit var mapFieldCommuteDText : TextView
         lateinit var mapFieldCommuteDuration : TextView
+        lateinit var mapOverlayStart : TextView
+        lateinit var mapOverlayStartTime : TextView
+        lateinit var mapOverlayDestination : TextView
+        lateinit var mapOverlayDestinationTime : TextView
+        lateinit var mapOverlayLength : TextView
     }
 
     private var mListener : OnFragmentInteractionListener? = null
@@ -90,6 +98,22 @@ class FragmentMap(screen : Int) :
         mapFieldCommuteName.visibility = View.GONE
         mapFieldCommuteDText.visibility = View.GONE
         mapFieldCommuteDuration.visibility = View.GONE
+
+        mapOverlayStart =
+            view.findViewById(R.id.overlay_start_field)
+                    as TextView
+        mapOverlayStartTime =
+            view.findViewById(R.id.overlay_start_time_field)
+                    as TextView
+        mapOverlayDestination =
+            view.findViewById(R.id.overlay_destination_field)
+                    as TextView
+        mapOverlayDestinationTime =
+            view.findViewById(R.id.overlay_destination_time_field)
+                    as TextView
+        mapOverlayLength =
+            view.findViewById(R.id.overlay_length_field)
+                    as TextView
 
         enhanceMapButton =
             view.findViewById(R.id.map_button_enhance)
