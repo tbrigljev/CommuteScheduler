@@ -157,12 +157,11 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
                     }
                 }
                 else{
-                    text = "Commute modified"
+                    text = "Favorite modified"
                     favoritesList!!.favoritesItemsList[pos].name = newFavorite.name
                     favoritesList!!.favoritesItemsList[pos].address = newFavorite.address
 
                     FragmentFavorites.mAdapter!!.viewLayouts(false, pos)
-                    FragmentFavorites.mRecyclerView!!.adapter!!.notifyDataSetChanged()
                 }
             }
 
@@ -170,6 +169,8 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
 
             val toast = Toast.makeText(context, text, duration)
             toast.show()
+
+            FragmentFavorites.mRecyclerView!!.adapter!!.notifyDataSetChanged()
 
             if((text == "Favorite added") or (text == "Favorite modified")){
                 source[0] = 1
