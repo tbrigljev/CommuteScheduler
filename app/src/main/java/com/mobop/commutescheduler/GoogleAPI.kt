@@ -9,15 +9,11 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-
 import org.json.JSONObject
-
 import java.sql.Timestamp
 import java.util.*
-
 import com.google.maps.android.PolyUtil
 import java.text.SimpleDateFormat
-
 /* *************************************************************** */
 
 class GoogleAPI(){

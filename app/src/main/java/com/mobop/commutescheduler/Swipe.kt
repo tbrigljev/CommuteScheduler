@@ -1,12 +1,14 @@
 package com.mobop.commutescheduler
 
+/* From : ******************************************************** */
 // https://stackoverflow.com/questions/49754979/capture-events-by-sliding-left-or-right-using-kotlin
 
-
+/* Import ******************************************************** */
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+/* *************************************************************** */
 
 open class OnSwipeTouchListener : View.OnTouchListener {
 
@@ -33,17 +35,31 @@ open class OnSwipeTouchListener : View.OnTouchListener {
         }
 
 
-        override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+        override fun onFling(
+            e1 : MotionEvent,
+            e2 : MotionEvent,
+            velocityX : Float,
+            velocityY : Float)
+                : Boolean {
             val result = false
             try {
                 val diffY = e2.y - e1.y
                 val diffX = e2.x - e1.x
-                Log.i("swipemove", "e1=" + Math.abs(diffX).toString() + "   e2=" + Math.abs(diffY).toString() +"    vX=" + velocityX.toString() +"   vy=" + velocityY.toString())
+                Log.i("swipemove",
+                    "e1 = " +
+                            Math.abs(diffX).toString() +
+                            " ; e2 = " +
+                            Math.abs(diffY).toString() +
+                            " ; vX = " +
+                            velocityX.toString() +
+                            " ; vy = " +
+                            velocityY.toString())
 
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                if(Math.abs(diffX) > Math.abs(diffY)){
+                    if(Math.abs(diffX) > SWIPE_THRESHOLD &&
+                        Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD){
                         //Log.i("swipemove","ok")
-                        if (diffX > 0) {
+                        if (diffX > 0){
                             onSwipeRight()
                         } else {
                             onSwipeLeft()
@@ -52,7 +68,7 @@ open class OnSwipeTouchListener : View.OnTouchListener {
                 } else {
                     // onTouch(e);
                 }
-            } catch (exception: Exception) {
+            } catch(exception: Exception) {
                 exception.printStackTrace()
             }
 

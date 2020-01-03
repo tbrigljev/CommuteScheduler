@@ -5,7 +5,6 @@ import android.os.AsyncTask
 import android.util.Log
 import java.net.HttpURLConnection
 import java.net.URL
-
 /* *************************************************************** */
 
 /* HTTPRequest *************************************************** */
@@ -26,7 +25,8 @@ class HTTPRequest : AsyncTask<String, Int, String>(){
         return try{
             params.first().let{
                 val url = URL(it)
-                val urlConnect = url.openConnection() as HttpURLConnection
+                val urlConnect = url.openConnection()
+                        as HttpURLConnection
                 urlConnect.connectTimeout = 700
                 publishProgress(100)
                 urlConnect.inputStream.bufferedReader().readText()

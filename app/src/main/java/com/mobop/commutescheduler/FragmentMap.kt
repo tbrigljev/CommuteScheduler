@@ -18,16 +18,17 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.textfield.TextInputEditText
-
 /* *************************************************************** */
 
 /* FragmentMap *************************************************** */
 /* Contains the map element and the related buttons ************** */
 /* Contained in FragmentHome and in its standalone fragment ****** */
-class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
+class FragmentMap(screen : Int) :
+    Fragment(), OnMapReadyCallback{
 
     companion object {
         lateinit var mMap: GoogleMap
+        lateinit var mapCommuteText : ConstraintLayout
         lateinit var mapFieldCommuteNText : TextView
         lateinit var mapFieldCommuteName : TextView
         lateinit var mapFieldCommuteDText : TextView
@@ -48,7 +49,6 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
     private lateinit var arriveDateMapInput : TextInputEditText
     private lateinit var viewTrafficMapCheck : CheckBox
 
-
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }
@@ -64,22 +64,27 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
             false
         )
 
-
-
         /* Set Fragment for Google Map *************************** */
         val googleMapFragment = childFragmentManager
             .findFragmentById(R.id.google_map)
                 as SupportMapFragment
         googleMapFragment.getMapAsync(this)
 
+        mapCommuteText =
+            view.findViewById(R.id.fragment_map_text)
+                    as ConstraintLayout
         mapFieldCommuteNText =
-            view.findViewById(R.id.map_text_commute_name) as TextView
+            view.findViewById(R.id.map_text_commute_name)
+                    as TextView
         mapFieldCommuteName =
-            view.findViewById(R.id.map_field_commute_name) as TextView
+            view.findViewById(R.id.map_field_commute_name)
+                    as TextView
         mapFieldCommuteDText =
-            view.findViewById(R.id.map_text_commute_duration) as TextView
+            view.findViewById(R.id.map_text_commute_duration)
+                    as TextView
         mapFieldCommuteDuration =
-            view.findViewById(R.id.map_field_commute_duration) as TextView
+            view.findViewById(R.id.map_field_commute_duration)
+                    as TextView
 
         mapFieldCommuteNText.setText(getString(R.string.no_commute))
         mapFieldCommuteName.visibility = View.GONE
@@ -87,18 +92,25 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
         mapFieldCommuteDuration.visibility = View.GONE
 
         enhanceMapButton =
-            view.findViewById(R.id.map_button_enhance) as ImageButton
+            view.findViewById(R.id.map_button_enhance)
+                    as ImageButton
         addMapButton =
-            view.findViewById(R.id.map_button_add) as ImageButton
+            view.findViewById(R.id.map_button_add)
+                    as ImageButton
         returnMapButton =
-            view.findViewById(R.id.map_button_return) as ImageButton
+            view.findViewById(R.id.map_button_return)
+                    as ImageButton
         overlayMapButton =
-            view.findViewById(R.id.map_button_overlay) as ImageButton
+            view.findViewById(R.id.map_button_overlay)
+                    as ImageButton
 
-        viewTrafficMapCheck = view.findViewById(R.id.view_traffic) as CheckBox
+        viewTrafficMapCheck =
+            view.findViewById(R.id.view_traffic)
+                as CheckBox
 
         val layoutOverlay : ConstraintLayout =
-            view.findViewById(R.id.map_overlay) as ConstraintLayout
+            view.findViewById(R.id.map_overlay)
+                    as ConstraintLayout
 
         layoutOverlay.visibility = View.GONE
 
@@ -126,20 +138,6 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
         enhanceMapButton.visibility = View.VISIBLE
         overlayMapButton.visibility = View.GONE
 
-        /*
-        when(mapScreen){
-            0 -> {
-                returnMapButton.visibility = View.VISIBLE
-                addMapButton.visibility = View.VISIBLE
-                enhanceMapButton.visibility = View.GONE
-            }
-            1 -> {
-                returnMapButton.visibility = View.GONE
-                addMapButton.visibility = View.GONE
-                enhanceMapButton.visibility = View.VISIBLE
-            }
-        }*/
-
         return view
     }
 
@@ -147,7 +145,7 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
         super.onAttach(context)
         if(context is OnFragmentInteractionListener){
             mListener = context
-        } else{
+        } else {
             throw RuntimeException(context.toString() +
                     " must implement OnFragmentInteractionListener")
         }
@@ -200,6 +198,7 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
             fragmentCaller : Int,
             fragmentState : IntArray)
     }
+
     /* *********************************************************** */
     /* onMapReady() ********************************************** */
     /* Manipulates the map once available ************************ */
@@ -213,7 +212,6 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
     /* *** installed Google Play Services and has returned to the  */
     /* *** app *************************************************** */
     /* *********************************************************** */
-
     override fun onMapReady(googleMap : GoogleMap){
         mMap = googleMap
 

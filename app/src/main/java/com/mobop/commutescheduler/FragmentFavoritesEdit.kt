@@ -1,11 +1,7 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
-
 import android.app.Activity
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
-import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,22 +10,19 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.util.*
-
-
 /* *************************************************************** */
 
-/* FragmentEdit ************************************************** */
-/* Fragment reserved for the edition of elements  **************** */
+/* FragmentFavoritesEdit ***************************************** */
+/* Fragment reserved for the edition of favorite elements********* */
 /* This is used for both editing existing elements and adding ones */
 
-class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : Fragment(){
+class FragmentFavoritesEdit(
+    private var new : Boolean,
+    private var pos : Int) :
+    Fragment(){
 
     companion object {
         //var start: String = "Home"
@@ -62,12 +55,16 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
             container,
             false
         )
-        MainActivity.mGoogleAPI!!.setActivityContext(this, getActivity()!!.getApplicationContext())
+        MainActivity.mGoogleAPI!!.setActivityContext(
+            this,
+            getActivity()!!.getApplicationContext())
 
         cancelEditButton =
-            view.findViewById(R.id.favorite_edit_button_cancel) as ImageButton
+            view.findViewById(R.id.favorite_edit_button_cancel)
+                    as ImageButton
         validateEditButton =
-            view.findViewById(R.id.favorite_edit_button_validate) as ImageButton
+            view.findViewById(R.id.favorite_edit_button_validate)
+                    as ImageButton
 
         favoriteName = view.findViewById(R.id.favorite_edit_title)
 
@@ -87,8 +84,7 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
 
         if(new){
             favoriteName.setText("")
-        }
-        else{
+        } else {
             favoriteName.setText(favoritesList!!.favoritesItemsList[pos].name)
             address = favoritesList!!.favoritesItemsList[pos].address
 
@@ -102,7 +98,7 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
         super.onAttach(context)
         if(context is OnFragmentInteractionListener){
             mListener = context
-        } else{
+        } else {
             throw RuntimeException(context.toString() +
                     " must implement OnFragmentInteractionListener")
         }
@@ -122,7 +118,9 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
             source[0] = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
             if ( pos >= 0 ){
-                FragmentFavorites.mAdapter!!.viewLayouts(false, pos)
+                FragmentFavorites.mAdapter!!.viewLayouts(
+                    false,
+                    pos)
             }
         }
     }
@@ -152,7 +150,8 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
                     if(favoritesList!!.favoritesItemsList.count() < 2){
                         prev_pos = -1
                     }
-                    if ((prev_pos != -1) and (prev_pos < FragmentFavorites.mAdapter!!.favoritesItemsList.size)) {
+                    if((prev_pos != -1) and
+                        (prev_pos < FragmentFavorites.mAdapter!!.favoritesItemsList.size)){
                         FragmentFavorites.mAdapter!!.viewLayouts(
                             false,
                             FragmentFavorites.mAdapter!!.previousPosition
@@ -161,10 +160,17 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
                 }
                 else{
                     text = "Favorite modified"
-                    favoritesList!!.favoritesItemsList[pos].name = newFavorite.name
-                    favoritesList!!.favoritesItemsList[pos].address = newFavorite.address
+                    favoritesList!!
+                        .favoritesItemsList[pos]
+                        .name = newFavorite.name
+                    favoritesList!!
+                        .favoritesItemsList[pos]
+                        .address = newFavorite.address
 
-                    FragmentFavorites.mAdapter!!.viewLayouts(false, pos)
+                    FragmentFavorites.mAdapter!!
+                        .viewLayouts(
+                            false,
+                            pos)
                 }
             }
 
@@ -175,11 +181,11 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
 
             FragmentFavorites.mRecyclerView!!.adapter!!.notifyDataSetChanged()
 
-            if((text == "Favorite added") or (text == "Favorite modified")){
+            if((text == "Favorite added")
+                or (text == "Favorite modified")){
                 source[0] = 1
                 source[1] = pos
                 mListener!!.onFragmentInteraction(fragmentCaller, source)
-
                 favoriteName.setText("")
             }
         }
@@ -190,8 +196,11 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
     }
 
     fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE)
+                as InputMethodManager
+        inputMethodManager
+            .hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     interface OnFragmentInteractionListener{

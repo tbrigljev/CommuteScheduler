@@ -1,29 +1,17 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
-import android.content.ClipData
 import android.content.Context
-import android.graphics.Color
-import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PolylineOptions
-import kotlinx.android.synthetic.main.fragment_commutes.*
-import kotlinx.android.synthetic.main.fragment_commutes_edit.*
-
 /* *************************************************************** */
 
 
@@ -38,10 +26,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
 
     private var mListener : OnFragmentInteractionListener? = null
 
-    /*private var mItemTouchHelper : ItemTouchHelper? = null*/
-
     private val fragmentID = 2
-    //private var source = 0
     private var source : IntArray = intArrayOf(0,0)
     private val commutesScreen = screen
     private var empty : Boolean = true
@@ -128,11 +113,12 @@ class FragmentCommutes(screen : Int) : Fragment(){
             CommutesAdapter(mRecyclerView!!,
                 R.layout.element_commute_combined,
                 commutesList!!.commutesItemsList,
-                { partItem : Int, action : Int -> doLayoutButtons(partItem, action) }
+                { partItem : Int,
+                  action : Int ->
+                    doLayoutButtons(partItem, action) }
             )
 
         mRecyclerView!!.adapter = mAdapter
-
 
         return view
     }
@@ -171,14 +157,18 @@ class FragmentCommutes(screen : Int) : Fragment(){
     private fun doCommutesReturn(fragmentCaller : Int){
         if (mListener != null){
             source[0] = 1
-            mListener!!.onFragmentInteraction(fragmentCaller, source)
+            mListener!!
+                .onFragmentInteraction(fragmentCaller, source)
         }
     }
 
-    private fun doCommutesAdd(fragmentCaller : Int, empty : Boolean){
+    private fun doCommutesAdd(
+        fragmentCaller : Int,
+        empty : Boolean){
         if (mListener != null){
             source[0] = 2
-            mListener!!.onFragmentInteraction(fragmentCaller, source)
+            mListener!!
+                .onFragmentInteraction(fragmentCaller, source)
 
             if(commutesList!!.commutesItemsList.count() > 0){
                 emptyCommutes.visibility = View.GONE
@@ -193,7 +183,8 @@ class FragmentCommutes(screen : Int) : Fragment(){
                  if(mListener != null){
                      //layoutButtons.visibility = View.GONE
                      source = intArrayOf(action, partItem)
-                     mListener!!.onFragmentInteraction(fragmentID, source)
+                     mListener!!
+                         .onFragmentInteraction(fragmentID, source)
                  }
             }
             4 -> {
@@ -201,13 +192,17 @@ class FragmentCommutes(screen : Int) : Fragment(){
                     commutesList!!.commutesItemsList[partItem].name ==
                     FragmentMap.mapFieldCommuteName.text.toString()){
                     FragmentMap.mMap.clear()
+                    FragmentMap.mapFieldCommuteNText.visibility = View.VISIBLE
                     FragmentMap.mapFieldCommuteNText.setText(getString(R.string.no_commute))
                     FragmentMap.mapFieldCommuteName.visibility = View.GONE
                     FragmentMap.mapFieldCommuteDText.visibility = View.GONE
                     FragmentMap.mapFieldCommuteDuration.visibility = View.GONE
                 }
 
-                mAdapter!!.viewLayouts(false, false, partItem)
+                mAdapter!!.viewLayouts(
+                    false,
+                    false,
+                    partItem)
                 mAdapter!!.removeAt(partItem)
 
                 mRecyclerView!!.adapter!!.notifyDataSetChanged()
@@ -220,7 +215,10 @@ class FragmentCommutes(screen : Int) : Fragment(){
                 val text = "Commute deleted"
                 val duration = Toast.LENGTH_SHORT
 
-                val toast = Toast.makeText(getActivity(), text, duration)
+                val toast = Toast.makeText(
+                    getActivity(),
+                    text,
+                    duration)
                 toast.show()
             }
         }
@@ -231,6 +229,4 @@ class FragmentCommutes(screen : Int) : Fragment(){
             fragmentCaller : Int,
             fragmentState : IntArray)
     }
-
-
 }

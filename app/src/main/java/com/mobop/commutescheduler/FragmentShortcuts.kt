@@ -1,5 +1,6 @@
 package com.mobop.commutescheduler
 
+/* Import ******************************************************** */
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+/* *************************************************************** */
 
+/* FragmentShortcuts ********************************************* */
+/* Contains the three shorcuts buttons on the main screen ******** */
 class FragmentShortcuts : Fragment(){
 
     private var mListener : FragmentCommutesEdit.OnFragmentInteractionListener? = null
@@ -30,18 +34,22 @@ class FragmentShortcuts : Fragment(){
             false
         )
 
-        var favoritesButton : ImageButton = view.findViewById(R.id.shortcut_button_favorites)
-        var quickButton : ImageButton = view.findViewById(R.id.shortcut_button_quick)
-        var addButton : ImageButton = view.findViewById(R.id.shortcut_button_add)
+        var favoritesButton :
+                ImageButton =
+            view.findViewById(R.id.shortcut_button_favorites)
+        var quickButton :
+                ImageButton =
+            view.findViewById(R.id.shortcut_button_quick)
+        var addButton :
+                ImageButton =
+            view.findViewById(R.id.shortcut_button_add)
 
         favoritesButton.setOnClickListener{
             doOpenFavorites(fragmentID)
         }
-
         quickButton.setOnClickListener{
             doOpenQuick(fragmentID)
         }
-
         addButton.setOnClickListener{
             doOpenAddNew(fragmentID)
         }
@@ -53,7 +61,7 @@ class FragmentShortcuts : Fragment(){
         super.onAttach(context)
         if(context is FragmentCommutesEdit.OnFragmentInteractionListener){
             mListener = context
-        } else{
+        } else {
             throw RuntimeException(context.toString() +
                     " must implement OnFragmentInteractionListener")
         }

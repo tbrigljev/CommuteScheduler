@@ -3,14 +3,12 @@ package com.mobop.commutescheduler
 /* *************************************************************** */
 /* HES-SO Master Mobile Operating Systems and Applications ******* */
 /* Final project: Commute scheduler ****************************** */
-/* Teo Brigljevic, Funda Cubuk, Antonio Gonzalez Puertas ********* */
+/* Teo BRIGLJEVIC, Funda CUBUK, Antonio GONZALEZ PUERTAS ********* */
 /* Autumn 2019 *************************************************** */
 /* *************************************************************** */
 
 /* Import ******************************************************** */
-
 import android.graphics.Color
-import android.media.Image
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -23,9 +21,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
-import kotlinx.android.synthetic.main.fragment_quick.*
-
-
 /* *************************************************************** */
 
 /* Global variables ********************************************** */
@@ -134,7 +129,7 @@ class MainActivity :
             //commutesList!!.commutesItemsList.add(mCommute)
             FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
             var lastPos = commutesList!!.commutesItemsList.size - 1
-            FragmentCommutes.mRecyclerView!!.smoothScrollToPosition(lastPos);
+            FragmentCommutes.mRecyclerView!!.smoothScrollToPosition(lastPos)
             //FragmentCommutes.mAdapter!!.viewLayouts(false,true,lastPos) //Gives an execption ??
 
 
@@ -146,8 +141,8 @@ class MainActivity :
 
             checkPoint =60 // 1h
             Notifications().setNotification(mCommute, checkPoint, this@MainActivity)*/
-
         }
+
         FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
 
         FragmentMap.mapFieldCommuteDuration.visibility = View.VISIBLE
@@ -179,7 +174,7 @@ class MainActivity :
 
         FragmentMap.mMap.clear()
 
-        /* Creating the start and arrival markers *************** */
+        /* Creating the start and arrival markers **************** */
         FragmentMap.mMap.addMarker(
             MarkerOptions()
                 .position(mCommute.start_address_LatLng!!)
@@ -188,7 +183,8 @@ class MainActivity :
             MarkerOptions()
                 .position(mCommute.arrival_address_LatLng!!)
                 .title(mCommute.arrival_address))
-        FragmentMap.mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 60))
+        FragmentMap.mMap.moveCamera(
+            CameraUpdateFactory.newLatLngBounds(bounds, 60))
 
         /* Drawing the segments of the commute on the map ******** */
         for(i in 0 until mCommute.path.size){
@@ -202,9 +198,7 @@ class MainActivity :
                 FragmentMap.mMap.addPolyline(polyLineOptions)
             }
         }
-
     }
-
 
     /* *********************************************************** */
     /* onFragmentInteraction() *********************************** */
@@ -217,11 +211,21 @@ class MainActivity :
         val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(toolbar)
 
-        var containerMap : FrameLayout = findViewById(R.id.main_container_map)
-        var dividerTop : View = findViewById(R.id.main_divider_top)
-        var containerCommutes : FrameLayout = findViewById(R.id.main_container_commutes)
-        var dividerBottom : View = findViewById(R.id.main_divider_bottom)
-        var containerQuick : FrameLayout = findViewById(R.id.main_container_shortcuts)
+        var containerMap :
+                FrameLayout =
+            findViewById(R.id.main_container_map)
+        var dividerTop :
+                View =
+            findViewById(R.id.main_divider_top)
+        var containerCommutes :
+                FrameLayout =
+            findViewById(R.id.main_container_commutes)
+        var dividerBottom :
+                View =
+            findViewById(R.id.main_divider_bottom)
+        var containerQuick :
+                FrameLayout =
+            findViewById(R.id.main_container_shortcuts)
 
         when (fragmentCaller){
             MAIN -> {
@@ -251,12 +255,6 @@ class MainActivity :
                             )
                             .addToBackStack("quick")
                             .commit()
-                        /*
-                        val text = "Coming soon : Quick route selection !"
-                        val duration = Toast.LENGTH_SHORT
-
-                        val toast = Toast.makeText(this, text, duration)
-                        toast.show()*/
                     }
                     3 -> {
                         toolbar.title = getString(R.string.name_new)
@@ -279,14 +277,26 @@ class MainActivity :
                 }
             }
             MAP -> {
-                var enhanceMapButton : ImageButton = findViewById(R.id.map_button_enhance)
-                var addMapButton : ImageButton = findViewById(R.id.map_button_add)
-                var returnMapButton : ImageButton = findViewById(R.id.map_button_return)
-                var overlayMap : ConstraintLayout = findViewById(R.id.map_overlay)
-                var overlayMapButton : ImageButton = findViewById(R.id.map_button_overlay)
-                var textMap : TextView = findViewById(R.id.map_text_commute_name)
+                var enhanceMapButton :
+                        ImageButton =
+                    findViewById(R.id.map_button_enhance)
+                var addMapButton :
+                        ImageButton =
+                    findViewById(R.id.map_button_add)
+                var returnMapButton :
+                        ImageButton =
+                    findViewById(R.id.map_button_return)
+                var overlayMap :
+                        ConstraintLayout =
+                    findViewById(R.id.map_overlay)
+                var overlayMapButton :
+                        ImageButton =
+                    findViewById(R.id.map_button_overlay)
+                var textMap :
+                        TextView =
+                    findViewById(R.id.map_text_commute_name)
 
-                when (fragmentState[0]){
+                when(fragmentState[0]){
                     0 -> {
                         toolbar.visibility = View.GONE
 
@@ -312,6 +322,7 @@ class MainActivity :
                         enhanceMapButton.visibility = View.VISIBLE
                         addMapButton.visibility = View.GONE
                         returnMapButton.visibility = View.GONE
+                        overlayMap.visibility = View.GONE
                         overlayMapButton.visibility = View.GONE
 
                         dividerTop.visibility = View.VISIBLE
@@ -342,11 +353,17 @@ class MainActivity :
                 }
             }
             COMMUTES -> {
-                var enhanceCommutesButton : ImageButton = findViewById(R.id.commutes_button_enhance)
-                var addCommutesButton : ImageButton = findViewById(R.id.commutes_button_add)
-                var returnCommutesButton : ImageButton =  findViewById(R.id.commutes_button_return)
+                var enhanceCommutesButton :
+                        ImageButton =
+                    findViewById(R.id.commutes_button_enhance)
+                var addCommutesButton :
+                        ImageButton =
+                    findViewById(R.id.commutes_button_add)
+                var returnCommutesButton :
+                        ImageButton =
+                    findViewById(R.id.commutes_button_return)
 
-                when (fragmentState[0]){
+                when(fragmentState[0]){
                     0 -> {
                         toolbar.title = getString(R.string.name_commutes)
                         previousTitle = getString(R.string.name_main)
@@ -396,7 +413,8 @@ class MainActivity :
                         settings_item.isVisible = false
                         settings_item.isEnabled = false
 
-                        editFragment = FragmentCommutesEdit(false, fragmentState[1])
+                        editFragment =
+                            FragmentCommutesEdit(false, fragmentState[1])
 
                         mFragmentManager.beginTransaction()
                             .add(
@@ -410,9 +428,15 @@ class MainActivity :
                 }
             }
             EDIT -> {
-                var emptyCommutes : ConstraintLayout = findViewById(R.id.commutes_empty_container)
-                var addCommutesButton : ImageButton = findViewById(R.id.commutes_button_add)
-                var overlayMap : ConstraintLayout = findViewById(R.id.map_overlay)
+                var emptyCommutes :
+                        ConstraintLayout =
+                    findViewById(R.id.commutes_empty_container)
+                var addCommutesButton :
+                        ImageButton =
+                    findViewById(R.id.commutes_button_add)
+                var overlayMap :
+                        ConstraintLayout =
+                    findViewById(R.id.map_overlay)
 
                 when(previousTitle){
                     getString(R.string.name_map) -> {
@@ -454,7 +478,8 @@ class MainActivity :
                         settings_item.isVisible = false
                         settings_item.isEnabled = false
 
-                        favoriteEditFragment = FragmentFavoritesEdit(true, fragmentState[1])
+                        favoriteEditFragment =
+                            FragmentFavoritesEdit(true, fragmentState[1])
 
                         mFragmentManager.beginTransaction()
                             .add(
@@ -474,7 +499,8 @@ class MainActivity :
                         settings_item.isVisible = false
                         settings_item.isEnabled = false
 
-                        favoriteEditFragment = FragmentFavoritesEdit(false, fragmentState[1])
+                        favoriteEditFragment =
+                            FragmentFavoritesEdit(false, fragmentState[1])
 
                         mFragmentManager.beginTransaction()
                             .add(
@@ -493,8 +519,12 @@ class MainActivity :
                 }
             }
             FAVORITESEDIT -> {
-                var emptyFavorites : ConstraintLayout = findViewById(R.id.favorites_empty_container)
-                var addFavoritesButton : ImageButton = findViewById(R.id.favorites_button_add)
+                var emptyFavorites :
+                        ConstraintLayout =
+                    findViewById(R.id.favorites_empty_container)
+                var addFavoritesButton :
+                        ImageButton =
+                    findViewById(R.id.favorites_button_add)
 
                 previousTitle = toolbar.title.toString()
                 toolbar.title = getString(R.string.name_favorites)
@@ -510,7 +540,7 @@ class MainActivity :
         }
     }
 
-    override fun onBackPressed() {
+    override fun onBackPressed(){
         val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(toolbar)
 
@@ -526,8 +556,7 @@ class MainActivity :
                 }
             getString(R.string.field_favorite_name) -> {
                 onFragmentInteraction(4, intArrayOf(2,0))
-            }
-            else -> {
+            } else -> {
                 toolbar.title = previousTitle
                 previousTitle = getString(R.string.name_main)
                 super.onBackPressed()

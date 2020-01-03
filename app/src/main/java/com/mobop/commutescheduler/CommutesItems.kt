@@ -8,8 +8,6 @@ import java.util.*
 import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.ForeignKey.SET_NULL
-import org.jetbrains.anko.doAsync
-//import org.joda.time.DateTime
 /* *************************************************************** */
 
 /* CommutesItems ************************************************* */
@@ -28,15 +26,13 @@ class CommutesItemsList private constructor(context : Context){
                 return tempInstance
             }
             synchronized(this){
-                val instance = CommutesItemsList(context.applicationContext)
+                val instance = CommutesItemsList(
+                    context.applicationContext)
                 INSTANCE = instance
                 return instance
             }
         }
     }
-
-
-
 
     /* Initialising data into the ArrayList<Items> *************** */
     init{
@@ -47,7 +43,9 @@ class CommutesItemsList private constructor(context : Context){
 
             // Arrangement of the Array to separate by categories. The typeItem is also used
             // to order the header, the noItems item and the rest of the items per category
-            commutesItemsList.sortWith(compareBy({ it.start_time_long }, { it.arrival_time_long }))
+            commutesItemsList.sortWith(compareBy(
+                    { it.start_time_long },
+                    { it.arrival_time_long }))
 
         val homeToSchool = Commute(
             name = "Home2School",
@@ -123,12 +121,10 @@ class CommutesItemsList private constructor(context : Context){
     }
 }
 
-
 @Entity(tableName = "Commute" )
-
-// ajoutre option schedule -> du lundi au dimanche
+// Option schedule to add -> weeks of the day
 data class Commute(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pid") var pid: Long = 0,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pid") var pid : Long = 0,
     @ColumnInfo(name = "name") var name: String = "",
     @ColumnInfo(name = "start") var start : String = "",
     @ColumnInfo(name = "start_address")  var start_address : String? = null,
@@ -217,12 +213,9 @@ data class Commute(
     var alarm_tune : String? = null*//*
 )*/
 
-
 @Dao
 interface RouteDao {
-
     // Route
-
     @Query("SELECT * FROM Commute")
     fun getAll(): List<Commute>
 
@@ -240,15 +233,13 @@ interface RouteDao {
 
     @Query("SELECT * FROM Commute WHERE pid=:pathId")
     fun getRoute(pathId: Long): Commute
-
-
 }
-
 
 @Database(
     entities = arrayOf(Commute::class),
     version = 1
 )
+
 abstract class AppDatabase : RoomDatabase() {
     abstract fun routeDao(): RouteDao
 
@@ -258,12 +249,12 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase {
+        fun getDatabase(context: Context): AppDatabase{
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
             }
-            synchronized(this) {
+            synchronized(this){
 
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
