@@ -99,12 +99,12 @@ class NotificationService : IntentService("NotificationService") {
             arrival_time = intent.extras!!.getString("arrival_time")!!
             duration_in_traffic = intent.extras!!.getString("duration_in_traffic")!!
             checkPoint = intent.getIntExtra("checkPoint",0)
+
+
+            val mGoogleAPI=GoogleAPI()
+            mGoogleAPI.setService(this )
+            mGoogleAPI.requestRouteService(origin, destination)
         }
-
-        val mGoogleAPI=GoogleAPI()
-        mGoogleAPI.setService(this )
-        //mGoogleAPI.requestRoute("Service","test",origin, destination, "Now",false)
-
     }
     private fun createChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

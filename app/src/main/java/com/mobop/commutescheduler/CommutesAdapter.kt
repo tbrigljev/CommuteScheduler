@@ -156,7 +156,7 @@ class CommutesAdapter(mRecyclerView: RecyclerView, viewRes : Int, commutesItemsL
                     ContextCompat.getColor(view.context, R.color.colorCommutesOdd))
             }
 
-            if (itemInList != null) {
+            if ((itemInList != null) and (itemInList.duration_val!= null)) {
                 val elementTitle = itemInList.name
                 title.text = elementTitle
 
