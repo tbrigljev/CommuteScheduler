@@ -139,8 +139,8 @@ class FragmentCommutesEdit(private var new : Boolean, private var pos : Int) : F
         }
         else{
             commuteName.setText(commutesList!!.commutesItemsList[pos].name)
-            start=commutesList!!.commutesItemsList[pos].start
-            arrival=commutesList!!.commutesItemsList[pos].arrival
+            start = commutesList!!.commutesItemsList[pos].start
+            arrival = commutesList!!.commutesItemsList[pos].arrival
 
             commuteOriginAddress.setText(start)
             commuteDestinationAddress.setText(arrival)
@@ -208,8 +208,7 @@ class FragmentCommutesEdit(private var new : Boolean, private var pos : Int) : F
                 text = "Date information is missing"
             else if(arrivalTime == "")
                 text = "Time information is missing"
-            else {  //All minimum values introduced
-
+            else {
                 newCommute.name = commuteName.text.toString()
                 newCommute.start = start
                 newCommute.arrival = arrival

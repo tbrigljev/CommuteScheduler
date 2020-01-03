@@ -197,12 +197,22 @@ class FragmentCommutes(screen : Int) : Fragment(){
                  }
             }
             4 -> {
-                mAdapter!!.viewLayouts(false,false, partItem)
+                if(
+                    commutesList!!.commutesItemsList[partItem].name ==
+                    FragmentMap.mapFieldCommuteName.text.toString()){
+                    FragmentMap.mMap.clear()
+                    FragmentMap.mapFieldCommuteNText.setText(getString(R.string.no_commute))
+                    FragmentMap.mapFieldCommuteName.visibility = View.GONE
+                    FragmentMap.mapFieldCommuteDText.visibility = View.GONE
+                    FragmentMap.mapFieldCommuteDuration.visibility = View.GONE
+                }
+
+                mAdapter!!.viewLayouts(false, false, partItem)
                 mAdapter!!.removeAt(partItem)
 
                 mRecyclerView!!.adapter!!.notifyDataSetChanged()
 
-                if(commutesList!!.commutesItemsList.count() < 1){
+                if (commutesList!!.commutesItemsList.count() < 1) {
                     emptyCommutes.visibility = View.VISIBLE
                     addCommutesButton.visibility = View.GONE
                 }
