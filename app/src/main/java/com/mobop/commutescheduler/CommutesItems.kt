@@ -4,11 +4,21 @@ package com.mobop.commutescheduler
 import android.content.Context
 import org.jetbrains.anko.doAsync
 import com.google.android.gms.maps.model.LatLng
+import java.util.*
+import androidx.room.*
+import androidx.room.ForeignKey.CASCADE
+import androidx.room.ForeignKey.SET_NULL
+import org.jetbrains.anko.doAsync
+//import org.joda.time.DateTime
 /* *************************************************************** */
 
 /* CommutesItems ************************************************* */
 /* Contents of the recycler view (list) of commutes items ******** */
 class CommutesItemsList private constructor(context : Context){
+
+    var commutesItemsList = ArrayList<Commute>()
+    var database = AppDatabase.getDatabase(context).routeDao()
+
     companion object{
         @Volatile private var INSTANCE : CommutesItemsList? = null
 
@@ -25,12 +35,19 @@ class CommutesItemsList private constructor(context : Context){
         }
     }
 
-    var commutesItemsList = ArrayList<Commute>()
+
+
 
     /* Initialising data into the ArrayList<Items> *************** */
     init{
         doAsync{
+            commutesItemsList.addAll(database.getAll())
+            //commutesItemsList.add(Path(1,"PROFESSIONAL", "2020-01-15 08:00:00", "2020-01-15 08:00:00", "test1", "test2","101",  false, "2020-01-15 08:00:00",true))
+            //commutesItemsList.add(Path(2,"PRIVATE", "2020-01-15 08:00:00", "2020-01-15 08:00:00", "test3","test4","20", false, "2020-01-15 08:00:00",true))
 
+            // Arrangement of the Array to separate by categories. The typeItem is also used
+            // to order the header, the noItems item and the rest of the items per category
+            commutesItemsList.sortWith(compareBy({ it.start_time_long }, { it.arrival_time_long }))
 
         val homeToSchool = Commute(
             name = "Home2School",
@@ -106,34 +123,61 @@ class CommutesItemsList private constructor(context : Context){
     }
 }
 
-class Commutes private constructor(context : Context){
-    companion object{
-        @Volatile private var INSTANCE : Commutes? = null
 
-        fun getSingleton(context : Context) : Commutes{
-            val tempInstance = INSTANCE
-            if(tempInstance != null){
-                return tempInstance
-            }
-            synchronized(this){
-                val instance = Commutes(context.applicationContext)
-                INSTANCE = instance
-                return instance
-            }
-        }
-    }
+@Entity(tableName = "Commute" )
 
-    var listCommutes = ArrayList<Commute>()
-
-    /* Initialising data into the ArrayList<Items> *************** */
-    init{
-        doAsync{
-
-        }
-    }
-}
-
+// ajoutre option schedule -> du lundi au dimanche
 data class Commute(
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pid") var pid: Long = 0,
+    @ColumnInfo(name = "name") var name: String = "",
+    @ColumnInfo(name = "start") var start : String = "",
+    @ColumnInfo(name = "start_address")  var start_address : String? = null,
+
+
+    @ColumnInfo(name = "arrival") var arrival : String = "",
+    @ColumnInfo(name = "arrival_address") var arrival_address : String? = null,
+
+    @ColumnInfo(name = "start_time_short") var start_time_short : String = "",
+    @ColumnInfo(name = "start_time_long") var start_time_long : String = "",
+    @ColumnInfo(name = "start_time_UTC") var start_time_UTC : Long? = null,
+
+    @ColumnInfo(name = "arrival_time_short") var arrival_time_short : String = "",
+    @ColumnInfo(name = "arrival_time_long") var arrival_time_long : String = "",
+    @ColumnInfo(name = "arrival_time_UTC") var arrival_time_UTC : Long? = null,
+
+
+    @ColumnInfo(name = "distance") var distance : String? = null,
+    @ColumnInfo(name = "duration") var duration : String? = null,
+    @ColumnInfo(name = "duration_val") var duration_val : Long? = null,
+    @ColumnInfo(name = "duration_traffic") var duration_traffic : String? = null,
+    @ColumnInfo(name = "duration_traffic_val") var duration_traffic_val : Long? = null,
+
+    @ColumnInfo(name = "raw_data") var raw_data : String? = null,
+    @ColumnInfo(name = "errorTraffic") var errorTraffic : Long? = null,
+
+    @ColumnInfo(name = "alarm") var alarm: Boolean = false,
+    @ColumnInfo(name = "next_update") var next_update: String = "",
+    @ColumnInfo(name = "active") var active: Boolean = true,
+
+   /* var reminder_on : Boolean = false,
+    var reminder_tune : String? = null,
+
+    var alarm_on : Boolean = false,
+    var alarm_time : String? = null,
+    var alarm_tune : String? = null*/
+
+
+    // @Relation(parentColumn = "aid", entityColumn = "adrId")
+    // var address: List<Address>? = null,
+
+    var typeItem: Int=1,
+    @Ignore var start_address_LatLng : LatLng? = null,
+    @Ignore var arrival_address_LatLng : LatLng? = null,
+
+    @Ignore var days : MutableList<Int?> = ArrayList(),
+    @Ignore var path : MutableList<List<LatLng>> = ArrayList()
+)
+/*data class Commute(
 
     var name : String = "",
 
@@ -163,50 +207,72 @@ data class Commute(
 
     var path : MutableList<List<LatLng>> = ArrayList(),
     var raw_data : String? = null,
-    var errorTraffic : Long? = null/*,
+    var errorTraffic : Long? = null*//*,
 
     var reminder_on : Boolean = false,
     var reminder_tune : String? = null,
 
     var alarm_on : Boolean = false,
     var alarm_time : String? = null,
-    var alarm_tune : String? = null*/
+    var alarm_tune : String? = null*//*
+)*/
+
+
+@Dao
+interface RouteDao {
+
+    // Route
+
+    @Query("SELECT * FROM Commute")
+    fun getAll(): List<Commute>
+
+    @Insert
+    fun insertAll(path: Commute): Long
+
+    @Update
+    fun updateAll(vararg path: Commute)
+
+    //@Query("DELETE FROM todoitemcontent WHERE uid = :uid")
+    //fun deleteItem(vararg uid: Long): Int
+
+    @Delete
+    fun deleteAll(vararg path: Commute)
+
+    @Query("SELECT * FROM Commute WHERE pid=:pathId")
+    fun getRoute(pathId: Long): Commute
+
+
+}
+
+
+@Database(
+    entities = arrayOf(Commute::class),
+    version = 1
 )
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun routeDao(): RouteDao
 
-data class Commute2(
+    companion object {
+        // Singleton prevents multiple instances of database opening at the
+        // same time.
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
 
-    var name : String = "",
+        fun getDatabase(context: Context): AppDatabase {
+            val tempInstance = INSTANCE
+            if (tempInstance != null) {
+                return tempInstance
+            }
+            synchronized(this) {
 
-    var start : String = "",
-    var start_address : String? = null,
-    var start_address_LatLng : LatLng? = null,
-
-    var arrival : String = "",
-    var arrival_address : String? = null,
-    var arrival_address_LatLng : LatLng? = null,
-
-    var start_time_long : String = "",
-    var start_time_UTC : Long? = null,
-
-    var arrival_time : String = "",
-    var arrival_time_UTC : Long? = null,
-
-    var days : MutableList<Int?> = ArrayList(),
-
-    var distance : String? = null,
-    var duration : String? = null,
-    var duration_val : Long? = null,
-    var duration_traffic : String? = null,
-    var duration_traffic_val : Long? = null,
-
-    var path : MutableList<List<LatLng>> = ArrayList(),
-    var raw_data : String? = null,
-    var errorTraffic : Long? = null/*,
-
-    var reminder_on : Boolean = false,
-    var reminder_tune : String? = null,
-
-    var alarm_on : Boolean = false,
-    var alarm_time : String? = null,
-    var alarm_tune : String? = null*/
-)
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "route_database"
+                ).build()
+                INSTANCE = instance
+                return instance
+            }
+        }
+    }
+}

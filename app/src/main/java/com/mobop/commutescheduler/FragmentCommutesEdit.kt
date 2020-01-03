@@ -18,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import org.jetbrains.anko.doAsync
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -219,8 +220,12 @@ class FragmentCommutesEdit(private var new : Boolean, private var pos : Int) : F
                     newCommute.arrival_time_long += ":00"
                     text = "Commute added"
                     //var arrival_time = "2019-12-31 23:00:00"
-
                     commutesList!!.commutesItemsList.add(newCommute)
+                    doAsync{
+                        commutesList!!.database.insertAll(newCommute)
+
+                    }
+
                     var pos = commutesList!!.commutesItemsList.size -1
                     MainActivity.mGoogleAPI!!.requestRoute(
                         "Activity",
@@ -248,7 +253,7 @@ class FragmentCommutesEdit(private var new : Boolean, private var pos : Int) : F
                     commutesList!!.commutesItemsList[pos].arrival = newCommute.arrival
                     commutesList!!.commutesItemsList[pos].arrival_time_long = newCommute.arrival_time_long
                     commutesList!!.commutesItemsList[pos].arrival_time_short= newCommute.arrival_time_short
-
+                    doAsync{ commutesList!!.database.updateAll(commutesList!!.commutesItemsList[pos])}
                     MainActivity.mGoogleAPI!!.requestRoute(
                         "Activity",
                         pos,

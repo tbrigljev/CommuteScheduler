@@ -19,6 +19,7 @@ class Notifications {
         val alarmManager = activity.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
         val alarmIntent = Intent(activity.applicationContext, AlarmReceiver::class.java) // AlarmReceiver1 = broadcast receiver
         var mNotificationTime = (mRoute.start_time_UTC!! - checkPoint*60) * 1000//Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
+        Log.i("Mydebug",mNotificationTime.toString())
 
         alarmIntent.putExtra("checkPoint", checkPoint)
         alarmIntent.putExtra("timestamp", mNotificationTime)

@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import org.jetbrains.anko.doAsync
 
 /* *************************************************************** */
 
@@ -309,6 +310,10 @@ class CommutesAdapter(
 
     fun removeAt(position: Int) {
         commutesItemsList.removeAt(position)
+
+        doAsync{
+            commutesList!!.database.deleteAll(commutesItemsList[position])
+        }
         previousPosition = 0
         notifyItemRemoved(position)
     }
