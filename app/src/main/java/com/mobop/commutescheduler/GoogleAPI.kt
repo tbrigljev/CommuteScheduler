@@ -2,7 +2,6 @@ package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
 import android.content.Context
-import android.util.Log
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
@@ -29,7 +28,7 @@ class GoogleAPI(){
     var responseReceived = 0
     var responseReceivedMAX = 5
     //var GoogleKey = R.string.GoogleMapsKey
-    var mFragmentEdit : FragmentEdit? = null
+    var mFragmentEdit : FragmentCommutesEdit? = null
     var mFragmentFavoritesEdit : FragmentFavoritesEdit? = null
     var mActivity: MainActivity?= null //activity
     var mContext : Context? = null
@@ -51,7 +50,7 @@ class GoogleAPI(){
     lateinit var time : List<String>
 
 
-    fun setActivityContext(activity : FragmentEdit, context: Context){
+    fun setActivityContext(activity : FragmentCommutesEdit, context: Context){
         mFragmentEdit = activity
         mContext = context
         setupPlacesAutocomplete()
@@ -94,7 +93,7 @@ class GoogleAPI(){
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
-                        FragmentEdit.start = p0.address!!
+                        FragmentCommutesEdit.start = p0.address!!
                         // getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}
@@ -113,7 +112,7 @@ class GoogleAPI(){
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
-                        FragmentEdit.arrival = p0.address!!
+                        FragmentCommutesEdit.arrival = p0.address!!
                         // getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}

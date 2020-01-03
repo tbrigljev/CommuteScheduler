@@ -30,7 +30,9 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
 
     companion object {
         lateinit var mMap: GoogleMap
+        lateinit var mapFieldCommuteNText : TextView
         lateinit var mapFieldCommuteName : TextView
+        lateinit var mapFieldCommuteDText : TextView
         lateinit var mapFieldCommuteDuration : TextView
     }
 
@@ -72,10 +74,19 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
                 as SupportMapFragment
         googleMapFragment.getMapAsync(this)
 
+        mapFieldCommuteNText =
+            view.findViewById(R.id.map_text_commute_name) as TextView
         mapFieldCommuteName =
             view.findViewById(R.id.map_field_commute_name) as TextView
+        mapFieldCommuteDText =
+            view.findViewById(R.id.map_text_commute_duration) as TextView
         mapFieldCommuteDuration =
             view.findViewById(R.id.map_field_commute_duration) as TextView
+
+        mapFieldCommuteNText.setText(getString(R.string.no_commute))
+        mapFieldCommuteName.visibility = View.GONE
+        mapFieldCommuteDText.visibility = View.GONE
+        mapFieldCommuteDuration.visibility = View.GONE
 
         enhanceMapButton =
             view.findViewById(R.id.map_button_enhance) as ImageButton
@@ -86,7 +97,7 @@ class FragmentMap(screen : Int) : Fragment(), OnMapReadyCallback{
         overlayMapButton =
             view.findViewById(R.id.map_button_overlay) as ImageButton
 
-        arriveDateMapInput=
+        arriveDateMapInput =
             view.findViewById(R.id.text_date) as TextInputEditText
         viewTrafficMapCheck = view.findViewById(R.id.view_traffic) as CheckBox
 

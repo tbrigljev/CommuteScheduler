@@ -42,9 +42,9 @@ class FavoritesItemsList private constructor(context : Context){
                 address = "Route de Morat 135, 1763 Granges-Paccot"
             )
 
-            favoritesItemsList.add(home)
-            favoritesItemsList.add(school)
-            favoritesItemsList.add(work)
+            //favoritesItemsList.add(home)
+            //favoritesItemsList.add(school)
+            //favoritesItemsList.add(work)
         }
     }
 }

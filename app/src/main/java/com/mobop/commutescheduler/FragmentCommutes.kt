@@ -4,6 +4,7 @@ package com.mobop.commutescheduler
 import android.content.ClipData
 import android.content.Context
 import android.graphics.Color
+import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +21,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
-import kotlinx.android.synthetic.main.fragment_edit.*
+import kotlinx.android.synthetic.main.fragment_commutes.*
+import kotlinx.android.synthetic.main.fragment_commutes_edit.*
 
 /* *************************************************************** */
 
@@ -42,11 +44,13 @@ class FragmentCommutes(screen : Int) : Fragment(){
     //private var source = 0
     private var source : IntArray = intArrayOf(0,0)
     private val commutesScreen = screen
+    private var empty : Boolean = true
 
     private lateinit var returnCommutesButton : ImageButton
     private lateinit var addCommutesButton : ImageButton
     private lateinit var enhanceCommutesButton : ImageButton
-    //private lateinit var layoutButtons : ConstraintLayout
+    private lateinit var emptyCommutes : ConstraintLayout
+    private lateinit var emptyCommutesAdd : ImageButton
 
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
@@ -63,6 +67,12 @@ class FragmentCommutes(screen : Int) : Fragment(){
             false
         )
 
+        emptyCommutes =
+            view.findViewById(R.id.commutes_empty_container)
+                    as ConstraintLayout
+        emptyCommutesAdd =
+            view.findViewById(R.id.commutes_button_empty)
+                    as ImageButton
 
         enhanceCommutesButton =
             view.findViewById(R.id.commutes_button_enhance)
@@ -74,11 +84,22 @@ class FragmentCommutes(screen : Int) : Fragment(){
             view.findViewById(R.id.commutes_button_return)
                     as ImageButton
 
+        if(commutesList!!.commutesItemsList.count() < 1){
+            empty = true
+            addCommutesButton.visibility = View.GONE
+        } else {
+            empty = false
+            emptyCommutes.visibility = View.GONE
+        }
+
         enhanceCommutesButton.setOnClickListener{
             doCommutesEnhance(fragmentID)
         }
         addCommutesButton.setOnClickListener{
-            doCommutesAdd(fragmentID)
+            doCommutesAdd(fragmentID, empty)
+        }
+        emptyCommutesAdd.setOnClickListener {
+            doCommutesAdd(fragmentID, empty)
         }
         returnCommutesButton.setOnClickListener{
             doCommutesReturn(fragmentID)
@@ -135,8 +156,12 @@ class FragmentCommutes(screen : Int) : Fragment(){
         if (mListener != null){
             source[0] = 0
 
+            if(emptyCommutes.visibility == View.VISIBLE){
+                addCommutesButton.visibility = View.GONE
+            } else {
+                addCommutesButton.visibility = View.VISIBLE
+            }
             returnCommutesButton.visibility = View.VISIBLE
-            addCommutesButton.visibility = View.VISIBLE
             enhanceCommutesButton.visibility = View.GONE
 
             mListener!!.onFragmentInteraction(fragmentCaller, source)
@@ -150,10 +175,15 @@ class FragmentCommutes(screen : Int) : Fragment(){
         }
     }
 
-    private fun doCommutesAdd(fragmentCaller : Int){
+    private fun doCommutesAdd(fragmentCaller : Int, empty : Boolean){
         if (mListener != null){
             source[0] = 2
             mListener!!.onFragmentInteraction(fragmentCaller, source)
+
+            if(commutesList!!.commutesItemsList.count() > 0){
+                emptyCommutes.visibility = View.GONE
+                addCommutesButton.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -171,6 +201,12 @@ class FragmentCommutes(screen : Int) : Fragment(){
                 mAdapter!!.removeAt(partItem)
 
                 mRecyclerView!!.adapter!!.notifyDataSetChanged()
+
+                if(commutesList!!.commutesItemsList.count() < 1){
+                    emptyCommutes.visibility = View.VISIBLE
+                    addCommutesButton.visibility = View.GONE
+                }
+
                 val text = "Commute deleted"
                 val duration = Toast.LENGTH_SHORT
 

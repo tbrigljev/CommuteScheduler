@@ -35,6 +35,7 @@
     <string name="text_commute_departure">Leave:</string>
     <string name="text_commute_arrival">Arrive:</string>
     <string name="text_commute_duration">Duration:</string>
+    <string name="no_commute">No commute selected</string>
     <string name="from">from</string>
     <string name="to">to</string>
     <string name="in">in</string>
@@ -80,6 +81,8 @@
     <string name="button_settings">Change settings</string>
     <string name="button_favorite_edit">Edit existing favorite</string>
     <string name="button_favorite_delete">Delete existing favorite</string>
+    <string name="button_add_first_commute">Add your first commute</string>
+    <string name="button_add_first_favorite">Add your first favorite</string>
 
     <string name="checkbox_view_traffic">View traffic</string>
 

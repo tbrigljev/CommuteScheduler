@@ -146,9 +146,12 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
                     text = "Favorite added"
 
                     favoritesList!!.favoritesItemsList.add(newFavorite)
-                    var pos = favoritesList!!.favoritesItemsList.size -1
+                    var pos = favoritesList!!.favoritesItemsList.size - 1
 
                     var prev_pos = FragmentFavorites.mAdapter!!.previousPosition
+                    if(favoritesList!!.favoritesItemsList.count() < 2){
+                        prev_pos = -1
+                    }
                     if ((prev_pos != -1) and (prev_pos < FragmentFavorites.mAdapter!!.favoritesItemsList.size)) {
                         FragmentFavorites.mAdapter!!.viewLayouts(
                             false,

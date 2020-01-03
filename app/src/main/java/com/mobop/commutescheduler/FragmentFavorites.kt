@@ -4,6 +4,7 @@ package com.mobop.commutescheduler
 import android.content.ClipData
 import android.content.Context
 import android.graphics.Color
+import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +21,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
-import kotlinx.android.synthetic.main.fragment_edit.*
+import kotlinx.android.synthetic.main.fragment_commutes_edit.*
 
 /* *************************************************************** */
 
@@ -41,9 +42,12 @@ class FragmentFavorites : Fragment(){
     private val fragmentID = 4
     //private var source = 0
     private var source : IntArray = intArrayOf(0,0)
+    private var empty : Boolean = true
 
     private lateinit var returnFavoritesButton : ImageButton
     private lateinit var addFavoritesButton : ImageButton
+    private lateinit var emptyFavorites : ConstraintLayout
+    private lateinit var emptyFavoritesAdd : ImageButton
 
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
@@ -60,6 +64,13 @@ class FragmentFavorites : Fragment(){
             false
         )
 
+        emptyFavorites =
+            view.findViewById(R.id.favorites_empty_container)
+                    as ConstraintLayout
+        emptyFavoritesAdd =
+            view.findViewById(R.id.favorites_button_empty)
+                    as ImageButton
+
         addFavoritesButton =
             view.findViewById(R.id.favorites_button_add)
                     as ImageButton
@@ -67,8 +78,19 @@ class FragmentFavorites : Fragment(){
             view.findViewById(R.id.favorites_button_return)
                     as ImageButton
 
+        if(favoritesList!!.favoritesItemsList.count() < 1){
+            empty = true
+            addFavoritesButton.visibility = View.GONE
+        } else{
+            empty = false
+            emptyFavorites.visibility = View.GONE
+        }
+
         addFavoritesButton.setOnClickListener{
-            doFavoritesAdd(fragmentID)
+            doFavoritesAdd(fragmentID, empty)
+        }
+        emptyFavoritesAdd.setOnClickListener{
+            doFavoritesAdd(fragmentID, empty)
         }
         returnFavoritesButton.setOnClickListener{
             doFavoritesReturn(fragmentID)
@@ -107,10 +129,19 @@ class FragmentFavorites : Fragment(){
     }
 
 
-    private fun doFavoritesAdd(fragmentCaller : Int){
+    private fun doFavoritesAdd(fragmentCaller : Int, empty : Boolean){
         if(mListener != null){
+            mRecyclerView!!.adapter!!.notifyDataSetChanged()
             source[0] = 0
-        mListener!!.onFragmentInteraction(fragmentCaller, source)
+            if(commutesList!!.commutesItemsList.count() < 1){
+                source[1] = -1
+            }
+            mListener!!.onFragmentInteraction(fragmentCaller, source)
+
+            if(commutesList!!.commutesItemsList.count() > 0){
+                emptyFavorites.visibility = View.GONE
+                addFavoritesButton.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -135,6 +166,12 @@ class FragmentFavorites : Fragment(){
                 mAdapter!!.removeAt(partItem)
 
                 mRecyclerView!!.adapter!!.notifyDataSetChanged()
+
+                if(favoritesList!!.favoritesItemsList.count() < 1){
+                    emptyFavorites.visibility = View.VISIBLE
+                    addFavoritesButton.visibility = View.GONE
+                }
+
                 val text = "Favorite deleted"
                 val duration = Toast.LENGTH_SHORT
 

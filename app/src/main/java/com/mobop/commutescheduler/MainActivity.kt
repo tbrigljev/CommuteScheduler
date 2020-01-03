@@ -18,15 +18,10 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
-import com.google.android.material.textfield.TextInputEditText
-import com.mobop.commutescheduler.FragmentCommutes.Companion.mRecyclerView
-import com.mobop.commutescheduler.FragmentCommutes.Companion.mAdapter
 
 
 /* *************************************************************** */
@@ -51,7 +46,7 @@ var favoritesList : FavoritesItemsList? = null
 class MainActivity :
     FragmentMap.OnFragmentInteractionListener,
     FragmentCommutes.OnFragmentInteractionListener,
-    FragmentEdit.OnFragmentInteractionListener,
+    FragmentCommutesEdit.OnFragmentInteractionListener,
     FragmentShortcuts.OnFragmentInteractionListener,
     FragmentFavorites.OnFragmentInteractionListener,
     FragmentFavoritesEdit.OnFragmentInteractionListener,
@@ -63,11 +58,11 @@ class MainActivity :
     var homeFragment = FragmentHome()
     var commutesFragment = FragmentCommutes(0)
     var mapFragment = FragmentMap(0)
-    var newFragment = FragmentEdit(true, -1)
+    var newFragment = FragmentCommutesEdit(true, -1)
     var favoritesFragment = FragmentFavorites()
     var favoriteEditFragment = FragmentFavoritesEdit(true, -1)
     var quickFragment = FragmentQuick()
-    lateinit var editFragment : FragmentEdit
+    lateinit var editFragment : FragmentCommutesEdit
     lateinit var previousTitle : String
     lateinit var settings_item : MenuItem
 
@@ -152,7 +147,14 @@ class MainActivity :
 
         }
         FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
+
+        FragmentMap.mapFieldCommuteDuration.visibility = View.VISIBLE
+        FragmentMap.mapFieldCommuteDText.visibility = View.VISIBLE
+        FragmentMap.mapFieldCommuteName.visibility = View.VISIBLE
+
+        FragmentMap.mapFieldCommuteNText.setText(getString(R.string.text_commute_name))
         FragmentMap.mapFieldCommuteDuration.setText(mCommute.duration)
+        FragmentMap.mapFieldCommuteDText.setText(getString(R.string.text_commute_duration))
         FragmentMap.mapFieldCommuteName.setText(mCommute.name)
 
         var builder : LatLngBounds.Builder = LatLngBounds.Builder()
@@ -371,7 +373,7 @@ class MainActivity :
                         settings_item.isVisible = false
                         settings_item.isEnabled = false
 
-                        editFragment = FragmentEdit(false, fragmentState[1])
+                        editFragment = FragmentCommutesEdit(false, fragmentState[1])
 
                         mFragmentManager.beginTransaction()
                             .add(
@@ -385,6 +387,9 @@ class MainActivity :
                 }
             }
             EDIT -> {
+                var emptyCommutes : ConstraintLayout = findViewById(R.id.commutes_empty_container)
+                var addCommutesButton : ImageButton = findViewById(R.id.commutes_button_add)
+
                 when(previousTitle){
                     getString(R.string.name_map) -> {
                         toolbar.visibility = View.GONE
@@ -402,6 +407,10 @@ class MainActivity :
                         settings_item.isVisible = true
                         settings_item.isEnabled = true
                     }
+                }
+                if(commutesList!!.commutesItemsList.count() > 0){
+                    emptyCommutes.visibility = View.GONE
+                    addCommutesButton.visibility = View.VISIBLE
                 }
                 supportFragmentManager.popBackStack()
                /* var fragment: FragmentHome? = supportFragmentManager.findFragmentByTag("home") as FragmentHome
@@ -458,8 +467,18 @@ class MainActivity :
                 }
             }
             FAVORITESEDIT -> {
+                var emptyFavorites : ConstraintLayout = findViewById(R.id.favorites_empty_container)
+                var addFavoritesButton : ImageButton = findViewById(R.id.favorites_button_add)
+
                 previousTitle = toolbar.title.toString()
                 toolbar.title = getString(R.string.name_favorites)
+
+                if(favoritesList!!.favoritesItemsList.count() > 0){
+                    emptyFavorites.visibility = View.GONE
+                    addFavoritesButton.visibility = View.VISIBLE
+                }
+
+
                 supportFragmentManager.popBackStack()
             }
         }

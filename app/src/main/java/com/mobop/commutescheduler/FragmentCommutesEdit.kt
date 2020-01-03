@@ -19,7 +19,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 
@@ -29,7 +28,7 @@ import java.util.*
 /* Fragment reserved for the edition of elements  **************** */
 /* This is used for both edition existing elements and adding ones */
 
-class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(){
+class FragmentCommutesEdit(private var new : Boolean, private var pos : Int) : Fragment(){
 
     companion object {
         //var start: String = "Fribourg"
@@ -64,7 +63,7 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
         savecInstanceState : Bundle?) : View?{
 
         val view = inflater.inflate(
-            R.layout.fragment_edit,
+            R.layout.fragment_commutes_edit,
             container,
             false
         )
@@ -178,8 +177,10 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
             commuteName.setText("")
 
             hideKeyboard()
+
             source[0] = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
+
             if ( pos >= 0 ){
                 FragmentCommutes.mAdapter!!.viewLayouts(false,false, pos)
             }
@@ -228,6 +229,9 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                         true)
 
                     var prev_pos = FragmentCommutes.mAdapter!!.previousPosition
+                    if(commutesList!!.commutesItemsList.count() < 2){
+                        prev_pos = -1
+                    }
                     if ((prev_pos != -1) and (prev_pos < FragmentCommutes.mAdapter!!.commutesItemsList.size)) {
                         FragmentCommutes.mAdapter!!.viewLayouts(
                             false,

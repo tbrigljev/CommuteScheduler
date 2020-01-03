@@ -158,8 +158,9 @@ class FavoritesAdapter(
         notifyItemRemoved(position)
     }
 
-    fun viewLayouts(visible_layoutButtons: Boolean, pos: Int) {
-        var view_pos: View =
+    fun viewLayouts(visible_layoutButtons : Boolean, pos : Int) {
+        var p = pos
+        var view_pos : View =
             mRecyclerView!!.findViewHolderForAdapterPosition(pos)!!.itemView
 
         val layoutButtons_pos : ConstraintLayout =

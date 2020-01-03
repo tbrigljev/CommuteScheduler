@@ -1,3 +1,4 @@
+/*
 
 package com.mobop.commutescheduler
 
@@ -36,9 +37,11 @@ class Route private constructor  (context: Context) {
         }
     }
 
-    /*************************************************************************
+    */
+/*************************************************************************
      * Initializes the initial data into the ArrayList<Items>
-     *************************************************************************/
+     *************************************************************************//*
+
     init {
         doAsync {
             itemsList.addAll(database.getAll())
@@ -137,3 +140,4 @@ class Route private constructor  (context: Context) {
         }
     }
 
+*/

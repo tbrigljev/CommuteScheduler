@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 
 class FragmentShortcuts : Fragment(){
 
-    private var mListener : FragmentEdit.OnFragmentInteractionListener? = null
+    private var mListener : FragmentCommutesEdit.OnFragmentInteractionListener? = null
 
     private val fragmentID = 0
     private var source : IntArray = intArrayOf(0, 0)
@@ -52,7 +51,7 @@ class FragmentShortcuts : Fragment(){
 
     override fun onAttach(context : Context){
         super.onAttach(context)
-        if(context is FragmentEdit.OnFragmentInteractionListener){
+        if(context is FragmentCommutesEdit.OnFragmentInteractionListener){
             mListener = context
         } else{
             throw RuntimeException(context.toString() +

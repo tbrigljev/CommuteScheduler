@@ -311,7 +311,8 @@ class CommutesAdapter(
         notifyItemRemoved(position)
     }
 
-   fun viewLayouts(visible_layoutButtons:Boolean, visible_layoutExtended:Boolean, pos:Int){
+   fun viewLayouts(visible_layoutButtons : Boolean, visible_layoutExtended : Boolean, pos : Int){
+       var p = pos
        var view_pos: View =
            mRecyclerView!!.findViewHolderForAdapterPosition(pos)!!.itemView
 
