@@ -158,7 +158,6 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
         return view
     }
 
-
     override fun onAttach(context : Context){
         super.onAttach(context)
         if(context is OnFragmentInteractionListener){
@@ -225,13 +224,13 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
                     //var arrival_time = "2019-12-31 23:00:00"
 
                     commutesList!!.commutesItemsList.add(newCommute)
-                    var pos=commutesList!!.commutesItemsList.size -1
+                    var pos = commutesList!!.commutesItemsList.size -1
                     MainActivity.mGoogleAPI!!.requestRoute(
                         "Activity",
                         pos,
                         true)
 
-                    var prev_pos=FragmentCommutes.mAdapter!!.previousPosition
+                    var prev_pos = FragmentCommutes.mAdapter!!.previousPosition
                     if ((prev_pos != -1) and (prev_pos < FragmentCommutes.mAdapter!!.commutesItemsList.size)) {
                         FragmentCommutes.mAdapter!!.viewLayouts(
                             false,

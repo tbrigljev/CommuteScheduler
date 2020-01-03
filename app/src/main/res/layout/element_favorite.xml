@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:text="@string/text_favorite_name"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/element_favorite"
         app:layout_constraintStart_toStartOf="@id/element_favorite"
         app:layout_constraintTop_toTopOf="@id/element_favorite" />
 
@@ -25,9 +25,51 @@
         android:id="@+id/favorite_address"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:text="@string/text_favorite_address"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/element_favorite"
+        app:layout_constraintStart_toStartOf="@id/favorite_name"
+        app:layout_constraintTop_toBottomOf="@id/favorite_name" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/favorites_buttons"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/element_favorite"
         app:layout_constraintEnd_toEndOf="@id/element_favorite"
         app:layout_constraintStart_toStartOf="@id/element_favorite"
-        app:layout_constraintTop_toBottomOf="@id/favorite_name" />
+        app:layout_constraintTop_toTopOf="@id/element_favorite">
+
+        <ImageButton
+            android:id="@+id/favorite_edit"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="240dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/colorPrimaryDark"
+            android:contentDescription="@string/button_favorite_edit"
+            app:layout_constraintBottom_toBottomOf="@id/favorites_buttons"
+            app:layout_constraintEnd_toStartOf="@id/favorite_delete"
+            app:layout_constraintStart_toStartOf="@id/favorites_buttons"
+            app:layout_constraintTop_toTopOf="@id/favorites_buttons"
+            app:srcCompat="@drawable/edit" />
+
+        <ImageButton
+            android:id="@+id/favorite_delete"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/colorAccent"
+            android:contentDescription="@string/button_favorite_delete"
+            app:layout_constraintBottom_toBottomOf="@id/favorites_buttons"
+            app:layout_constraintEnd_toEndOf="@id/favorites_buttons"
+            app:layout_constraintStart_toEndOf="@id/favorite_edit"
+            app:layout_constraintTop_toTopOf="@id/favorites_buttons"
+            app:srcCompat="@drawable/delete" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

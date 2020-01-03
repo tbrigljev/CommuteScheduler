@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_edit.*
 
 /* FragmentFavorites ********************************************* */
 /* Contains the list of favorites and the related buttons ******** */
-/* Contained in FragmentHome and in its standalone fragment ****** */
+/* Contained in its standalone fragment ************************** */
 class FragmentFavorites : Fragment(){
     companion object{
         var mRecyclerView : RecyclerView? = null
@@ -43,6 +43,7 @@ class FragmentFavorites : Fragment(){
     private var source : IntArray = intArrayOf(0,0)
 
     private lateinit var returnFavoritesButton : ImageButton
+    private lateinit var addFavoritesButton : ImageButton
 
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
@@ -59,9 +60,15 @@ class FragmentFavorites : Fragment(){
             false
         )
 
+        addFavoritesButton =
+            view.findViewById(R.id.favorites_button_add)
         returnFavoritesButton =
             view.findViewById(R.id.favorites_button_return)
                     as ImageButton
+
+        addFavoritesButton.setOnClickListener{
+            doFavoritesAdd(fragmentID)
+        }
         returnFavoritesButton.setOnClickListener{
             doFavoritesReturn(fragmentID)
         }
@@ -75,7 +82,8 @@ class FragmentFavorites : Fragment(){
         mAdapter =
             FavoritesAdapter(mRecyclerView!!,
                 R.layout.element_favorite,
-                favoritesList!!.favoritesItemsList
+                favoritesList!!.favoritesItemsList,
+                { partItem : Int, action : Int -> doFavoritesButtons(partItem, action) }
             )
 
         mRecyclerView!!.adapter = mAdapter
@@ -98,10 +106,40 @@ class FragmentFavorites : Fragment(){
         mListener = null
     }
 
+    private fun doFavoritesAdd(fragmentCaller : Int){
+        if(mListener != null){
+            source[0] = 0
+        mListener!!.onFragmentInteraction(fragmentCaller, source)
+        }
+    }
+
     private fun doFavoritesReturn(fragmentCaller : Int){
         if (mListener != null){
-            source[0] = 0
+            source[0] = 2
             mListener!!.onFragmentInteraction(fragmentCaller, source)
+        }
+    }
+
+    private fun doFavoritesButtons(partItem : Int, action : Int){
+        when(action){
+            1 -> {
+                if(mListener != null){
+                    //layoutButtons.visibility = View.GONE
+                    source = intArrayOf(action, partItem)
+                    mListener!!.onFragmentInteraction(fragmentID, source)
+                }
+            }
+            3 -> {
+                mAdapter!!.viewLayouts(false, partItem)
+                mAdapter!!.removeAt(partItem)
+
+                mRecyclerView!!.adapter!!.notifyDataSetChanged()
+                val text = "Favorite deleted"
+                val duration = Toast.LENGTH_SHORT
+
+                val toast = Toast.makeText(getActivity(), text, duration)
+                toast.show()
+            }
         }
     }
 

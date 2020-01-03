@@ -37,7 +37,8 @@ const val MAP = 1
 const val COMMUTES = 2
 const val EDIT = 3
 const val FAVORITES = 4
-const val QUICK = 5
+const val FAVORITESEDIT = 5
+const val QUICK = 6
 const val SETTINGS = 99
 
 var commutesList : CommutesItemsList? = null
@@ -63,6 +64,7 @@ class MainActivity :
     var mapFragment = FragmentMap(0)
     var newFragment = FragmentEdit(true, -1)
     var favoritesFragment = FragmentFavorites()
+    var favoriteEditFragment = FragmentFavoritesEdit(true, -1)
     lateinit var editFragment : FragmentEdit
     lateinit var previousTitle : String
     lateinit var settings_item : MenuItem
@@ -218,12 +220,6 @@ class MainActivity :
                             )
                             .addToBackStack("favorites")
                             .commit()
-                        /*
-                        val text = "Coming soon : Favorites !"
-                        val duration = Toast.LENGTH_SHORT
-
-                        val toast = Toast.makeText(this, text, duration)
-                        toast.show()*/
                     }
                     2 -> {
                         val text = "Coming soon : Quick route selection !"
@@ -320,16 +316,6 @@ class MainActivity :
                         containerMap.visibility = View.GONE
                         dividerBottom.visibility = View.GONE
                         containerQuick.visibility = View.GONE
-
-                        /*
-                        mFragmentManager.beginTransaction()
-                            .add(
-                                R.id.main_container_fragments,
-                                commutesFragment,
-                                "commutes"
-                            )
-                            .addToBackStack("commutes")
-                            .commit()*/
                     }
                     1 -> {
                         toolbar.title = getString(R.string.name_main)
@@ -343,9 +329,6 @@ class MainActivity :
                         containerMap.visibility = View.VISIBLE
                         dividerBottom.visibility = View.VISIBLE
                         containerQuick.visibility = View.VISIBLE
-
-                        /*
-                        supportFragmentManager.popBackStack()*/
                     }
                     2 -> {
                         toolbar.title = getString(R.string.name_new )
@@ -385,14 +368,6 @@ class MainActivity :
                             .addToBackStack("edit")
                             .commit()
                     }
-                    /*4 -> {
-                        commutesList!!.commutesItemsList.removeAt(fragmentState[1])
-                        val text = "Commute deleted"
-                        val duration = Toast.LENGTH_SHORT
-
-                        val toast = Toast.makeText(this, text, duration)
-                        toast.show()
-                    }*/
                 }
             }
             EDIT -> {
@@ -422,6 +397,46 @@ class MainActivity :
             FAVORITES -> {
                 when(fragmentState[0]){
                     0 -> {
+                        previousTitle = toolbar.title.toString()
+                        toolbar.title = getString(R.string.name_favorite_new)
+                        /* HIDE SETTINGS IN EDITION FRAGMENT
+                           NOT WORKING
+                         */
+                        settings_item.isVisible = false
+                        settings_item.isEnabled = false
+
+                        favoriteEditFragment = FragmentFavoritesEdit(true, fragmentState[1])
+
+                        mFragmentManager.beginTransaction()
+                            .add(
+                                R.id.main_container_fragments,
+                                favoriteEditFragment,
+                                "new_favorite"
+                            )
+                            .addToBackStack("new_favorite")
+                            .commit()
+                    }
+                    1 -> {
+                        previousTitle = toolbar.title.toString()
+                        toolbar.title = getString(R.string.name_favorite_edit)
+                        /* HIDE SETTINGS IN EDITION FRAGMENT
+                           NOT WORKING
+                         */
+                        settings_item.isVisible = false
+                        settings_item.isEnabled = false
+
+                        favoriteEditFragment = FragmentFavoritesEdit(false, fragmentState[1])
+
+                        mFragmentManager.beginTransaction()
+                            .add(
+                                R.id.main_container_fragments,
+                                favoriteEditFragment,
+                                "favorite_edit"
+                            )
+                            .addToBackStack("favorite_edit")
+                            .commit()
+                    }
+                    2 -> {
                         supportFragmentManager.popBackStack()
                     }
                 }
@@ -443,22 +458,14 @@ class MainActivity :
             getString(R.string.name_new) -> {
                 onFragmentInteraction(3,intArrayOf(0,0))
                 }
+            getString(R.string.field_favorite_name) -> {
+                onFragmentInteraction(4, intArrayOf(2,0))
+            }
             else -> {
                 toolbar.title = previousTitle
                 previousTitle = getString(R.string.name_main)
                 super.onBackPressed()
             }
         }
-
-//        when(toolbar.visibility){
-//            View.VISIBLE -> {
-//                toolbar.title = previousTitle
-//                previousTitle = getString(R.string.name_main)
-//                super.onBackPressed()
-//            }
-//            View.GONE -> {
-//                onFragmentInteraction(0,1)
-//            }
-//        }
     }
 }

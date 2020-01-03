@@ -31,6 +31,23 @@
         app:layout_constraintTop_toTopOf="@+id/favorites_list">
 
         <ImageButton
+            android:id="@+id/favorites_button_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#00000000"
+            android:contentDescription="@string/button_add"
+            android:onClick="doFavoritesAdd"
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/favorites_button_return"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_favorites_buttons"
+            app:srcCompat="@drawable/add_new" />
+
+        <ImageButton
             android:id="@+id/favorites_button_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -176,7 +176,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
                  }
             }
             4 -> {
-                mAdapter!!.viewLayouts(false,false,partItem)
+                mAdapter!!.viewLayouts(false,false, partItem)
                 mAdapter!!.removeAt(partItem)
 
                 mRecyclerView!!.adapter!!.notifyDataSetChanged()
