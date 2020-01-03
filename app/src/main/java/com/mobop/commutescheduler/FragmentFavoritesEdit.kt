@@ -62,6 +62,7 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
             container,
             false
         )
+        MainActivity.mGoogleAPI!!.setActivityContext(this, getActivity()!!.getApplicationContext())
 
         cancelEditButton =
             view.findViewById(R.id.favorite_edit_button_cancel) as ImageButton
