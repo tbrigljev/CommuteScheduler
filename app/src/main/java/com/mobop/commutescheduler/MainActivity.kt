@@ -451,9 +451,16 @@ class MainActivity :
                             .commit()
                     }
                     2 -> {
+                        toolbar.title = getString(R.string.name_main)
+                        previousTitle = getString(R.string.name_favorites)
                         supportFragmentManager.popBackStack()
                     }
                 }
+            }
+            FAVORITESEDIT -> {
+                previousTitle = toolbar.title.toString()
+                toolbar.title = getString(R.string.name_favorites)
+                supportFragmentManager.popBackStack()
             }
         }
     }

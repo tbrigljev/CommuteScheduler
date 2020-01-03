@@ -118,7 +118,7 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
 
             hideKeyboard()
 
-            source[0] = 2
+            source[0] = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
             if ( pos >= 0 ){
                 FragmentFavorites.mAdapter!!.viewLayouts(false, pos)
@@ -171,7 +171,7 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
             toast.show()
 
             if((text == "Favorite added") or (text == "Favorite modified")){
-                source[0] = 0
+                source[0] = 1
                 source[1] = pos
                 mListener!!.onFragmentInteraction(fragmentCaller, source)
 
