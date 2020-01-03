@@ -30,6 +30,7 @@ class GoogleAPI(){
     var responseReceivedMAX = 5
     //var GoogleKey = R.string.GoogleMapsKey
     var mFragmentEdit : FragmentEdit? = null
+    var mFragmentFavoritesEdit : FragmentFavoritesEdit? = null
     var mActivity: MainActivity?= null //activity
     var mContext : Context? = null
     var mService : NotificationService? = null
@@ -54,6 +55,12 @@ class GoogleAPI(){
         mFragmentEdit = activity
         mContext = context
         setupPlacesAutocomplete()
+    }
+
+    fun setActivityContext(activity : FragmentFavoritesEdit, context: Context){
+        mFragmentFavoritesEdit = activity
+        mContext = context
+        setupPlacesAutocompleteFav()
     }
     fun setActivity(activity : MainActivity){
         mActivity = activity
@@ -112,6 +119,37 @@ class GoogleAPI(){
                     override fun onError(p0 : Status){}
                 }
             )
+    }
+
+    private fun setupPlacesAutocompleteFav(){
+        var placeFields = Arrays.asList(
+            Place.Field.ID,
+            Place.Field.NAME,
+            Place.Field.ADDRESS
+        )
+
+        Places.initialize(mContext!!, MainActivity.GoogleKey!!)
+        placesClient = Places.createClient(mContext!!)
+
+        val autocompleteFragment_start = mFragmentFavoritesEdit!!
+            .childFragmentManager
+            .findFragmentById(R.id.fragment_address)
+                as AutocompleteSupportFragment
+
+        autocompleteFragment_start
+            .setPlaceFields(placeFields)
+        autocompleteFragment_start
+            //.setHint("Set the start point")
+            .setOnPlaceSelectedListener(
+                object : PlaceSelectionListener{
+                    override fun onPlaceSelected(p0 : Place){
+                        FragmentFavoritesEdit.address = p0.address!!
+                        // getPhotoAndDetail(p0.id!!.true)
+                    }
+                    override fun onError(p0 : Status){}
+                }
+            )
+
     }
 
     /* Google Routes ********************************************* */

@@ -101,7 +101,6 @@ class FragmentFavorites : Fragment(){
                     " must implement OnFragmentInteractionListener")
         }
     }
-
     override fun onDetach(){
         super.onDetach()
         mListener = null
