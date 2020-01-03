@@ -27,7 +27,7 @@ import java.util.*
 
 /* FragmentEdit ************************************************** */
 /* Fragment reserved for the edition of elements  **************** */
-/* This is used for both edition existing elements and adding ones */
+/* This is used for both editing existing elements and adding ones */
 
 class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : Fragment(){
 
@@ -64,14 +64,14 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
         )
 
         cancelEditButton =
-            view.findViewById(R.id.edit_button_cancel) as ImageButton
+            view.findViewById(R.id.favorite_edit_button_cancel) as ImageButton
         validateEditButton =
-            view.findViewById(R.id.edit_button_validate) as ImageButton
+            view.findViewById(R.id.favorite_edit_button_validate) as ImageButton
 
-        favoriteName = view.findViewById(R.id.edit_title)
+        favoriteName = view.findViewById(R.id.favorite_edit_title)
 
         favoriteAddress = childFragmentManager
-            .findFragmentById(R.id.fragment_start)
+            .findFragmentById(R.id.fragment_address)
                 as AutocompleteSupportFragment
         favoriteAddress
             .setHint(getString(R.string.field_favorite_address))
@@ -118,12 +118,11 @@ class FragmentFavoritesEdit(private var new : Boolean, private var pos : Int) : 
 
             hideKeyboard()
 
-            source[0] = 0
+            source[0] = 2
             mListener!!.onFragmentInteraction(fragmentCaller, source)
-            if ( pos >=0 ){
+            if ( pos >= 0 ){
                 FragmentFavorites.mAdapter!!.viewLayouts(false, pos)
             }
-
         }
     }
 

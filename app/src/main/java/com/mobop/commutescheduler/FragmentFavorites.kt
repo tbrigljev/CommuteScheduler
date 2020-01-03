@@ -62,6 +62,7 @@ class FragmentFavorites : Fragment(){
 
         addFavoritesButton =
             view.findViewById(R.id.favorites_button_add)
+                    as ImageButton
         returnFavoritesButton =
             view.findViewById(R.id.favorites_button_return)
                     as ImageButton
@@ -105,6 +106,7 @@ class FragmentFavorites : Fragment(){
         super.onDetach()
         mListener = null
     }
+
 
     private fun doFavoritesAdd(fragmentCaller : Int){
         if(mListener != null){

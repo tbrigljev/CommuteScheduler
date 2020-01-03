@@ -126,15 +126,6 @@ class FragmentCommutes(screen : Int) : Fragment(){
         }
     }
 
-
-    /* TO REMOVE THE BUTTONS WHEN LEAVING NEW/EDIT FRAGMENT
-    NOT WORKING
-    override fun onViewCreated(view : View, savedInstanceState : Bundle?){
-        super.onViewCreated(view, savedInstanceState)
-        layoutButtons =
-            view.findViewById(R.id.buttons_container) as ConstraintLayout
-    }*/
-
     override fun onDetach(){
         super.onDetach()
         mListener = null

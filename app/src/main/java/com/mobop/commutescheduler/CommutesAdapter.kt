@@ -214,7 +214,9 @@ class CommutesAdapter(
                     if (previousPosition != getAdapterPosition()) {
                         try {
                             var view_previous: View =
-                                mRecyclerView!!.findViewHolderForAdapterPosition(previousPosition)!!.itemView
+                                mRecyclerView!!.findViewHolderForAdapterPosition(
+                                    previousPosition
+                                )!!.itemView
                             val layoutButtons_previous: ConstraintLayout =
                                 view_previous!!.findViewById(R.id.buttons_container) as ConstraintLayout
                             val layoutExtended_previous: LinearLayout =
@@ -230,7 +232,7 @@ class CommutesAdapter(
 
                         }
                         catch(e : Exception){
-                            Log.i("myTag",e.toString())
+                            Log.i("myTag", e.toString())
                         }
                     }
 

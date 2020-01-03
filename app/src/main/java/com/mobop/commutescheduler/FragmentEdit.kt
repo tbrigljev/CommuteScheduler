@@ -180,10 +180,9 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
             hideKeyboard()
             source[0] = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
-            if ( pos >=0 ){
-                FragmentCommutes.mAdapter!!.viewLayouts(false,false,pos)
+            if ( pos >= 0 ){
+                FragmentCommutes.mAdapter!!.viewLayouts(false,false, pos)
             }
-
         }
     }
 
@@ -195,8 +194,6 @@ class FragmentEdit(private var new : Boolean, private var pos : Int) : Fragment(
 
             var arrivalDate = chooseDate.text.toString()
             var arrivalTime = chooseTime.text.toString()
-
-
 
             lateinit var text : String
 

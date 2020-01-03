@@ -51,8 +51,7 @@ class FavoritesAdapter(
 
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
-        position: Int
-    ) {
+        position: Int){
 
         val viewHolder = holder as ViewHolder
         viewHolder.bind(
@@ -163,7 +162,7 @@ class FavoritesAdapter(
         var view_pos: View =
             mRecyclerView!!.findViewHolderForAdapterPosition(pos)!!.itemView
 
-        val layoutButtons_pos: ConstraintLayout =
+        val layoutButtons_pos : ConstraintLayout =
             view_pos!!.findViewById(R.id.favorites_buttons) as ConstraintLayout
 
         if (visible_layoutButtons == true) {

@@ -54,6 +54,7 @@ class MainActivity :
     FragmentEdit.OnFragmentInteractionListener,
     FragmentShortcuts.OnFragmentInteractionListener,
     FragmentFavorites.OnFragmentInteractionListener,
+    FragmentFavoritesEdit.OnFragmentInteractionListener,
     FragmentSettings.OnFragmentInteractionListener,
     AppCompatActivity(){
 
@@ -65,6 +66,7 @@ class MainActivity :
     var newFragment = FragmentEdit(true, -1)
     var favoritesFragment = FragmentFavorites()
     var favoriteEditFragment = FragmentFavoritesEdit(true, -1)
+    var quickFragment = FragmentQuick()
     lateinit var editFragment : FragmentEdit
     lateinit var previousTitle : String
     lateinit var settings_item : MenuItem
@@ -222,11 +224,23 @@ class MainActivity :
                             .commit()
                     }
                     2 -> {
+                        toolbar.title = getString(R.string.name_quick)
+                        previousTitle = getString(R.string.name_main)
+
+                        mFragmentManager.beginTransaction()
+                            .add(
+                                R.id.main_container_fragments,
+                                quickFragment,
+                                "quick"
+                            )
+                            .addToBackStack("quick")
+                            .commit()
+                        /*
                         val text = "Coming soon : Quick route selection !"
                         val duration = Toast.LENGTH_SHORT
 
                         val toast = Toast.makeText(this, text, duration)
-                        toast.show()
+                        toast.show()*/
                     }
                     3 -> {
                         toolbar.title = getString(R.string.name_new)
