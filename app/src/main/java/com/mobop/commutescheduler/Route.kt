@@ -1,4 +1,4 @@
-/*
+
 package com.mobop.commutescheduler
 
 import android.content.Context
@@ -11,12 +11,17 @@ import org.jetbrains.anko.doAsync
 import org.joda.time.DateTime
 
 
-class Route private constructor  (context: Context){
+class Route private constructor  (context: Context) {
+
+    var itemsList = ArrayList<Path>()
+    var database = AppDatabase.getDatabase(context).routeDao()
+
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
         // same time.
-        @Volatile private var INSTANCE: Route? = null
+        @Volatile
+        private var INSTANCE: Route? = null
 
         fun getSingleton(context: Context): Route {
             val tempInstance = INSTANCE
@@ -31,213 +36,104 @@ class Route private constructor  (context: Context){
         }
     }
 
-
-
-
-
-    //var listRoutes = ArrayList<Route>()
-
-    */
-/*************************************************************************
+    /*************************************************************************
      * Initializes the initial data into the ArrayList<Items>
-     *************************************************************************//*
-
+     *************************************************************************/
     init {
         doAsync {
-            //listRoutes.addAll(database.getAll())
+            itemsList.addAll(database.getAll())
+            itemsList.add(Path(1,"PROFESSIONAL", "2020-01-15 08:00:00", "2020-01-15 08:00:00", "test1", "test2","101",  false, "2020-01-15 08:00:00",true))
+            itemsList.add(Path(2,"PRIVATE", "2020-01-15 08:00:00", "2020-01-15 08:00:00", "test3","test4","20", false, "2020-01-15 08:00:00",true))
 
+            // Arrangement of the Array to separate by categories. The typeItem is also used
+            // to order the header, the noItems item and the rest of the items per category
+            itemsList.sortWith(compareBy({ it.dep_time }, { it.arr_time }))
         }
     }
 
-
-    // !!!!!! Ajouter une colonne pour la page avec les icon (icon home avec addresse maison par exemple)
-    @Entity(tableName = "address")
-    data class Address(
-        @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "aid") var aid: Long=0,
-        @ColumnInfo(name = "name") var name: String="",
-        @ColumnInfo(name = "address") var address: String="",
-        @ColumnInfo(name = "actif") var actif: Boolean=true,
-        @ColumnInfo(name = "favoris") var favoris: Boolean=false,
-        @ColumnInfo(name = "icon") var icon: String="",
-        var typeItemA: Int=1
-    )
+}
 
 
 
 
-    @Entity(tableName = "path",
-        foreignKeys = [
-            ForeignKey(
-                entity = Address::class,
-                parentColumns = ["aid"],
-                childColumns = ["dep"],
-                onDelete = SET_NULL),
-            ForeignKey(
-                entity = Address::class,
-                parentColumns = ["aid"],
-                childColumns = ["arr"],
-                onDelete = SET_NULL)
-        ])
+    @Entity(tableName = "path" )
 
     // ajoutre option schedule -> du lundi au dimanche
     data class Path(
-        @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pid") var pid: Long=0,
-        @ColumnInfo(name = "name") var name: String="",
-        @ColumnInfo(name = "dat_time") var time: DateTime,
-        @ColumnInfo(name = "distance") var distance: Int=0,
-        @ColumnInfo(name = "ttime") var ttime: DateTime,
-        @ColumnInfo(name = "alarm") var alarm: Boolean=false,
-        @ColumnInfo(name = "actif") var actif: Boolean=true,
-        @ColumnInfo(name = "next_update") var next_update: DateTime,
-       // @Relation(parentColumn = "aid", entityColumn = "adrId")
-       // var address: List<Address>? = null,
-        var typeItemP: Int=1
+        @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pid") var pid: Long = 0,
+        @ColumnInfo(name = "name") var name: String = "",
+        @ColumnInfo(name = "dep_time") var dep_time: String="",
+        @ColumnInfo(name = "arr_time") var arr_time: String = "",
+        @ColumnInfo(name = "dep_add") var dep_add: String="",
+        @ColumnInfo(name = "arr_add") var arr_add: String = "",
+        @ColumnInfo(name = "distance") var distance: String? = "",
+        @ColumnInfo(name = "alarm") var alarm: Boolean = false,
+        @ColumnInfo(name = "next_update") var next_update: String = "",
+        @ColumnInfo(name = "active") var active: Boolean = true,
+        // @Relation(parentColumn = "aid", entityColumn = "adrId")
+        // var address: List<Address>? = null,
 
+        var typeItem: Int=1
     )
 
 
-    @Entity(tableName = "alarm"*/
-/*,
-        foreignKeys = [
-            ForeignKey(
-                entity = Address::class,
-                parentColumns = ["aid"],
-                childColumns = ["aid"],
-                onDelete = CASCADE)
-        ]*//*
-)
-    data class Alarm(
-        @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "alid") var alid: Long=0,
-        @ColumnInfo(name = "name") var name: String="",
-        @ColumnInfo(name = "time") var time: DateTime,
-        @Relation(parentColumn = "pid", entityColumn = "pathId")
-        var path: List<Path>? = null,
-        var typeItemAl: Int=1
+
+    @Dao
+    interface RouteDao {
+
+        // Route
+
+        @Query("SELECT * FROM path")
+        fun getAll(): List<Path>
+
+        @Insert
+        fun insertAll(path: Path): Long
+
+        @Update
+        fun updateAll(vararg path: Path)
+
+        //@Query("DELETE FROM todoitemcontent WHERE uid = :uid")
+        //fun deleteItem(vararg uid: Long): Int
+
+        @Delete
+        fun deleteAll(vararg path: Path)
+
+        @Query("SELECT * FROM path WHERE pid=:pathId")
+        fun getRoute(pathId: Long): Path
+
+
+    }
+
+
+    @Database(
+        entities = arrayOf(Path::class),
+        version = 1
     )
+    abstract class AppDatabase : RoomDatabase() {
+        abstract fun routeDao(): RouteDao
 
-*/
-/*
-    class Converter {
+        companion object {
+            // Singleton prevents multiple instances of database opening at the
+            // same time.
+            @Volatile
+            private var INSTANCE: AppDatabase? = null
 
-        @TypeConverter
-        fun fromTimestamp(value: Long?): Date? {
-            return if (value == null) null else Date(value)
-        }
+            fun getDatabase(context: Context): AppDatabase {
+                val tempInstance = INSTANCE
+                if (tempInstance != null) {
+                    return tempInstance
+                }
+                synchronized(this) {
 
-        @TypeConverter
-        fun dateToTimestamp(date: Date?): Long? {
-            return date?.time
-        }
-    }
-*//*
-
-}
-*/
-/*
-data class Route (var origin:String,
-                  var destination:String,
-                  var departure_time:String="",
-                  var departure_time_UTC:Long?=null,
-                  var arrival_time:String="now",
-                  var arrival_time_UTC:Long?=null,
-                  var distance:String?=null,
-                  var duration:String?=null,
-                  var duration_value:Long?=null,
-                  var duration_in_traffic:String?=null,
-                  var duration_in_traffic_value:Long?=null,
-                  var path:MutableList<List<LatLng>> = ArrayList(),
-                  var start_address:String?=null,
-                  var start_address_LatLng:LatLng?=null,
-                  var end_address:String?=null,
-                  var end_address_LatLng:LatLng?=null,
-                  var raw_data:String?=null,
-                  var errorTraffic:Long?=null)
-*//*
-
-
-@Dao
-public interface RouteDao{
-
-    // Route
-
-    @Query("SELECT * FROM path")
-    fun getAll(): List<Route>
-
-    @Insert
-    fun insertAll(Path: Route): Long
-
-    @Update
-    fun updateAll(vararg Path: Route)
-
-    //@Query("DELETE FROM todoitemcontent WHERE uid = :uid")
-    //fun deleteItem(vararg uid: Long): Int
-
-    @Delete
-    fun deleteAll(vararg Path: Route)
-
-    @Query("SELECT * FROM path WHERE pid=:routeid")
-    fun getRoute(routeid: Long) : Route
-
-    // Address
-
-    @Query("SELECT * FROM address")
-    fun getAllAddress(): List<Route.Address>
-
-    @Insert
-    fun insertAddress(address: Route.Address): Long
-
-    @Update
-    fun updateAddress(vararg address: Route.Address)
-
-    @Delete
-    fun deleteAll(vararg address: Route.Address)
-
-    @Query("SELECT * FROM address WHERE aid=:addressId")
-    fun getAddress(addressId: Long) : Route.Address
-
-    // Alarm
-
-    @Query("SELECT * FROM alarm")
-    fun getAllAlarm(): List<Route.Alarm>
-
-    @Insert
-    fun insertAlarm(alarm: Route.Alarm): Long
-
-    @Update
-    fun updateAlarm(vararg alarm: Route.Alarm)
-
-    @Delete
-    fun deleteAllalarm(vararg alarm: Route.Alarm)
-
-    @Query("SELECT * FROM alarm WHERE alid=:alarmId")
-    fun getAlarm(alarmId: Long) : Route.Alarm
-}
-
-
-@Database(
-    entities = arrayOf(Route::class),
-    version = 1)
-public abstract class AppDatabase : RoomDatabase() {
-    abstract fun routeDao(): RouteDao
-
-    companion object {
-        // Singleton prevents multiple instances of database opening at the
-        // same time.
-        @Volatile private var INSTANCE: AppDatabase? = null
-
-        fun getDatabase(context: Context): AppDatabase {
-            val tempInstance = INSTANCE
-            if (tempInstance != null) {
-                return tempInstance
-            }
-            synchronized(this) {
-
-                val instance = Room.databaseBuilder(context.applicationContext,
-                    AppDatabase::class.java,
-                    "route_database").build()
-                INSTANCE = instance
-                return instance
+                    val instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        AppDatabase::class.java,
+                        "route_database"
+                    ).build()
+                    INSTANCE = instance
+                    return instance
+                }
             }
         }
     }
-}*/
+
