@@ -1,6 +1,7 @@
 package com.mobop.commutescheduler
 
 import android.content.Context
+import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ class FragmentSettings : Fragment(){
     private val fragmentID = 99
     private var source : IntArray = intArrayOf(0,0)
 
+    private lateinit var quickStartButton : ImageButton
     private lateinit var returnSettingsButton : ImageButton
 
     override fun onCreate(savedInstanceState : Bundle?){
@@ -32,10 +34,16 @@ class FragmentSettings : Fragment(){
             false
         )
 
+        quickStartButton =
+            view.findViewById(R.id.settings_start_guide_button)
+                    as ImageButton
+        quickStartButton.setOnClickListener {
+            doSettingsQuickStart(fragmentID)
+        }
+
         returnSettingsButton =
             view.findViewById(R.id.settings_button_return)
                     as ImageButton
-
         returnSettingsButton.setOnClickListener{
             doSettingsReturn(fragmentID)
         }
@@ -57,6 +65,14 @@ class FragmentSettings : Fragment(){
         mListener = null
     }
 
+    private fun doSettingsQuickStart(fragmentCaller : Int){
+        if (mListener != null){
+            source[0] = 1
+            mListener!!
+                .onFragmentInteraction(fragmentCaller, source)
+        }
+    }
+
     private fun doSettingsReturn(fragmentCaller : Int){
         if (mListener != null){
             source[0] = 0
@@ -70,5 +86,4 @@ class FragmentSettings : Fragment(){
             fragmentCaller : Int,
             fragmentState : IntArray)
     }
-
 }

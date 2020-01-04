@@ -9,6 +9,7 @@ package com.mobop.commutescheduler
 /* *************************************************************** */
 
 /* Import ******************************************************** */
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
@@ -348,7 +349,6 @@ class MainActivity :
                 }
             }
             MAP -> {
-
                 val enhanceMapButton :
                         ImageButton =
                     findViewById(R.id.map_button_enhance)
@@ -426,7 +426,6 @@ class MainActivity :
                 }
             }
             COMMUTES -> {
-
                 val enhanceCommutesButton :
                         ImageButton =
                     findViewById(R.id.commutes_button_enhance)
@@ -504,7 +503,6 @@ class MainActivity :
                 }
             }
             EDIT -> {
-
                 val emptyCommutes :
                         ConstraintLayout =
                     findViewById(R.id.commutes_empty_container)
@@ -553,7 +551,6 @@ class MainActivity :
                 supportFragmentManager.popBackStack()
             }
             FAVORITES -> {
-
                 when(fragmentState[0]){
                     0 -> {
                         previousTitle = toolbar.title.toString()
@@ -625,14 +622,22 @@ class MainActivity :
                 supportFragmentManager.popBackStack()
             }
             SETTINGS -> {
-
-                previousTitle = toolbar.title.toString()
-                toolbar.title = getString(R.string.name_main)
-
                 mState = 1
                 invalidateOptionsMenu()
-                
-                supportFragmentManager.popBackStack()
+
+                when(fragmentState[0]){
+                    0 -> {
+                        previousTitle = toolbar.title.toString()
+                        toolbar.title = getString(R.string.name_main)
+
+                        supportFragmentManager.popBackStack()
+                    }
+                    1 -> {
+                        callingFromSettings = true
+                        startActivity(Intent(this@MainActivity, StartActivity::class.java))
+                        finish()
+                    }
+                }
             }
         }
     }

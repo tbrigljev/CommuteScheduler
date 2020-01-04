@@ -31,6 +31,7 @@ lateinit var layoutDots : LinearLayout
 lateinit var startNext : Button
 lateinit var startSkip : Button
 lateinit var viewSlides : ViewPager
+var callingFromSettings : Boolean = false
 /* *************************************************************** */
 
 /* *************************************************************** */
@@ -44,8 +45,11 @@ class StartActivity : AppCompatActivity(){
         // Check first launch
 
 
+        var test = callingFromSettings
         prefManager = PrefManager(this)
-        if (!prefManager.isFirstTimeLaunch()) {
+        if((!prefManager.isFirstTimeLaunch()) and
+            (!callingFromSettings)){
+            callingFromSettings = false
             launchHomeScreen()
             finish()
         }
@@ -78,10 +82,8 @@ class StartActivity : AppCompatActivity(){
         startSkip.setOnClickListener { launchHomeScreen() }
 
         startNext.setOnClickListener {
-            // checking for last page
-            // if last page home screen will be launched
             val current : Int = getItem(+1)
-            if (current < slides.count()) { // move to next screen
+            if (current < slides.count()) {
                 viewSlides.currentItem = current
             } else {
                 launchHomeScreen()
@@ -133,8 +135,6 @@ class StartActivity : AppCompatActivity(){
         override fun onPageScrolled(arg0 : Int, arg1 : Float, arg2 : Int) {}
         override fun onPageScrollStateChanged(arg0 : Int) {}
     }
-
-    /* Error here */
 
     class ViewPagerAdapter : PagerAdapter() {
 
