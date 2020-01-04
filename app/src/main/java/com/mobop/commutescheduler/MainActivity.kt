@@ -137,6 +137,9 @@ class MainActivity :
         previousTitle = toolbar.title.toString()
         toolbar.title = getString(R.string.name_settings)
 
+        mState = 0
+        invalidateOptionsMenu()
+
         mFragmentManager.beginTransaction()
             .add(
                 R.id.main_container_fragments,
@@ -235,7 +238,6 @@ class MainActivity :
             arrivalTimeText += arrivalTimeBit + "\n"
         }
         FragmentMap.mapOverlayDestinationTime.text = arrivalTimeText.trim()
-        //FragmentMap.mapOverlayDestinationTime.text = mCommute.arrival_time_short
 
         FragmentMap.mapOverlayLength.text = mCommute.distance
 
@@ -305,10 +307,10 @@ class MainActivity :
                 when(fragmentState[0]){
                     1 -> {
                         toolbar.title = getString(R.string.name_favorites)
-                        mState = 0; // hide items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
-
                         previousTitle = getString(R.string.name_main)
+
+                        mState = 0
+                        invalidateOptionsMenu()
 
                         mFragmentManager.beginTransaction()
                             .add(
@@ -321,10 +323,10 @@ class MainActivity :
                     }
                     2 -> {
                         toolbar.title = getString(R.string.name_quick)
-                        mState = 0; // hide items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
-
                         previousTitle = getString(R.string.name_main)
+
+                        mState = 0
+                        invalidateOptionsMenu()
 
                         mFragmentManager.beginTransaction()
                             .add(
@@ -337,15 +339,10 @@ class MainActivity :
                     }
                     3 -> {
                         toolbar.title = getString(R.string.name_new)
-                        mState = 0; // hide items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
-
                         previousTitle = getString(R.string.name_main)
-                        /* HIDE SETTINGS IN EDITION FRAGMENT
-                           NOT WORKING
-                         */
-                        settingsItem.isVisible = false
-                        settingsItem.isEnabled = false
+
+                        mState = 0
+                        invalidateOptionsMenu()
 
                         mFragmentManager.beginTransaction()
                             .add(
@@ -400,10 +397,10 @@ class MainActivity :
                         toolbar.visibility = View.VISIBLE
 
                         toolbar.title = getString(R.string.name_main)
-                        mState = 1; // hide items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
-
                         previousTitle = getString(R.string.name_map)
+
+                        mState = 1
+                        invalidateOptionsMenu()
 
                         enhanceMapButton.visibility = View.VISIBLE
                         addMapButton.visibility = View.GONE
@@ -418,16 +415,12 @@ class MainActivity :
                     }
                     2 -> {
                         toolbar.visibility = View.VISIBLE
-                        mState = 0; // hide items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
+
+                        mState = 0
+                        invalidateOptionsMenu()
 
                         toolbar.title = getString(R.string.name_new)
                         previousTitle = getString(R.string.name_map)
-                        /* HIDE SETTINGS IN EDITION FRAGMENT
-                           NOT WORKING
-                         */
-                        settingsItem.isVisible = false
-                        settingsItem.isEnabled = false
 
                         mFragmentManager.beginTransaction()
                             .add(
@@ -455,10 +448,10 @@ class MainActivity :
                 when(fragmentState[0]){
                     0 -> {
                         toolbar.title = getString(R.string.name_commutes)
-                        mState = 1; // show items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
-
                         previousTitle = getString(R.string.name_main)
+
+                        mState = 0
+                        invalidateOptionsMenu()
 
                         dividerTop.visibility = View.GONE
                         containerMap.visibility = View.GONE
@@ -467,10 +460,10 @@ class MainActivity :
                     }
                     1 -> {
                         toolbar.title = getString(R.string.name_main)
-                        mState = 1; // show items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
-
                         previousTitle = getString(R.string.name_main)
+
+                        mState = 1
+                        invalidateOptionsMenu()
 
                         enhanceCommutesButton.visibility = View.VISIBLE
                         addCommutesButton.visibility = View.GONE
@@ -482,16 +475,11 @@ class MainActivity :
                         containerQuick.visibility = View.VISIBLE
                     }
                     2 -> {
-                        toolbar.title = getString(R.string.name_new )
-                        mState = 0; // hide items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
-
+                        toolbar.title = getString(R.string.name_new)
                         previousTitle = getString(R.string.name_commutes)
-                        /* HIDE SETTINGS IN EDITION FRAGMENT
-                           NOT WORKING
-                         */
-                        settingsItem.isVisible = false
-                        settingsItem.isEnabled = false
+
+                        mState = 0
+                        invalidateOptionsMenu()
 
                         mFragmentManager.beginTransaction()
                             .add(
@@ -505,13 +493,9 @@ class MainActivity :
                     3 -> {
                         previousTitle = toolbar.title.toString()
                         toolbar.title = getString(R.string.name_edit)
-                        mState = 0; // hide items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
-                        /* HIDE SETTINGS IN EDITION FRAGMENT
-                           NOT WORKING
 
-                        settingsItem.isVisible = false
-                        settingsItem.isEnabled = false*/
+                        mState = 0
+                        invalidateOptionsMenu()
 
                         editFragment =
                             FragmentCommutesEdit(false, fragmentState[1])
@@ -546,22 +530,28 @@ class MainActivity :
                         overlayMap.visibility = View.VISIBLE
 
                         toolbar.title = getString(R.string.name_map)
-                        mState = 1; // show items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
-
                         previousTitle = getString(R.string.name_new)
-                        settingsItem.isVisible = true
-                        settingsItem.isEnabled = true
+
+                        mState = 1
+                        invalidateOptionsMenu()
                     }
-                    else -> {
+                    getString(R.string.name_commutes) -> {
                         toolbar.visibility = View.VISIBLE
-                        mState = 1; // show items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
+
+                        mState = 0
+                        invalidateOptionsMenu()
 
                         toolbar.title = previousTitle
                         previousTitle = getString(R.string.name_main)
-                        settingsItem.isVisible = true
-                        settingsItem.isEnabled = true
+                    }
+                    else -> {
+                        toolbar.visibility = View.VISIBLE
+
+                        mState = 1
+                        invalidateOptionsMenu()
+
+                        toolbar.title = previousTitle
+                        previousTitle = getString(R.string.name_main)
                     }
                 }
                 if(commutesList!!.commutesItemsList.count() > 0){
@@ -569,9 +559,6 @@ class MainActivity :
                     addCommutesButton.visibility = View.VISIBLE
                 }
                 supportFragmentManager.popBackStack()
-               /* var fragment: FragmentHome? = supportFragmentManager.findFragmentByTag("home") as FragmentHome
-                var fragment_commutes: FragmentCommutes? = fragment!!.childFragmentManager .findFragmentByTag("list") as FragmentCommutes
-                fragment_commutes!!.mAdapter!!.viewLayoutButtons(false,fragmentState[1])*/
             }
             FAVORITES -> {
 
@@ -579,14 +566,9 @@ class MainActivity :
                     0 -> {
                         previousTitle = toolbar.title.toString()
                         toolbar.title = getString(R.string.name_favorite_new)
-                        mState = 0; // hide items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
 
-                        /* HIDE SETTINGS IN EDITION FRAGMENT
-                           NOT WORKING
-
-                        settingsItem.isVisible = false
-                        settingsItem.isEnabled = false*/
+                        mState = 0
+                        invalidateOptionsMenu()
 
                         favoriteEditFragment =
                             FragmentFavoritesEdit(true, fragmentState[1])
@@ -603,14 +585,9 @@ class MainActivity :
                     1 -> {
                         previousTitle = toolbar.title.toString()
                         toolbar.title = getString(R.string.name_favorite_edit)
-                        mState = 0; // hide items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
 
-                        /* HIDE SETTINGS IN EDITION FRAGMENT
-                           NOT WORKING
-
-                        settingsItem.isVisible = false
-                        settingsItem.isEnabled = false*/
+                        mState = 0
+                        invalidateOptionsMenu()
 
                         favoriteEditFragment =
                             FragmentFavoritesEdit(false, fragmentState[1])
@@ -626,10 +603,11 @@ class MainActivity :
                     }
                     2 -> {
                         toolbar.title = getString(R.string.name_main)
-                        mState = 1; // show items in toolbar
-                        invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
-
                         previousTitle = getString(R.string.name_favorites)
+
+                        mState = 1
+                        invalidateOptionsMenu()
+
                         supportFragmentManager.popBackStack()
                     }
                 }
@@ -644,8 +622,9 @@ class MainActivity :
 
                 previousTitle = toolbar.title.toString()
                 toolbar.title = getString(R.string.name_favorites)
-                mState = 0; // hide items in toolbar
-                invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
+
+                mState = 0
+                invalidateOptionsMenu()
 
                 if(commutesList!!.favoritesItemsList.count() > 0){
                     emptyFavorites.visibility = View.GONE
@@ -657,8 +636,9 @@ class MainActivity :
 
                 previousTitle = toolbar.title.toString()
                 toolbar.title = getString(R.string.name_main)
-                mState = 1; // show items in toolbar
-                invalidateOptionsMenu(); // now onCreateOptionsMenu(...) is called again
+
+                mState = 1
+                invalidateOptionsMenu()
                 
                 supportFragmentManager.popBackStack()
             }
