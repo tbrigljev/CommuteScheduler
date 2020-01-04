@@ -106,7 +106,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
         /* Creation of the RecyclerView, LayoutManager and Adapter */
         mRecyclerView = view.findViewById(R.id.commutes_list)
 
-        var mLayoutManager = LinearLayoutManager(context)
+        val mLayoutManager = LinearLayoutManager(context)
         mRecyclerView!!.layoutManager = mLayoutManager
 
         mAdapter =
@@ -193,16 +193,17 @@ class FragmentCommutes(screen : Int) : Fragment(){
                     FragmentMap.mapFieldCommuteName.text.toString()){
                     FragmentMap.mMap.clear()
                     FragmentMap.mapFieldCommuteNText.visibility = View.VISIBLE
-                    FragmentMap.mapFieldCommuteNText.setText(getString(R.string.no_commute))
+                    FragmentMap.mapFieldCommuteNText.text = getString(R.string.no_commute)
                     FragmentMap.mapFieldCommuteName.visibility = View.GONE
                     FragmentMap.mapFieldCommuteDText.visibility = View.GONE
                     FragmentMap.mapFieldCommuteDuration.visibility = View.GONE
                 }
 
                 mAdapter!!.viewLayouts(
-                    false,
-                    false,
-                    partItem)
+                    visibleLayoutButtons = false,
+                    visibleLayoutExtended = false,
+                    pos = partItem
+                )
                 mAdapter!!.removeAt(partItem)
 
                 mRecyclerView!!.adapter!!.notifyDataSetChanged()
@@ -216,7 +217,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
                 val duration = Toast.LENGTH_SHORT
 
                 val toast = Toast.makeText(
-                    getActivity(),
+                    activity,
                     text,
                     duration)
                 toast.show()
