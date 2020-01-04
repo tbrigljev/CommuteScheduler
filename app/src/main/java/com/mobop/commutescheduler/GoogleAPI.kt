@@ -151,7 +151,7 @@ class GoogleAPI{
         pos : Int,
         is_new : Boolean){
 
-        mPosition=pos
+        mPosition = pos
         val mCommute : Commute = commutesList!!.commutesItemsList[mPosition]
 
         mSender = sender
@@ -176,8 +176,8 @@ class GoogleAPI{
         val mCommute = Commute()
         mCommute.start_address = origin
         mCommute.arrival_address = destination
-        mCommute.arrival_time_long="Now"
-        routeArrivalTime="Now"
+        mCommute.arrival_time_long = "Now"
+        routeArrivalTime = "Now"
 
         responseReceived = 0
         sendHTTP(mCommute)
@@ -206,7 +206,7 @@ class GoogleAPI{
 
         val mCommute : Commute = readJSON(json)
 
-        if((mCommute.arrival_time_long != "Now")and (mSender!="Service")){
+        if((mCommute.arrival_time_long != "Now") and (mSender!="Service")){
             mCommute.start_address = commutesList!!.commutesItemsList[mPosition].start_address
             mCommute.arrival_address = commutesList!!.commutesItemsList[mPosition].arrival_address
             mCommute.arrival_time_long = commutesList!!.commutesItemsList[mPosition].arrival_time_long

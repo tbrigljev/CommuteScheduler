@@ -126,13 +126,14 @@ class FragmentCommutesEdit(
                         SimpleDateFormat("YYYY-MM-dd")
                             .format(cal.time)
                 }
-            DatePickerDialog(
+            val dateDialog = DatePickerDialog(
                 context,
                 dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH))
-                .show()
+            dateDialog.datePicker.minDate = Calendar.getInstance().timeInMillis
+            dateDialog.show()
         }
         chooseTime.setOnClickListener {
             val cal = Calendar.getInstance()
@@ -145,19 +146,18 @@ class FragmentCommutesEdit(
                     SimpleDateFormat("HH:mm").
                         format(cal.time) + ":00"
             }
-            TimePickerDialog(
+            val timeDialog = TimePickerDialog(
                 context,
                 timeSetListener,
                 cal.get(Calendar.HOUR_OF_DAY),
                 cal.get(Calendar.MINUTE),
                 true)
-                .show()
+            timeDialog.show()
         }
 
         if(new){
             commuteName.setText("")
-            commuteOrigin.setText("")
-            commuteDestination.setText("")
+
         } else {
             commuteName.setText(commutesList!!.commutesItemsList[pos].name)
             start_name = commutesList!!.commutesItemsList[pos].start
@@ -329,6 +329,8 @@ class FragmentCommutesEdit(
                 source[1] = pos
                 mListener!!.onFragmentInteraction(fragmentCaller, source)
                 commuteName.setText("")
+                commuteOrigin.setText("")
+                commuteDestination.setText("")
             }
         }
     }
