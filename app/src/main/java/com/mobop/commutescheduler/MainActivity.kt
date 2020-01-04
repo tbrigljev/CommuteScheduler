@@ -8,13 +8,11 @@ package com.mobop.commutescheduler
 /* *************************************************************** */
 
 /* Import ******************************************************** */
-
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
@@ -26,8 +24,6 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import org.jetbrains.anko.doAsync
-
-
 /* *************************************************************** */
 
 /* Global variables ********************************************** */
