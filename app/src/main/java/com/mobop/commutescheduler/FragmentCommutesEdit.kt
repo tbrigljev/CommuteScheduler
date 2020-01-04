@@ -4,7 +4,6 @@ package com.mobop.commutescheduler
 /* Import ******************************************************** */
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.app.PendingIntent.getActivity
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
@@ -202,10 +201,6 @@ class FragmentCommutesEdit(
 
         }
 
-
-
-
-
         if(new){
             commuteName.setText("")
 
@@ -216,6 +211,17 @@ class FragmentCommutesEdit(
             arrival_name = commutesList!!.commutesItemsList[pos].arrival
             arrival_address = commutesList!!.commutesItemsList[pos].arrival_address
             alarmEnableSwitch.isChecked = commutesList!!.commutesItemsList[pos].alarm
+
+            var spinPos=fav.indexOf(start_name)
+
+            if (spinPos > -1) commuteOriginFavSpinner.setSelection(spinPos)
+            else commuteOriginFavSpinner.setSelection(0)
+
+            spinPos=fav.indexOf(arrival_name)
+            if (spinPos > -1) commuteDestinationFavSpinner.setSelection(spinPos)
+            else commuteDestinationFavSpinner.setSelection(0)
+
+
             //commuteOrigin.setText(start_name)
             commuteOriginAddress.setText(start_address)
             //commuteDestination.setText(arrival_name)
