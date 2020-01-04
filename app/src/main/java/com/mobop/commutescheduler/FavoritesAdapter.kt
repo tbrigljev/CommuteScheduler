@@ -172,15 +172,20 @@ class FavoritesAdapter(
     }
 
     fun removeAt(position: Int){
-        doAsync{
-            commutesList!!
-                .database
-                .deleteAllFavorite(favoritesItemsList[position])
-            
-        }
+        var temp:Long = favoritesItemsList[position].pid
+
         favoritesItemsList.removeAt(position)
         previousPosition = 0
         notifyItemRemoved(position)
+
+
+        doAsync{
+            commutesList!!
+                .database
+                .deleteItem(temp)
+
+        }
+
     }
 
     fun viewLayouts(visibleLayoutButtons : Boolean, pos : Int){

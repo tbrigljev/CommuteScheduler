@@ -144,6 +144,7 @@ class CommutesItemsList private constructor(context : Context){
 @Entity(tableName = "Commute" )
 // Option schedule to add -> weeks of the day
 data class Commute(
+
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pid") var pid : Long = 0,
 
     @ColumnInfo(name = "name") var name: String = "",
@@ -237,8 +238,8 @@ interface RouteDao {
     @Update
     fun updateAllFavorite(vararg path: Favorite)
 
-    //@Query("DELETE FROM todoitemcontent WHERE uid = :uid")
-    //fun deleteItem(vararg uid: Long): Int
+    @Query("DELETE FROM Favorite WHERE pid = :pid")
+    fun deleteItem(vararg pid: Long): Int
 
     @Delete
     fun deleteAllFavorite(vararg path: Favorite)
