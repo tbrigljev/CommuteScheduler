@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import kotlin.math.abs
+
 /* *************************************************************** */
 
 open class OnSwipeTouchListener : View.OnTouchListener {
@@ -47,18 +49,18 @@ open class OnSwipeTouchListener : View.OnTouchListener {
                 val diffX = e2.x - e1.x
                 Log.i("swipemove",
                     "e1 = " +
-                            Math.abs(diffX).toString() +
+                            abs(diffX).toString() +
                             " ; e2 = " +
-                            Math.abs(diffY).toString() +
+                            abs(diffY).toString() +
                             " ; vX = " +
                             velocityX.toString() +
                             " ; vy = " +
                             velocityY.toString())
 
-                if(Math.abs(diffX) > Math.abs(diffY)){
-                    if(Math.abs(diffX) > SWIPE_THRESHOLD &&
-                        Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD){
-                        //Log.i("swipemove","ok")
+                if(abs(diffX) > abs(diffY)){
+                    if(abs(diffX) > SWIPE_THRESHOLD &&
+                        abs(velocityX) > SWIPE_VELOCITY_THRESHOLD){
+                        //Log.i("Swipe move","ok")
                         if (diffX > 0){
                             onSwipeRight()
                         } else {
