@@ -43,6 +43,8 @@ class StartActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState : Bundle?) {
         // Check first launch
+
+
         prefManager = PrefManager(this)
         if (!prefManager.isFirstTimeLaunch()) {
             launchHomeScreen()
@@ -69,6 +71,8 @@ class StartActivity : AppCompatActivity(){
         navigationDots(0)
 
         mAdapter = StartActivity.ViewPagerAdapter()
+        mAdapter!!.setActivity(this)
+
         viewSlides.adapter = mAdapter
         viewSlides.addOnPageChangeListener(slideChangeListener)
 
@@ -136,10 +140,14 @@ class StartActivity : AppCompatActivity(){
     class ViewPagerAdapter : PagerAdapter() {
 
         private var layoutInflater : LayoutInflater? = null
+        var mActivity: StartActivity?= null //activity
 
+        fun setActivity(activity : StartActivity){
+            mActivity = activity
+        }
         override fun instantiateItem(container : ViewGroup, position : Int) : Any {
             //layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
-            layoutInflater = StartActivity().applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
+            layoutInflater = mActivity!!.applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
 
             val view : View = layoutInflater!!.inflate(slides.get(position), container, false)
             container.addView(view)
