@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_slides"
-        android:layout_width="match_constraint"
-        android:layout_height="match_constraint"
-        app:layout_constraintTop_toTopOf="@id/start_layout"
-        app:layout_constraintStart_toStartOf="@id/start_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/layout_dots"
         app:layout_constraintEnd_toEndOf="@id/start_layout"
-        app:layout_constraintBottom_toTopOf="@id/layout_dots"/>
+        app:layout_constraintStart_toStartOf="@id/start_layout"
+        app:layout_constraintTop_toTopOf="@id/start_layout" />
 
     <LinearLayout
         android:id="@+id/layout_dots"

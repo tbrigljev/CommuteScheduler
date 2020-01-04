@@ -131,14 +131,17 @@ class StartActivity : AppCompatActivity(){
         override fun onPageScrollStateChanged(arg0 : Int) {}
     }
 
+    /* Error here */
+
     class ViewPagerAdapter : PagerAdapter() {
 
-        private var layoutInflater: LayoutInflater? = null
+        private var layoutInflater : LayoutInflater? = null
 
         override fun instantiateItem(container : ViewGroup, position : Int) : Any {
-            layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
+            //layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
+            layoutInflater = StartActivity().applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
 
-            val view : View = layoutInflater.inflate(slides.get(position), container, false)
+            val view : View = layoutInflater!!.inflate(slides.get(position), container, false)
             container.addView(view)
             return view
         }
