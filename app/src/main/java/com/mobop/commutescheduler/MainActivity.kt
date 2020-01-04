@@ -155,7 +155,7 @@ class MainActivity :
         val mCommute = commutesList!!.commutesItemsList[pos]
         if (isNew) {
             doAsync{
-                commutesList!!.database.insertAll(mCommute)
+                var id=commutesList!!.database.insertAll(mCommute)
 
             }
             //commutesList!!.commutesItemsList.add(mCommute)
@@ -165,14 +165,17 @@ class MainActivity :
             //FragmentCommutes.mAdapter!!.viewLayouts(false,true,lastPos) //Gives an execption ??
 
 
-            val checkPoint= 15 // 15min
-            Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
+            if (mCommute.alarm==true){
+                val checkPoint= 15 // 15min
+                Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
 
-            /*checkPoint =30 // 30min
-            Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
+                /*checkPoint =30 // 30min
+                Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
 
-            checkPoint =60 // 1h
-            Notifications().setNotification(mCommute, checkPoint, this@MainActivity)*/
+                checkPoint =60 // 1h
+                Notifications().setNotification(mCommute, checkPoint, this@MainActivity)*/
+            }
+
 
         }else{ //Modification
             doAsync{ commutesList!!
