@@ -243,23 +243,23 @@ class CommutesAdapter(
             itemView.setOnTouchListener(
                 object : OnSwipeTouchListener(){
                 override fun onClick(){
-                    if(previousPosition != getAdapterPosition()){
+                    if(previousPosition != adapterPosition){
                         try {
-                            var view_previous: View =
+                            val viewPrevious : View =
                                 mRecyclerView!!
                                     .findViewHolderForAdapterPosition(
                                     previousPosition
                                 )!!.itemView
                             val layoutButtonsPrevious : ConstraintLayout =
-                                view_previous!!
+                                viewPrevious
                                     .findViewById(R.id.buttons_container)
                                         as ConstraintLayout
                             val layoutExtendedPrevious : LinearLayout =
-                                view_previous!!
+                                viewPrevious
                                     .findViewById(R.id.element_extended_container)
                                         as LinearLayout
                             val layoutSimplePrevious : LinearLayout =
-                                view_previous!!
+                                viewPrevious
                                     .findViewById(R.id.element_simple_container)
                                         as LinearLayout
 
@@ -281,7 +281,7 @@ class CommutesAdapter(
                             View.GONE -> {
                                 layoutExtended.visibility = View.VISIBLE
                                 layoutSimple.visibility = View.GONE
-                                var pos = getAdapterPosition()
+                                val pos = getAdapterPosition()
                                 var commute : Commute =
                                     commutesList!!.commutesItemsList[pos]
 
@@ -299,48 +299,55 @@ class CommutesAdapter(
                 }
 
                 override fun onSwipeRight(){
-                    if (previousPosition != getAdapterPosition()) {
-                        var view_previous: View =
+                    if (previousPosition != adapterPosition) {
+                        val viewPrevious : View =
                             mRecyclerView!!.findViewHolderForAdapterPosition(previousPosition)!!.itemView
-                        val layoutButtons_previous: ConstraintLayout =
-                            view_previous!!.findViewById(R.id.buttons_container) as ConstraintLayout
-                        val layoutExtended_previous: LinearLayout =
-                            view_previous!!.findViewById(R.id.element_extended_container) as LinearLayout
-                        val layoutSimple_previous: LinearLayout =
-                            view_previous!!.findViewById(R.id.element_simple_container) as LinearLayout
-                        layoutButtons_previous.visibility = View.GONE
-                        layoutExtended_previous.visibility = View.GONE
-                        layoutSimple_previous.visibility = View.VISIBLE
+                        val layoutButtonsPrevious : ConstraintLayout =
+                            viewPrevious
+                                .findViewById(R.id.buttons_container)
+                                    as ConstraintLayout
+                        val layoutExtendedPrevious : LinearLayout =
+                            viewPrevious
+                                .findViewById(R.id.element_extended_container)
+                                    as LinearLayout
+                        val layoutSimplePrevious : LinearLayout =
+                            viewPrevious
+                                .findViewById(R.id.element_simple_container)
+                                    as LinearLayout
 
-                        previousPosition = getAdapterPosition()
+                        layoutButtonsPrevious.visibility = View.GONE
+                        layoutExtendedPrevious.visibility = View.GONE
+                        layoutSimplePrevious.visibility = View.VISIBLE
+
+                        previousPosition = adapterPosition
                     }
                     layoutButtons.visibility = View.VISIBLE
                 }
 
                 override fun onSwipeLeft(){
-                    if (previousPosition != getAdapterPosition()) {
-                        var view_previous: View =
+                    if (previousPosition != adapterPosition) {
+                        val viewPrevious : View =
                             mRecyclerView!!
                                 .findViewHolderForAdapterPosition(previousPosition)!!
                                 .itemView
-
-                        val layoutButtons_previous: ConstraintLayout =
-                            view_previous!!
+                        val layoutButtonsPrevious : ConstraintLayout =
+                            viewPrevious
                                 .findViewById(R.id.buttons_container)
                                     as ConstraintLayout
-                        val layoutExtended_previous: LinearLayout =
-                            view_previous!!
+                        val layoutExtendedPrevious : LinearLayout =
+                            viewPrevious
                                 .findViewById(R.id.element_extended_container)
                                     as LinearLayout
-                        val layoutSimple_previous: LinearLayout =
-                            view_previous!!
+                        val layoutSimplePrevious : LinearLayout =
+                            viewPrevious
                                 .findViewById(R.id.element_simple_container)
                                     as LinearLayout
-                        layoutButtons_previous.visibility = View.GONE
-                        layoutExtended_previous.visibility = View.GONE
-                        layoutSimple_previous.visibility = View.VISIBLE
 
-                        previousPosition = getAdapterPosition()
+                        layoutButtonsPrevious.visibility = View.GONE
+                        layoutExtendedPrevious.visibility = View.GONE
+                        layoutSimplePrevious.visibility = View.VISIBLE
+
+                        previousPosition = adapterPosition
                     }
                     layoutButtons.visibility = View.VISIBLE
                 }
@@ -363,39 +370,39 @@ class CommutesAdapter(
 
 
    fun viewLayouts(
-       visible_layoutButtons : Boolean,
-       visible_layoutExtended : Boolean,
+       visibleLayoutButtons : Boolean,
+       visibleLayoutExtended : Boolean,
        pos : Int){
-       var view_pos: View =
+       val viewPos : View =
            mRecyclerView!!
                .findViewHolderForAdapterPosition(pos)!!
                .itemView
 
-       val layoutButtons_pos : ConstraintLayout =
-           view_pos!!
+       val layoutButtonsPos : ConstraintLayout =
+           viewPos
                .findViewById(R.id.buttons_container)
                    as ConstraintLayout
-       val layoutExtended_pos : LinearLayout =
-           view_pos!!
+       val layoutExtendedPos : LinearLayout =
+           viewPos
                .findViewById(R.id.element_extended_container)
                    as LinearLayout
-       val layoutSimple_pos : LinearLayout =
-           view_pos!!
+       val layoutSimplePos : LinearLayout =
+           viewPos
                .findViewById(R.id.element_simple_container)
                    as LinearLayout
 
-       if (visible_layoutButtons == true){
-           layoutButtons_pos.visibility = View.VISIBLE
+       if (visibleLayoutButtons){
+           layoutButtonsPos.visibility = View.VISIBLE
        } else {
-           layoutButtons_pos.visibility = View.GONE
+           layoutButtonsPos.visibility = View.GONE
        }
 
-       if (visible_layoutExtended == true){
-           layoutExtended_pos.visibility = View.VISIBLE
-           layoutSimple_pos.visibility = View.GONE
+       if (visibleLayoutExtended){
+           layoutExtendedPos.visibility = View.VISIBLE
+           layoutSimplePos.visibility = View.GONE
        } else {
-           layoutExtended_pos.visibility = View.GONE
-           layoutSimple_pos.visibility = View.VISIBLE
+           layoutExtendedPos.visibility = View.GONE
+           layoutSimplePos.visibility = View.VISIBLE
        }
     }
 }
