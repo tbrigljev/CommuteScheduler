@@ -79,21 +79,21 @@ class CommutesAdapter(
     inner class ViewHolder(view : View) :
         RecyclerView.ViewHolder(view){
 
-        val title : TextView
+        private val title : TextView
 
-        val simpleStart : TextView
-        val simpleEnd : TextView
-        val simpleTimeDuration : TextView
+        private val simpleStart : TextView
+        private val simpleEnd : TextView
+        private val simpleTimeDuration : TextView
 
-        val extendedStart : TextView
-        val extendedStartAddress : TextView
-        val extendedEnd : TextView
-        val extendedEndAddress : TextView
-        val extendedTimeStart : TextView
-        val extendedTimeEnd : TextView
-        val extendedTimeDuration : TextView
+        private val extendedStart : TextView
+        private val extendedStartAddress : TextView
+        private val extendedEnd : TextView
+        private val extendedEndAddress : TextView
+        private val extendedTimeStart : TextView
+        private val extendedTimeEnd : TextView
+        private val extendedTimeDuration : TextView
 
-        val layoutCombined : ConstraintLayout =
+        private val layoutCombined : ConstraintLayout =
             view.findViewById(R.id.element_combined)
                     as ConstraintLayout
         val layoutSimple : LinearLayout =
@@ -106,10 +106,10 @@ class CommutesAdapter(
             view.findViewById(R.id.buttons_container)
                     as ConstraintLayout
 
-        val editButton =
+        private val editButton =
             view.findViewById(R.id.commutes_button_edit)
                     as ImageButton
-        val deleteButton =
+        private val deleteButton =
             view.findViewById(R.id.commutes_button_delete)
                     as ImageButton
 
@@ -198,7 +198,7 @@ class CommutesAdapter(
                 if(elementSimpleTime >= 60){
                     hoursText = (elementSimpleTime/60).toString() +
                             "h"
-                    var minutes = elementSimpleTime%60
+                    val minutes = elementSimpleTime%60
                     if(minutes != 0){
                         minutesText = (
                                 elementSimpleTime%60).toString() +
@@ -250,22 +250,22 @@ class CommutesAdapter(
                                     .findViewHolderForAdapterPosition(
                                     previousPosition
                                 )!!.itemView
-                            val layoutButtons_previous : ConstraintLayout =
+                            val layoutButtonsPrevious : ConstraintLayout =
                                 view_previous!!
                                     .findViewById(R.id.buttons_container)
                                         as ConstraintLayout
-                            val layoutExtended_previous : LinearLayout =
+                            val layoutExtendedPrevious : LinearLayout =
                                 view_previous!!
                                     .findViewById(R.id.element_extended_container)
                                         as LinearLayout
-                            val layoutSimple_previous : LinearLayout =
+                            val layoutSimplePrevious : LinearLayout =
                                 view_previous!!
                                     .findViewById(R.id.element_simple_container)
                                         as LinearLayout
 
-                            layoutButtons_previous.visibility = View.GONE
-                            layoutExtended_previous.visibility = View.GONE
-                            layoutSimple_previous.visibility = View.VISIBLE
+                            layoutButtonsPrevious.visibility = View.GONE
+                            layoutExtendedPrevious.visibility = View.GONE
+                            layoutSimplePrevious.visibility = View.VISIBLE
 
                             previousPosition = getAdapterPosition()
 
