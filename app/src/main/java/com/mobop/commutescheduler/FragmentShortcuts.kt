@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 /* *************************************************************** */
 
 /* FragmentShortcuts ********************************************* */
-/* Contains the three shorcuts buttons on the main screen ******** */
+/* Contains the three shortcuts buttons on the main screen ******** */
 class FragmentShortcuts : Fragment(){
 
     private var mListener : FragmentCommutesEdit.OnFragmentInteractionListener? = null
@@ -34,13 +34,13 @@ class FragmentShortcuts : Fragment(){
             false
         )
 
-        var favoritesButton :
+        val favoritesButton :
                 ImageButton =
             view.findViewById(R.id.shortcut_button_favorites)
-        var quickButton :
+        val quickButton :
                 ImageButton =
             view.findViewById(R.id.shortcut_button_quick)
-        var addButton :
+        val addButton :
                 ImageButton =
             view.findViewById(R.id.shortcut_button_add)
 

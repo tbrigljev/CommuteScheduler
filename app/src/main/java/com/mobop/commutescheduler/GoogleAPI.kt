@@ -16,34 +16,34 @@ import com.google.maps.android.PolyUtil
 import java.text.SimpleDateFormat
 /* *************************************************************** */
 
-class GoogleAPI(){
+class GoogleAPI{
 
     /* Google Places ********************************************* */
-    lateinit var placesClient : PlacesClient
+    private lateinit var placesClient : PlacesClient
 
-    var responseReceived = 0
-    var responseReceivedMAX = 5
+    private var responseReceived = 0
+    private var responseReceivedMAX = 5
     //var GoogleKey = R.string.GoogleMapsKey
-    var mFragmentEdit : FragmentCommutesEdit? = null
-    var mFragmentFavoritesEdit : FragmentFavoritesEdit? = null
-    var mActivity: MainActivity?= null //activity
-    var mContext : Context? = null
-    var mService : NotificationService? = null
-    var mSender : String? = null
-    var mPosition : Int = -1
-    var isNew : Boolean? = null
-    var routeName : String = ""
-    var routeStart : String = ""
-    var routeArrival : String = ""
-    var routeArrivalTime : String = ""
-    var routeArrivalTimeUTC : Long? = null
-    var routeStartTimeUTC : Long? = null
-    val errorLimitUp = 60
-    val errorLimitDown = -300
+    private var mFragmentEdit : FragmentCommutesEdit? = null
+    private var mFragmentFavoritesEdit : FragmentFavoritesEdit? = null
+    private var mActivity: MainActivity?= null //activity
+    private var mContext : Context? = null
+    private var mService : NotificationService? = null
+    private var mSender : String? = null
+    private var mPosition : Int = -1
+    private var isNew : Boolean? = null
+    private var routeName : String = ""
+    private var routeStart : String = ""
+    private var routeArrival : String = ""
+    private var routeArrivalTime : String = ""
+    private var routeArrivalTimeUTC : Long? = null
+    private var routeStartTimeUTC : Long? = null
+    private val errorLimitUp = 60
+    private val errorLimitDown = -300
 
-    lateinit var dateTime : List<String>
-    lateinit var date : List<String>
-    lateinit var time : List<String>
+    private lateinit var dateTime : List<String>
+    private lateinit var date : List<String>
+    private lateinit var time : List<String>
 
 
     fun setActivityContext(activity : FragmentCommutesEdit, context: Context){
@@ -68,23 +68,23 @@ class GoogleAPI(){
     init{}
 
     private fun setupPlacesAutocomplete(){
-        var placeFields = Arrays.asList(
+        val placeFields = listOf(
             Place.Field.ID,
             Place.Field.NAME,
             Place.Field.ADDRESS
         )
 
-        Places.initialize(mContext!!, MainActivity.GoogleKey!!)
+        Places.initialize(mContext!!, MainActivity.GoogleKey)
         placesClient = Places.createClient(mContext!!)
 
-        val autocompleteFragment_start = mFragmentEdit!!
+        val autocompleteFragmentStart = mFragmentEdit!!
             .childFragmentManager
             .findFragmentById(R.id.fragment_start)
                 as AutocompleteSupportFragment
 
-        autocompleteFragment_start
+        autocompleteFragmentStart
             .setPlaceFields(placeFields)
-        autocompleteFragment_start
+        autocompleteFragmentStart
             //.setHint("Set the start point")
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
@@ -96,15 +96,14 @@ class GoogleAPI(){
                 }
             )
 
-        val autocompleteFragment_arrival = mFragmentEdit!!
+        val autocompleteFragmentArrival = mFragmentEdit!!
             .childFragmentManager
             .findFragmentById(R.id.fragment_arrival)
                 as AutocompleteSupportFragment
-        autocompleteFragment_arrival
+        autocompleteFragmentArrival
             .setPlaceFields(placeFields)
-        autocompleteFragment_arrival
+        autocompleteFragmentArrival
             //.setHint("Set the arrival point")
-        autocompleteFragment_arrival
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
@@ -117,23 +116,23 @@ class GoogleAPI(){
     }
 
     private fun setupPlacesAutocompleteFav(){
-        var placeFields = Arrays.asList(
+        val placeFields = listOf(
             Place.Field.ID,
             Place.Field.NAME,
             Place.Field.ADDRESS
         )
 
-        Places.initialize(mContext!!, MainActivity.GoogleKey!!)
+        Places.initialize(mContext!!, MainActivity.GoogleKey)
         placesClient = Places.createClient(mContext!!)
 
-        val autocompleteFragment_start = mFragmentFavoritesEdit!!
+        val autocompleteFragmentStart = mFragmentFavoritesEdit!!
             .childFragmentManager
             .findFragmentById(R.id.fragment_address)
                 as AutocompleteSupportFragment
 
-        autocompleteFragment_start
+        autocompleteFragmentStart
             .setPlaceFields(placeFields)
-        autocompleteFragment_start
+        autocompleteFragmentStart
             //.setHint("Set the start point")
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
@@ -154,7 +153,7 @@ class GoogleAPI(){
         is_new : Boolean){
 
         mPosition=pos
-        var mCommute : Commute = commutesList!!.commutesItemsList[mPosition]
+        val mCommute : Commute = commutesList!!.commutesItemsList[mPosition]
 
         mSender = sender
         isNew = is_new
@@ -175,7 +174,7 @@ class GoogleAPI(){
 
         mSender = "Service"
         isNew = false
-        var mCommute : Commute = Commute()
+        val mCommute = Commute()
         mCommute.start=origin
         mCommute.arrival=destination
         mCommute.arrival_time_long="Now"
@@ -185,17 +184,17 @@ class GoogleAPI(){
         sendHTTP(mCommute)
     }
 
-    fun sendHTTP(mCommute : Commute){
-        var start_time : String = "now"
+    private fun sendHTTP(mCommute : Commute){
+        var startTime = "now"
         if(mCommute.arrival_time_long != "Now"){
-            start_time = mCommute.arrival_time_UTC.toString()
+            startTime = mCommute.arrival_time_UTC.toString()
         }
 
-        var mRoute =
+        val mRoute =
             "https://maps.googleapis.com/maps/" +
                     "api/directions/json?origin=" + mCommute.start +
                     "&destination=" + mCommute.arrival +
-                    "&departure_time=" + start_time +
+                    "&departure_time=" + startTime +
                     "&traffic_model=best_guess" +
                     "&key=" + MainActivity.GoogleKey
 
@@ -206,14 +205,7 @@ class GoogleAPI(){
 
     fun getResults(json : String){
 
-        var mCommute: Commute= readJSON(json)
-
-        /*mCommute.name = routeName
-        mCommute.start = routeStart
-        mCommute.arrival= routeArrival
-        mCommute.start_time_UTC = routeStartTimeUTC
-        mCommute.arrival_time_long = routeArrivalTime
-        mCommute.arrival_time_UTC = routeArrivalTimeUTC*/
+        val mCommute : Commute = readJSON(json)
 
         if((mCommute.arrival_time_long != "Now")and (mSender!="Service")){
             mCommute.start = commutesList!!.commutesItemsList[mPosition].start
@@ -233,7 +225,7 @@ class GoogleAPI(){
                     sendHTTP(mCommute)
                 }
                 1 -> {
-                    responseReceivedMAX = responseReceivedMAX - 1
+                    responseReceivedMAX -= 1
 
                     mCommute.errorTraffic =
                         (mCommute.start_time_UTC!! +
@@ -250,7 +242,7 @@ class GoogleAPI(){
                     } else{
                         val jdf =
                             SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                        jdf.setTimeZone(TimeZone.getTimeZone("GMT+1"))
+                        jdf.timeZone = TimeZone.getTimeZone("GMT+1")
                         mCommute.start_time_long =
                             jdf.format(mCommute.start_time_UTC!! * 1000)
 
@@ -268,22 +260,54 @@ class GoogleAPI(){
                         }
                         else if(mSender == "Activity"){
 
-                            commutesList!!.commutesItemsList[mPosition].start_address = mCommute.start_address
-                            commutesList!!.commutesItemsList[mPosition].start_address_LatLng = mCommute.start_address_LatLng
-                            commutesList!!.commutesItemsList[mPosition].arrival_address = mCommute.arrival_address
-                            commutesList!!.commutesItemsList[mPosition].arrival_address_LatLng = mCommute.arrival_address_LatLng
-                            commutesList!!.commutesItemsList[mPosition].distance = mCommute.distance
-                            commutesList!!.commutesItemsList[mPosition].duration = mCommute.duration
-                            commutesList!!.commutesItemsList[mPosition].duration_val = mCommute.duration_val
-                            commutesList!!.commutesItemsList[mPosition].duration_traffic = mCommute.duration_traffic
-                            commutesList!!.commutesItemsList[mPosition].duration_traffic_val = mCommute.duration_traffic_val
-                            commutesList!!.commutesItemsList[mPosition].path = mCommute.path
-                            commutesList!!.commutesItemsList[mPosition].raw_data = mCommute.raw_data
-                            commutesList!!.commutesItemsList[mPosition].arrival_time_UTC = mCommute.arrival_time_UTC
-                            commutesList!!.commutesItemsList[mPosition].start_time_UTC = mCommute.start_time_UTC
-                            commutesList!!.commutesItemsList[mPosition].errorTraffic = mCommute.errorTraffic
-                            commutesList!!.commutesItemsList[mPosition].start_time_long = mCommute.start_time_long
-                            commutesList!!.commutesItemsList[mPosition].start_time_short = mCommute.start_time_short
+                            commutesList!!
+                                .commutesItemsList[mPosition].start_address =
+                                mCommute.start_address
+                            commutesList!!
+                                .commutesItemsList[mPosition].start_address_LatLng =
+                                mCommute.start_address_LatLng
+                            commutesList!!
+                                .commutesItemsList[mPosition].arrival_address =
+                                mCommute.arrival_address
+                            commutesList!!
+                                .commutesItemsList[mPosition].arrival_address_LatLng =
+                                mCommute.arrival_address_LatLng
+                            commutesList!!
+                                .commutesItemsList[mPosition].distance =
+                                mCommute.distance
+                            commutesList!!
+                                .commutesItemsList[mPosition].duration =
+                                mCommute.duration
+                            commutesList!!
+                                .commutesItemsList[mPosition].duration_val =
+                                mCommute.duration_val
+                            commutesList!!
+                                .commutesItemsList[mPosition].duration_traffic =
+                                mCommute.duration_traffic
+                            commutesList!!
+                                .commutesItemsList[mPosition].duration_traffic_val =
+                                mCommute.duration_traffic_val
+                            commutesList!!
+                                .commutesItemsList[mPosition].path =
+                                mCommute.path
+                            commutesList!!
+                                .commutesItemsList[mPosition].raw_data =
+                                mCommute.raw_data
+                            commutesList!!
+                                .commutesItemsList[mPosition].arrival_time_UTC =
+                                mCommute.arrival_time_UTC
+                            commutesList!!
+                                .commutesItemsList[mPosition].start_time_UTC =
+                                mCommute.start_time_UTC
+                            commutesList!!
+                                .commutesItemsList[mPosition].errorTraffic =
+                                mCommute.errorTraffic
+                            commutesList!!
+                                .commutesItemsList[mPosition].start_time_long =
+                                mCommute.start_time_long
+                            commutesList!!
+                                .commutesItemsList[mPosition].start_time_short =
+                                mCommute.start_time_short
 
                             mActivity!!.routeRequestedReady(mPosition,isNew!!)
                         }
@@ -295,13 +319,9 @@ class GoogleAPI(){
         else mService!!.routeRequestedReady(mCommute)
     }
 
-    fun readJSON(json : String):Commute {
-        val mCommute : Commute = Commute()
-        /*mCommute.name = routeName
-        mCommute.start = routeStart
-        mCommute.arrival = routeArrival*/
+    private fun readJSON(json : String) : Commute {
+        val mCommute = Commute()
 
-        //mCommute.arrival_time_long = routeArrivalTime
         if (routeArrivalTime!="Now") {
             dateTime = commutesList!!.commutesItemsList[mPosition].arrival_time_long.split(" ")
             date = dateTime[0].split("-")
