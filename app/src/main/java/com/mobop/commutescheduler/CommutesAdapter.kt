@@ -349,16 +349,18 @@ class CommutesAdapter(
     }
 
     fun removeAt(position: Int){
-        commutesItemsList.removeAt(position)
+
 
         doAsync{
             commutesList!!
                 .database
                 .deleteAll(commutesItemsList[position])
+            commutesItemsList.removeAt(position)
+            previousPosition = 0
+            notifyItemRemoved(position)
         }
-        previousPosition = 0
-        notifyItemRemoved(position)
-    }
+        }
+
 
    fun viewLayouts(
        visible_layoutButtons : Boolean,

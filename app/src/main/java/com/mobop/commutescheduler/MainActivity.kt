@@ -25,6 +25,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
+import org.jetbrains.anko.doAsync
+
 /* *************************************************************** */
 
 /* Global variables ********************************************** */
@@ -150,6 +152,10 @@ class MainActivity :
     fun routeRequestedReady(pos : Int, isNew : Boolean){
         val mCommute = commutesList!!.commutesItemsList[pos]
         if (isNew) {
+            doAsync{
+                commutesList!!.database.insertAll(mCommute)
+
+            }
             //commutesList!!.commutesItemsList.add(mCommute)
             FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
             val lastPos = commutesList!!.commutesItemsList.size - 1
@@ -165,6 +171,11 @@ class MainActivity :
 
             checkPoint =60 // 1h
             Notifications().setNotification(mCommute, checkPoint, this@MainActivity)*/
+
+        }else{ //Modification
+            doAsync{ commutesList!!
+                .database
+                .updateAll(commutesList!!.commutesItemsList[pos])}
         }
 
         FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()

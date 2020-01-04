@@ -138,7 +138,7 @@ class FragmentCommutesEdit(
                 cal.set(Calendar.MINUTE, minute)
                 chooseTime.text =
                     SimpleDateFormat("HH:mm").
-                        format(cal.time)
+                        format(cal.time) + ":00"
             }
             TimePickerDialog(
                 context,
@@ -238,14 +238,11 @@ class FragmentCommutesEdit(
                             " " + arrivalTime
 
                 if(new){
-                    newCommute.arrival_time_long += ":00"
+
                     text = "Commute added"
                     //var arrival_time = "2019-12-31 23:00:00"
                     commutesList!!.commutesItemsList.add(newCommute)
-                    doAsync{
-                        commutesList!!.database.insertAll(newCommute)
 
-                    }
 
                     var pos = commutesList!!.commutesItemsList.size - 1
                     MainActivity.mGoogleAPI!!.requestRoute(
@@ -280,9 +277,7 @@ class FragmentCommutesEdit(
                     commutesList!!
                         .commutesItemsList[pos]
                         .arrival_time_short = newCommute.arrival_time_short
-                    doAsync{ commutesList!!
-                        .database
-                        .updateAll(commutesList!!.commutesItemsList[pos])}
+
                     MainActivity.mGoogleAPI!!.requestRoute(
                         "Activity",
                         pos,
