@@ -57,14 +57,11 @@ class FragmentCommutesEdit(
     private lateinit var commuteOriginFavSpinner : Spinner
     private lateinit var commuteDestinationFavSpinner : Spinner
 
-
     private lateinit var commuteOrigin : EditText
     private lateinit var commuteOriginAddress : AutocompleteSupportFragment
     private lateinit var commuteDestination : EditText
     private lateinit var commuteDestinationAddress : AutocompleteSupportFragment
     private lateinit var alarmEnableSwitch : Switch
-
-
 
     private lateinit var chooseDate : TextView
     private lateinit var chooseTime : TextView
@@ -318,6 +315,13 @@ class FragmentCommutesEdit(
             val arrivalDate = chooseDate.text.toString()
             val arrivalTime = chooseTime.text.toString()
 
+            val format = "yyyy-MM-dd hh:mm:ss"
+            val sdf = SimpleDateFormat(format)
+
+            val arrivalDateTime = arrivalDate + " " + arrivalTime
+            val timeArrival = sdf.parse(arrivalDateTime)
+            val timeNow = Calendar.getInstance().time
+
             lateinit var text : String
 
             if(commuteName.text.toString() == "")
@@ -330,7 +334,9 @@ class FragmentCommutesEdit(
                 text = "Date information is missing"
             else if(arrivalTime == "")
                 text = "Time information is missing"
-            else {
+            else if(timeArrival <= timeNow){
+                text = "Please chose a later date and/or time"
+            } else {
                 newCommute.name = commuteName.text.toString()
                 newCommute.start = start_name
                 newCommute.start_address = start_address
