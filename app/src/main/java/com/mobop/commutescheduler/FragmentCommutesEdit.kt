@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
+
 /* *************************************************************** */
 
 /* FragmentCommuteEdit ******************************************* */
@@ -45,6 +47,11 @@ class FragmentCommutesEdit(
     private lateinit var validateEditButton : ImageButton
 
     private lateinit var commuteName : EditText
+
+    private lateinit var commuteOriginFavSpinner : Spinner
+    private lateinit var commuteDestinationFavSpinner : Spinner
+
+
     private lateinit var commuteOrigin : EditText
     private lateinit var commuteOriginAddress : AutocompleteSupportFragment
     private lateinit var commuteDestination : EditText
@@ -83,6 +90,9 @@ class FragmentCommutesEdit(
                     as ImageButton
 
         commuteName = view.findViewById(R.id.edit_title)
+
+        commuteOriginFavSpinner = view.findViewById(R.id.commuteOriginFavSpinner)
+        commuteDestinationFavSpinner = view.findViewById(R.id.commuteDestinationFavSpinner)
 
         commuteOrigin = view.findViewById(R.id.edit_start)
         commuteOriginAddress = childFragmentManager
@@ -131,14 +141,12 @@ class FragmentCommutesEdit(
                         SimpleDateFormat("YYYY-MM-dd")
                             .format(cal.time)
                 }
-            val dateDialog = DatePickerDialog(
+            DatePickerDialog(
                 context,
                 dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH))
-            dateDialog.datePicker.minDate = Calendar.getInstance().timeInMillis
-            dateDialog.show()
+                cal.get(Calendar.DAY_OF_MONTH)).show()
         }
         chooseTime.setOnClickListener {
             val cal = Calendar.getInstance()
@@ -159,6 +167,51 @@ class FragmentCommutesEdit(
                 true)
             timeDialog.show()
         }
+
+        val fav=ArrayList<String>()
+        commutesList!!.favoritesItemsList.forEach {fav.add(it.name+ " (" + it.address + ")")}
+
+        if (commuteOriginFavSpinner != null) {
+
+
+
+            val adapterO = ArrayAdapter(activity,
+                android.R.layout.simple_spinner_item, fav)
+            commuteOriginFavSpinner.adapter = adapterO
+
+            /*commuteOriginFavSpinner.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>,
+                                            view: View, position: Int, id: Long) {
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }*/
+        }
+
+        if (commuteDestinationFavSpinner != null) {
+
+            val adapter = ArrayAdapter(activity,
+                android.R.layout.simple_spinner_item, fav)
+            commuteDestinationFavSpinner.adapter = adapter
+
+            /*commuteDestinationFavSpinner.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>,
+                                            view: View, position: Int, id: Long) {
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }*/
+        }
+
+
 
         if(new){
             commuteName.setText("")

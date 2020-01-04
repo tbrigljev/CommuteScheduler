@@ -142,7 +142,7 @@
         app:layout_constraintTop_toBottomOf="@id/edit_title">
 
         <Spinner
-            android:id="@+id/startFavSpinner"
+            android:id="@+id/commuteOriginFavSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -173,6 +173,12 @@
             app:layout_constraintEnd_toEndOf="@+id/edit_container_start_end"
             app:layout_constraintStart_toStartOf="@+id/edit_container_start_end"
             app:layout_constraintTop_toBottomOf="@+id/fragment_start" />
+
+        <Spinner
+            android:id="@+id/commuteDestinationFavSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <EditText
             android:id="@+id/edit_arrival"
