@@ -71,10 +71,10 @@ class CommutesItemsList private constructor(context : Context){
         val homeToWork = Commute(
             pid =0,
             name = "Home2Work",
-            start = "Route des Arsenaux 29, 1700 Fribourg",
-            start_address = "",
-            arrival = "Route de Morat 135, 1763 Granges-Paccot",
-            arrival_address = "",
+            start = "",
+            start_address = "Route des Arsenaux 29, 1700 Fribourg",
+            arrival = "",
+            arrival_address = "Route de Morat 135, 1763 Granges-Paccot",
             arrival_time_short = "on 20.02.2020, at 07:00",
             arrival_time_long = "2020-02-20 07:00:00",
             days = mutableListOf(R.string.Monday, R.string.Wednesday, R.string.Friday),
@@ -113,14 +113,16 @@ class CommutesItemsList private constructor(context : Context){
 @Entity(tableName = "Commute" )
 // Option schedule to add -> weeks of the day
 data class Commute(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pid") var pid : Long=0,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pid") var pid : Long = 0,
+
     @ColumnInfo(name = "name") var name: String = "",
+
     @ColumnInfo(name = "start") var start : String = "",
-    @ColumnInfo(name = "start_address")  var start_address : String? = null,
+    @ColumnInfo(name = "start_address")  var start_address : String = "",
 
 
     @ColumnInfo(name = "arrival") var arrival : String = "",
-    @ColumnInfo(name = "arrival_address") var arrival_address : String? = null,
+    @ColumnInfo(name = "arrival_address") var arrival_address : String = "",
 
     @ColumnInfo(name = "start_time_short") var start_time_short : String = "",
     @ColumnInfo(name = "start_time_long") var start_time_long : String = "",
