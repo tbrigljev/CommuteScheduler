@@ -11,7 +11,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.jetbrains.anko.doAsync
-
 /* *************************************************************** */
 
 /* FavoritesAdapter ********************************************** */
@@ -77,10 +76,10 @@ class FavoritesAdapter(
 
     inner class ViewHolder(view: View) :
         RecyclerView.ViewHolder(view) {
-        val title: TextView
-        val address: TextView
+        private val title: TextView
+        private val address: TextView
 
-        val layoutFavorite: ConstraintLayout =
+        private val layoutFavorite: ConstraintLayout =
             view.findViewById(R.id.element_favorite)
                     as ConstraintLayout
 
@@ -88,10 +87,10 @@ class FavoritesAdapter(
             view.findViewById(R.id.favorites_buttons)
                     as  ConstraintLayout
 
-        val editButton =
+        private val editButton =
             view.findViewById(R.id.favorite_edit)
                     as ImageButton
-        val deleteButton =
+        private val deleteButton =
             view.findViewById(R.id.favorite_delete)
                     as ImageButton
 
@@ -141,20 +140,20 @@ class FavoritesAdapter(
                 itemView.setOnTouchListener(
                     object : OnSwipeTouchListener(){
                     override fun onClick(){
-                        if(previousPosition != getAdapterPosition()){
+                        if(previousPosition != adapterPosition){
                             try {
-                                var view_previous : View =
+                                val viewPrevious : View =
                                     mRecyclerView!!
                                         .findViewHolderForAdapterPosition(
                                         previousPosition
                                     )!!.itemView
-                                val layoutButtons_previous : ConstraintLayout =
-                                    view_previous!!
+                                val layoutButtonsPrevious : ConstraintLayout =
+                                    viewPrevious
                                         .findViewById(R.id.favorites_buttons)
                                             as ConstraintLayout
 
-                                layoutButtons_previous.visibility = View.GONE
-                                previousPosition = getAdapterPosition()
+                                layoutButtonsPrevious.visibility = View.GONE
+                                previousPosition = adapterPosition
 
                             } catch (e: Exception) {
                                 Log.i("FavoritesClickException", e.toString())
@@ -183,20 +182,20 @@ class FavoritesAdapter(
         }
     }
 
-    fun viewLayouts(visible_layoutButtons : Boolean, pos : Int){
-        var view_pos : View =
+    fun viewLayouts(visibleLayoutButtons : Boolean, pos : Int){
+        val viewPos : View =
             mRecyclerView!!
                 .findViewHolderForAdapterPosition(pos)!!
                 .itemView
 
-        val layoutButtons_pos : ConstraintLayout =
-            view_pos!!.findViewById(R.id.favorites_buttons)
+        val layoutButtonsPos : ConstraintLayout =
+            viewPos.findViewById(R.id.favorites_buttons)
                     as ConstraintLayout
 
-        if (visible_layoutButtons == true){
-            layoutButtons_pos.visibility = View.VISIBLE
+        if (visibleLayoutButtons){
+            layoutButtonsPos.visibility = View.VISIBLE
         } else {
-            layoutButtons_pos.visibility = View.GONE
+            layoutButtonsPos.visibility = View.GONE
         }
     }
 }
