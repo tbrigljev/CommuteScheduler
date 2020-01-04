@@ -17,7 +17,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import org.jetbrains.anko.doAsync
 import java.text.SimpleDateFormat
 import java.util.*
 /* *************************************************************** */
@@ -70,7 +69,8 @@ class FragmentCommutesEdit(
         )
         MainActivity.mGoogleAPI!!.setActivityContext(
             this,
-            getActivity()!!.getApplicationContext())
+            activity!!.applicationContext
+        )
 
         cancelEditButton =
             view.findViewById(R.id.edit_button_cancel)
@@ -158,16 +158,16 @@ class FragmentCommutesEdit(
 
             commuteOriginAddress.setText(start)
             commuteDestinationAddress.setText(arrival)
-            var date = commutesList!!
+            val date = commutesList!!
                 .commutesItemsList[pos]
                 .arrival_time_long
                 .split(" ")[0]
-            var time = commutesList!!
+            val time = commutesList!!
                 .commutesItemsList[pos]
                 .arrival_time_long
                 .split(" ")[1]
-            chooseDate.setText(date)
-            chooseTime.setText(time)
+            chooseDate.text = date
+            chooseTime.text = time
         }
 
         return view
@@ -199,9 +199,10 @@ class FragmentCommutesEdit(
 
             if (pos >= 0){
                 FragmentCommutes.mAdapter!!.viewLayouts(
-                    false,
-                    false,
-                    pos)
+                    visibleLayoutButtons = false,
+                    visibleLayoutExtended = false,
+                    pos = pos
+                )
             }
         }
     }
@@ -209,10 +210,10 @@ class FragmentCommutesEdit(
     private fun doEditValidate(fragmentCaller : Int){
         if (mListener != null){
 
-            var newCommute = Commute()
+            val newCommute = Commute()
 
-            var arrivalDate = chooseDate.text.toString()
-            var arrivalTime = chooseTime.text.toString()
+            val arrivalDate = chooseDate.text.toString()
+            val arrivalTime = chooseTime.text.toString()
 
             lateinit var text : String
 
@@ -244,20 +245,20 @@ class FragmentCommutesEdit(
                     commutesList!!.commutesItemsList.add(newCommute)
 
 
-                    var pos = commutesList!!.commutesItemsList.size - 1
+                    val pos = commutesList!!.commutesItemsList.size - 1
                     MainActivity.mGoogleAPI!!.requestRoute(
                         "Activity", pos, true)
 
-                    var prev_pos = FragmentCommutes.mAdapter!!.previousPosition
+                    var prevPos = FragmentCommutes.mAdapter!!.previousPosition
                     if(commutesList!!.commutesItemsList.count() < 2){
-                        prev_pos = -1
+                        prevPos = -1
                     }
-                    if((prev_pos != -1) and
-                        (prev_pos < FragmentCommutes.mAdapter!!.commutesItemsList.size)){
+                    if((prevPos != -1) and
+                        (prevPos < FragmentCommutes.mAdapter!!.commutesItemsList.size)){
                         FragmentCommutes.mAdapter!!.viewLayouts(
-                            false,
-                            false,
-                            FragmentCommutes.mAdapter!!.previousPosition
+                            visibleLayoutButtons = false,
+                            visibleLayoutExtended = false,
+                            pos = FragmentCommutes.mAdapter!!.previousPosition
                         )
                     }
                 } else {
@@ -284,9 +285,10 @@ class FragmentCommutesEdit(
                         false)
 
                     FragmentCommutes.mAdapter!!.viewLayouts(
-                        false,
-                        false,
-                        pos)
+                        visibleLayoutButtons = false,
+                        visibleLayoutExtended = false,
+                        pos = pos
+                    )
                     FragmentCommutes
                         .mRecyclerView!!
                         .adapter!!
@@ -309,11 +311,11 @@ class FragmentCommutesEdit(
         }
     }
 
-    fun Fragment.hideKeyboard() {
+    private fun Fragment.hideKeyboard() {
         view?.let { activity?.hideKeyboard(it) }
     }
 
-    fun Context.hideKeyboard(view: View) {
+    private fun Context.hideKeyboard(view: View) {
         val inputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE)
                     as InputMethodManager
