@@ -4,7 +4,5 @@
     <color name="colorPrimaryDark">#6598D5</color>
     <color name="colorAccent">#F538A0</color>
     <color name="colorCommutesEven">#ddf0ff</color>
-<!--    <color name="colorCommutesEven">#CBE5BE</color>-->
     <color name="colorCommutesOdd">#f7fbff</color>
-<!--    <color name="colorCommutesOdd">#F1EBCF</color>-->
 </resources>

@@ -25,6 +25,10 @@
     <string name="action_settings">Settings</string>
     <string name="action_validate">Ok</string>
     <string name="action_cancel">Cancel</string>
+    <string name="action_next">NEXT</string>
+    <string name="action_previous">PREVIOUS</string>
+    <string name="action_skip">SKIP</string>
+    <string name="action_got">GOT IT</string>
 
     <string name="Monday">MO</string>
     <string name="Tuesday">TU</string>

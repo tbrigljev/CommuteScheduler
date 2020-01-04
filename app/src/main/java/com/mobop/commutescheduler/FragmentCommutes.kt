@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 class FragmentCommutes(screen : Int) : Fragment(){
     companion object{
         var mRecyclerView : RecyclerView? = null
-        var mAdapter : CommutesAdapter?= null
+        var mAdapter : CommutesAdapter? = null
     }
 
     private var mListener : OnFragmentInteractionListener? = null

@@ -1,9 +1,5 @@
 package com.mobop.commutescheduler
 
-/* TO USE FOR FIRST TIME USE
-https://www.androidhive.info/2016/05/android-build-intro-slider-app/
- */
-
 /* *************************************************************** */
 /* HES-SO Master Mobile Operating Systems and Applications ******* */
 /* Final project: Commute scheduler ****************************** */

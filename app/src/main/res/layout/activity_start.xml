@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/start_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_slides"
+        android:layout_width="match_constraint"
+        android:layout_height="match_constraint"
+        app:layout_constraintTop_toTopOf="@id/start_layout"
+        app:layout_constraintStart_toStartOf="@id/start_layout"
+        app:layout_constraintEnd_toEndOf="@id/start_layout"
+        app:layout_constraintBottom_toTopOf="@id/layout_dots"/>
+
+    <LinearLayout
+        android:id="@+id/layout_dots"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/start_layout"
+        app:layout_constraintEnd_toEndOf="@id/start_layout"
+        app:layout_constraintStart_toStartOf="@id/start_layout"
+        app:layout_constraintTop_toBottomOf="@id/view_slides" />
+
+    <Button
+        android:id="@+id/start_button_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:text="@string/action_skip"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/start_layout"
+        app:layout_constraintStart_toStartOf="@id/start_layout" />
+
+    <Button
+        android:id="@+id/start_button_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:text="@string/action_next"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/start_layout"
+        app:layout_constraintEnd_toEndOf="@id/start_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
