@@ -111,7 +111,7 @@
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
                 android:text="@string/from"
-                android:textColor="#000000"
+                android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintStart_toStartOf="@+id/map_overlay"
                 app:layout_constraintTop_toTopOf="@+id/map_overlay" />
 
@@ -133,17 +133,18 @@
                 android:id="@+id/overlay_start_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
                 android:text="@string/leave"
-                android:textColor="#FF000000"
+                android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintStart_toStartOf="@+id/map_overlay"
                 app:layout_constraintTop_toBottomOf="@+id/overlay_start_field" />
 
             <TextView
                 android:id="@+id/overlay_start_time_field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="72dp"
+                android:layout_height="26dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="2dp"
                 android:text="@string/field_time"
@@ -161,7 +162,7 @@
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
                 android:text="@string/to"
-                android:textColor="#FF000000"
+                android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintBottom_toTopOf="@+id/overlay_destination_field"
                 app:layout_constraintEnd_toEndOf="@+id/map_overlay" />
 
@@ -169,6 +170,7 @@
                 android:id="@+id/overlay_destination_field"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
                 android:paddingStart="2dp"
                 android:paddingEnd="5dp"
                 android:text="@string/field_arrival_address"
@@ -186,7 +188,7 @@
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
                 android:text="@string/arrive"
-                android:textColor="#FF000000"
+                android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintBottom_toTopOf="@+id/overlay_destination_time_field"
                 app:layout_constraintEnd_toEndOf="@+id/map_overlay" />
 
@@ -214,7 +216,7 @@
                 android:paddingEnd="2dp"
                 android:text="@string/length"
                 android:textAlignment="textEnd"
-                android:textColor="#FF000000"
+                android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toStartOf="@+id/map_button_dummy_2"
                 app:layout_constraintTop_toTopOf="@+id/map_button_dummy_2" />
 
@@ -295,7 +297,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="3dp"
-            android:background="#80F538A0"
+            android:buttonTint="@color/colorAccent"
             android:paddingStart="3dp"
             android:paddingEnd="3dp"
             android:text="@string/checkbox_view_traffic"
@@ -308,15 +310,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="29dp"
             android:layout_marginEnd="5dp"
-            android:background="@color/colorAccent"
+            android:background="#00000000"
             android:contentDescription="@string/button_overlay"
             android:paddingStart="5dp"
             android:paddingTop="2dp"
             android:paddingEnd="5dp"
             android:paddingBottom="2dp"
+            android:scaleX="1"
+            android:scaleY="1"
             app:layout_constraintEnd_toEndOf="@id/fragment_map_buttons"
             app:layout_constraintTop_toTopOf="@id/fragment_map_buttons"
-            app:srcCompat="@android:drawable/ic_menu_info_details" />
+            app:srcCompat="@drawable/info_details" />
 
         <ImageButton
             android:id="@+id/map_button_return"
