@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import org.jetbrains.anko.doAsync
-
 /* *************************************************************** */
 
 /* FragmentFavoritesEdit ***************************************** */
@@ -59,7 +58,8 @@ class FragmentFavoritesEdit(
         )
         MainActivity.mGoogleAPI!!.setActivityContext(
             this,
-            getActivity()!!.getApplicationContext())
+            activity!!.applicationContext
+        )
 
         cancelEditButton =
             view.findViewById(R.id.favorite_edit_button_cancel)
@@ -130,7 +130,7 @@ class FragmentFavoritesEdit(
     private fun doEditValidate(fragmentCaller : Int){
         if (mListener != null){
 
-            var newFavorite = Favorite()
+            val newFavorite = Favorite()
 
             newFavorite.name = favoriteName.text.toString()
             newFavorite.address = address
@@ -152,12 +152,12 @@ class FragmentFavoritesEdit(
                     }
                     var pos = commutesList!!.favoritesItemsList.size - 1
 
-                    var prev_pos = FragmentFavorites.mAdapter!!.previousPosition
+                    var prevPos = FragmentFavorites.mAdapter!!.previousPosition
                     if(commutesList!!.favoritesItemsList.count() < 2){
-                        prev_pos = -1
+                        prevPos = -1
                     }
-                    if((prev_pos != -1) and
-                        (prev_pos < FragmentFavorites.mAdapter!!.favoritesItemsList.size)){
+                    if((prevPos != -1) and
+                        (prevPos < FragmentFavorites.mAdapter!!.favoritesItemsList.size)){
                         FragmentFavorites.mAdapter!!.viewLayouts(
                             false,
                             FragmentFavorites.mAdapter!!.previousPosition
@@ -202,11 +202,11 @@ class FragmentFavoritesEdit(
         }
     }
 
-    fun Fragment.hideKeyboard() {
+    private fun Fragment.hideKeyboard() {
         view?.let { activity?.hideKeyboard(it) }
     }
 
-    fun Context.hideKeyboard(view: View) {
+    private fun Context.hideKeyboard(view: View) {
         val inputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE)
                 as InputMethodManager
