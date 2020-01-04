@@ -180,8 +180,8 @@ class FragmentCommutesEdit(
 
             commuteOriginFavSpinner.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>,
-                                            view: View, position: Int, id: Long) {
+                override fun onItemSelected(parent : AdapterView<*>,
+                                            view : View, position: Int, id : Long) {
                     if (position > 0){
                         start_name=commutesList!!.favoritesItemsList[position-1].name
                         start_address=commutesList!!.favoritesItemsList[position-1].address
@@ -305,6 +305,13 @@ class FragmentCommutesEdit(
             val arrivalDate = chooseDate.text.toString()
             val arrivalTime = chooseTime.text.toString()
 
+            val format = "yyyy-MM-dd hh:mm:ss"
+            val sdf = SimpleDateFormat(format)
+
+            val arrivalDateTime = arrivalDate + " " + arrivalTime
+            val timeArrival = sdf.parse(arrivalDateTime)
+            val timeNow = Calendar.getInstance().time
+
             lateinit var text : String
 
             if(commuteName.text.toString() == "")
@@ -317,11 +324,14 @@ class FragmentCommutesEdit(
                 text = "Date information is missing"
             else if(arrivalTime == "")
                 text = "Time information is missing"
+            else if(timeArrival <= timeNow){
+                text = "Please chose a later date and time"
+            }
             else {
                 newCommute.name = commuteName.text.toString()
                 newCommute.start = start_name
                 newCommute.start_address = start_address
-               newCommute.arrival = arrival_name
+                newCommute.arrival = arrival_name
                 newCommute.arrival_address = arrival_address
 
                 val time = arrivalTime.split(":")

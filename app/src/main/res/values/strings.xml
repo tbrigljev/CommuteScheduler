@@ -98,7 +98,7 @@
     <string name="button_add_first_commute">Add your first commute</string>
     <string name="button_add_first_favorite">Add your first favorite</string>
 
-    <string name="start01">Welcome to our Commute Scheduler application !\nSwipe across these few instructions for a first overview of its features.\n\nIf you wish to skip it, you can access it again from the "About" page of the application (see below).\n\n Enjoy !\n\n T.B., F.C., A.G.P.</string>
+    <string name="start01">Welcome to our Commute Scheduler application !\n\nSwipe across these few instructions for a first overview of its features.\n\nIf you wish to skip it, you can access it again from the "About" page of the application (see below).\n\n Enjoy !\n\n T.B., F.C., A.G.P.</string>
     <string name="start02">Here is the main view of our application, showing a list of commutes and the route for the selected on on the map</string>
     <string name="start03">First, start by creating your first commute</string>
     <string name="start04">Enter the needed data as shown below and validate your inputs</string>
