@@ -15,6 +15,7 @@ import androidx.room.ForeignKey.SET_NULL
 class CommutesItemsList private constructor(context : Context){
 
     var commutesItemsList = ArrayList<Commute>()
+    var favoritesItemsList = ArrayList<Favorite>()
     var database = AppDatabase.getDatabase(context).routeDao()
 
     companion object{
@@ -38,6 +39,8 @@ class CommutesItemsList private constructor(context : Context){
     init{
         doAsync{
             commutesItemsList.addAll(database.getAll())
+            favoritesItemsList.addAll(database.getAllFavorite())
+
             //commutesItemsList.add(Path(1,"PROFESSIONAL", "2020-01-15 08:00:00", "2020-01-15 08:00:00", "test1", "test2","101",  false, "2020-01-15 08:00:00",true))
             //commutesItemsList.add(Path(2,"PRIVATE", "2020-01-15 08:00:00", "2020-01-15 08:00:00", "test3","test4","20", false, "2020-01-15 08:00:00",true))
 
@@ -117,6 +120,22 @@ class CommutesItemsList private constructor(context : Context){
         commutesItemsList.add(homeToSchool)
         //commutesItemsList.add(longNameTest)
         //commutesItemsList.add(longParamTest)
+
+            val home = Favorite(
+                name = "Home",
+                address = "Route des Arsenaux 29, 1700 Fribourg")
+            val school = Favorite(
+                name = "School",
+                address = "Avenue de Provence 6, 1007 Lausanne")
+            val work = Favorite(
+                name = "Work",
+                address = "Route de Morat 135, 1763 Granges-Paccot"
+            )
+
+            favoritesItemsList.add(home)
+            //favoritesItemsList.add(school)
+            //favoritesItemsList.add(work)
+
         }
     }
 }
@@ -173,6 +192,93 @@ data class Commute(
     @Ignore var days : MutableList<Int?> = ArrayList(),
     @Ignore var path : MutableList<List<LatLng>> = ArrayList()
 )
+
+@Entity(tableName = "Favorite" )
+data class Favorite(
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pid") var pid : Long = 0,
+    @ColumnInfo(name = "name") var name: String = "",
+    @ColumnInfo(name = "address") var address : String = "",
+    var typeItem: Int=1
+)
+
+
+
+@Dao
+interface RouteDao {
+    // Commute
+    @Query("SELECT * FROM Commute")
+    fun getAll(): List<Commute>
+
+    @Insert
+    fun insertAll(path: Commute): Long
+
+    @Update
+    fun updateAll(vararg path: Commute)
+
+    //@Query("DELETE FROM todoitemcontent WHERE uid = :uid")
+    //fun deleteItem(vararg uid: Long): Int
+
+    @Delete
+    fun deleteAll(vararg path: Commute)
+
+    @Query("SELECT * FROM Commute WHERE pid=:pathId")
+    fun getRoute(pathId: Long): Commute
+
+
+    // Favorite
+    @Query("SELECT * FROM Favorite")
+    fun getAllFavorite(): List<Favorite>
+
+    @Insert
+    fun insertAllFavorite(path: Favorite): Long
+
+    @Update
+    fun updateAllFavorite(vararg path: Favorite)
+
+    //@Query("DELETE FROM todoitemcontent WHERE uid = :uid")
+    //fun deleteItem(vararg uid: Long): Int
+
+    @Delete
+    fun deleteAllFavorite(vararg path: Favorite)
+
+    @Query("SELECT * FROM Favorite WHERE pid=:pathId")
+    fun getFavorite(pathId: Long): Favorite
+}
+
+@Database(
+    //entities = arrayOf(Commute::class),
+    entities = [Commute::class,Favorite::class],
+    version = 1
+)
+
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun routeDao(): RouteDao
+
+    companion object {
+        // Singleton prevents multiple instances of database opening at the
+        // same time.
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+
+        fun getDatabase(context: Context): AppDatabase{
+            val tempInstance = INSTANCE
+            if (tempInstance != null) {
+                return tempInstance
+            }
+            synchronized(this){
+
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "CommuteScheduler_database"
+                ).build()
+                INSTANCE = instance
+                return instance
+            }
+        }
+    }
+}
+
 /*data class Commute(
 
     var name : String = "",
@@ -211,59 +317,10 @@ data class Commute(
     var alarm_on : Boolean = false,
     var alarm_time : String? = null,
     var alarm_tune : String? = null*//*
-)*/
-
-@Dao
-interface RouteDao {
-    // Route
-    @Query("SELECT * FROM Commute")
-    fun getAll(): List<Commute>
-
-    @Insert
-    fun insertAll(path: Commute): Long
-
-    @Update
-    fun updateAll(vararg path: Commute)
-
-    //@Query("DELETE FROM todoitemcontent WHERE uid = :uid")
-    //fun deleteItem(vararg uid: Long): Int
-
-    @Delete
-    fun deleteAll(vararg path: Commute)
-
-    @Query("SELECT * FROM Commute WHERE pid=:pathId")
-    fun getRoute(pathId: Long): Commute
-}
-
-@Database(
-    entities = arrayOf(Commute::class),
-    version = 1
 )
+data class Favorite(
 
-abstract class AppDatabase : RoomDatabase() {
-    abstract fun routeDao(): RouteDao
-
-    companion object {
-        // Singleton prevents multiple instances of database opening at the
-        // same time.
-        @Volatile
-        private var INSTANCE: AppDatabase? = null
-
-        fun getDatabase(context: Context): AppDatabase{
-            val tempInstance = INSTANCE
-            if (tempInstance != null) {
-                return tempInstance
-            }
-            synchronized(this){
-
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "route_database"
-                ).build()
-                INSTANCE = instance
-                return instance
-            }
-        }
-    }
-}
+    var name : String = "",
+    var address : String = ""
+)
+*/

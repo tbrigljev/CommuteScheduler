@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import org.jetbrains.anko.doAsync
+
 /* *************************************************************** */
 
 /* FavoritesAdapter ********************************************** */
@@ -171,9 +173,14 @@ class FavoritesAdapter(
     }
 
     fun removeAt(position: Int){
-        favoritesItemsList.removeAt(position)
-        previousPosition = 0
-        notifyItemRemoved(position)
+        doAsync{
+            commutesList!!
+                .database
+                .deleteAllFavorite(favoritesItemsList[position])
+            favoritesItemsList.removeAt(position)
+            previousPosition = 0
+            notifyItemRemoved(position)
+        }
     }
 
     fun viewLayouts(visible_layoutButtons : Boolean, pos : Int){

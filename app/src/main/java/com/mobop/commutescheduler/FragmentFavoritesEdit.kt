@@ -13,6 +13,8 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import org.jetbrains.anko.doAsync
+
 /* *************************************************************** */
 
 /* FragmentFavoritesEdit ***************************************** */
@@ -85,8 +87,8 @@ class FragmentFavoritesEdit(
         if(new){
             favoriteName.setText("")
         } else {
-            favoriteName.setText(favoritesList!!.favoritesItemsList[pos].name)
-            address = favoritesList!!.favoritesItemsList[pos].address
+            favoriteName.setText(commutesList!!.favoritesItemsList[pos].name)
+            address = commutesList!!.favoritesItemsList[pos].address
 
             favoriteAddress.setText(address)
         }
@@ -143,11 +145,15 @@ class FragmentFavoritesEdit(
                 if(new){
                     text = "Favorite added"
 
-                    favoritesList!!.favoritesItemsList.add(newFavorite)
-                    var pos = favoritesList!!.favoritesItemsList.size - 1
+                    commutesList!!.favoritesItemsList.add(newFavorite)
+                    doAsync{
+                        commutesList!!.database.insertAllFavorite(newFavorite)
+
+                    }
+                    var pos = commutesList!!.favoritesItemsList.size - 1
 
                     var prev_pos = FragmentFavorites.mAdapter!!.previousPosition
-                    if(favoritesList!!.favoritesItemsList.count() < 2){
+                    if(commutesList!!.favoritesItemsList.count() < 2){
                         prev_pos = -1
                     }
                     if((prev_pos != -1) and
@@ -160,12 +166,17 @@ class FragmentFavoritesEdit(
                 }
                 else{
                     text = "Favorite modified"
-                    favoritesList!!
+                    commutesList!!
                         .favoritesItemsList[pos]
                         .name = newFavorite.name
-                    favoritesList!!
+                    commutesList!!
                         .favoritesItemsList[pos]
                         .address = newFavorite.address
+
+                    doAsync{ commutesList!!
+                        .database
+                        .updateAllFavorite(commutesList!!
+                            .favoritesItemsList[pos])}
 
                     FragmentFavorites.mAdapter!!
                         .viewLayouts(

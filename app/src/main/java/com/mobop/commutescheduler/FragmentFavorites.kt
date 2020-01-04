@@ -64,7 +64,7 @@ class FragmentFavorites : Fragment(){
             view.findViewById(R.id.favorites_button_return)
                     as ImageButton
 
-        if(favoritesList!!.favoritesItemsList.count() < 1){
+        if(commutesList!!.favoritesItemsList.count() < 1){
             empty = true
             addFavoritesButton.visibility = View.GONE
         } else {
@@ -91,7 +91,7 @@ class FragmentFavorites : Fragment(){
         mAdapter =
             FavoritesAdapter(mRecyclerView!!,
                 R.layout.element_favorite,
-                favoritesList!!.favoritesItemsList,
+                commutesList!!.favoritesItemsList,
                 { partItem : Int,
                   action : Int ->
                     doFavoritesButtons(partItem, action) }
@@ -157,7 +157,7 @@ class FragmentFavorites : Fragment(){
 
                 mRecyclerView!!.adapter!!.notifyDataSetChanged()
 
-                if(favoritesList!!.favoritesItemsList.count() < 1){
+                if(commutesList!!.favoritesItemsList.count() < 1){
                     emptyFavorites.visibility = View.VISIBLE
                     addFavoritesButton.visibility = View.GONE
                 }

@@ -40,7 +40,7 @@ const val QUICK = 6
 const val SETTINGS = 99
 
 var commutesList : CommutesItemsList? = null
-var favoritesList : FavoritesItemsList? = null
+
 /* *************************************************************** */
 
 /* *************************************************************** */
@@ -105,9 +105,6 @@ class MainActivity :
         /* *** of commutes and database instance ***************** */
         commutesList = CommutesItemsList.getSingleton(this)
 
-        /* Create a singleton of the class Favorites for the list  */
-        /* *** of favorites and database instance **************** */
-        favoritesList = FavoritesItemsList.getSingleton(this)
 
         /* This object contains all the methods fo using the ***** */
         /* *** Google API **************************************** */
@@ -599,7 +596,7 @@ class MainActivity :
                 previousTitle = toolbar.title.toString()
                 toolbar.title = getString(R.string.name_favorites)
 
-                if(favoritesList!!.favoritesItemsList.count() > 0){
+                if(commutesList!!.favoritesItemsList.count() > 0){
                     emptyFavorites.visibility = View.GONE
                     addFavoritesButton.visibility = View.VISIBLE
                 }
