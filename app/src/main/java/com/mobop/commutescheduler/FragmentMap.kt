@@ -1,7 +1,6 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
-import android.content.ClipDescription
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,8 +18,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.textfield.TextInputEditText
-import org.jetbrains.anko.find
-
 /* *************************************************************** */
 
 /* FragmentMap *************************************************** */
@@ -94,7 +91,7 @@ class FragmentMap(screen : Int) :
             view.findViewById(R.id.map_field_commute_duration)
                     as TextView
 
-        mapFieldCommuteNText.setText(getString(R.string.no_commute))
+        mapFieldCommuteNText.text = getString(R.string.no_commute)
         mapFieldCommuteName.visibility = View.GONE
         mapFieldCommuteDText.visibility = View.GONE
         mapFieldCommuteDuration.visibility = View.GONE
@@ -153,8 +150,7 @@ class FragmentMap(screen : Int) :
 
         viewTrafficMapCheck.setOnCheckedChangeListener{
                 buttonView, isChecked ->
-            if(isChecked){ mMap.isTrafficEnabled = true }
-            else { mMap.isTrafficEnabled = false }
+            mMap.isTrafficEnabled = isChecked
         }
 
         returnMapButton.visibility = View.GONE
