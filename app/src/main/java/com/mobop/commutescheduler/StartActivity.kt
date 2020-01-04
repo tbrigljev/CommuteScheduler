@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -42,10 +43,8 @@ class StartActivity : AppCompatActivity(){
     private lateinit var prefManager : PrefManager
 
     override fun onCreate(savedInstanceState : Bundle?) {
-        // Check first launch
+        super.onCreate(savedInstanceState)
 
-
-        var test = callingFromSettings
         prefManager = PrefManager(this)
         if((!prefManager.isFirstTimeLaunch()) and
             (!callingFromSettings)){
@@ -53,10 +52,6 @@ class StartActivity : AppCompatActivity(){
             launchHomeScreen()
             finish()
         }
-
-        // Hide toolbar
-
-        super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_start)
 
@@ -68,12 +63,18 @@ class StartActivity : AppCompatActivity(){
         slides = intArrayOf(
             R.layout.start01_welcome,
             R.layout.start02_mainview,
-            R.layout.start03_addcommute
+            R.layout.start03_addcommute,
+            R.layout.start04_commutedetails,
+            R.layout.start05_seecommutes,
+            R.layout.start06_mapdetails,
+            R.layout.start07_addfavorite,
+            R.layout.start08_usefavorite,
+            R.layout.start09_comingsoon
         )
 
         navigationDots(0)
 
-        mAdapter = ViewPagerAdapter()
+        mAdapter = ViewPagerAdapter(this)
         mAdapter!!.setActivity(this)
 
         viewSlides.adapter = mAdapter
@@ -110,7 +111,6 @@ class StartActivity : AppCompatActivity(){
         return viewSlides.currentItem + i
     }
 
-    // After setting first launch detection
     private fun launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false)
         startActivity(Intent(this@StartActivity, MainActivity::class.java))
@@ -122,11 +122,10 @@ class StartActivity : AppCompatActivity(){
         ViewPager.OnPageChangeListener {
         override fun onPageSelected(position: Int) {
             navigationDots(position)
-            // changing the next button text 'NEXT' / 'GOT IT'
-            if (position == slides.count() - 1) { // last page. make button text to GOT IT
+            if (position == slides.count() - 1) {
                 startNext.text = getString(R.string.action_got)
                 startSkip.visibility = View.GONE
-            } else { // still pages are left
+            } else {
                 startNext.text = getString(R.string.action_next)
                 startSkip.visibility = View.VISIBLE
             }
@@ -136,20 +135,57 @@ class StartActivity : AppCompatActivity(){
         override fun onPageScrollStateChanged(arg0 : Int) {}
     }
 
-    class ViewPagerAdapter : PagerAdapter() {
+    class ViewPagerAdapter : PagerAdapter{
 
         private var layoutInflater : LayoutInflater? = null
-        private var mActivity: StartActivity?= null //activity
+        private var mActivity: StartActivity? = null
+        private var images : IntArray
+        private var texts : IntArray
+
+        constructor(context : Context):super(){
+            this.images = intArrayOf(
+                R.drawable.start01,
+                R.drawable.start02,
+                R.drawable.start03,
+                R.drawable.start04,
+                R.drawable.start05,
+                R.drawable.start06,
+                R.drawable.start07,
+                R.drawable.start08,
+                R.drawable.start09
+            )
+            this.texts = intArrayOf(
+                R.string.start01,
+                R.string.start02,
+                R.string.start03,
+                R.string.start04,
+                R.string.start05,
+                R.string.start06,
+                R.string.start07,
+                R.string.start08,
+                R.string.start09
+            )
+        }
 
         fun setActivity(activity : StartActivity){
             mActivity = activity
         }
         override fun instantiateItem(container : ViewGroup, position : Int) : Any {
+            var image : ImageView
+            var text : TextView
+
             layoutInflater =
                 mActivity!!.applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
                         as LayoutInflater?
 
             val view : View = layoutInflater!!.inflate(slides[position], container, false)
+
+            image = view.findViewById(R.id.start_image)
+            image.setImageResource(images[position])
+
+            text = view.findViewById(R.id.start_text)
+            text.setText(texts[position])
+
             container.addView(view)
             return view
         }

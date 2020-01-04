@@ -28,7 +28,7 @@
     <string name="action_next">NEXT</string>
     <string name="action_previous">PREVIOUS</string>
     <string name="action_skip">SKIP</string>
-    <string name="action_got">GOT IT</string>
+    <string name="action_got">START NOW</string>
 
     <string name="Monday">MO</string>
     <string name="Tuesday">TU</string>
@@ -97,6 +97,16 @@
     <string name="button_favorite_delete">Delete existing favorite</string>
     <string name="button_add_first_commute">Add your first commute</string>
     <string name="button_add_first_favorite">Add your first favorite</string>
+
+    <string name="start01">Welcome to our Commute Scheduler application !\nSwipe across these few instructions for a first overview of its features.\n\nIf you wish to skip it, you can access it again from the "About" page of the application (see below).\n\n Enjoy !\n\n T.B., F.C., A.G.P.</string>
+    <string name="start02">Here is the main view of our application, showing a list of commutes and the route for the selected on on the map</string>
+    <string name="start03">First, start by creating your first commute</string>
+    <string name="start04">Enter the needed data as shown below and validate your inputs</string>
+    <string name="start05">You can now see the commute added to the list, and its route shown on the map</string>
+    <string name="start06">The map can be expanded, showing you the information related to the route, which can be toggled</string>
+    <string name="start07">You can also create favorites with our app, on the Favorites view</string>
+    <string name="start08">You can then use the favorites when creating a commute</string>
+    <string name="start09">We hope you will enjoy using our app !\n\nStay tuned for even more features coming soon !</string>
 
     <string name="sw_notifications">Reassessment route before departure?</string>
 
