@@ -15,7 +15,7 @@ import java.net.URL
 /* *** its activity to the object created in this class with the * */
 /* *** function setActivityContext() ***************************** */
 class HTTPRequest : AsyncTask<String, Int, String>(){
-    var mActivity : GoogleAPI? = null
+    private var mActivity : GoogleAPI? = null
 
     fun setActivityContext(activity : GoogleAPI){
         mActivity = activity
