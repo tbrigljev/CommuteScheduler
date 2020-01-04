@@ -4,10 +4,12 @@ package com.mobop.commutescheduler
 /* Import ******************************************************** */
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.PendingIntent.getActivity
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +31,7 @@ import kotlin.collections.ArrayList
 class FragmentCommutesEdit(
     private var new : Boolean,
     private var pos : Int) :
-    Fragment(){
+    Fragment(),AdapterView.OnItemSelectedListener{
 
     companion object {
         //var start: String = "Fribourg"
@@ -39,6 +41,9 @@ class FragmentCommutesEdit(
         var arrival_name : String = ""
         var arrival_address : String = ""
     }
+    val Origin_SPINNER_ID = 1
+    val Dest_SPINNER_ID = 2
+
     private var mListener : OnFragmentInteractionListener? = null
 
     private val fragmentID = 3
@@ -170,64 +175,37 @@ class FragmentCommutesEdit(
         val fav=ArrayList<String>()
         fav.add("")
         commutesList!!.favoritesItemsList.forEachReversedByIndex {fav.add(it.name)}
-        if (commuteOriginFavSpinner != null) {
 
 
 
-            val adapterFavOrig = ArrayAdapter(activity,
-                android.R.layout.simple_spinner_item, fav)
-            commuteOriginFavSpinner.adapter = adapterFavOrig
+        var aa = ArrayAdapter(activity!!, android.R.layout.simple_spinner_item, fav)
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-            commuteOriginFavSpinner.onItemSelectedListener = object :
-                AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent : AdapterView<*>,
-                                            view : View, position: Int, id : Long) {
-                    if (position > 0){
-                        start_name=commutesList!!.favoritesItemsList[position-1].name
-                        start_address=commutesList!!.favoritesItemsList[position-1].address
-                        commuteOriginAddress.setText(start_address)
-
-                    }
-                    else {
-                        commuteOriginAddress.setText("")
-                        start_address=""
-                    }
-                }
-
-               override fun onNothingSelected(parent: AdapterView<*>) {
-                    // write code to perform some action
-                }
-            }
+        with(commuteOriginFavSpinner)
+        {
+            adapter = aa
+            setSelection(0, false)
+            onItemSelectedListener = this@FragmentCommutesEdit
+            prompt = "Select your favourite language"
+            gravity = Gravity.CENTER
+            id=Origin_SPINNER_ID
         }
 
-        if (commuteDestinationFavSpinner != null) {
+        aa = ArrayAdapter(activity!!, android.R.layout.simple_spinner_item, fav)
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-            val adapterFavDest = ArrayAdapter(activity,
-                android.R.layout.simple_spinner_item, fav)
+        with(commuteDestinationFavSpinner)
+        {
+            adapter = aa
+            setSelection(0, false)
+            onItemSelectedListener = this@FragmentCommutesEdit
+            prompt = "Select your favourite language"
+            gravity = Gravity.CENTER
+            id=Dest_SPINNER_ID
 
-            commuteDestinationFavSpinner.adapter = adapterFavDest
-
-            commuteDestinationFavSpinner.onItemSelectedListener = object :
-                AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>,
-                                            view: View, position: Int, id: Long) {
-                    if (position > 0){
-                        arrival_name=commutesList!!.favoritesItemsList[position-1].name
-                        arrival_address=commutesList!!.favoritesItemsList[position-1].address
-                        commuteDestinationAddress.setText(arrival_address)
-
-                    }
-                    else {
-                        commuteDestinationAddress.setText("")
-                        arrival_address=""
-                    }
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    // write code to perform some action
-                }
-            }
         }
+
+
 
 
 
@@ -241,9 +219,9 @@ class FragmentCommutesEdit(
             arrival_name = commutesList!!.commutesItemsList[pos].arrival
             arrival_address = commutesList!!.commutesItemsList[pos].arrival_address
             alarmEnableSwitch.isChecked = commutesList!!.commutesItemsList[pos].alarm
-            commuteOrigin.setText(start_name)
+            //commuteOrigin.setText(start_name)
             commuteOriginAddress.setText(start_address)
-            commuteDestination.setText(arrival_name)
+            //commuteDestination.setText(arrival_name)
             commuteDestinationAddress.setText(arrival_address)
 
             val date = commutesList!!
@@ -259,6 +237,41 @@ class FragmentCommutesEdit(
         }
 
         return view
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        when (parent!!.id) {
+            1 -> {
+                if (position > 0){
+                    start_name=commutesList!!.favoritesItemsList[position-1].name
+                    start_address=commutesList!!.favoritesItemsList[position-1].address
+                    commuteOriginAddress.setText(start_address)
+
+                }
+                else {
+                    commuteOriginAddress.setText("")
+                    start_address=""
+                }
+
+            }
+            2 -> {
+                if (position > 0){
+                    arrival_name=commutesList!!.favoritesItemsList[position-1].name
+                    arrival_address=commutesList!!.favoritesItemsList[position-1].address
+                    commuteDestinationAddress.setText(arrival_address)
+
+                }
+                else {
+                    commuteDestinationAddress.setText("")
+                    arrival_address=""
+                }
+            }
+        }
+
+
     }
 
     override fun onAttach(context : Context){
@@ -305,13 +318,6 @@ class FragmentCommutesEdit(
             val arrivalDate = chooseDate.text.toString()
             val arrivalTime = chooseTime.text.toString()
 
-            val format = "yyyy-MM-dd hh:mm:ss"
-            val sdf = SimpleDateFormat(format)
-
-            val arrivalDateTime = arrivalDate + " " + arrivalTime
-            val timeArrival = sdf.parse(arrivalDateTime)
-            val timeNow = Calendar.getInstance().time
-
             lateinit var text : String
 
             if(commuteName.text.toString() == "")
@@ -324,14 +330,11 @@ class FragmentCommutesEdit(
                 text = "Date information is missing"
             else if(arrivalTime == "")
                 text = "Time information is missing"
-            else if(timeArrival <= timeNow){
-                text = "Please chose a later date and time"
-            }
             else {
                 newCommute.name = commuteName.text.toString()
                 newCommute.start = start_name
                 newCommute.start_address = start_address
-                newCommute.arrival = arrival_name
+               newCommute.arrival = arrival_name
                 newCommute.arrival_address = arrival_address
 
                 val time = arrivalTime.split(":")
@@ -442,4 +445,9 @@ class FragmentCommutesEdit(
             fragmentCaller : Int,
             fragmentState : IntArray)
     }
+
+
+
+
+
 }
