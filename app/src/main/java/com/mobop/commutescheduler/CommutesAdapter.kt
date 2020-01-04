@@ -366,10 +366,11 @@ class CommutesAdapter(
             commutesList!!
                 .database
                 .deleteAll(commutesItemsList[position])
-            commutesItemsList.removeAt(position)
-            previousPosition = 0
-            notifyItemRemoved(position)
+
         }
+        commutesItemsList.removeAt(position)
+        previousPosition = 0
+        notifyItemRemoved(position)
         }
 
 

@@ -176,10 +176,11 @@ class FavoritesAdapter(
             commutesList!!
                 .database
                 .deleteAllFavorite(favoritesItemsList[position])
-            favoritesItemsList.removeAt(position)
-            previousPosition = 0
-            notifyItemRemoved(position)
+            
         }
+        favoritesItemsList.removeAt(position)
+        previousPosition = 0
+        notifyItemRemoved(position)
     }
 
     fun viewLayouts(visibleLayoutButtons : Boolean, pos : Int){
