@@ -1,14 +1,15 @@
 package com.mobop.commutescheduler
 
+/* Import ******************************************************** */
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
-
+/* *************************************************************** */
 
 class PrefManager(var _context : Context) {
     lateinit var pref : SharedPreferences
     lateinit var editor : Editor
-    var PRIVATE_MODE = 0
+    private var PRIVATE_MODE = 0
 
     companion object {
         // Shared preferences file name

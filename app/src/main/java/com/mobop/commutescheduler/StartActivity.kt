@@ -17,7 +17,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.text.HtmlCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
@@ -70,7 +69,7 @@ class StartActivity : AppCompatActivity(){
 
         navigationDots(0)
 
-        mAdapter = StartActivity.ViewPagerAdapter()
+        mAdapter = ViewPagerAdapter()
         mAdapter!!.setActivity(this)
 
         viewSlides.adapter = mAdapter
@@ -91,7 +90,7 @@ class StartActivity : AppCompatActivity(){
     }
 
     private fun navigationDots(currentPage : Int){
-        var dots : MutableList<TextView> =
+        val dots : MutableList<TextView> =
             MutableList(slides.count(), { index -> TextView(this) } )
 
         layoutDots.removeAllViews()
@@ -116,9 +115,9 @@ class StartActivity : AppCompatActivity(){
         finish()
     }
 
-    var slideChangeListener: ViewPager.OnPageChangeListener = object :
+    private var slideChangeListener :
+            ViewPager.OnPageChangeListener = object :
         ViewPager.OnPageChangeListener {
-
         override fun onPageSelected(position: Int) {
             navigationDots(position)
             // changing the next button text 'NEXT' / 'GOT IT'
@@ -140,16 +139,17 @@ class StartActivity : AppCompatActivity(){
     class ViewPagerAdapter : PagerAdapter() {
 
         private var layoutInflater : LayoutInflater? = null
-        var mActivity: StartActivity?= null //activity
+        private var mActivity: StartActivity?= null //activity
 
         fun setActivity(activity : StartActivity){
             mActivity = activity
         }
         override fun instantiateItem(container : ViewGroup, position : Int) : Any {
-            //layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
-            layoutInflater = mActivity!!.applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater?
+            layoutInflater =
+                mActivity!!.applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)
+                        as LayoutInflater?
 
-            val view : View = layoutInflater!!.inflate(slides.get(position), container, false)
+            val view : View = layoutInflater!!.inflate(slides[position], container, false)
             container.addView(view)
             return view
         }
