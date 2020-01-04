@@ -252,13 +252,17 @@ class FragmentCommutesEdit(
                 newCommute.start_address = start_address
                 newCommute.arrival = arrivalName
                 newCommute.arrival_address = arrival_address
+
+                val time = arrivalTime.split(":")
+                val date = arrivalDate.split("-")
                 newCommute.arrival_time_short =
-                    "on " + arrivalDate +
-                            ", at " + arrivalTime
+                    "on " + date[2] + "." + date[1] + "." + date[0] +
+                            ", at " + time[0] + ":" + time[1]
                 newCommute.arrival_time_long =
                     arrivalDate +
                             " " + arrivalTime
-                newCommute.alarm=alarmEnableSwitch.isChecked
+
+                newCommute.alarm = alarmEnableSwitch.isChecked
                 if(new){
 
                     text = "Commute added"

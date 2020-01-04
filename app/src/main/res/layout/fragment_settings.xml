@@ -54,6 +54,7 @@
         android:id="@+id/element_divider_bottom"
         android:layout_width="match_parent"
         android:layout_height="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/colorPrimaryDark" />
 
     <LinearLayout
@@ -80,7 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            app:srcCompat="@android:drawable/ic_media_next" />
+            android:background="#00FFFFFF"
+            app:srcCompat="@drawable/right_arrow" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

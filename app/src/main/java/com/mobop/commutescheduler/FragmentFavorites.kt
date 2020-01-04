@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 /* *************************************************************** */
 
-
 /* FragmentFavorites ********************************************* */
 /* Contains the list of favorites and the related buttons ******** */
 /* Contained in its standalone fragment ************************** */
@@ -122,12 +121,12 @@ class FragmentFavorites : Fragment(){
         if(mListener != null){
             mRecyclerView!!.adapter!!.notifyDataSetChanged()
             source[0] = 0
-            if(commutesList!!.commutesItemsList.count() < 1){
+            if(commutesList!!.favoritesItemsList.count() < 1){
                 source[1] = -1
             }
             mListener!!.onFragmentInteraction(fragmentCaller, source)
 
-            if(commutesList!!.commutesItemsList.count() > 0){
+            if(commutesList!!.favoritesItemsList.count() > 0){
                 emptyFavorites.visibility = View.GONE
                 addFavoritesButton.visibility = View.VISIBLE
             }

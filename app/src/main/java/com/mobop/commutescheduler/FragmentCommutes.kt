@@ -208,7 +208,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
 
                 mRecyclerView!!.adapter!!.notifyDataSetChanged()
 
-                if (commutesList!!.commutesItemsList.count() < 1) {
+                if(commutesList!!.commutesItemsList.count() < 1){
                     emptyCommutes.visibility = View.VISIBLE
                     addCommutesButton.visibility = View.GONE
                 }

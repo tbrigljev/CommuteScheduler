@@ -659,9 +659,13 @@ class MainActivity :
             getString(R.string.field_favorite_name) -> {
                 onFragmentInteraction(4, intArrayOf(2,0))
             } else -> {
-                toolbar.title = previousTitle
-                previousTitle = getString(R.string.name_main)
-                super.onBackPressed()
+            toolbar.title = previousTitle
+            previousTitle = getString(R.string.name_main)
+
+            mState = 1
+            invalidateOptionsMenu()
+
+            super.onBackPressed()
             }
         }
     }

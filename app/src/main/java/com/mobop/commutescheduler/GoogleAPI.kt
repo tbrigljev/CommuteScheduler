@@ -321,7 +321,7 @@ class GoogleAPI{
     private fun readJSON(json : String) : Commute {
         val mCommute = Commute()
 
-        if (routeArrivalTime!="Now") {
+        if (routeArrivalTime != "Now") {
             dateTime = commutesList!!.commutesItemsList[mPosition].arrival_time_long.split(" ")
             date = dateTime[0].split("-")
             time = dateTime[1].split(":")

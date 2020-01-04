@@ -119,10 +119,11 @@ class FragmentFavoritesEdit(
 
             source[0] = 0
             mListener!!.onFragmentInteraction(fragmentCaller, source)
+
             if ( pos >= 0 ){
                 FragmentFavorites.mAdapter!!.viewLayouts(
-                    false,
-                    pos)
+                    visibleLayoutButtons = false,
+                    pos = pos)
             }
         }
     }
