@@ -98,7 +98,7 @@
     <string name="button_add_first_commute">Add your first commute</string>
     <string name="button_add_first_favorite">Add your first favorite</string>
 
-    <string name="sw_notifications">Notifications</string>
+    <string name="sw_notifications">Reassessment route before departure?</string>
 
     <string name="checkbox_view_traffic">View traffic</string>
 

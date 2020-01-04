@@ -12,10 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import java.text.SimpleDateFormat
@@ -52,6 +49,9 @@ class FragmentCommutesEdit(
     private lateinit var commuteOriginAddress : AutocompleteSupportFragment
     private lateinit var commuteDestination : EditText
     private lateinit var commuteDestinationAddress : AutocompleteSupportFragment
+    private lateinit var alarmEnableSwitch : Switch
+
+
 
     private lateinit var chooseDate : TextView
     private lateinit var chooseTime : TextView
@@ -104,6 +104,11 @@ class FragmentCommutesEdit(
         chooseTime =
             view.findViewById(R.id.edit_end_time)
                     as TextView
+
+        alarmEnableSwitch =
+            view.findViewById(R.id.alarmEnableSwitch)
+                    as Switch
+
 
         cancelEditButton.setOnClickListener{
             doEditCancel(fragmentID)
@@ -164,7 +169,7 @@ class FragmentCommutesEdit(
             start_address = commutesList!!.commutesItemsList[pos].start_address
             arrival_name = commutesList!!.commutesItemsList[pos].arrival
             arrival_address = commutesList!!.commutesItemsList[pos].arrival_address
-
+            alarmEnableSwitch.isChecked = commutesList!!.commutesItemsList[pos].alarm
             commuteOrigin.setText(start_name)
             commuteOriginAddress.setText(start_address)
             commuteDestination.setText(arrival_name)
@@ -253,7 +258,7 @@ class FragmentCommutesEdit(
                 newCommute.arrival_time_long =
                     arrivalDate +
                             " " + arrivalTime
-
+                newCommute.alarm=alarmEnableSwitch.isChecked
                 if(new){
 
                     text = "Commute added"

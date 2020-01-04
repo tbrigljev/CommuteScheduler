@@ -160,16 +160,16 @@ class MainActivity :
             FragmentCommutes.mRecyclerView!!.smoothScrollToPosition(lastPos)
             //FragmentCommutes.mAdapter!!.viewLayouts(false,true,lastPos) //Gives an execption ??
 
+            if (mCommute.alarm) {
+                val checkPoint = 15 // 15min
+                Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
 
-            val checkPoint= 15 // 15min
-            Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
-
-            /*checkPoint =30 // 30min
+                /*checkPoint =30 // 30min
             Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
 
             checkPoint =60 // 1h
             Notifications().setNotification(mCommute, checkPoint, this@MainActivity)*/
-
+            }
         }else{ //Modification
             doAsync{ commutesList!!
                 .database
