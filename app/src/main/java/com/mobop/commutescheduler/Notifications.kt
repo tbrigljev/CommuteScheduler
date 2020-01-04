@@ -37,8 +37,7 @@ class Notifications {
         calendar.timeInMillis = mNotificationTime
 
         // the check point will have to be replaced by the unique ID of the route + checkpoint for each alarm
-        var id: Int=(mRoute.pid.toString() + checkPoint.toString()).toInt()
-        val pendingIntent = PendingIntent.getBroadcast(activity, id, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(activity, checkPoint, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT)
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 }
