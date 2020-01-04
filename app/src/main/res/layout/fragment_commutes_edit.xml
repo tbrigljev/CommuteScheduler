@@ -147,22 +147,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <EditText
-            android:id="@+id/edit_start"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:hint="@string/choose_favorites"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/fragment_start"
-            app:layout_constraintEnd_toEndOf="@id/edit_container_start_end"
-            app:layout_constraintStart_toStartOf="@id/edit_container_start_end"
-            app:layout_constraintTop_toTopOf="@id/edit_container_start_end" />
-
         <fragment
             android:id="@+id/fragment_start"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
@@ -179,22 +163,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
-
-        <EditText
-            android:id="@+id/edit_arrival"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:hint="@string/choose_favorites"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/fragment_arrival"
-            app:layout_constraintEnd_toEndOf="@id/edit_container_start_end"
-            app:layout_constraintStart_toStartOf="@id/edit_container_start_end"
-            app:layout_constraintTop_toBottomOf="@id/fragment_start" />
 
         <fragment
             android:id="@+id/fragment_arrival"
