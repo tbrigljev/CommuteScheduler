@@ -85,7 +85,7 @@ class FragmentFavorites : Fragment(){
         /* Creation of the RecyclerView, LayoutManager and Adapter */
         mRecyclerView = view.findViewById(R.id.favorites_list)
 
-        var mLayoutManager = LinearLayoutManager(context)
+        val mLayoutManager = LinearLayoutManager(context)
         mRecyclerView!!.layoutManager = mLayoutManager
 
         mAdapter =
@@ -107,7 +107,7 @@ class FragmentFavorites : Fragment(){
         if(context is OnFragmentInteractionListener){
             mListener = context
         } else{
-            throw RuntimeException(context!!.toString() +
+            throw RuntimeException(context.toString() +
                     " must implement OnFragmentInteractionListener")
         }
     }
@@ -165,7 +165,7 @@ class FragmentFavorites : Fragment(){
                 val text = "Favorite deleted"
                 val duration = Toast.LENGTH_SHORT
 
-                val toast = Toast.makeText(getActivity(), text, duration)
+                val toast = Toast.makeText(activity, text, duration)
                 toast.show()
             }
         }
