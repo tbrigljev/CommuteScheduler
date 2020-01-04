@@ -37,7 +37,6 @@ const val QUICK = 6
 const val SETTINGS = 99
 
 var commutesList : CommutesItemsList? = null
-
 /* *************************************************************** */
 
 /* *************************************************************** */
@@ -96,13 +95,9 @@ class MainActivity :
         toolbar.title = getString(R.string.name_main)
         previousTitle = getString(R.string.name_main)
 
-
-        //commutesList = CommutesItemsList()
-
         /* Create a singleton of the class Commutes for the list * */
         /* *** of commutes and database instance ***************** */
         commutesList = CommutesItemsList.getSingleton(this)
-
 
         /* This object contains all the methods fo using the ***** */
         /* *** Google API **************************************** */
