@@ -12,7 +12,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import java.text.SimpleDateFormat
@@ -49,8 +52,6 @@ class FragmentCommutesEdit(
     private lateinit var commuteOriginAddress : AutocompleteSupportFragment
     private lateinit var commuteDestination : EditText
     private lateinit var commuteDestinationAddress : AutocompleteSupportFragment
-    private lateinit var alarmsEnableSwitch : Switch
-
 
     private lateinit var chooseDate : TextView
     private lateinit var chooseTime : TextView
@@ -80,12 +81,6 @@ class FragmentCommutesEdit(
         validateEditButton =
             view.findViewById(R.id.edit_button_validate)
                     as ImageButton
-        alarmsEnableSwitch =
-            view.findViewById(R.id.alarmsEnableSwitch)
-                    as Switch
-
-
-
 
         commuteName = view.findViewById(R.id.edit_title)
 
@@ -259,7 +254,6 @@ class FragmentCommutesEdit(
                     arrivalDate +
                             " " + arrivalTime
 
-                newCommute.alarm=alarmsEnableSwitch.isChecked
                 if(new){
 
                     text = "Commute added"
