@@ -86,9 +86,7 @@ class CommutesAdapter(
         private val simpleTimeDuration : TextView
 
         private val extendedStart : TextView
-        private val extendedStartAddress : TextView
         private val extendedEnd : TextView
-        private val extendedEndAddress : TextView
         private val extendedTimeStart : TextView
         private val extendedTimeEnd : TextView
         private val extendedTimeDuration : TextView
@@ -140,14 +138,8 @@ class CommutesAdapter(
             extendedStart =
                 view.findViewById(R.id.element_extended_start)
                         as TextView
-            extendedStartAddress =
-                view.findViewById(R.id.element_extended_start_address)
-                        as TextView
             extendedEnd =
                 view.findViewById(R.id.element_extended_end)
-                        as TextView
-            extendedEndAddress =
-                view.findViewById(R.id.element_extended_end_address)
                         as TextView
             extendedTimeStart =
                 view.findViewById(R.id.element_extended_start_time)
@@ -184,13 +176,39 @@ class CommutesAdapter(
 
             if((itemInList != null) and
                 (itemInList.duration_val!= null)){
+
                 val elementTitle = itemInList.name
                 title.text = elementTitle
 
-                val elementSimpleStart = itemInList.start
-                simpleStart.text = elementSimpleStart
-                val elementSimpleEnd = itemInList.arrival
-                simpleEnd.text = elementSimpleEnd
+                if(itemInList.start == ""){
+                    val elementSimpleStart =
+                        itemInList.start_address
+                    simpleStart.text =
+                        elementSimpleStart
+                    val elementSimpleEnd =
+                        itemInList.arrival_address
+                    simpleEnd.text =
+                        elementSimpleEnd
+                } else {
+                    val elementSimpleStart =
+                        itemInList.start
+                    simpleStart.text =
+                        elementSimpleStart
+                    val elementSimpleEnd =
+                        itemInList.arrival
+                    simpleEnd.text =
+                        elementSimpleEnd
+                }
+
+                val elementExtendedStart =
+                    itemInList.start_address
+                extendedStart.text =
+                    elementExtendedStart
+                val elementExtendedEnd =
+                    itemInList.arrival_address
+                extendedEnd.text =
+                    elementExtendedEnd
+
                 val elementSimpleTime =
                     itemInList.duration_val!!.toInt()/60
                 var hoursText = ""
@@ -210,22 +228,7 @@ class CommutesAdapter(
                 }
                 simpleTimeDuration.text = hoursText + minutesText
 
-                val elementExtendedStart =
-                    itemInList.start
-                extendedStart.text =
-                    elementExtendedStart
-                val elementExtendedStartAddress =
-                    itemInList.start_address
-                extendedStartAddress.text =
-                    elementExtendedStartAddress
-                val elementExtendedEnd =
-                    itemInList.arrival
-                extendedEnd.text =
-                    elementExtendedEnd
-                val elementExtendedEndAddress =
-                    itemInList.arrival_address
-                extendedEndAddress.text =
-                    elementExtendedEndAddress
+
                 val elementTimeDeparture =
                     itemInList.start_time_short
                 extendedTimeStart.text =
@@ -281,7 +284,7 @@ class CommutesAdapter(
                             View.GONE -> {
                                 layoutExtended.visibility = View.VISIBLE
                                 layoutSimple.visibility = View.GONE
-                                val pos = getAdapterPosition()
+                                val pos = adapterPosition
                                 var commute : Commute =
                                     commutesList!!.commutesItemsList[pos]
 
@@ -301,7 +304,9 @@ class CommutesAdapter(
                 override fun onSwipeRight(){
                     if (previousPosition != adapterPosition) {
                         val viewPrevious : View =
-                            mRecyclerView!!.findViewHolderForAdapterPosition(previousPosition)!!.itemView
+                            mRecyclerView!!
+                                .findViewHolderForAdapterPosition(previousPosition)!!
+                                .itemView
                         val layoutButtonsPrevious : ConstraintLayout =
                             viewPrevious
                                 .findViewById(R.id.buttons_container)
@@ -356,8 +361,6 @@ class CommutesAdapter(
     }
 
     fun removeAt(position: Int){
-
-
         doAsync{
             commutesList!!
                 .database

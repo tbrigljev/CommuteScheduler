@@ -32,9 +32,11 @@ class FragmentCommutesEdit(
 
     companion object {
         //var start: String = "Fribourg"
-        var start : String = ""
+        var start_name : String = ""
+        var start_address : String = ""
         //var arrival: String = "Granges-Paccot"
-        var arrival : String = ""
+        var arrival_name : String = ""
+        var arrival_address : String = ""
     }
     private var mListener : OnFragmentInteractionListener? = null
 
@@ -81,12 +83,14 @@ class FragmentCommutesEdit(
 
         commuteName = view.findViewById(R.id.edit_title)
 
+        commuteOrigin = view.findViewById(R.id.edit_start)
         commuteOriginAddress = childFragmentManager
             .findFragmentById(R.id.fragment_start)
                 as AutocompleteSupportFragment
         commuteOriginAddress
             .setHint(getString(R.string.field_departure))
 
+        commuteDestination = view.findViewById(R.id.edit_arrival)
         commuteDestinationAddress = childFragmentManager
             .findFragmentById(R.id.fragment_arrival)
                 as AutocompleteSupportFragment
@@ -151,13 +155,20 @@ class FragmentCommutesEdit(
 
         if(new){
             commuteName.setText("")
+            commuteOrigin.setText("")
+            commuteDestination.setText("")
         } else {
             commuteName.setText(commutesList!!.commutesItemsList[pos].name)
-            start = commutesList!!.commutesItemsList[pos].start
-            arrival = commutesList!!.commutesItemsList[pos].arrival
+            start_name = commutesList!!.commutesItemsList[pos].start
+            start_address = commutesList!!.commutesItemsList[pos].start_address
+            arrival_name = commutesList!!.commutesItemsList[pos].arrival
+            arrival_address = commutesList!!.commutesItemsList[pos].arrival_address
 
-            commuteOriginAddress.setText(start)
-            commuteDestinationAddress.setText(arrival)
+            commuteOrigin.setText(start_name)
+            commuteOriginAddress.setText(start_address)
+            commuteDestination.setText(arrival_name)
+            commuteDestinationAddress.setText(arrival_address)
+
             val date = commutesList!!
                 .commutesItemsList[pos]
                 .arrival_time_long
@@ -212,6 +223,8 @@ class FragmentCommutesEdit(
 
             val newCommute = Commute()
 
+            val startName = commuteOrigin.text.toString()
+            val arrivalName = commuteDestination.text.toString()
             val arrivalDate = chooseDate.text.toString()
             val arrivalTime = chooseTime.text.toString()
 
@@ -219,9 +232,9 @@ class FragmentCommutesEdit(
 
             if(commuteName.text.toString() == "")
                 text = "Name of commute is missing"
-            else if(start == "")
+            else if(start_address == "")
                 text = "Starting location is missing"
-            else if(arrival == "")
+            else if(arrival_address == "")
                 text = "Destination is missing"
             else if(arrivalDate == "")
                 text = "Date information is missing"
@@ -229,8 +242,10 @@ class FragmentCommutesEdit(
                 text = "Time information is missing"
             else {
                 newCommute.name = commuteName.text.toString()
-                newCommute.start = start
-                newCommute.arrival = arrival
+                newCommute.start = startName
+                newCommute.start_address = start_address
+                newCommute.arrival = arrivalName
+                newCommute.arrival_address = arrival_address
                 newCommute.arrival_time_short =
                     "on " + arrivalDate +
                             ", at " + arrivalTime
@@ -271,7 +286,13 @@ class FragmentCommutesEdit(
                         .start = newCommute.start
                     commutesList!!
                         .commutesItemsList[pos]
+                        .start_address = newCommute.start_address
+                    commutesList!!
+                        .commutesItemsList[pos]
                         .arrival = newCommute.arrival
+                    commutesList!!
+                        .commutesItemsList[pos]
+                        .arrival_address = newCommute.arrival_address
                     commutesList!!
                         .commutesItemsList[pos]
                         .arrival_time_long = newCommute.arrival_time_long

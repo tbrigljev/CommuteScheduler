@@ -89,7 +89,7 @@ class GoogleAPI{
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
-                        FragmentCommutesEdit.start = p0.address!!
+                        FragmentCommutesEdit.start_address = p0.address!!
                         // getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}
@@ -107,7 +107,7 @@ class GoogleAPI{
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
-                        FragmentCommutesEdit.arrival = p0.address!!
+                        FragmentCommutesEdit.arrival_address = p0.address!!
                         // getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}
@@ -143,7 +143,6 @@ class GoogleAPI{
                     override fun onError(p0 : Status){}
                 }
             )
-
     }
 
     /* Google Routes ********************************************* */
@@ -175,8 +174,8 @@ class GoogleAPI{
         mSender = "Service"
         isNew = false
         val mCommute = Commute()
-        mCommute.start=origin
-        mCommute.arrival=destination
+        mCommute.start_address = origin
+        mCommute.arrival_address = destination
         mCommute.arrival_time_long="Now"
         routeArrivalTime="Now"
 
@@ -192,8 +191,8 @@ class GoogleAPI{
 
         val mRoute =
             "https://maps.googleapis.com/maps/" +
-                    "api/directions/json?origin=" + mCommute.start +
-                    "&destination=" + mCommute.arrival +
+                    "api/directions/json?origin=" + mCommute.start_address +
+                    "&destination=" + mCommute.arrival_address +
                     "&departure_time=" + startTime +
                     "&traffic_model=best_guess" +
                     "&key=" + MainActivity.GoogleKey
@@ -208,8 +207,8 @@ class GoogleAPI{
         val mCommute : Commute = readJSON(json)
 
         if((mCommute.arrival_time_long != "Now")and (mSender!="Service")){
-            mCommute.start = commutesList!!.commutesItemsList[mPosition].start
-            mCommute.arrival = commutesList!!.commutesItemsList[mPosition].arrival
+            mCommute.start_address = commutesList!!.commutesItemsList[mPosition].start_address
+            mCommute.arrival_address = commutesList!!.commutesItemsList[mPosition].arrival_address
             mCommute.arrival_time_long = commutesList!!.commutesItemsList[mPosition].arrival_time_long
             mCommute.start_time_UTC= routeStartTimeUTC
             mCommute.arrival_time_UTC= routeArrivalTimeUTC
