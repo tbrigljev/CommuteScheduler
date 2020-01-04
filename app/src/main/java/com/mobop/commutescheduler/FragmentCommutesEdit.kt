@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import org.jetbrains.anko.collections.forEachReversedByIndex
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -94,14 +95,12 @@ class FragmentCommutesEdit(
         commuteOriginFavSpinner = view.findViewById(R.id.commuteOriginFavSpinner)
         commuteDestinationFavSpinner = view.findViewById(R.id.commuteDestinationFavSpinner)
 
-        commuteOrigin = view.findViewById(R.id.edit_start)
         commuteOriginAddress = childFragmentManager
             .findFragmentById(R.id.fragment_start)
                 as AutocompleteSupportFragment
         commuteOriginAddress
             .setHint(getString(R.string.field_departure))
 
-        commuteDestination = view.findViewById(R.id.edit_arrival)
         commuteDestinationAddress = childFragmentManager
             .findFragmentById(R.id.fragment_arrival)
                 as AutocompleteSupportFragment
@@ -169,46 +168,65 @@ class FragmentCommutesEdit(
         }
 
         val fav=ArrayList<String>()
-        commutesList!!.favoritesItemsList.forEach {fav.add(it.name+ " (" + it.address + ")")}
-
+        fav.add("")
+        commutesList!!.favoritesItemsList.forEachReversedByIndex {fav.add(it.name)}
         if (commuteOriginFavSpinner != null) {
 
 
 
-            val adapterO = ArrayAdapter(activity,
+            val adapterFavOrig = ArrayAdapter(activity,
                 android.R.layout.simple_spinner_item, fav)
-            commuteOriginFavSpinner.adapter = adapterO
+            commuteOriginFavSpinner.adapter = adapterFavOrig
 
-            /*commuteOriginFavSpinner.onItemSelectedListener = object :
+            commuteOriginFavSpinner.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>,
                                             view: View, position: Int, id: Long) {
+                    if (position > 0){
+                        start_name=commutesList!!.favoritesItemsList[position-1].name
+                        start_address=commutesList!!.favoritesItemsList[position-1].address
+                        commuteOriginAddress.setText(start_address)
 
+                    }
+                    else {
+                        commuteOriginAddress.setText("")
+                        start_address=""
+                    }
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>) {
+               override fun onNothingSelected(parent: AdapterView<*>) {
                     // write code to perform some action
                 }
-            }*/
+            }
         }
 
         if (commuteDestinationFavSpinner != null) {
 
-            val adapter = ArrayAdapter(activity,
+            val adapterFavDest = ArrayAdapter(activity,
                 android.R.layout.simple_spinner_item, fav)
-            commuteDestinationFavSpinner.adapter = adapter
 
-            /*commuteDestinationFavSpinner.onItemSelectedListener = object :
+            commuteDestinationFavSpinner.adapter = adapterFavDest
+
+            commuteDestinationFavSpinner.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>,
                                             view: View, position: Int, id: Long) {
+                    if (position > 0){
+                        arrival_name=commutesList!!.favoritesItemsList[position-1].name
+                        arrival_address=commutesList!!.favoritesItemsList[position-1].address
+                        commuteDestinationAddress.setText(arrival_address)
 
+                    }
+                    else {
+                        commuteDestinationAddress.setText("")
+                        arrival_address=""
+                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     // write code to perform some action
                 }
-            }*/
+            }
         }
 
 
@@ -282,8 +300,8 @@ class FragmentCommutesEdit(
 
             val newCommute = Commute()
 
-            val startName = commuteOrigin.text.toString()
-            val arrivalName = commuteDestination.text.toString()
+            //val startName = commuteOrigin.text.toString()
+            //val arrivalName = commuteDestination.text.toString()
             val arrivalDate = chooseDate.text.toString()
             val arrivalTime = chooseTime.text.toString()
 
@@ -301,9 +319,9 @@ class FragmentCommutesEdit(
                 text = "Time information is missing"
             else {
                 newCommute.name = commuteName.text.toString()
-                newCommute.start = startName
+                newCommute.start = start_name
                 newCommute.start_address = start_address
-                newCommute.arrival = arrivalName
+               newCommute.arrival = arrival_name
                 newCommute.arrival_address = arrival_address
 
                 val time = arrivalTime.split(":")
@@ -391,8 +409,8 @@ class FragmentCommutesEdit(
                 source[1] = pos
                 mListener!!.onFragmentInteraction(fragmentCaller, source)
                 commuteName.setText("")
-                commuteOrigin.setText("")
-                commuteDestination.setText("")
+                //commuteOrigin.setText("")
+                //commuteDestination.setText("")
             }
         }
     }
