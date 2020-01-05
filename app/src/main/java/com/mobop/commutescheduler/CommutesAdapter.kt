@@ -209,9 +209,15 @@ class CommutesAdapter(
                     itemInList.arrival_address
                 extendedEnd.text =
                     elementExtendedEnd
+                var elementSimpleTime: Int =0
+                if (itemInList.duration_traffic_val != null) {
+                    elementSimpleTime =
+                        itemInList.duration_traffic_val!!.toInt()/60
 
-                val elementSimpleTime =
-                    itemInList.duration_val!!.toInt()/60
+                }else{
+                    //elementSimpleTime = itemInList.duration_val!!.toInt()/60
+                }
+
                 var hoursText = ""
                 var minutesText = ""
                 if(elementSimpleTime >= 60){
