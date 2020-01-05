@@ -64,8 +64,15 @@ class FragmentQuick : Fragment(){
         container : ViewGroup?,
         savedInstanceState : Bundle?) : View?{
 
+        /*
         val view : View = inflater.inflate(
             R.layout.quick_layout_temp,
+            container,
+            false
+        )*/
+
+        val view : View = inflater.inflate(
+            R.layout.fragment_quick,
             container,
             false
         )

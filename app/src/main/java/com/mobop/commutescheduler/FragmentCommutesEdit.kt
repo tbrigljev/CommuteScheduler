@@ -312,10 +312,6 @@ class FragmentCommutesEdit(
             val format = "yyyy-MM-dd hh:mm:ss"
             val sdf = SimpleDateFormat(format)
 
-            val arrivalDateTime = arrivalDate + " " + arrivalTime
-            val timeArrival = sdf.parse(arrivalDateTime)
-            val timeNow = Calendar.getInstance().time
-
             lateinit var text : String
 
             if(commuteName.text.toString() == "")
@@ -328,86 +324,92 @@ class FragmentCommutesEdit(
                 text = "Date information is missing"
             else if(arrivalTime == "")
                 text = "Time information is missing"
-            else if(timeArrival <= timeNow){
-                text = "Please chose a later date and/or time"
-            } else {
-                newCommute.name = commuteName.text.toString()
-                newCommute.start = start_name
-                newCommute.start_address = start_address
-                newCommute.arrival = arrival_name
-                newCommute.arrival_address = arrival_address
+            else{
+                val arrivalDateTime = arrivalDate + " " + arrivalTime
+                val timeArrival = sdf.parse(arrivalDateTime)
+                val timeNow = Calendar.getInstance().time
 
-                val time = arrivalTime.split(":")
-                val date = arrivalDate.split("-")
-                newCommute.arrival_time_short =
-                    "on " + date[2] + "." + date[1] + "." + date[0] +
-                            ", at " + time[0] + ":" + time[1]
-                newCommute.arrival_time_long =
-                    arrivalDate +
-                            " " + arrivalTime
+                if(timeArrival <= timeNow){
+                    text = "Please chose a later date and/or time"
+                } else {
+                    newCommute.name = commuteName.text.toString()
+                    newCommute.start = start_name
+                    newCommute.start_address = start_address
+                    newCommute.arrival = arrival_name
+                    newCommute.arrival_address = arrival_address
 
-                newCommute.alarm = alarmEnableSwitch.isChecked
-                if(new){
+                    val time = arrivalTime.split(":")
+                    val date = arrivalDate.split("-")
+                    newCommute.arrival_time_short =
+                        "on " + date[2] + "." + date[1] + "." + date[0] +
+                                ", at " + time[0] + ":" + time[1]
+                    newCommute.arrival_time_long =
+                        arrivalDate +
+                                " " + arrivalTime
 
-                    text = "Commute added"
-                    //var arrival_time = "2019-12-31 23:00:00"
-                    commutesList!!.commutesItemsList.add(newCommute)
+                    newCommute.alarm = alarmEnableSwitch.isChecked
+                    if(new){
+
+                        text = "Commute added"
+                        //var arrival_time = "2019-12-31 23:00:00"
+                        commutesList!!.commutesItemsList.add(newCommute)
 
 
-                    val pos = commutesList!!.commutesItemsList.size - 1
-                    MainActivity.mGoogleAPI!!.requestRoute(
-                        "Activity", pos, true)
+                        val pos = commutesList!!.commutesItemsList.size - 1
+                        MainActivity.mGoogleAPI!!.requestRoute(
+                            "Activity", pos, true)
 
-                    var prevPos = FragmentCommutes.mAdapter!!.previousPosition
-                    if(commutesList!!.commutesItemsList.count() < 2){
-                        prevPos = -1
-                    }
-                    if((prevPos != -1) and
-                        (prevPos < FragmentCommutes.mAdapter!!.commutesItemsList.size)){
+                        var prevPos = FragmentCommutes.mAdapter!!.previousPosition
+                        if(commutesList!!.commutesItemsList.count() < 2){
+                            prevPos = -1
+                        }
+                        if((prevPos != -1) and
+                            (prevPos < FragmentCommutes.mAdapter!!.commutesItemsList.size)){
+                            FragmentCommutes.mAdapter!!.viewLayouts(
+                                visibleLayoutButtons = false,
+                                visibleLayoutExtended = false,
+                                pos = FragmentCommutes.mAdapter!!.previousPosition
+                            )
+                        }
+                    } else {
+                        text = "Commute modified"
+                        commutesList!!
+                            .commutesItemsList[pos]
+                            .name = newCommute.name
+                        commutesList!!
+                            .commutesItemsList[pos]
+                            .start = newCommute.start
+                        commutesList!!
+                            .commutesItemsList[pos]
+                            .start_address = newCommute.start_address
+                        commutesList!!
+                            .commutesItemsList[pos]
+                            .arrival = newCommute.arrival
+                        commutesList!!
+                            .commutesItemsList[pos]
+                            .arrival_address = newCommute.arrival_address
+                        commutesList!!
+                            .commutesItemsList[pos]
+                            .arrival_time_long = newCommute.arrival_time_long
+                        commutesList!!
+                            .commutesItemsList[pos]
+                            .arrival_time_short = newCommute.arrival_time_short
+
+                        MainActivity.mGoogleAPI!!.requestRoute(
+                            "Activity",
+                            pos,
+                            false)
+
                         FragmentCommutes.mAdapter!!.viewLayouts(
                             visibleLayoutButtons = false,
                             visibleLayoutExtended = false,
-                            pos = FragmentCommutes.mAdapter!!.previousPosition
+                            pos = pos
                         )
+                        FragmentCommutes
+                            .mRecyclerView!!
+                            .adapter!!
+                            .notifyDataSetChanged()
                     }
-                } else {
-                    text = "Commute modified"
-                    commutesList!!
-                        .commutesItemsList[pos]
-                        .name = newCommute.name
-                    commutesList!!
-                        .commutesItemsList[pos]
-                        .start = newCommute.start
-                    commutesList!!
-                        .commutesItemsList[pos]
-                        .start_address = newCommute.start_address
-                    commutesList!!
-                        .commutesItemsList[pos]
-                        .arrival = newCommute.arrival
-                    commutesList!!
-                        .commutesItemsList[pos]
-                        .arrival_address = newCommute.arrival_address
-                    commutesList!!
-                        .commutesItemsList[pos]
-                        .arrival_time_long = newCommute.arrival_time_long
-                    commutesList!!
-                        .commutesItemsList[pos]
-                        .arrival_time_short = newCommute.arrival_time_short
-
-                    MainActivity.mGoogleAPI!!.requestRoute(
-                        "Activity",
-                        pos,
-                        false)
-
-                    FragmentCommutes.mAdapter!!.viewLayouts(
-                        visibleLayoutButtons = false,
-                        visibleLayoutExtended = false,
-                        pos = pos
-                    )
-                    FragmentCommutes
-                        .mRecyclerView!!
-                        .adapter!!
-                        .notifyDataSetChanged()
                 }
             }
 
