@@ -1,5 +1,4 @@
 package com.mobop.commutescheduler
-// comment
 
 /* Import ******************************************************** */
 import android.content.Context
@@ -7,12 +6,11 @@ import org.jetbrains.anko.doAsync
 import com.google.android.gms.maps.model.LatLng
 import java.util.*
 import androidx.room.*
-import androidx.room.ForeignKey.CASCADE
-import androidx.room.ForeignKey.SET_NULL
 /* *************************************************************** */
 
 /* CommutesItems ************************************************* */
-/* Contents of the recycler view (list) of commutes items ******** */
+/* Contents of the recycler view (list) of commutes items and **** */
+/* *** favorites items ******************************************* */
 class CommutesItemsList private constructor(context : Context){
 
     var commutesItemsList = ArrayList<Commute>()
@@ -136,7 +134,6 @@ class CommutesItemsList private constructor(context : Context){
             //favoritesItemsList.add(home)
             //favoritesItemsList.add(school)
             //favoritesItemsList.add(work)
-
         }
     }
 }
@@ -147,7 +144,7 @@ data class Commute(
 
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pid") var pid : Long = 0,
 
-    @ColumnInfo(name = "name") var name: String = "",
+    @ColumnInfo(name = "name") var name : String = "",
 
     @ColumnInfo(name = "start") var start : String = "",
     @ColumnInfo(name = "start_address")  var start_address : String = "",
@@ -173,9 +170,9 @@ data class Commute(
     @ColumnInfo(name = "raw_data") var raw_data : String? = null,
     @ColumnInfo(name = "errorTraffic") var errorTraffic : Long? = null,
 
-    @ColumnInfo(name = "alarm") var alarm: Boolean = false,
-    @ColumnInfo(name = "next_update") var next_update: String = "",
-    @ColumnInfo(name = "active") var active: Boolean = true,
+    @ColumnInfo(name = "alarm") var alarm : Boolean = false,
+    @ColumnInfo(name = "next_update") var next_update : String = "",
+    @ColumnInfo(name = "active") var active : Boolean = true,
 
    /* var reminder_on : Boolean = false,
     var reminder_tune : String? = null,
@@ -188,7 +185,7 @@ data class Commute(
     // @Relation(parentColumn = "aid", entityColumn = "adrId")
     // var address: List<Address>? = null,
 
-    var typeItem: Int=1,
+    var typeItem : Int = 1,
     @Ignore var start_address_LatLng : LatLng? = null,
     @Ignore var arrival_address_LatLng : LatLng? = null,
 
@@ -199,9 +196,9 @@ data class Commute(
 @Entity(tableName = "Favorite" )
 data class Favorite(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pid") var pid : Long = 0,
-    @ColumnInfo(name = "name") var name: String = "",
+    @ColumnInfo(name = "name") var name : String = "",
     @ColumnInfo(name = "address") var address : String = "",
-    var typeItem: Int=1
+    var typeItem : Int = 1
 )
 
 
@@ -210,66 +207,65 @@ data class Favorite(
 interface RouteDao {
     // Commute
     @Query("SELECT * FROM Commute")
-    fun getAll(): List<Commute>
+    fun getAll() : List<Commute>
 
     @Insert
-    fun insertAll(path: Commute): Long
+    fun insertAll(path : Commute) : Long
 
     @Update
-    fun updateAll(vararg path: Commute)
+    fun updateAll(vararg path : Commute)
 
     //@Query("DELETE FROM todoitemcontent WHERE uid = :uid")
     //fun deleteItem(vararg uid: Long): Int
 
     @Delete
-    fun deleteAll(vararg path: Commute)
+    fun deleteAll(vararg path : Commute)
 
-    @Query("SELECT * FROM Commute WHERE pid=:pathId")
-    fun getRoute(pathId: Long): Commute
+    @Query("SELECT * FROM Commute WHERE pid = :pathId")
+    fun getRoute(pathId: Long) : Commute
 
 
     // Favorite
     @Query("SELECT * FROM Favorite")
-    fun getAllFavorite(): List<Favorite>
+    fun getAllFavorite() : List<Favorite>
 
     @Insert
-    fun insertAllFavorite(path: Favorite): Long
+    fun insertAllFavorite(path : Favorite) : Long
 
     @Update
-    fun updateAllFavorite(vararg path: Favorite)
+    fun updateAllFavorite(vararg path : Favorite)
 
     @Query("DELETE FROM Favorite WHERE pid = :pid")
-    fun deleteItem(vararg pid: Long): Int
+    fun deleteItem(vararg pid : Long) : Int
 
     @Delete
-    fun deleteAllFavorite(vararg path: Favorite)
+    fun deleteAllFavorite(vararg path : Favorite)
 
-    @Query("SELECT * FROM Favorite WHERE pid=:pathId")
-    fun getFavorite(pathId: Long): Favorite
+    @Query("SELECT * FROM Favorite WHERE pid = :pathId")
+    fun getFavorite(pathId : Long) : Favorite
 }
 
 @Database(
     //entities = arrayOf(Commute::class),
-    entities = [Commute::class,Favorite::class],
+    entities = [Commute::class, Favorite::class],
     version = 1
 )
 
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun routeDao(): RouteDao
+    abstract fun routeDao() : RouteDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
         // same time.
         @Volatile
-        private var INSTANCE: AppDatabase? = null
+        private var INSTANCE : AppDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase{
+        fun getDatabase(context : Context) : AppDatabase{
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
             }
             synchronized(this){
-
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
