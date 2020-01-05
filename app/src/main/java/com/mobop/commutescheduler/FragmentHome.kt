@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 /* FragmentHome ************************************************** */
 /* Shows up when launching the app, combines the map, commutes and */
 /* quick-route on one screen ************************************* */
+
 class FragmentHome : Fragment(){
 
     companion object {
