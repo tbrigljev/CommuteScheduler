@@ -1,11 +1,10 @@
 package com.mobop.commutescheduler
-// comment
 
 /* *************************************************************** */
 /* HES-SO Master Mobile Operating Systems and Applications ******* */
 /* Final project: Commute scheduler ****************************** */
 /* Teo BRIGLJEVIC, Funda CUBUK, Antonio GONZALEZ PUERTAS ********* */
-/* Autumn 2019 *************************************************** */
+/* January 2020 ************************************************** */
 /* *************************************************************** */
 
 /* Import ******************************************************** */
@@ -150,10 +149,9 @@ class MainActivity :
 
     fun routeRequestedReady(pos : Int, isNew : Boolean){
         val mCommute = commutesList!!.commutesItemsList[pos]
-        if (isNew) {
+        if(isNew){
             doAsync{
                 mCommute.pid=commutesList!!.database.insertAll(mCommute)
-
             }
             //commutesList!!.commutesItemsList.add(mCommute)
             FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
@@ -161,7 +159,7 @@ class MainActivity :
             FragmentCommutes.mRecyclerView!!.smoothScrollToPosition(lastPos)
             //FragmentCommutes.mAdapter!!.viewLayouts(false,true,lastPos) //Gives an execption ??
 
-            if (mCommute.alarm) {
+            if(mCommute.alarm){
                 val checkPoint = 15 // 15min
                 Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
 
@@ -171,7 +169,7 @@ class MainActivity :
             checkPoint =60 // 1h
             Notifications().setNotification(mCommute, checkPoint, this@MainActivity)*/
             }
-        }else{ //Modification
+        } else { //Modification
             doAsync{ commutesList!!
                 .database
                 .updateAll(commutesList!!.commutesItemsList[pos])}
@@ -201,7 +199,7 @@ class MainActivity :
         FragmentMap.mapFieldCommuteName.text = mCommute.name
 
         val startAddress =
-            mCommute.start_address.toString().split(", ")
+            mCommute.start_address.split(", ")
         var startAddressText = ""
         for(startAddressBit in startAddress){
             startAddressText += startAddressBit + "\n"
@@ -217,9 +215,9 @@ class MainActivity :
         FragmentMap.mapOverlayStartTime.text = startTimeText.trim()
 
         val arrivalAddress =
-            mCommute.arrival_address.toString().split(", ")
+            mCommute.arrival_address.split(", ")
         var arrivalAddressText = ""
-        for (arrivalAddressBit in arrivalAddress){
+        for(arrivalAddressBit in arrivalAddress){
             arrivalAddressText += arrivalAddressBit + "\n"
         }
         FragmentMap.mapOverlayDestination.text = arrivalAddressText.trim()
@@ -295,7 +293,7 @@ class MainActivity :
                 FrameLayout =
             findViewById(R.id.main_container_shortcuts)
 
-        when (fragmentCaller){
+        when(fragmentCaller){
             MAIN -> {
                 when(fragmentState[0]){
                     1 -> {
