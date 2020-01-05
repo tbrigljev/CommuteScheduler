@@ -1,13 +1,17 @@
 package com.mobop.commutescheduler
 
+/* Import ******************************************************** */
 import android.content.Context
-import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+/* *************************************************************** */
+
+/* FragmentSettings ********************************************** */
+/* Contains the "About" tab for the application ****************** */
 
 class FragmentSettings : Fragment(){
 
@@ -56,7 +60,7 @@ class FragmentSettings : Fragment(){
         if(context is OnFragmentInteractionListener){
             mListener = context
         } else{
-            throw RuntimeException(context!!.toString() +
+            throw RuntimeException(context.toString() +
                     " must implement OnFragmentInteractionListener")
         }
     }
