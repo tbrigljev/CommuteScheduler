@@ -112,7 +112,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
 
         mAdapter =
             CommutesAdapter(mRecyclerView!!,
-                R.layout.element_commute_combined,
+                R.layout.element_commute,
                 commutesList!!.commutesItemsList,
                 { partItem : Int,
                   action : Int ->

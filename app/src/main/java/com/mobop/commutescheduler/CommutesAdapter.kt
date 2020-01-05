@@ -48,7 +48,7 @@ class CommutesAdapter(
             ViewHolder{
 
         view = LayoutInflater.from(parent.context).inflate(
-                R.layout.element_commute_combined,
+                R.layout.element_commute,
                 parent,
                 false)
 
