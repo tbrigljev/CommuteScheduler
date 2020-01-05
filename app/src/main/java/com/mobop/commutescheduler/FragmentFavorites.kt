@@ -17,10 +17,11 @@ import androidx.recyclerview.widget.RecyclerView
 /* FragmentFavorites ********************************************* */
 /* Contains the list of favorites and the related buttons ******** */
 /* Contained in its standalone fragment ************************** */
+
 class FragmentFavorites : Fragment(){
     companion object{
         var mRecyclerView : RecyclerView? = null
-        var mAdapter : FavoritesAdapter?= null
+        var mAdapter : FavoritesAdapter? = null
     }
 
     private var mListener : OnFragmentInteractionListener? = null
