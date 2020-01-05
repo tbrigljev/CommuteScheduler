@@ -122,54 +122,57 @@ class CommutesItemsList private constructor(context : Context){
             */
 
             //C2D
-            val home = Favorite(
+            val Home = Favorite(
                 name = "Home",
                 address = "Route des Arsenaux 29, 1700 Fribourg")
-            val school = Favorite(
+            val School = Favorite(
                 name = "School",
                 address = "Avenue de Provence 6, 1007 Lausanne")
-            val work = Favorite(
+            val Work = Favorite(
                 name = "Work",
                 address = "Route de Morat 135, 1763 Granges-Paccot"
             )
-            val shopping = Favorite(
+            val Shopping = Favorite(
                 name = "Shopping",
                 address = "Migros Balexert, Geneve"
             )
-            val restaurant = Favorite(
+            val Restaurant = Favorite(
                 name = "Restaurant",
                 address = "Buffalo Grill, Archamps"
             )
 
-            val club = Favorite(name = "Club", address ="")
-            val bar = Favorite(name = "Bar", address ="")
-            val friends = Favorite(name = "Friends", address ="")
-            val kids = Favorite(name = "Kids", address ="")
-            val gym = Favorite(name = "Gym", address ="")
-            val gasStation = Favorite(name = "Gas Station", address ="")
-            val train = Favorite(name = "Train", address ="")
-            val bank = Favorite(name = "Bank", address ="")
-            val vacation = Favorite(name = "Vacation", address ="")
-            val currentLocation = Favorite(name = "CurrentLocation", address ="")
+            val Club = Favorite(name = "Club", address ="")
+            val Bar = Favorite(name = "Bar", address ="")
+            val Friends = Favorite(name = "Friends", address ="")
+            val Kids = Favorite(name = "Kids", address ="")
+            val Gym = Favorite(name = "Gym", address ="")
+            val GasStation = Favorite(name = "Gas Station", address ="")
+            val Train = Favorite(name = "Train", address ="")
+            val Bank = Favorite(name = "Bank", address ="")
+            val Vacation = Favorite(name = "Vacation", address ="")
+            val CurrentLocation = Favorite(name = "CurrentLocation", address ="")
 
             val fav = ArrayList<String>()
             commutesList!!.favoritesItemsList.forEach {fav.add(it.name)}
 
-            if(fav!!.contains(club.name) == false)favoritesItemsList.add(club)
-            if(fav!!.contains(bar.name) == false)favoritesItemsList.add(bar)
-            if(fav!!.contains(restaurant.name) == false)favoritesItemsList.add(restaurant)
-            if(fav!!.contains(friends.name) == false)favoritesItemsList.add(friends)
-            if(fav!!.contains(kids.name) == false)favoritesItemsList.add(kids)
-            if(fav!!.contains(gym.name) == false)favoritesItemsList.add(gym)
-            if(fav!!.contains(gasStation.name) == false)favoritesItemsList.add(gasStation)
-            if(fav!!.contains(shopping.name) == false)favoritesItemsList.add(shopping)
-            if(fav!!.contains(train.name) == false)favoritesItemsList.add(train)
-            if(fav!!.contains(bank.name) == false)favoritesItemsList.add(bank)
-            if(fav!!.contains(work.name) == false)favoritesItemsList.add(work)
-            if(fav!!.contains(home.name) == false)favoritesItemsList.add(home)
-            if(fav!!.contains(vacation.name) == false)favoritesItemsList.add(vacation)
-            if(fav!!.contains(school.name) == false)favoritesItemsList.add(school)
-            if(fav!!.contains(currentLocation.name) == false)favoritesItemsList.add(currentLocation)
+            if(fav!!.contains(Club.name)==false) database.insertAllFavorite(Club)
+
+            if(fav!!.contains(Bar.name)==false)database.insertAllFavorite(Bar)
+            if(fav!!.contains(Restaurant.name)==false)database.insertAllFavorite(Restaurant)
+            if(fav!!.contains(Friends.name)==false)database.insertAllFavorite(Friends)
+            if(fav!!.contains(Kids.name)==false)database.insertAllFavorite(Kids)
+            if(fav!!.contains(Gym.name)==false)database.insertAllFavorite(Gym)
+            if(fav!!.contains(GasStation.name)==false)database.insertAllFavorite(GasStation)
+            if(fav!!.contains(Shopping.name)==false)database.insertAllFavorite(Shopping)
+            if(fav!!.contains(Train.name)==false)database.insertAllFavorite(Train)
+            if(fav!!.contains(Bank.name)==false)database.insertAllFavorite(Bank)
+            if(fav!!.contains(Work.name)==false)database.insertAllFavorite(Work)
+            if(fav!!.contains(Home.name)==false)database.insertAllFavorite(Home)
+            if(fav!!.contains(Vacation.name)==false)database.insertAllFavorite(Vacation)
+            if(fav!!.contains(School.name)==false)database.insertAllFavorite(School)
+            if(fav!!.contains(CurrentLocation.name)==false)database.insertAllFavorite(CurrentLocation)
+            favoritesItemsList.clear()
+            favoritesItemsList.addAll(database.getAllFavorite())
         }
     }
 }
