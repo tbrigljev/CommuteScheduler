@@ -428,6 +428,10 @@ class FragmentCommutesEdit(
                 source[1] = pos
                 mListener!!.onFragmentInteraction(fragmentCaller, source)
                 commuteName.setText("")
+                commuteDestinationFavSpinner.setSelection(0)
+                commuteOriginFavSpinner.setSelection(0)
+                commuteOriginAddress.setText("")
+                commuteDestinationAddress.setText("")
                 alarmEnableSwitch.isChecked = true
                 //commuteOrigin.setText("")
                 //commuteDestination.setText("")
