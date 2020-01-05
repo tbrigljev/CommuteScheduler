@@ -31,7 +31,6 @@ class FragmentQuick : Fragment(){
 
     private var source : IntArray = intArrayOf(0, 0)
 
-    //C2D
     private val fragmentID = 6
     private var startIcon : String? = null
     private var endIcon : String? = null
@@ -40,7 +39,6 @@ class FragmentQuick : Fragment(){
     private var commuteName : String? = null
     private var chooseDate : String? = null
     private var chooseTime : String? = null
-    //C2D
     private var mPaint : Paint? = null
     private var mCanvas : FingerLine? = null
 
@@ -56,7 +54,6 @@ class FragmentQuick : Fragment(){
         var endYIcon : Float = 0.toFloat()
     }
 
-    //C2D
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }
@@ -105,7 +102,6 @@ class FragmentQuick : Fragment(){
 
                 val linearLayoutLoc = IntArray(2)
                 Layout1.getLocationOnScreen(linearLayoutLoc)
-                //C2D
                 val xLayout = linearLayoutLoc[0]
                 val yLayout = linearLayoutLoc[1]
                 startIcon = view.tag.toString()
@@ -132,7 +128,6 @@ class FragmentQuick : Fragment(){
 
                                 val linearLayoutLoc = IntArray(2)
                                 Layout1.getLocationOnScreen(linearLayoutLoc)
-                                //C2D
                                 val xLayout = linearLayoutLoc[0]
                                 val yLayout = linearLayoutLoc[1]
                                 if((endX >= endXIcon) and
@@ -348,7 +343,6 @@ class FragmentQuick : Fragment(){
         mListener = null
     }
 
-    //C2D
     interface OnFragmentInteractionListener{
         fun onFragmentInteraction(
             fragmentCaller : Int,

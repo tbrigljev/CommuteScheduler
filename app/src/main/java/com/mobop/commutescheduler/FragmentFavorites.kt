@@ -35,7 +35,6 @@ class FragmentFavorites : Fragment(){
     private lateinit var emptyFavorites : ConstraintLayout
     private lateinit var emptyFavoritesAdd : ImageButton
 
-    //C2D
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }

@@ -40,7 +40,6 @@ class FragmentFavoritesEdit(
     private lateinit var favoriteName : EditText
     private lateinit var favoriteAddress : AutocompleteSupportFragment
 
-    //C2D
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }

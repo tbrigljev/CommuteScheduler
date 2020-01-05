@@ -57,7 +57,6 @@ class FragmentCommutesEdit(
     private lateinit var chooseDate : TextView
     private lateinit var chooseTime : TextView
 
-    //C2D
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }

@@ -48,7 +48,7 @@ class CommutesItemsList private constructor(context : Context){
                     { it.start_time_long },
                     { it.arrival_time_long }))
 
-            /*C2D
+            /*
             val homeToSchool = Commute(
                 name = "Home2School",
                 start = "",
@@ -59,7 +59,7 @@ class CommutesItemsList private constructor(context : Context){
                 arrival_time_long = "2020-01-15 08:00:00",
                 days = mutableListOf(R.string.Tuesday, R.string.Thursday),
                 duration = "01:12",
-                duration_val = 999/*,C2D
+                duration_val = 999/*,
                 reminder_on = true,
                 reminder_tune = "Kimmunicator",
                 alarm_on = false,
@@ -75,7 +75,7 @@ class CommutesItemsList private constructor(context : Context){
                 arrival_time_long = "2020-02-20 07:00:00",
                 days = mutableListOf(R.string.Monday, R.string.Wednesday, R.string.Friday),
                 duration = "00:25",
-                duration_val = 999/*,C2D
+                duration_val = 999/*,
                 reminder_on = false,
                 reminder_tune = "Kimmunicator",
                 alarm_on = true,
@@ -121,56 +121,40 @@ class CommutesItemsList private constructor(context : Context){
             //commutesItemsList.add(longParamTest)
             */
 
-            //C2D
-            val Home = Favorite(
-                name = "Home",
-                address = "Route des Arsenaux 29, 1700 Fribourg")
-            val School = Favorite(
-                name = "School",
-                address = "Avenue de Provence 6, 1007 Lausanne")
-            val Work = Favorite(
-                name = "Work",
-                address = "Route de Morat 135, 1763 Granges-Paccot"
-            )
-            val Shopping = Favorite(
-                name = "Shopping",
-                address = "Migros Balexert, Geneve"
-            )
-            val Restaurant = Favorite(
-                name = "Restaurant",
-                address = "Buffalo Grill, Archamps"
-            )
-
-            val Club = Favorite(name = "Club", address ="")
-            val Bar = Favorite(name = "Bar", address ="")
-            val Friends = Favorite(name = "Friends", address ="")
-            val Kids = Favorite(name = "Kids", address ="")
-            val Gym = Favorite(name = "Gym", address ="")
-            val GasStation = Favorite(name = "Gas Station", address ="")
-            val Train = Favorite(name = "Train", address ="")
-            val Bank = Favorite(name = "Bank", address ="")
-            val Vacation = Favorite(name = "Vacation", address ="")
-            val CurrentLocation = Favorite(name = "CurrentLocation", address ="")
+            val home = Favorite(name = "Home", address = "")
+            val school = Favorite(name = "School", address = "")
+            val work = Favorite(name = "Work", address = "")
+            val shopping = Favorite(name = "Shopping", address = "")
+            val restaurant = Favorite(name = "Restaurant", address = "")
+            val club = Favorite(name = "Club", address = "")
+            val bar = Favorite(name = "Bar", address = "")
+            val friends = Favorite(name = "Friends", address = "")
+            val kids = Favorite(name = "Kids", address = "")
+            val gym = Favorite(name = "Gym", address = "")
+            val gasStation = Favorite(name = "Gas Station", address = "")
+            val train = Favorite(name = "Train", address = "")
+            val bank = Favorite(name = "Bank", address = "")
+            val vacation = Favorite(name = "Vacation", address = "")
+            val currentLocation = Favorite(name = "CurrentLocation", address = "")
 
             val fav = ArrayList<String>()
             commutesList!!.favoritesItemsList.forEach {fav.add(it.name)}
 
-            if(fav!!.contains(Club.name)==false) database.insertAllFavorite(Club)
-
-            if(fav!!.contains(Bar.name)==false)database.insertAllFavorite(Bar)
-            if(fav!!.contains(Restaurant.name)==false)database.insertAllFavorite(Restaurant)
-            if(fav!!.contains(Friends.name)==false)database.insertAllFavorite(Friends)
-            if(fav!!.contains(Kids.name)==false)database.insertAllFavorite(Kids)
-            if(fav!!.contains(Gym.name)==false)database.insertAllFavorite(Gym)
-            if(fav!!.contains(GasStation.name)==false)database.insertAllFavorite(GasStation)
-            if(fav!!.contains(Shopping.name)==false)database.insertAllFavorite(Shopping)
-            if(fav!!.contains(Train.name)==false)database.insertAllFavorite(Train)
-            if(fav!!.contains(Bank.name)==false)database.insertAllFavorite(Bank)
-            if(fav!!.contains(Work.name)==false)database.insertAllFavorite(Work)
-            if(fav!!.contains(Home.name)==false)database.insertAllFavorite(Home)
-            if(fav!!.contains(Vacation.name)==false)database.insertAllFavorite(Vacation)
-            if(fav!!.contains(School.name)==false)database.insertAllFavorite(School)
-            if(fav!!.contains(CurrentLocation.name)==false)database.insertAllFavorite(CurrentLocation)
+            if(fav!!.contains(club.name) == false) database.insertAllFavorite(club)
+            if(fav!!.contains(bar.name) == false)database.insertAllFavorite(bar)
+            if(fav!!.contains(restaurant.name) == false)database.insertAllFavorite(restaurant)
+            if(fav!!.contains(friends.name) == false)database.insertAllFavorite(friends)
+            if(fav!!.contains(kids.name) == false)database.insertAllFavorite(kids)
+            if(fav!!.contains(gym.name) == false)database.insertAllFavorite(gym)
+            if(fav!!.contains(gasStation.name) == false)database.insertAllFavorite(gasStation)
+            if(fav!!.contains(shopping.name) == false)database.insertAllFavorite(shopping)
+            if(fav!!.contains(train.name) == false)database.insertAllFavorite(train)
+            if(fav!!.contains(bank.name) == false)database.insertAllFavorite(bank)
+            if(fav!!.contains(work.name) == false)database.insertAllFavorite(work)
+            if(fav!!.contains(home.name) == false)database.insertAllFavorite(home)
+            if(fav!!.contains(vacation.name) == false)database.insertAllFavorite(vacation)
+            if(fav!!.contains(school.name) == false)database.insertAllFavorite(school)
+            if(fav!!.contains(currentLocation.name) == false)database.insertAllFavorite(currentLocation)
             favoritesItemsList.clear()
             favoritesItemsList.addAll(database.getAllFavorite())
         }
@@ -268,7 +252,6 @@ interface RouteDao {
 }
 
 @Database(
-    //C2D
     //entities = arrayOf(Commute::class),
     entities = [Commute::class, Favorite::class],
     version = 1

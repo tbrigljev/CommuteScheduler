@@ -54,7 +54,6 @@ class FragmentMap(screen : Int) :
 
     private lateinit var viewTrafficMapCheck : CheckBox
 
-    //C2D
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }

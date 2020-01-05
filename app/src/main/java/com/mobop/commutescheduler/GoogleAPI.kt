@@ -84,14 +84,12 @@ class GoogleAPI{
         autocompleteFragmentStart
             .setPlaceFields(placeFields)
         autocompleteFragmentStart
-            //C2D
             //.setHint("Set the start point")
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
                         FragmentCommutesEdit.start_address = p0.address!!
                         FragmentCommutesEdit.commuteOriginFavSpinner.setSelection(0)
-                        //C2D
                         //getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}
@@ -105,14 +103,12 @@ class GoogleAPI{
         autocompleteFragmentArrival
             .setPlaceFields(placeFields)
         autocompleteFragmentArrival
-            //C2D
             //.setHint("Set the arrival point")
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
                         FragmentCommutesEdit.arrival_address = p0.address!!
                         FragmentCommutesEdit.commuteDestinationFavSpinner.setSelection(0)
-                        //C2D
                         //getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}
@@ -138,13 +134,11 @@ class GoogleAPI{
         autocompleteFragmentStart
             .setPlaceFields(placeFields)
         autocompleteFragmentStart
-            //C2D
             //.setHint("Set the start point")
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
                         FragmentFavoritesEdit.address = p0.address!!
-                        //C2D
                         //getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}

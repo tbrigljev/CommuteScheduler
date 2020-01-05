@@ -19,7 +19,6 @@ class FragmentShortcuts : Fragment(){
     private val fragmentID = 0
     private var source : IntArray = intArrayOf(0, 0)
 
-    //C2D
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }

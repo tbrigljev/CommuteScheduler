@@ -21,7 +21,6 @@ class FragmentHome : Fragment(){
         var quickFragment = FragmentShortcuts()
     }
 
-    //C2D
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }
@@ -53,12 +52,10 @@ class FragmentHome : Fragment(){
         return view
     }
 
-    //C2D
     override fun onAttach(context : Context){
         super.onAttach(context)
     }
 
-    //C2D
     override fun onDetach(){
         super.onDetach()
     }
