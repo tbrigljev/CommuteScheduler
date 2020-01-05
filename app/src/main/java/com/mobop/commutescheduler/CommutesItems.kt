@@ -41,10 +41,6 @@ class CommutesItemsList private constructor(context : Context){
             commutesItemsList.addAll(database.getAll())
             favoritesItemsList.addAll(database.getAllFavorite())
 
-            /*C2D
-            //commutesItemsList.add(Path(1,"PROFESSIONAL", "2020-01-15 08:00:00", "2020-01-15 08:00:00", "test1", "test2","101",  false, "2020-01-15 08:00:00",true))
-            //commutesItemsList.add(Path(2,"PRIVATE", "2020-01-15 08:00:00", "2020-01-15 08:00:00", "test3","test4","20", false, "2020-01-15 08:00:00",true))
-            */
 
             // Arrangement of the Array to separate by categories. The typeItem is also used
             // to order the header, the noItems item and the rest of the items per category
@@ -213,18 +209,6 @@ data class Commute(
     @ColumnInfo(name = "next_update") var next_update : String = "",
     @ColumnInfo(name = "active") var active : Boolean = true,
 
-    /*C2D
-    var reminder_on : Boolean = false,
-    var reminder_tune : String? = null,
-
-    var alarm_on : Boolean = false,
-    var alarm_time : String? = null,
-    var alarm_tune : String? = null*/
-
-    /*C2D
-    // @Relation(parentColumn = "aid", entityColumn = "adrId")
-    // var address: List<Address>? = null,
-    */
 
     var typeItem : Int = 1,
     @Ignore var start_address_LatLng : LatLng? = null,
@@ -253,11 +237,6 @@ interface RouteDao {
 
     @Update
     fun updateAll(vararg path : Commute)
-
-    /*C2D
-    //@Query("DELETE FROM todoitemcontent WHERE uid = :uid")
-    //fun deleteItem(vararg uid: Long) : Int
-    */
 
     @Delete
     fun deleteAll(vararg path : Commute)
@@ -318,50 +297,3 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 }
-
-/*C2D
-    data class Commute(
-
-    var name : String = "",
-
-    var start : String = "",
-    var start_address : String? = null,
-    var start_address_LatLng : LatLng? = null,
-
-    var arrival : String = "",
-    var arrival_address : String? = null,
-    var arrival_address_LatLng : LatLng? = null,
-
-    var start_time_short : String = "",
-    var start_time_long : String = "",
-    var start_time_UTC : Long? = null,
-
-    var arrival_time_short : String = "",
-    var arrival_time_long : String = "",
-    var arrival_time_UTC : Long? = null,
-
-    var days : MutableList<Int?> = ArrayList(),
-
-    var distance : String? = null,
-    var duration : String? = null,
-    var duration_val : Long? = null,
-    var duration_traffic : String? = null,
-    var duration_traffic_val : Long? = null,
-
-    var path : MutableList<List<LatLng>> = ArrayList(),
-    var raw_data : String? = null,
-    var errorTraffic : Long? = null*//*,
-
-    var reminder_on : Boolean = false,
-    var reminder_tune : String? = null,
-
-    var alarm_on : Boolean = false,
-    var alarm_time : String? = null,
-    var alarm_tune : String? = null*//*
-)
-data class Favorite(
-
-    var name : String = "",
-    var address : String = ""
-)
-*/

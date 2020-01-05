@@ -183,8 +183,6 @@ class FragmentCommutes(screen : Int) : Fragment(){
         when(action){
             3 -> {
                  if(mListener != null){
-                     //C2D
-                     //layoutButtons.visibility = View.GONE
                      source = intArrayOf(action, partItem)
                      mListener!!
                          .onFragmentInteraction(fragmentID, source)

@@ -153,13 +153,11 @@ class MainActivity :
             doAsync{
                 mCommute.pid=commutesList!!.database.insertAll(mCommute)
             }
-            //C2D
-            //commutesList!!.commutesItemsList.add(mCommute)
+
             FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
             val lastPos = commutesList!!.commutesItemsList.size - 1
             FragmentCommutes.mRecyclerView!!.smoothScrollToPosition(lastPos)
-            //C2D
-            //FragmentCommutes.mAdapter!!.viewLayouts(false,true,lastPos) //Gives an execption ??
+
 
             if(mCommute.alarm){
                 var checkPoint = 15 // 15min

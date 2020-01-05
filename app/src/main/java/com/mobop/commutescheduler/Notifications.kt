@@ -21,8 +21,7 @@ class Notifications {
     fun setNotification(mRoute : Commute, checkPoint : Int, activity : Activity){
         val alarmManager = activity.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
         val alarmIntent = Intent(activity.applicationContext, AlarmReceiver::class.java)
-        //C2D
-        // AlarmReceiver1 = broadcast receiver
+
         val mNotificationTime = (mRoute.start_time_UTC!! - checkPoint*60) * 1000
         //C2D
         // Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.

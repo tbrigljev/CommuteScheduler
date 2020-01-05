@@ -35,10 +35,6 @@ class GoogleAPI{
     private var mSender : String? = null
     private var mPosition : Int = -1
     private var isNew : Boolean? = null
-    //C2D
-    private var routeName : String = ""
-    private var routeStart : String = ""
-    private var routeArrival : String = ""
     private var routeArrivalTime : String = ""
     private var routeArrivalTimeUTC : Long? = null
     private var routeStartTimeUTC : Long? = null
@@ -270,8 +266,7 @@ class GoogleAPI{
                             "on " + date[2] +"."+ date[1] +"." + date[0] +
                                     ", at " + time[0] + ":" + time[1]
 
-                        //C2D
-                        //commutesList!!.commutesItemsList[mPosition].name = routeName
+
                         mCommute.arrival_time_UTC = routeArrivalTimeUTC
                         if(mSender == "Service"){
                             mService!!.routeRequestedReady(mCommute)

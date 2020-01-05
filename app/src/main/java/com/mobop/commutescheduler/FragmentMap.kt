@@ -43,8 +43,6 @@ class FragmentMap(screen : Int) :
 
     private var mListener : OnFragmentInteractionListener? = null
 
-    //C2D
-    private val mapScreen = screen
 
     private var fragmentID = 1
     private var source : IntArray = intArrayOf(0, 0)
@@ -53,8 +51,7 @@ class FragmentMap(screen : Int) :
     private lateinit var addMapButton : ImageButton
     private lateinit var enhanceMapButton : ImageButton
     private lateinit var overlayMapButton : ImageButton
-    //C2D
-    private lateinit var arriveDateMapInput : TextInputEditText
+
     private lateinit var viewTrafficMapCheck : CheckBox
 
     //C2D

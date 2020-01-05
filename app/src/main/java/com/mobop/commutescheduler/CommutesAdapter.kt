@@ -215,8 +215,7 @@ class CommutesAdapter(
                     itemInList.arrival_address
                 extendedEnd.text =
                     elementExtendedEnd
-                //C2D
-                //var elementSimpleTime = 0
+
                 val elementSimpleTime = if(itemInList.duration_traffic_val != null){
                     itemInList.duration_traffic_val!!.toInt()/60
                 } else {
