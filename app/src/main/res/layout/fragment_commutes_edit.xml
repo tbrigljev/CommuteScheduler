@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_edit_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="0"
-    android:background="#FFFFFF"
+    android:background="@color/colorCommutesEven"
     android:orientation="vertical">
 
     <EditText
@@ -14,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_weight="1"
+        android:layout_marginBottom="10dp"
         android:ellipsize="end"
         android:hint="@string/field_commute_name"
         android:importantForAutofill="no"
@@ -133,19 +132,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/edit_container_time"
+        app:layout_constraintBottom_toTopOf="@id/edit_container_time"
         app:layout_constraintEnd_toEndOf="@id/edit_title"
         app:layout_constraintStart_toStartOf="@id/edit_title"
         app:layout_constraintTop_toBottomOf="@id/edit_title">
 
-        <Spinner
-            android:id="@+id/commuteOriginFavSpinner"
+        <LinearLayout
+            android:id="@+id/fav_origin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/favorite_image_origin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="5dp"
+                app:srcCompat="@drawable/shortcut_favorites" />
+
+            <Spinner
+                android:id="@+id/commuteOriginFavSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent" />
+        </LinearLayout>
 
         <fragment
             android:id="@+id/fragment_start"
@@ -153,16 +168,37 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical|start"
-            android:hint="@string/field_departure"
-            app:layout_constraintEnd_toEndOf="@+id/edit_container_start_end"
-            app:layout_constraintStart_toStartOf="@+id/edit_container_start_end"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_start" />
+            android:hint="@string/field_departure" />
 
-        <Spinner
-            android:id="@+id/commuteDestinationFavSpinner"
+        <Space
+            android:id="@+id/start_end_spacer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_height="10dp"
+            android:background="@color/colorCommutesEven" />
+
+        <LinearLayout
+            android:id="@+id/fav_destination"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/favorite_image_destination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="5dp"
+                app:srcCompat="@drawable/shortcut_favorites" />
+
+            <Spinner
+                android:id="@+id/commuteDestinationFavSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorAccent" />
+
+        </LinearLayout>
 
         <fragment
             android:id="@+id/fragment_arrival"
@@ -170,11 +206,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical|start"
-            android:hint="@string/field_arrival"
-            app:layout_constraintEnd_toEndOf="@+id/edit_container_start_end"
-            app:layout_constraintStart_toStartOf="@+id/edit_container_start_end"
-            app:layout_constraintTop_toBottomOf="@+id/edit_arrival"
-            app:layout_constraintBottom_toBottomOf="@+id/edit_container_start_end"/>
+            android:hint="@string/field_arrival" />
 
 
     </LinearLayout>
@@ -262,8 +294,9 @@
         android:id="@+id/edit_container_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/edit_notifications"
         app:layout_constraintEnd_toEndOf="@id/edit_title"
         app:layout_constraintStart_toStartOf="@id/edit_title"
         app:layout_constraintTop_toBottomOf="@id/edit_container_start_end">
@@ -321,7 +354,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <!-- <LinearLayout
             android:id="@+id/edit_container_time_compute"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -330,7 +363,7 @@
             android:layout_marginEnd="5dp"
             android:orientation="horizontal">
 
-            <!--            <TextView
+                       <TextView
                 android:id="@+id/leave_at"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -365,8 +398,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:text="@string/time_filler"
-                android:textSize="18sp" />-->
-        </LinearLayout>
+                android:textSize="18sp" />
+        </LinearLayout>-->
 
     </LinearLayout>
 
@@ -374,6 +407,7 @@
         android:id="@+id/edit_notifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@id/fragment_edit_main"
         app:layout_constraintStart_toStartOf="@id/fragment_edit_main"
@@ -394,7 +428,8 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_main"
         app:layout_constraintEnd_toEndOf="@+id/fragment_edit_main"
-        app:layout_constraintStart_toStartOf="@+id/fragment_edit_main">
+        app:layout_constraintStart_toStartOf="@+id/fragment_edit_main"
+        app:layout_constraintTop_toTopOf="@id/fragment_edit_main">
 
         <ImageButton
             android:id="@+id/edit_button_cancel"
