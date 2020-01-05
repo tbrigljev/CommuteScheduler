@@ -165,7 +165,7 @@ class FragmentCommutesEdit(
             timeDialog.show()
         }
 
-        val fav=ArrayList<String>()
+        val fav = ArrayList<String>()
         fav.add("")
         commutesList!!.favoritesItemsList.forEach {fav.add(it.name)}
 
@@ -198,7 +198,7 @@ class FragmentCommutesEdit(
 
         if(new){
             commuteName.setText("")
-
+            alarmEnableSwitch.isChecked = true
         } else {
             commuteName.setText(commutesList!!.commutesItemsList[pos].name)
             start_name = commutesList!!.commutesItemsList[pos].start
@@ -424,6 +424,7 @@ class FragmentCommutesEdit(
                 source[1] = pos
                 mListener!!.onFragmentInteraction(fragmentCaller, source)
                 commuteName.setText("")
+                alarmEnableSwitch.isChecked = true
                 //commuteOrigin.setText("")
                 //commuteDestination.setText("")
             }

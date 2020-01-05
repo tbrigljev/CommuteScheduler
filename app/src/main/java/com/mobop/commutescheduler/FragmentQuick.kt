@@ -69,8 +69,8 @@ class FragmentQuick : Fragment(){
             R.layout.fragment_quick,
             container,
             false
-        )*/
-
+        )
+        */
 
         val view : View = inflater.inflate(
             R.layout.quick_layout_temp,
