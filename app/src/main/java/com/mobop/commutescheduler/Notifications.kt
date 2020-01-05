@@ -36,7 +36,8 @@ class Notifications {
         calendar.timeInMillis = mNotificationTime
 
         // the check point will have to be replaced by the unique ID of the route + checkpoint for each alarm
-        val pendingIntent = PendingIntent.getBroadcast(activity, checkPoint, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val id:Int=(mRoute.pid.toString() + "000" + checkPoint.toString()).toInt()
+        val pendingIntent = PendingIntent.getBroadcast(activity, id, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT)
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 }
@@ -155,7 +156,7 @@ class NotificationService : IntentService("NotificationService") {
                 mNotification = Notification.Builder(applicationContext, CHANNEL_ID)
                     // Set the intent that will fire when the user taps the notification
                     .setContentIntent(pendingIntent)
-                    .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
                     .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
                     .setAutoCancel(true)
                     .setContentTitle(title)
