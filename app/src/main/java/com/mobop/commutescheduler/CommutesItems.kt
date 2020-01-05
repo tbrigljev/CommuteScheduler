@@ -121,20 +121,56 @@ class CommutesItemsList private constructor(context : Context){
         //commutesItemsList.add(longNameTest)
         //commutesItemsList.add(longParamTest)
 
-            val home = Favorite(
+            val Home = Favorite(
                 name = "Home",
                 address = "Route des Arsenaux 29, 1700 Fribourg")
-            val school = Favorite(
+            val School = Favorite(
                 name = "School",
                 address = "Avenue de Provence 6, 1007 Lausanne")
-            val work = Favorite(
+            val Work = Favorite(
                 name = "Work",
                 address = "Route de Morat 135, 1763 Granges-Paccot"
             )
+            val Shopping = Favorite(
+                name = "Shopping",
+                address = "Migros Balexert, Geneve"
+            )
+            val Restaurant = Favorite(
+                name = "Restaurant",
+                address = "Buffalo Grill, Archamps"
+            )
+            val Club = Favorite(name = "Club",address ="")
+            val Bar = Favorite(name = "Bar",address ="")
+            val Friends = Favorite(name = "Friends",address ="")
+            val Kids = Favorite(name = "Kids",address ="")
+            val Gym = Favorite(name = "Gym",address ="")
+            val GasStation = Favorite(name = "Gas Station",address ="")
+            val Train = Favorite(name = "Train",address ="")
+            val Bank = Favorite(name = "Bank",address ="")
+            val Vacation = Favorite(name = "Vacation",address ="")
+            val CurrentLocation = Favorite(name = "CurrentLocation",address ="")
 
-            //favoritesItemsList.add(home)
-            //favoritesItemsList.add(school)
-            //favoritesItemsList.add(work)
+
+            val fav = ArrayList<String>()
+            commutesList!!.favoritesItemsList.forEach {fav.add(it.name)}
+
+            if(fav!!.contains(Club.name)==false)favoritesItemsList.add(Club)
+            if(fav!!.contains(Bar.name)==false)favoritesItemsList.add(Bar)
+            if(fav!!.contains(Restaurant.name)==false)favoritesItemsList.add(Restaurant)
+            if(fav!!.contains(Friends.name)==false)favoritesItemsList.add(Friends)
+            if(fav!!.contains(Kids.name)==false)favoritesItemsList.add(Kids)
+            if(fav!!.contains(Gym.name)==false)favoritesItemsList.add(Gym)
+            if(fav!!.contains(GasStation.name)==false)favoritesItemsList.add(GasStation)
+            if(fav!!.contains(Shopping.name)==false)favoritesItemsList.add(Shopping)
+            if(fav!!.contains(Train.name)==false)favoritesItemsList.add(Train)
+            if(fav!!.contains(Bank.name)==false)favoritesItemsList.add(Bank)
+            if(fav!!.contains(Work.name)==false)favoritesItemsList.add(Work)
+            if(fav!!.contains(Home.name)==false)favoritesItemsList.add(Home)
+            if(fav!!.contains(Vacation.name)==false)favoritesItemsList.add(Vacation)
+            if(fav!!.contains(School.name)==false)favoritesItemsList.add(School)
+            if(fav!!.contains(CurrentLocation.name)==false)favoritesItemsList.add(CurrentLocation)
+
+
         }
     }
 }
