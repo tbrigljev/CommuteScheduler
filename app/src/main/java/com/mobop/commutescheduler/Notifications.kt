@@ -157,7 +157,7 @@ class NotificationService : IntentService("NotificationService") {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                 mNotification = Notification.Builder(applicationContext, CHANNEL_ID)
                     // Set the intent that will fire when the user taps the notification
-                    .setContentIntent(pendingIntent)
+                    //.setContentIntent(pendingIntent)
                     .setSmallIcon(R.mipmap.ic_launcher_round)
                     .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
                     .setAutoCancel(true)
@@ -169,7 +169,7 @@ class NotificationService : IntentService("NotificationService") {
             } else {
                 mNotification = Notification.Builder(this)
                     // Set the intent that will fire when the user taps the notification
-                    .setContentIntent(pendingIntent)
+                    //.setContentIntent(pendingIntent)
                     .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                     .setLargeIcon(BitmapFactory.decodeResource(res, R.mipmap.ic_launcher))
                     .setAutoCancel(true)
