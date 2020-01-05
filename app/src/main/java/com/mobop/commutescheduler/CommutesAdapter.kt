@@ -1,6 +1,7 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
+import android.app.PendingIntent.getActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,15 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.jetbrains.anko.doAsync
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+
 /* *************************************************************** */
 
 /* CommutesAdapter *********************************************** */
@@ -244,7 +250,7 @@ class CommutesAdapter(
                 extendedTimeEnd.text =
                     elementTimeArrival
                 val elementTimeDuration =
-                    itemInList.duration
+                    itemInList.duration_traffic
                 extendedTimeDuration.text =
                     elementTimeDuration
             }
@@ -294,10 +300,26 @@ class CommutesAdapter(
                                 var commute : Commute =
                                     commutesList!!.commutesItemsList[pos]
 
-                                MainActivity.mGoogleAPI!!.requestRoute(
-                                    "Activity",
-                                    pos,
-                                    false)
+                                val format = "yyyy-MM-dd HH:mm:ss"
+                                val sdf = SimpleDateFormat(format)
+                                val arrivalDateTime = commute.arrival_time_long
+                                val timeArrival = sdf.parse(arrivalDateTime)
+                                val timeNow = Calendar.getInstance().time
+
+                                if(timeArrival >= timeNow){
+                                    MainActivity.mGoogleAPI!!.requestRoute(
+                                        "Activity",
+                                        pos,
+                                        false)
+                                }else{
+                                    val duration = Toast.LENGTH_SHORT
+                                    val toast = Toast.makeText(
+                                        itemView.getContext(),
+                                        "Route out of date",
+                                        duration)
+                                    toast.show()
+                                }
+
                             }
                             View.VISIBLE -> {
                                 layoutExtended.visibility = View.GONE

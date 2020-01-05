@@ -162,6 +162,7 @@ class GoogleAPI{
         mSender = sender
         isNew = is_new
 
+
         if(mCommute.arrival_time_long != "Now"){
             routeArrivalTimeUTC =
                 (Timestamp.valueOf(mCommute.arrival_time_long).time/1000)

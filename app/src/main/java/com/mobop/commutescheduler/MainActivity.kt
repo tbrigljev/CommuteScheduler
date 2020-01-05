@@ -160,14 +160,14 @@ class MainActivity :
             //FragmentCommutes.mAdapter!!.viewLayouts(false,true,lastPos) //Gives an execption ??
 
             if(mCommute.alarm){
-                val checkPoint = 15 // 15min
+                var checkPoint = 15 // 15min
                 Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
 
-                /*checkPoint =30 // 30min
-            Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
+                checkPoint =30 // 30min
+                Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
 
-            checkPoint =60 // 1h
-            Notifications().setNotification(mCommute, checkPoint, this@MainActivity)*/
+                checkPoint =60 // 1h
+                Notifications().setNotification(mCommute, checkPoint, this@MainActivity)
             }
         } else { //Modification
             doAsync{ commutesList!!
@@ -182,7 +182,7 @@ class MainActivity :
         FragmentMap.mapFieldCommuteName.visibility = View.VISIBLE
 
         FragmentMap.mapFieldCommuteNText.visibility = View.GONE
-        val elementSimpleTime = mCommute.duration_val!!.toInt()/60
+        val elementSimpleTime = mCommute.duration_traffic_val!!.toInt()/60
         var hoursText = ""
         var minutesText = ""
         if(elementSimpleTime >= 60){
