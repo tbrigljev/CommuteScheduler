@@ -11,7 +11,7 @@ import android.content.SharedPreferences.Editor
 /* *************************************************************** */
 
 /* PrefManager *************************************************** */
-/* Used for the first-time launch app detection  ***************** */
+/* Used for the first-time launch app detection ****************** */
 
 class PrefManager(var _context : Context) {
     lateinit var pref : SharedPreferences

@@ -16,6 +16,9 @@ import com.google.maps.android.PolyUtil
 import java.text.SimpleDateFormat
 /* *************************************************************** */
 
+/* GoogleAPI ***************************************************** */
+/* Used for comminucation with the Map and Places Google services  */
+
 class GoogleAPI{
 
     /* Google Places ********************************************* */
@@ -26,7 +29,7 @@ class GoogleAPI{
     //var GoogleKey = R.string.GoogleMapsKey
     private var mFragmentEdit : FragmentCommutesEdit? = null
     private var mFragmentFavoritesEdit : FragmentFavoritesEdit? = null
-    private var mActivity: MainActivity?= null //activity
+    private var mActivity : MainActivity? = null //activity
     private var mContext : Context? = null
     private var mService : NotificationService? = null
     private var mSender : String? = null
@@ -44,7 +47,6 @@ class GoogleAPI{
     private lateinit var dateTime : List<String>
     private lateinit var date : List<String>
     private lateinit var time : List<String>
-
 
     fun setActivityContext(activity : FragmentCommutesEdit, context: Context){
         mFragmentEdit = activity
@@ -206,12 +208,19 @@ class GoogleAPI{
 
         val mCommute : Commute = readJSON(json)
 
-        if((mCommute.arrival_time_long != "Now") and (mSender!="Service")){
-            mCommute.start_address = commutesList!!.commutesItemsList[mPosition].start_address
-            mCommute.arrival_address = commutesList!!.commutesItemsList[mPosition].arrival_address
-            mCommute.arrival_time_long = commutesList!!.commutesItemsList[mPosition].arrival_time_long
-            mCommute.start_time_UTC= routeStartTimeUTC
-            mCommute.arrival_time_UTC= routeArrivalTimeUTC
+        if((mCommute.arrival_time_long != "Now") and
+            (mSender!="Service")){
+            mCommute.start_address = commutesList!!
+                .commutesItemsList[mPosition]
+                .start_address
+            mCommute.arrival_address = commutesList!!
+                .commutesItemsList[mPosition]
+                .arrival_address
+            mCommute.arrival_time_long = commutesList!!
+                .commutesItemsList[mPosition]
+                .arrival_time_long
+            mCommute.start_time_UTC = routeStartTimeUTC
+            mCommute.arrival_time_UTC = routeArrivalTimeUTC
             when(responseReceived){
                 0 -> {
                     responseReceived = 1
@@ -238,7 +247,7 @@ class GoogleAPI{
                                 mCommute.errorTraffic!!)
                         mCommute.start_time_UTC = routeStartTimeUTC
                         sendHTTP(mCommute)
-                    } else{
+                    } else {
                         val jdf =
                             SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                         jdf.timeZone = TimeZone.getTimeZone("GMT+1")
@@ -322,7 +331,10 @@ class GoogleAPI{
         val mCommute = Commute()
 
         if (routeArrivalTime != "Now") {
-            dateTime = commutesList!!.commutesItemsList[mPosition].arrival_time_long.split(" ")
+            dateTime = commutesList!!
+                .commutesItemsList[mPosition]
+                .arrival_time_long
+                .split(" ")
             date = dateTime[0].split("-")
             time = dateTime[1].split(":")
             mCommute.arrival_time_short =
@@ -415,5 +427,4 @@ class GoogleAPI{
 
         return mCommute
     }
-
 }

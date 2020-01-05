@@ -11,6 +11,8 @@ import android.view.View
 import kotlin.math.abs
 /* *************************************************************** */
 
+/* Swipe ********************************************************* */
+/* Used for movement detection on commutes edition *************** */
 open class OnSwipeTouchListener : View.OnTouchListener {
 
     private val gestureDetector = GestureDetector(GestureListener())
