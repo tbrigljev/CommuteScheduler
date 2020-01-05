@@ -10,13 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import android.graphics.*
-import android.graphics.Paint.Style
 import android.view.*
 import android.widget.ImageView
 import kotlinx.android.synthetic.main.fragment_quick.*
 import androidx.core.view.children
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_quick.*
 import java.text.SimpleDateFormat
 import java.util.*
 /* *************************************************************** */
@@ -72,16 +70,11 @@ class FragmentQuick : Fragment(){
             false
         )*/
 
-
         val view : View = inflater.inflate(
             R.layout.fragment_quick,
             container,
             false
         )
-
-        mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        mPaint!!.style = Style.STROKE
-        mPaint!!.color = Color.RED
 
         mCanvas = view.findViewById(R.id.fingerline)
         startX = 0.toFloat()
@@ -106,8 +99,6 @@ class FragmentQuick : Fragment(){
         val imageView13 = view.findViewById<ImageView>(R.id.quick_5_1)
         val imageView14 = view.findViewById<ImageView>(R.id.quick_5_2)
         val imageView15 = view.findViewById<ImageView>(R.id.quick_5_3)
-
-
 
         var listener = View.OnTouchListener(function = { view, motionEvent ->
             if(motionEvent.action == MotionEvent.ACTION_MOVE) {
@@ -148,8 +139,8 @@ class FragmentQuick : Fragment(){
                                 val yLayout = linearLayoutLoc[1]
                                 if((endX >= endXIcon) and
                                     (endX <= (endXIcon + child2.width)) and
-                                    (endY+yLayout >= endYIcon) and
-                                    (endY+yLayout <= endYIcon + child2.height)){
+                                    (endY + yLayout >= endYIcon) and
+                                    (endY + yLayout <= endYIcon + child2.height)){
 
                                     endIcon = child2.tag.toString()
 
@@ -187,8 +178,6 @@ class FragmentQuick : Fragment(){
                                                     commuteName = startIcon + "To" + endIcon
                                                     val newCommute = Commute()
 
-                                                    //val startName = commuteOrigin.text.toString()
-                                                    //val arrivalName = commuteDestination.text.toString()
                                                     val arrivalDate = chooseDate.toString()
                                                     val arrivalTime = chooseTime.toString()
 
@@ -203,15 +192,15 @@ class FragmentQuick : Fragment(){
 
                                                     if(commuteName.toString() == "")
                                                         errorMessage = "Name of commute is missing"
-                                                    else if ((startIconAddress == null) or (startIconAddress==""))
+                                                    else if((startIconAddress == null) or (startIconAddress==""))
                                                         errorMessage = "Starting location is missing"
-                                                    else if ((endIconAddress == null) or (endIconAddress==""))
+                                                    else if((endIconAddress == null) or (endIconAddress==""))
                                                         errorMessage = "Destination is missing"
-                                                    else if (arrivalDate == "")
+                                                    else if(arrivalDate == "")
                                                         errorMessage = "Date information is missing"
-                                                    else if (arrivalTime == "")
+                                                    else if(arrivalTime == "")
                                                         errorMessage = "Time information is missing"
-                                                    else if (timeArrival <= timeNow){
+                                                    else if(timeArrival <= timeNow){
                                                         errorMessage = "Please chose a later date and/or time"
                                                     } else {
                                                         newCommute.name = commuteName.toString()
@@ -230,7 +219,6 @@ class FragmentQuick : Fragment(){
                                                                     " " + arrivalTime
 
                                                         errorMessage = "Commute added"
-                                                        //var arrival_time = "2019-12-31 23:00:00"
                                                         commutesList!!.commutesItemsList.add(newCommute)
 
                                                         val pos = commutesList!!.commutesItemsList.size - 1
@@ -254,13 +242,11 @@ class FragmentQuick : Fragment(){
                                                         }
                                                         source[0] = 1
                                                         mListener!!.onFragmentInteraction(3, source)
-
                                                     }
-                                                    if (errorMessage != ""){
+                                                    if(errorMessage != ""){
                                                         Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show()
                                                         source[0] = 1
                                                         mListener!!.onFragmentInteraction(3, source)
-
                                                     }
                                                 }
                                             val timeDialog = TimePickerDialog(
@@ -306,14 +292,11 @@ class FragmentQuick : Fragment(){
                                         }
                                         break
                                     }
-
                             }
-
                         }
-
                     }
                 }
-                if (errorMessage!="Commute added") {
+                if(errorMessage!="Commute added"){
                     startX = 0.toFloat()
                     startY =  0.toFloat()
                     endX =  0.toFloat()
