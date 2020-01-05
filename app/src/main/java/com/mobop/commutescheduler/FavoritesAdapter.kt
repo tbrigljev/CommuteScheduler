@@ -21,14 +21,15 @@ class FavoritesAdapter(
     viewRes : Int,
     favoritesItemsList: ArrayList<Favorite>,
     private val touchListener : (Int, Int) -> Unit) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private lateinit var view: View
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    var favoritesItemsList: ArrayList<Favorite>
-    var previousPosition: Int = 0
+    private lateinit var view : View
 
-    private var viewRes: Int = 0
-    private var mRecyclerView: RecyclerView? = null
+    var favoritesItemsList : ArrayList<Favorite>
+    var previousPosition : Int = 0
+
+    private var viewRes : Int = 0
+    private var mRecyclerView : RecyclerView? = null
 
     init {
         this.favoritesItemsList = favoritesItemsList
@@ -37,8 +38,8 @@ class FavoritesAdapter(
     }
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int) :
+        parent : ViewGroup,
+        viewType : Int) :
             ViewHolder {
 
         view = LayoutInflater.from(parent.context).inflate(
@@ -51,8 +52,8 @@ class FavoritesAdapter(
     }
 
     override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int){
+        holder : RecyclerView.ViewHolder,
+        position : Int){
 
         val viewHolder = holder as ViewHolder
         viewHolder.bind(
@@ -70,16 +71,16 @@ class FavoritesAdapter(
             3)
     }
 
-    override fun getItemCount(): Int {
+    override fun getItemCount() : Int {
         return favoritesItemsList.count()
     }
 
-    inner class ViewHolder(view: View) :
+    inner class ViewHolder(view : View) :
         RecyclerView.ViewHolder(view) {
         private val title: TextView
         private val address: TextView
 
-        private val layoutFavorite: ConstraintLayout =
+        private val layoutFavorite : ConstraintLayout =
             view.findViewById(R.id.element_favorite)
                     as ConstraintLayout
 
@@ -119,7 +120,7 @@ class FavoritesAdapter(
             touchListener : (Int, Int) -> Unit){
             val itemInList = favoritesItemsList[position]
 
-            if(position % 2 == 0) {
+            if(position % 2 == 0){
                 layoutFavorite.setBackgroundColor(
                     ContextCompat.getColor(view.context,
                         R.color.colorCommutesEven)
@@ -131,7 +132,7 @@ class FavoritesAdapter(
                 )
             }
 
-            if(itemInList != null) {
+            if(itemInList != null){
                 val elementTitle = itemInList.name
                 title.text = elementTitle
                 val elementAddress = itemInList.address
@@ -171,21 +172,18 @@ class FavoritesAdapter(
         }
     }
 
-    fun removeAt(position: Int){
-        var temp:Long = favoritesItemsList[position].pid
+    fun removeAt(position : Int){
+        val temp : Long = favoritesItemsList[position].pid
 
         favoritesItemsList.removeAt(position)
         previousPosition = 0
         notifyItemRemoved(position)
 
-
         doAsync{
             commutesList!!
                 .database
                 .deleteItem(temp)
-
         }
-
     }
 
     fun viewLayouts(visibleLayoutButtons : Boolean, pos : Int){
