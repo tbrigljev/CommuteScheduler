@@ -16,6 +16,7 @@ import android.widget.ImageView
 import kotlinx.android.synthetic.main.quick_layout_temp.*
 import androidx.core.view.children
 import android.widget.Toast
+import kotlinx.android.synthetic.main.fragment_quick.*
 import java.text.SimpleDateFormat
 import java.util.*
 /* *************************************************************** */
@@ -83,24 +84,22 @@ class FragmentQuick : Fragment(){
         mPaint!!.color = Color.RED
 
         mCanvas = view.findViewById(R.id.fingerline)
-        val imageView1 = view.findViewById<ImageView>(R.id.imageView1)
-        val imageView2 = view.findViewById<ImageView>(R.id.imageView2)
-        val imageView3 = view.findViewById<ImageView>(R.id.imageView3)
-        val imageView4 = view.findViewById<ImageView>(R.id.imageView4)
-        val imageView5 = view.findViewById<ImageView>(R.id.imageView5)
-        val imageView6 = view.findViewById<ImageView>(R.id.imageView6)
-        val imageView7 = view.findViewById<ImageView>(R.id.imageView7)
-        val imageView8 = view.findViewById<ImageView>(R.id.imageView8)
-        val imageView9 = view.findViewById<ImageView>(R.id.imageView9)
-        val imageView10 = view.findViewById<ImageView>(R.id.imageView10)
-        val imageView11 = view.findViewById<ImageView>(R.id.imageView11)
-        val imageView12 = view.findViewById<ImageView>(R.id.imageView12)
-        val imageView13 = view.findViewById<ImageView>(R.id.imageView13)
-        val imageView14 = view.findViewById<ImageView>(R.id.imageView14)
-        val imageView15 = view.findViewById<ImageView>(R.id.imageView15)
-        val imageView16 = view.findViewById<ImageView>(R.id.imageView16)
-        val imageView17 = view.findViewById<ImageView>(R.id.imageView17)
-        val imageView18 = view.findViewById<ImageView>(R.id.imageView18)
+        val imageView1 = view.findViewById<ImageView>(R.id.quick_1_1)
+        val imageView2 = view.findViewById<ImageView>(R.id.quick_1_2)
+        val imageView3 = view.findViewById<ImageView>(R.id.quick_1_3)
+        val imageView4 = view.findViewById<ImageView>(R.id.quick_2_1)
+        val imageView5 = view.findViewById<ImageView>(R.id.quick_2_2)
+        val imageView6 = view.findViewById<ImageView>(R.id.quick_2_3)
+        val imageView7 = view.findViewById<ImageView>(R.id.quick_3_1)
+        val imageView8 = view.findViewById<ImageView>(R.id.quick_3_2)
+        val imageView9 = view.findViewById<ImageView>(R.id.quick_3_3)
+        val imageView10 = view.findViewById<ImageView>(R.id.quick_4_1)
+        val imageView11 = view.findViewById<ImageView>(R.id.quick_4_2)
+        val imageView12 = view.findViewById<ImageView>(R.id.quick_4_3)
+        val imageView13 = view.findViewById<ImageView>(R.id.quick_5_1)
+        val imageView14 = view.findViewById<ImageView>(R.id.quick_5_2)
+        val imageView15 = view.findViewById<ImageView>(R.id.quick_5_3)
+
 
 
         var listener = View.OnTouchListener(function = { view, motionEvent ->
@@ -355,9 +354,9 @@ class FragmentQuick : Fragment(){
         imageView13.setOnTouchListener(listener)
         imageView14.setOnTouchListener(listener)
         imageView15.setOnTouchListener(listener)
-        imageView16.setOnTouchListener(listener)
-        imageView17.setOnTouchListener(listener)
-        imageView18.setOnTouchListener(listener)
+        //imageView16.setOnTouchListener(listener)
+        //imageView17.setOnTouchListener(listener)
+        //imageView18.setOnTouchListener(listener)
 
         imageView1.setOnClickListener(listener3)
         imageView2.setOnClickListener(listener3)

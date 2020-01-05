@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/colorPrimary">
 
     <com.mobop.commutescheduler.FingerLine
         android:id="@+id/fingerline"
@@ -35,74 +36,80 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView1"
+                android:id="@+id/quick_5_3"
+                android:scaleX="1"
+                android:scaleY="1"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:adjustViewBounds="false"
-                android:tag="Home"
-                app:srcCompat="@mipmap/home1" />
+                android:tag="Club"
+                app:srcCompat="@drawable/add_quick" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/quick_5_2"
+                android:scaleX="1"
+                android:scaleY="1"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:adjustViewBounds="false"
-                android:tag="Work"
-                app:srcCompat="@mipmap/work" />
+                android:tag="Bar"
+                app:srcCompat="@drawable/add_quick" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/quick_5_1"
+                android:scaleX="1"
+                android:scaleY="1"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:tag="School"
-                app:srcCompat="@mipmap/ecole" />
-        </LinearLayout>
-
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:adjustViewBounds="false"
-                android:cropToPadding="false"
-                android:tag="Shopping"
-                app:srcCompat="@mipmap/shopping" />
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:adjustViewBounds="false"
-                android:cropToPadding="false"
                 android:tag="Restaurant"
-                app:srcCompat="@mipmap/restaurant" />
+                app:srcCompat="@drawable/add_quick" />
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/quick_4_3"
+                android:scaleX="1"
+                android:scaleY="1"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:adjustViewBounds="true"
                 android:tag="Friends"
-                app:srcCompat="@mipmap/friends" />
+                app:srcCompat="@drawable/add_quick" />
+
+            <ImageView
+                android:id="@+id/quick_4_2"
+                android:scaleX="1"
+                android:scaleY="1"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:tag="Kids"
+                app:srcCompat="@drawable/add_quick" />
+
+            <ImageView
+                android:id="@+id/quick_4_1"
+                android:scaleX="1"
+                android:scaleY="1"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:tag="Gym"
+                app:srcCompat="@drawable/add_quick" />
         </LinearLayout>
 
         <LinearLayout
@@ -113,34 +120,37 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/quick_3_3"
+                android:scaleX="1"
+                android:scaleY="1"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:adjustViewBounds="false"
-                android:tag="Address"
-                app:srcCompat="@mipmap/address" />
+                android:tag="GasStation"
+                app:srcCompat="@drawable/add_quick" />
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/quick_3_2"
+                android:scaleX="1"
+                android:scaleY="1"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:adjustViewBounds="false"
-                android:tag="GPS"
-                app:srcCompat="@mipmap/gps" />
+                android:tag="Shopping"
+                app:srcCompat="@drawable/shop" />
 
             <ImageView
-                android:id="@+id/imageView9"
+                android:id="@+id/quick_3_1"
+                android:scaleX="1"
+                android:scaleY="1"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:adjustViewBounds="false"
-                android:tag="Location"
-                app:srcCompat="@mipmap/location" />
+                android:tag="Train"
+                app:srcCompat="@drawable/train" />
         </LinearLayout>
 
         <LinearLayout
@@ -151,34 +161,37 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView10"
+                android:id="@+id/quick_2_3"
+                android:scaleX="1"
+                android:scaleY="1"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:adjustViewBounds="false"
-                android:tag="Petrol"
-                app:srcCompat="@mipmap/petrol" />
-
-            <ImageView
-                android:id="@+id/imageView11"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:adjustViewBounds="false"
                 android:tag="Bank"
-                app:srcCompat="@mipmap/bank" />
+                app:srcCompat="@drawable/bank" />
 
             <ImageView
-                android:id="@+id/imageView12"
+                android:id="@+id/quick_2_2"
+                android:scaleX="1"
+                android:scaleY="1"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:adjustViewBounds="false"
-                android:tag="Bussines"
-                app:srcCompat="@mipmap/bussines" />
+                android:tag="Work"
+                app:srcCompat="@drawable/school" />
+
+            <ImageView
+                android:id="@+id/quick_2_1"
+                android:scaleX="1"
+                android:scaleY="1"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:tag="Home"
+                app:srcCompat="@drawable/house" />
         </LinearLayout>
 
         <LinearLayout
@@ -189,71 +202,49 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView13"
+                android:id="@+id/quick_1_3"
+                android:background="#00FFFFFF"
+                android:scaleX="1"
+                android:scaleY="1"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:adjustViewBounds="false"
-                android:tag="Airport"
-                app:srcCompat="@mipmap/airport" />
+
+                android:tag="Vacation"
+                app:srcCompat="@drawable/vacation" />
 
             <ImageView
-                android:id="@+id/imageView14"
+                android:id="@+id/quick_1_2"
+                android:background="#00FFFFFF"
+                android:scaleX="1"
+                android:scaleY="1"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:adjustViewBounds="false"
-                android:tag="Hotel"
-                app:srcCompat="@mipmap/hotel" />
+
+                android:tag="School"
+                app:srcCompat="@drawable/office" />
+
+
 
             <ImageView
-                android:id="@+id/imageView15"
+                android:id="@+id/quick_1_1"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:tag="Shopping 24h"
-                app:srcCompat="@mipmap/shop24" />
+                android:background="#00FFFFFF"
+
+
+                android:tag="CurrentLocation"
+                app:srcCompat="@drawable/position" />
+
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imageView16"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:adjustViewBounds="false"
-                android:tag="Parks"
-                app:srcCompat="@mipmap/nature" />
-
-            <ImageView
-                android:id="@+id/imageView17"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:adjustViewBounds="false"
-                android:tag="Hopital"
-                app:srcCompat="@mipmap/hopital" />
-
-            <ImageView
-                android:id="@+id/imageView18"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:tag="Museum"
-                app:srcCompat="@mipmap/museum1" />
-        </LinearLayout>
 
     </LinearLayout>
 
