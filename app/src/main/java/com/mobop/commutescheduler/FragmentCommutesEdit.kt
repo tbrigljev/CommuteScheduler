@@ -170,7 +170,7 @@ class FragmentCommutesEdit(
 
         val fav=ArrayList<String>()
         fav.add("")
-        commutesList!!.favoritesItemsList.forEachReversedByIndex {fav.add(it.name)}
+        commutesList!!.favoritesItemsList.forEach {fav.add(it.name)}
 
 
 
