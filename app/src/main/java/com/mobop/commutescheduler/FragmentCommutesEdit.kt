@@ -309,7 +309,7 @@ class FragmentCommutesEdit(
             val arrivalDate = chooseDate.text.toString()
             val arrivalTime = chooseTime.text.toString()
 
-            val format = "yyyy-MM-dd hh:mm:ss"
+            val format = "yyyy-MM-dd HH:mm:ss"
             val sdf = SimpleDateFormat(format)
 
             lateinit var text : String
