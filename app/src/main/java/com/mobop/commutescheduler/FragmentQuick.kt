@@ -13,7 +13,7 @@ import android.graphics.*
 import android.graphics.Paint.Style
 import android.view.*
 import android.widget.ImageView
-import kotlinx.android.synthetic.main.quick_layout_temp.*
+import kotlinx.android.synthetic.main.fragment_quick.*
 import androidx.core.view.children
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_quick.*
@@ -74,7 +74,7 @@ class FragmentQuick : Fragment(){
 
 
         val view : View = inflater.inflate(
-            R.layout.quick_layout_temp,
+            R.layout.fragment_quick,
             container,
             false
         )
