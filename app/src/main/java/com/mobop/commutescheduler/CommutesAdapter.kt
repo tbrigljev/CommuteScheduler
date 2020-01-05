@@ -1,5 +1,4 @@
 package com.mobop.commutescheduler
-// comment
 
 /* Import ******************************************************** */
 import android.util.Log
@@ -32,7 +31,6 @@ class CommutesAdapter(
 
     private var viewRes : Int = 0
     private var mRecyclerView: RecyclerView? = null
-
 
     init{
         this.commutesItemsList = commutesItemsList
@@ -212,32 +210,29 @@ class CommutesAdapter(
                     itemInList.arrival_address
                 extendedEnd.text =
                     elementExtendedEnd
-                var elementSimpleTime : Int =0
-                if (itemInList.duration_traffic_val != null) {
+                var elementSimpleTime = 0
+                if (itemInList.duration_traffic_val != null){
                     elementSimpleTime =
                         itemInList.duration_traffic_val!!.toInt()/60
-
-                }else{
+                } else {
                     //elementSimpleTime = itemInList.duration_val!!.toInt()/60
                 }
 
                 var hoursText = ""
                 var minutesText = ""
                 if(elementSimpleTime >= 60){
-                    hoursText = (elementSimpleTime/60).toString() +
-                            "h"
+                    hoursText =
+                        (elementSimpleTime/60).toString() + "h"
                     val minutes = elementSimpleTime%60
                     if(minutes != 0){
-                        minutesText = (
-                                elementSimpleTime%60).toString() +
-                                "min"
+                        minutesText =
+                            (elementSimpleTime%60).toString() + "min"
                     }
                 } else {
                     minutesText = elementSimpleTime.toString() +
                             "min"
                 }
                 simpleTimeDuration.text = hoursText + minutesText
-
 
                 val elementTimeDeparture =
                     itemInList.start_time_short
@@ -280,7 +275,7 @@ class CommutesAdapter(
                             layoutExtendedPrevious.visibility = View.GONE
                             layoutSimplePrevious.visibility = View.VISIBLE
 
-                            previousPosition = getAdapterPosition()
+                            previousPosition = adapterPosition
 
                         } catch(e : Exception) {
                             Log.i("CommutesClickException", e.toString())
@@ -382,8 +377,7 @@ class CommutesAdapter(
         notifyItemRemoved(position)
         }
 
-
-   fun viewLayouts(
+    fun viewLayouts(
        visibleLayoutButtons : Boolean,
        visibleLayoutExtended : Boolean,
        pos : Int){

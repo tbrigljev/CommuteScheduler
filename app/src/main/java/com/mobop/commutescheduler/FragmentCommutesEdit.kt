@@ -346,7 +346,7 @@ class FragmentCommutesEdit(
                 newCommute.name = commuteName.text.toString()
                 newCommute.start = start_name
                 newCommute.start_address = start_address
-               newCommute.arrival = arrival_name
+                newCommute.arrival = arrival_name
                 newCommute.arrival_address = arrival_address
 
                 val time = arrivalTime.split(":")
