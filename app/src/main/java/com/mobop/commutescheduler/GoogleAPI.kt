@@ -92,6 +92,7 @@ class GoogleAPI{
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
                         FragmentCommutesEdit.start_address = p0.address!!
+                        FragmentCommutesEdit.commuteOriginFavSpinner.setSelection(0)
                         // getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}
@@ -110,6 +111,8 @@ class GoogleAPI{
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
                         FragmentCommutesEdit.arrival_address = p0.address!!
+                        FragmentCommutesEdit.commuteDestinationFavSpinner.setSelection(0)
+
                         // getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}

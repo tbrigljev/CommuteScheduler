@@ -36,6 +36,9 @@ class FragmentCommutesEdit(
         //var arrival: String = "Granges-Paccot"
         var arrival_name : String = ""
         var arrival_address : String = ""
+        lateinit var commuteOriginFavSpinner : Spinner
+        lateinit var commuteDestinationFavSpinner : Spinner
+
     }
     private val Origin_SPINNER_ID = 1
     private val Dest_SPINNER_ID = 2
@@ -50,8 +53,6 @@ class FragmentCommutesEdit(
 
     private lateinit var commuteName : EditText
 
-    private lateinit var commuteOriginFavSpinner : Spinner
-    private lateinit var commuteDestinationFavSpinner : Spinner
 
     private lateinit var commuteOrigin : EditText
     private lateinit var commuteOriginAddress : AutocompleteSupportFragment
@@ -247,8 +248,8 @@ class FragmentCommutesEdit(
                     start_address=commutesList!!.favoritesItemsList[position-1].address
                     commuteOriginAddress.setText(start_address)
                 } else {
-                    commuteOriginAddress.setText("")
-                    start_address=""
+                    //commuteOriginAddress.setText("")
+                    //start_address=""
                 }
             }
             2 -> {
@@ -258,8 +259,8 @@ class FragmentCommutesEdit(
                     commuteDestinationAddress.setText(arrival_address)
 
                 } else {
-                    commuteDestinationAddress.setText("")
-                    arrival_address=""
+                    //commuteDestinationAddress.setText("")
+                    //arrival_address=""
                 }
             }
         }
@@ -394,6 +395,9 @@ class FragmentCommutesEdit(
                         commutesList!!
                             .commutesItemsList[pos]
                             .arrival_time_short = newCommute.arrival_time_short
+                        commutesList!!
+                            .commutesItemsList[pos]
+                            .alarm = newCommute.alarm
 
                         MainActivity.mGoogleAPI!!.requestRoute(
                             "Activity",
