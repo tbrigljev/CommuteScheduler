@@ -14,8 +14,11 @@ import android.widget.Toast
 import java.util.*
 /* *************************************************************** */
 
+/* Notifications ************************************************* */
+/* Contains the processes for notifications management *********** */
+
 class Notifications {
-    fun setNotification(mRoute:Commute, checkPoint:Int, activity: Activity) {
+    fun setNotification(mRoute : Commute, checkPoint : Int, activity : Activity){
         val alarmManager = activity.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
         val alarmIntent = Intent(activity.applicationContext, AlarmReceiver::class.java)
         // AlarmReceiver1 = broadcast receiver
@@ -28,15 +31,15 @@ class Notifications {
         alarmIntent.putExtra("name", mRoute.name)
         alarmIntent.putExtra("origin", mRoute.start_address)
         alarmIntent.putExtra("destination", mRoute.arrival_address)
-        alarmIntent.putExtra("departure_time", mRoute.start_time_long)
-        alarmIntent.putExtra("arrival_time", mRoute.arrival_time_long)
+        alarmIntent.putExtra("departure_time", mRoute.start_time_short)
+        alarmIntent.putExtra("arrival_time", mRoute.arrival_time_short)
         alarmIntent.putExtra("duration_in_traffic", mRoute.duration_traffic)
 
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = mNotificationTime
 
         // the check point will have to be replaced by the unique ID of the route + checkpoint for each alarm
-        val id:Int=(mRoute.pid.toString() + "000" + checkPoint.toString()).toInt()
+        val id : Int = (mRoute.pid.toString() + "000" + checkPoint.toString()).toInt()
         val pendingIntent = PendingIntent.getBroadcast(activity, id, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT)
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
@@ -61,7 +64,6 @@ class AlarmReceiver : BroadcastReceiver() {
 
 class NotificationService : IntentService("NotificationService") {
     companion object {
-
         const val CHANNEL_ID = "com.mobop.commutescheduler.CHANNEL_ID"
         const val CHANNEL_NAME = "Commute Scheduler Notifications"
     }
@@ -114,9 +116,9 @@ class NotificationService : IntentService("NotificationService") {
         }
     }
 
-    fun routeRequestedReady(mRoute:Commute){
+    fun routeRequestedReady(mRoute : Commute){
 
-        Log.i("My debug",mRoute.duration_traffic)
+        Log.i("My debug", mRoute.duration_traffic)
 
         if (timestamp > 0) {
             //Create Channel

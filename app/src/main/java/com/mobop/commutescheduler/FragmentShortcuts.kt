@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 /* *************************************************************** */
 
 /* FragmentShortcuts ********************************************* */
-/* Contains the three shortcuts buttons on the main screen ******** */
+/* Contains the three shortcuts buttons on the main screen ******* */
 class FragmentShortcuts : Fragment(){
 
     private var mListener : FragmentCommutesEdit.OnFragmentInteractionListener? = null
