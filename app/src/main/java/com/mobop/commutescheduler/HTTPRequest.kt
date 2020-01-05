@@ -43,7 +43,7 @@ class HTTPRequest : AsyncTask<String, Int, String>(){
     }
 
     override fun onPostExecute(result : String?){
-        Log.d("HTTPRquest", "onPostExecute")
+        Log.d("HTTPRequest", "onPostExecute")
         when{
             result !=
                     null -> {mActivity?.getResults(result)}
