@@ -142,7 +142,7 @@ class FragmentFavoritesEdit(
                 text = "Name of favorite is missing"
             else if(newFavorite.address == "")
                 text = "Address of favorite is missing"
-            else {  //All minimum values introduced
+            else {
                 if(new){
                     text = "Favorite added"
 
@@ -164,8 +164,7 @@ class FragmentFavoritesEdit(
                             FragmentFavorites.mAdapter!!.previousPosition
                         )
                     }
-                }
-                else{
+                } else{
                     text = "Favorite modified"
                     commutesList!!
                         .favoritesItemsList[pos]
