@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_quick_grid"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/quick_1_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_quick_grid"
+        app:layout_constraintEnd_toEndOf="@id/fragment_quick_grid"
+        app:layout_constraintStart_toEndOf="@id/quick_1_2"
+        app:layout_constraintTop_toBottomOf="@id/quick_2_1"
+        app:srcCompat="@drawable/position" />
+
+    <ImageButton
+        android:id="@+id/quick_1_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_quick_grid"
+        app:layout_constraintEnd_toStartOf="@id/quick_1_1"
+        app:layout_constraintStart_toEndOf="@id/quick_1_3"
+        app:layout_constraintTop_toBottomOf="@id/quick_2_2"
+        app:srcCompat="@drawable/office" />
+
+    <ImageButton
+        android:id="@+id/quick_1_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_quick_grid"
+        app:layout_constraintEnd_toStartOf="@id/quick_1_2"
+        app:layout_constraintStart_toStartOf="@id/fragment_quick_grid"
+        app:layout_constraintTop_toBottomOf="@id/quick_2_3"
+        app:srcCompat="@drawable/vacation" />
+
+    <ImageButton
+        android:id="@+id/quick_2_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintBottom_toTopOf="@id/quick_1_1"
+        app:layout_constraintEnd_toEndOf="@id/fragment_quick_grid"
+        app:layout_constraintStart_toEndOf="@id/quick_2_2"
+        app:layout_constraintTop_toBottomOf="@id/quick_3_1"
+        app:srcCompat="@drawable/house" />
+
+    <ImageButton
+        android:id="@+id/quick_2_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintBottom_toTopOf="@id/quick_1_2"
+        app:layout_constraintEnd_toStartOf="@id/quick_2_1"
+        app:layout_constraintStart_toEndOf="@id/quick_2_3"
+        app:layout_constraintTop_toBottomOf="@id/quick_3_2"
+        app:srcCompat="@drawable/school" />
+
+    <ImageButton
+        android:id="@+id/quick_2_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toTopOf="@id/quick_1_3"
+        app:layout_constraintEnd_toStartOf="@id/quick_2_2"
+        app:layout_constraintStart_toStartOf="@id/fragment_quick_grid"
+        app:layout_constraintTop_toBottomOf="@id/quick_3_3"
+        app:srcCompat="@drawable/bank" />
+
+    <ImageButton
+        android:id="@+id/quick_3_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toTopOf="@id/quick_2_1"
+        app:layout_constraintEnd_toEndOf="@id/fragment_quick_grid"
+        app:layout_constraintStart_toEndOf="@id/quick_3_2"
+        app:layout_constraintTop_toBottomOf="@id/quick_4_1"
+        app:srcCompat="@drawable/train" />
+
+    <ImageButton
+        android:id="@+id/quick_3_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintBottom_toTopOf="@id/quick_2_2"
+        app:layout_constraintEnd_toStartOf="@id/quick_3_1"
+        app:layout_constraintStart_toEndOf="@id/quick_3_3"
+        app:layout_constraintTop_toBottomOf="@id/quick_4_2"
+        app:srcCompat="@drawable/shop" />
+
+    <ImageButton
+        android:id="@+id/quick_3_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toTopOf="@id/quick_2_3"
+        app:layout_constraintEnd_toStartOf="@id/quick_3_2"
+        app:layout_constraintStart_toStartOf="@id/fragment_quick_grid"
+        app:layout_constraintTop_toBottomOf="@id/quick_4_3"
+        app:srcCompat="@drawable/add_quick" />
+
+    <ImageButton
+        android:id="@+id/quick_4_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toTopOf="@id/quick_3_1"
+        app:layout_constraintEnd_toEndOf="@id/fragment_quick_grid"
+        app:layout_constraintStart_toEndOf="@id/quick_4_2"
+        app:layout_constraintTop_toBottomOf="@id/quick_5_1"
+        app:srcCompat="@drawable/add_quick" />
+
+    <ImageButton
+        android:id="@+id/quick_4_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintBottom_toTopOf="@id/quick_3_2"
+        app:layout_constraintEnd_toStartOf="@id/quick_4_1"
+        app:layout_constraintStart_toEndOf="@id/quick_4_3"
+        app:layout_constraintTop_toBottomOf="@id/quick_5_2"
+        app:srcCompat="@drawable/add_quick" />
+
+    <ImageButton
+        android:id="@+id/quick_4_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toTopOf="@id/quick_3_3"
+        app:layout_constraintEnd_toStartOf="@id/quick_4_2"
+        app:layout_constraintStart_toStartOf="@id/fragment_quick_grid"
+        app:layout_constraintTop_toBottomOf="@id/quick_5_3"
+        app:srcCompat="@drawable/add_quick" />
+
+    <ImageButton
+        android:id="@+id/quick_5_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toTopOf="@id/quick_4_1"
+        app:layout_constraintEnd_toEndOf="@id/fragment_quick_grid"
+        app:layout_constraintStart_toEndOf="@id/quick_5_2"
+        app:layout_constraintTop_toTopOf="@id/fragment_quick_grid"
+        app:srcCompat="@drawable/add_quick" />
+
+    <ImageButton
+        android:id="@+id/quick_5_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintBottom_toTopOf="@id/quick_4_2"
+        app:layout_constraintEnd_toStartOf="@id/quick_5_1"
+        app:layout_constraintStart_toEndOf="@id/quick_5_3"
+        app:layout_constraintTop_toTopOf="@id/fragment_quick_grid"
+        app:srcCompat="@drawable/add_quick" />
+
+    <ImageButton
+        android:id="@+id/quick_5_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toTopOf="@id/quick_4_3"
+        app:layout_constraintEnd_toStartOf="@id/quick_5_2"
+        app:layout_constraintStart_toStartOf="@id/fragment_quick_grid"
+        app:layout_constraintTop_toTopOf="@id/fragment_quick_grid"
+        app:srcCompat="@drawable/add_quick" />
+
+    <View
+        android:id="@+id/overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#66F538A0"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_quick_grid"
+        app:layout_constraintEnd_toEndOf="@id/fragment_quick_grid"
+        app:layout_constraintStart_toStartOf="@id/fragment_quick_grid"
+        app:layout_constraintTop_toTopOf="@id/fragment_quick_grid" />
+
+    <TextView
+        android:id="@+id/announcement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:background="#F538A0"
+        android:gravity="center"
+        android:text="@string/coming_soon"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="@id/quick_3_2"
+        app:layout_constraintEnd_toEndOf="@id/quick_3_2"
+        app:layout_constraintStart_toStartOf="@id/quick_3_2"
+        app:layout_constraintTop_toTopOf="@id/quick_3_2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
