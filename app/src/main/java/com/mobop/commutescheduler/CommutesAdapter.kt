@@ -186,15 +186,18 @@ class CommutesAdapter(
                         itemInList.start_address
                     simpleStart.text =
                         elementSimpleStart
-                    val elementSimpleEnd =
-                        itemInList.arrival_address
-                    simpleEnd.text =
-                        elementSimpleEnd
                 } else {
                     val elementSimpleStart =
                         itemInList.start
                     simpleStart.text =
                         elementSimpleStart
+                }
+                if(itemInList.arrival == ""){
+                    val elementSimpleEnd =
+                        itemInList.arrival_address
+                    simpleEnd.text =
+                        elementSimpleEnd
+                } else {
                     val elementSimpleEnd =
                         itemInList.arrival
                     simpleEnd.text =
@@ -209,7 +212,7 @@ class CommutesAdapter(
                     itemInList.arrival_address
                 extendedEnd.text =
                     elementExtendedEnd
-                var elementSimpleTime: Int =0
+                var elementSimpleTime : Int =0
                 if (itemInList.duration_traffic_val != null) {
                     elementSimpleTime =
                         itemInList.duration_traffic_val!!.toInt()/60
