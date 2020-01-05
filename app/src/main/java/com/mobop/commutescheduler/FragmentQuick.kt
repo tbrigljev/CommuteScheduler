@@ -9,50 +9,52 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AppCompatActivity
-import android.graphics.*;
-import android.graphics.Paint.Style;
-import android.view.*;
+import android.graphics.*
+import android.graphics.Paint.Style
+import android.view.*
 import android.widget.ImageView
 import kotlinx.android.synthetic.main.quick_layout_temp.*
 import androidx.core.view.children
 import android.widget.Toast
 import java.text.SimpleDateFormat
 import java.util.*
-
 /* *************************************************************** */
 
 /* FragmentQuick ************************************************* */
 /* Contains the quick route selection tools ********************** */
 /* Contained in its standalone fragment ************************** */
+
 class FragmentQuick : Fragment(){
 
-    private var mListener : FragmentCommutesEdit.OnFragmentInteractionListener? = null
+    private var mListener :
+            FragmentCommutesEdit
+            .OnFragmentInteractionListener? = null
 
     private var source : IntArray = intArrayOf(0, 0)
 
     private val fragmentID = 6
-    private var startIcon:String?=null
-    private var endIcon:String?=null
-    private var startIcon_address:String?=null
-    private var endIcon_address:String?=null
-    private var commuteName:String?=null
-    private var chooseDate:String?=null
-    private var chooseTime:String?=null
-    private var mPaint: Paint?=null
-    var mCanvas:FingerLine?=null
+    private var startIcon : String? = null
+    private var endIcon : String? = null
+    private var startIconAddress : String? = null
+    private var endIconAddress : String? = null
+    private var commuteName : String? = null
+    private var chooseDate : String? = null
+    private var chooseTime : String? = null
+    private var mPaint : Paint? = null
+    private var mCanvas : FingerLine? = null
 
     companion object{
-        var startX: Float = 0.toFloat()
-        var startY: Float = 0.toFloat()
-        var endX: Float = 0.toFloat()
-        var endY: Float = 0.toFloat()
+        var startX : Float = 0.toFloat()
+        var startY : Float = 0.toFloat()
+        var endX : Float = 0.toFloat()
+        var endY : Float = 0.toFloat()
 
-        var startXIcon:Float = 0.toFloat()
-        var startYIcon:Float = 0.toFloat()
-        var endXIcon:Float = 0.toFloat()
-        var endYIcon:Float = 0.toFloat()
+        var startXIcon : Float = 0.toFloat()
+        var startYIcon : Float = 0.toFloat()
+        var endXIcon : Float = 0.toFloat()
+        var endYIcon : Float = 0.toFloat()
     }
+
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }
@@ -62,42 +64,39 @@ class FragmentQuick : Fragment(){
         container : ViewGroup?,
         savedInstanceState : Bundle?) : View?{
 
-        var view:View= inflater.inflate(
+        val view : View = inflater.inflate(
             R.layout.quick_layout_temp,
             container,
             false
         )
 
-
         mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         mPaint!!.style = Style.STROKE
         mPaint!!.color = Color.RED
 
-        mCanvas=view.findViewById(R.id.fingerline)
-        var imageView1=view.findViewById<ImageView>(R.id.imageView1)
-        var imageView2=view.findViewById<ImageView>(R.id.imageView2)
-        var imageView3=view.findViewById<ImageView>(R.id.imageView3)
-        var imageView4=view.findViewById<ImageView>(R.id.imageView4)
-        var imageView5=view.findViewById<ImageView>(R.id.imageView5)
-        var imageView6=view.findViewById<ImageView>(R.id.imageView6)
-        var imageView7=view.findViewById<ImageView>(R.id.imageView7)
-        var imageView8=view.findViewById<ImageView>(R.id.imageView8)
-        var imageView9=view.findViewById<ImageView>(R.id.imageView9)
-        var imageView10=view.findViewById<ImageView>(R.id.imageView10)
-        var imageView11=view.findViewById<ImageView>(R.id.imageView11)
-        var imageView12=view.findViewById<ImageView>(R.id.imageView12)
-        var imageView13=view.findViewById<ImageView>(R.id.imageView13)
-        var imageView14=view.findViewById<ImageView>(R.id.imageView14)
-        var imageView15=view.findViewById<ImageView>(R.id.imageView15)
-        var imageView16=view.findViewById<ImageView>(R.id.imageView16)
-        var imageView17=view.findViewById<ImageView>(R.id.imageView17)
-        var imageView18=view.findViewById<ImageView>(R.id.imageView18)
+        mCanvas = view.findViewById(R.id.fingerline)
+        val imageView1 = view.findViewById<ImageView>(R.id.imageView1)
+        val imageView2 = view.findViewById<ImageView>(R.id.imageView2)
+        val imageView3 = view.findViewById<ImageView>(R.id.imageView3)
+        val imageView4 = view.findViewById<ImageView>(R.id.imageView4)
+        val imageView5 = view.findViewById<ImageView>(R.id.imageView5)
+        val imageView6 = view.findViewById<ImageView>(R.id.imageView6)
+        val imageView7 = view.findViewById<ImageView>(R.id.imageView7)
+        val imageView8 = view.findViewById<ImageView>(R.id.imageView8)
+        val imageView9 = view.findViewById<ImageView>(R.id.imageView9)
+        val imageView10 = view.findViewById<ImageView>(R.id.imageView10)
+        val imageView11 = view.findViewById<ImageView>(R.id.imageView11)
+        val imageView12 = view.findViewById<ImageView>(R.id.imageView12)
+        val imageView13 = view.findViewById<ImageView>(R.id.imageView13)
+        val imageView14 = view.findViewById<ImageView>(R.id.imageView14)
+        val imageView15 = view.findViewById<ImageView>(R.id.imageView15)
+        val imageView16 = view.findViewById<ImageView>(R.id.imageView16)
+        val imageView17 = view.findViewById<ImageView>(R.id.imageView17)
+        val imageView18 = view.findViewById<ImageView>(R.id.imageView18)
 
 
-        var listener = View.OnTouchListener(function = {view, motionEvent ->
-
-            if (motionEvent.action == MotionEvent.ACTION_MOVE) {
-
+        var listener = View.OnTouchListener(function = { view, motionEvent ->
+            if(motionEvent.action == MotionEvent.ACTION_MOVE) {
                 val iconLoc = IntArray(2)
                 view.getLocationOnScreen(iconLoc)
                 startXIcon = iconLoc[0].toFloat()
@@ -107,25 +106,22 @@ class FragmentQuick : Fragment(){
                 Layout1.getLocationOnScreen(linearLayoutLoc)
                 val xLayout = linearLayoutLoc[0]
                 val yLayout = linearLayoutLoc[1]
-                startIcon=view.tag.toString()
-                endIcon=""
+                startIcon = view.tag.toString()
+                endIcon = ""
 
-                startX=startXIcon+view.width/2
-                startY=(startYIcon-yLayout +view.height/2)
-                endX=motionEvent.rawX
-                endY=motionEvent.rawY-yLayout
+                startX = startXIcon + view.width/2
+                startY = (startYIcon-yLayout + view.height/2)
+                endX = motionEvent.rawX
+                endY = motionEvent.rawY - yLayout
 
                 mCanvas!!.invalidate()
-
             }
-            if (motionEvent.action == MotionEvent.ACTION_UP) {
-
-
-                for (child in Layout1.children) {
-                    if (child is ViewGroup) {
-                        val vg: ViewGroup = child as ViewGroup
-                        for (child2 in vg.children) {
-                            if (child2.tag != null) {
+            if(motionEvent.action == MotionEvent.ACTION_UP){
+                for (child in Layout1.children){
+                    if(child is ViewGroup){
+                        val vg : ViewGroup = child as ViewGroup
+                        for(child2 in vg.children){
+                            if(child2.tag != null){
 
                                 val iconLoc = IntArray(2)
                                 child2.getLocationOnScreen(iconLoc)
@@ -136,22 +132,21 @@ class FragmentQuick : Fragment(){
                                 Layout1.getLocationOnScreen(linearLayoutLoc)
                                 val xLayout = linearLayoutLoc[0]
                                 val yLayout = linearLayoutLoc[1]
-                                if ((endX >= endXIcon) and (endX <= (endXIcon + child2.width)) and (endY+yLayout >= endYIcon) and (endY+yLayout <= endYIcon + child2.height)) {
-                                    endIcon=child2.tag.toString()
+                                if((endX >= endXIcon) and
+                                    (endX <= (endXIcon + child2.width)) and
+                                    (endY+yLayout >= endYIcon) and
+                                    (endY+yLayout <= endYIcon + child2.height)){
 
+                                    endIcon = child2.tag.toString()
 
-
-                                    for (favorite in commutesList!!.favoritesItemsList) {
-                                        if (favorite.name==startIcon){
-                                            startIcon_address=favorite.address
+                                    for(favorite in commutesList!!.favoritesItemsList){
+                                        if (favorite.name == startIcon){
+                                            startIconAddress = favorite.address
                                         }
-                                        if (favorite.name==endIcon){
-                                            endIcon_address=favorite.address
+                                        if (favorite.name == endIcon){
+                                            endIconAddress = favorite.address
                                         }
                                     }
-
-
-
 
                                     var cal = Calendar.getInstance()
                                     val timeSetListener =
@@ -160,10 +155,8 @@ class FragmentQuick : Fragment(){
                                             cal.set(Calendar.HOUR_OF_DAY, hour)
                                             cal.set(Calendar.MINUTE, minute)
                                             chooseTime =
-                                                SimpleDateFormat("HH:mm").format(cal.time) + ":00"
-
-
-
+                                                SimpleDateFormat("HH:mm")
+                                                    .format(cal.time) + ":00"
 
                                             commuteName = startIcon + "To" + endIcon
                                             val newCommute = Commute()
@@ -180,27 +173,27 @@ class FragmentQuick : Fragment(){
                                             val timeArrival = sdf.parse(arrivalDateTime)
                                             val timeNow = Calendar.getInstance().time
 
-                                             var text: String=""
+                                             var text = ""
 
-                                            if (commuteName.toString() == "")
+                                            if(commuteName.toString() == "")
                                                 text = "Name of commute is missing"
-                                            else if (startIcon_address == null)
+                                            else if (startIconAddress == null)
                                                 text = "Starting location is missing"
-                                            else if (endIcon_address == null)
+                                            else if (endIconAddress == null)
                                                 text = "Destination is missing"
                                             else if (arrivalDate == "")
                                                 text = "Date information is missing"
                                             else if (arrivalTime == "")
                                                 text = "Time information is missing"
-                                            else if (timeArrival <= timeNow) {
+                                            else if (timeArrival <= timeNow){
                                                 text = "Please chose a later date and/or time"
                                             } else {
 
                                                 newCommute.name = commuteName.toString()
                                                 newCommute.start = startIcon!!
-                                                newCommute.start_address = startIcon_address!!
+                                                newCommute.start_address = startIconAddress!!
                                                 newCommute.arrival = endIcon!!
-                                                newCommute.arrival_address = endIcon_address!!
+                                                newCommute.arrival_address = endIconAddress!!
 
                                                 val time = arrivalTime.split(":")
                                                 val date = arrivalDate.split("-")
@@ -211,12 +204,9 @@ class FragmentQuick : Fragment(){
                                                     arrivalDate +
                                                             " " + arrivalTime
 
-
-
                                                 text = "Commute added"
                                                 //var arrival_time = "2019-12-31 23:00:00"
                                                 commutesList!!.commutesItemsList.add(newCommute)
-
 
                                                 val pos = commutesList!!.commutesItemsList.size - 1
                                                 MainActivity.mGoogleAPI!!.requestRoute(
@@ -225,10 +215,10 @@ class FragmentQuick : Fragment(){
 
                                                 var prevPos =
                                                     FragmentCommutes.mAdapter!!.previousPosition
-                                                if (commutesList!!.commutesItemsList.count() < 2) {
+                                                if(commutesList!!.commutesItemsList.count() < 2){
                                                     prevPos = -1
                                                 }
-                                                if ((prevPos != -1) and
+                                                if((prevPos != -1) and
                                                     (prevPos < FragmentCommutes.mAdapter!!.commutesItemsList.size)
                                                 ) {
                                                     FragmentCommutes.mAdapter!!.viewLayouts(
@@ -241,7 +231,7 @@ class FragmentQuick : Fragment(){
                                                 mListener!!.onFragmentInteraction(3, source)
 
                                             }
-                                            if (text!=""){
+                                            if (text != ""){
                                                 Toast.makeText(activity, text, Toast.LENGTH_LONG).show()
                                                 source[0] = 1
                                                 mListener!!.onFragmentInteraction(3, source)
@@ -276,54 +266,41 @@ class FragmentQuick : Fragment(){
                                                 cal.get(Calendar.DAY_OF_MONTH)
                                             ).show()
 
-
-
-                                            if ((startXIcon > endXIcon)) {
+                                            if((startXIcon > endXIcon)){
                                                 endX =
-                                                    (endXIcon + (child2.width) / 2 + (25 * this.getResources().getDisplayMetrics().density) + 20)
+                                                    (endXIcon + (child2.width) / 2 + (25 * this.resources.displayMetrics.density) + 20)
                                                 endY = (endYIcon + -yLayout + child2.height / 2)
                                                 mCanvas!!.invalidate()
                                             }
-                                            if ((startXIcon < endXIcon)) {
+                                            if((startXIcon < endXIcon)){
                                                 endX =
-                                                    (endXIcon + (child2.width) / 2 - (25 * this.getResources().getDisplayMetrics().density) - 20)
+                                                    (endXIcon + (child2.width) / 2 - (25 * this.resources.displayMetrics.density) - 20)
                                                 endY = (endYIcon - yLayout + child2.height / 2)
                                                 mCanvas!!.invalidate()
                                             }
 
-                                            if ((startXIcon == endXIcon) and (startYIcon < endYIcon)) {
+                                            if((startXIcon == endXIcon) and (startYIcon < endYIcon)){
                                                 endX = (endXIcon + (child2.width) / 2)
                                                 endY = (endYIcon - yLayout)
                                                 mCanvas!!.invalidate()
                                             }
 
-                                            if ((startXIcon == endXIcon) and (startYIcon > endYIcon)) {
+                                            if((startXIcon == endXIcon) and (startYIcon > endYIcon)){
                                                 endX = (endXIcon + (child2.width) / 2)
                                                 endY = (endYIcon - yLayout + child2.height)
                                                 mCanvas!!.invalidate()
                                             }
                                             break
-
-
                                 }
                             }
                         }
-
                     }
-
                 }
             }
             true
-
         })
 
-
-
-        var listener3 = View.OnClickListener(function = {view ->
-
-            true
-
-        })
+        val listener3 = View.OnClickListener(function = { view -> true } )
 
         // Declared in our activity_shapes_view.xml file.
         imageView1.setOnTouchListener(listener)
@@ -345,16 +322,12 @@ class FragmentQuick : Fragment(){
         imageView17.setOnTouchListener(listener)
         imageView18.setOnTouchListener(listener)
 
-
-
         imageView1.setOnClickListener(listener3)
         imageView2.setOnClickListener(listener3)
         imageView3.setOnClickListener(listener3)
         imageView4.setOnClickListener(listener3)
         imageView5.setOnClickListener(listener3)
         imageView6.setOnClickListener(listener3)
-
-        // return view
 
         return view
     }
