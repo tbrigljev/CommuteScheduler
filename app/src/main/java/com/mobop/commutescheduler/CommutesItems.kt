@@ -117,8 +117,8 @@ class CommutesItemsList private constructor(context : Context){
             alarm_time = "0 min",
             alarm_tune = "DONG"*/)
 
-        commutesItemsList.add(homeToWork)
-        commutesItemsList.add(homeToSchool)
+        //commutesItemsList.add(homeToWork)
+        //commutesItemsList.add(homeToSchool)
         //commutesItemsList.add(longNameTest)
         //commutesItemsList.add(longParamTest)
 
@@ -133,7 +133,7 @@ class CommutesItemsList private constructor(context : Context){
                 address = "Route de Morat 135, 1763 Granges-Paccot"
             )
 
-            favoritesItemsList.add(home)
+            //favoritesItemsList.add(home)
             //favoritesItemsList.add(school)
             //favoritesItemsList.add(work)
 

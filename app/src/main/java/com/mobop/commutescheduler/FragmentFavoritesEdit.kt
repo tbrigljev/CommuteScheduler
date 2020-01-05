@@ -148,7 +148,7 @@ class FragmentFavoritesEdit(
 
                     commutesList!!.favoritesItemsList.add(newFavorite)
                     doAsync{
-                        commutesList!!.database.insertAllFavorite(newFavorite)
+                        newFavorite.pid=commutesList!!.database.insertAllFavorite(newFavorite)
 
                     }
                     var pos = commutesList!!.favoritesItemsList.size - 1

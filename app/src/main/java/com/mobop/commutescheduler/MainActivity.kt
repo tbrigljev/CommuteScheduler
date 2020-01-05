@@ -152,7 +152,7 @@ class MainActivity :
         val mCommute = commutesList!!.commutesItemsList[pos]
         if (isNew) {
             doAsync{
-                commutesList!!.database.insertAll(mCommute)
+                mCommute.pid=commutesList!!.database.insertAll(mCommute)
 
             }
             //commutesList!!.commutesItemsList.add(mCommute)
