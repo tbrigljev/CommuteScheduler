@@ -216,7 +216,7 @@ class CommutesAdapter(
                     elementSimpleTime =
                         itemInList.duration_traffic_val!!.toInt()/60
                 } else {
-                    //elementSimpleTime = itemInList.duration_val!!.toInt()/60
+                    elementSimpleTime = itemInList.duration_val!!.toInt()/60
                 }
 
                 var hoursText = ""
