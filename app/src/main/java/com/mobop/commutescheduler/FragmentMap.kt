@@ -23,11 +23,12 @@ import com.google.android.material.textfield.TextInputEditText
 /* FragmentMap *************************************************** */
 /* Contains the map element and the related buttons ************** */
 /* Contained in FragmentHome and in its standalone fragment ****** */
+
 class FragmentMap(screen : Int) :
     Fragment(), OnMapReadyCallback{
 
     companion object {
-        lateinit var mMap: GoogleMap
+        lateinit var mMap : GoogleMap
         lateinit var mapCommuteText : ConstraintLayout
         lateinit var mapFieldCommuteNText : TextView
         lateinit var mapFieldCommuteName : TextView
@@ -235,7 +236,7 @@ class FragmentMap(screen : Int) :
     override fun onMapReady(googleMap : GoogleMap){
         mMap = googleMap
 
-        val suisse = LatLng(46.204391, 6.143158)
+        val suisse = LatLng(46.523278, 6.609954)
         mMap.addMarker(
             MarkerOptions()
                 .position(suisse)
