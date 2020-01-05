@@ -1,11 +1,10 @@
-package com.mobop.commutescheduler
-
-/* TO USE FOR FIRST TIME USE
+/* Inspired by and adapted from
 https://www.androidhive.info/2016/05/android-build-intro-slider-app/
  */
 
-/* Import ******************************************************** */
+package com.mobop.commutescheduler
 
+/* Import ******************************************************** */
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -21,8 +20,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
-
-
 /* *************************************************************** */
 
 /* Global variables ********************************************** */
@@ -171,8 +168,8 @@ class StartActivity : AppCompatActivity(){
             mActivity = activity
         }
         override fun instantiateItem(container : ViewGroup, position : Int) : Any {
-            var image : ImageView
-            var text : TextView
+            val image : ImageView
+            val text : TextView
 
             layoutInflater =
                 mActivity!!.applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)

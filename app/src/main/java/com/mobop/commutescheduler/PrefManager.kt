@@ -1,3 +1,7 @@
+/* Inspired by and adapted from
+https://www.androidhive.info/2016/05/android-build-intro-slider-app/
+ */
+
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
@@ -5,6 +9,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 /* *************************************************************** */
+
+/* PrefManager *************************************************** */
+/* Used for the first-time launch app detection  ***************** */
 
 class PrefManager(var _context : Context) {
     lateinit var pref : SharedPreferences
