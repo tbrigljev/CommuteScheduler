@@ -30,15 +30,12 @@ class FragmentCommutesEdit(
     Fragment(), AdapterView.OnItemSelectedListener{
 
     companion object {
-        //var start: String = "Fribourg"
         var start_name : String = ""
         var start_address : String = ""
-        //var arrival: String = "Granges-Paccot"
         var arrival_name : String = ""
         var arrival_address : String = ""
         lateinit var commuteOriginFavSpinner : Spinner
         lateinit var commuteDestinationFavSpinner : Spinner
-
     }
     private val Origin_SPINNER_ID = 1
     private val Dest_SPINNER_ID = 2
@@ -53,10 +50,7 @@ class FragmentCommutesEdit(
 
     private lateinit var commuteName : EditText
 
-
-    private lateinit var commuteOrigin : EditText
     private lateinit var commuteOriginAddress : AutocompleteSupportFragment
-    private lateinit var commuteDestination : EditText
     private lateinit var commuteDestinationAddress : AutocompleteSupportFragment
     private lateinit var alarmEnableSwitch : Switch
 
@@ -217,9 +211,7 @@ class FragmentCommutesEdit(
             if (spinPos > -1) commuteDestinationFavSpinner.setSelection(spinPos)
             else commuteDestinationFavSpinner.setSelection(0)
 
-            //commuteOrigin.setText(start_name)
             commuteOriginAddress.setText(start_address)
-            //commuteDestination.setText(arrival_name)
             commuteDestinationAddress.setText(arrival_address)
 
             val date = commutesList!!
@@ -244,23 +236,16 @@ class FragmentCommutesEdit(
         when (parent!!.id) {
             1 -> {
                 if (position > 0){
-                    start_name=commutesList!!.favoritesItemsList[position-1].name
-                    start_address=commutesList!!.favoritesItemsList[position-1].address
+                    start_name = commutesList!!.favoritesItemsList[position-1].name
+                    start_address = commutesList!!.favoritesItemsList[position-1].address
                     commuteOriginAddress.setText(start_address)
-                } else {
-                    //commuteOriginAddress.setText("")
-                    //start_address=""
                 }
             }
             2 -> {
                 if (position > 0){
-                    arrival_name=commutesList!!.favoritesItemsList[position-1].name
-                    arrival_address=commutesList!!.favoritesItemsList[position-1].address
+                    arrival_name = commutesList!!.favoritesItemsList[position-1].name
+                    arrival_address = commutesList!!.favoritesItemsList[position-1].address
                     commuteDestinationAddress.setText(arrival_address)
-
-                } else {
-                    //commuteDestinationAddress.setText("")
-                    //arrival_address=""
                 }
             }
         }
@@ -305,8 +290,6 @@ class FragmentCommutesEdit(
 
             val newCommute = Commute()
 
-            //val startName = commuteOrigin.text.toString()
-            //val arrivalName = commuteDestination.text.toString()
             val arrivalDate = chooseDate.text.toString()
             val arrivalTime = chooseTime.text.toString()
 
@@ -350,11 +333,8 @@ class FragmentCommutesEdit(
 
                     newCommute.alarm = alarmEnableSwitch.isChecked
                     if(new){
-
                         text = "Commute added"
-                        //var arrival_time = "2019-12-31 23:00:00"
                         commutesList!!.commutesItemsList.add(newCommute)
-
 
                         val pos = commutesList!!.commutesItemsList.size - 1
                         MainActivity.mGoogleAPI!!.requestRoute(
@@ -433,8 +413,6 @@ class FragmentCommutesEdit(
                 commuteOriginAddress.setText("")
                 commuteDestinationAddress.setText("")
                 alarmEnableSwitch.isChecked = true
-                //commuteOrigin.setText("")
-                //commuteDestination.setText("")
             }
         }
     }

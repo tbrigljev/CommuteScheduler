@@ -13,10 +13,9 @@ import android.graphics.*
 import android.graphics.Paint.Style
 import android.view.*
 import android.widget.ImageView
-import kotlinx.android.synthetic.main.quick_layout_temp.*
+import kotlinx.android.synthetic.main.fragment_quick.*
 import androidx.core.view.children
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_quick.*
 import java.text.SimpleDateFormat
 import java.util.*
 /* *************************************************************** */
@@ -67,14 +66,13 @@ class FragmentQuick : Fragment(){
 
         /*
         val view : View = inflater.inflate(
-            R.layout.fragment_quick,
+            R.layout.fragment_quick_placeholder,
             container,
             false
         )*/
 
-
         val view : View = inflater.inflate(
-            R.layout.quick_layout_temp,
+            R.layout.fragment_quick,
             container,
             false
         )
@@ -82,6 +80,7 @@ class FragmentQuick : Fragment(){
         mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         mPaint!!.style = Style.STROKE
         mPaint!!.color = Color.RED
+        //mPaint!!.strokeWidth = 100F // No effect
 
         mCanvas = view.findViewById(R.id.fingerline)
         val imageView1 = view.findViewById<ImageView>(R.id.quick_1_1)
@@ -100,10 +99,8 @@ class FragmentQuick : Fragment(){
         val imageView14 = view.findViewById<ImageView>(R.id.quick_5_2)
         val imageView15 = view.findViewById<ImageView>(R.id.quick_5_3)
 
-
-
         var listener = View.OnTouchListener(function = { view, motionEvent ->
-            if(motionEvent.action == MotionEvent.ACTION_MOVE) {
+            if(motionEvent.action == MotionEvent.ACTION_MOVE){
                 val iconLoc = IntArray(2)
                 view.getLocationOnScreen(iconLoc)
                 startXIcon = iconLoc[0].toFloat()
@@ -117,14 +114,14 @@ class FragmentQuick : Fragment(){
                 endIcon = ""
 
                 startX = startXIcon + view.width/2
-                startY = (startYIcon-yLayout + view.height/2)
+                startY = (startYIcon - yLayout + view.height/2)
                 endX = motionEvent.rawX
                 endY = motionEvent.rawY - yLayout
 
                 mCanvas!!.invalidate()
             }
             if(motionEvent.action == MotionEvent.ACTION_UP){
-                for (child in Layout1.children){
+                for(child in Layout1.children){
                     if(child is ViewGroup){
                         val vg : ViewGroup = child as ViewGroup
                         for(child2 in vg.children){
@@ -141,23 +138,19 @@ class FragmentQuick : Fragment(){
                                 val yLayout = linearLayoutLoc[1]
                                 if((endX >= endXIcon) and
                                     (endX <= (endXIcon + child2.width)) and
-                                    (endY+yLayout >= endYIcon) and
-                                    (endY+yLayout <= endYIcon + child2.height)){
+                                    (endY + yLayout >= endYIcon) and
+                                    (endY + yLayout <= endYIcon + child2.height)){
 
                                     endIcon = child2.tag.toString()
 
                                     for(favorite in commutesList!!.favoritesItemsList){
-                                        if (favorite.name == startIcon){
+                                        if(favorite.name == startIcon){
                                             startIconAddress = favorite.address
                                         }
-                                        if (favorite.name == endIcon){
+                                        if(favorite.name == endIcon){
                                             endIconAddress = favorite.address
                                         }
                                     }
-
-
-
-
                                             var cal = Calendar.getInstance()
                                             val dateSetListener =
                                                 DatePickerDialog.OnDateSetListener { datePicker,
@@ -168,7 +161,6 @@ class FragmentQuick : Fragment(){
                                                     chooseDate =
                                                         SimpleDateFormat("YYYY-MM-dd")
                                                             .format(cal.time)
-
 
                                                     cal = Calendar.getInstance()
                                                     val timeSetListener =
@@ -199,15 +191,15 @@ class FragmentQuick : Fragment(){
 
                                                             if(commuteName.toString() == "")
                                                                 text = "Name of commute is missing"
-                                                            else if ((startIconAddress == null) or (startIconAddress==""))
+                                                            else if((startIconAddress == null) or (startIconAddress==""))
                                                                 text = "Starting location is missing"
-                                                            else if ((endIconAddress == null) or (endIconAddress==""))
+                                                            else if((endIconAddress == null) or (endIconAddress==""))
                                                                 text = "Destination is missing"
                                                             else if (arrivalDate == "")
                                                                 text = "Date information is missing"
-                                                            else if (arrivalTime == "")
+                                                            else if(arrivalTime == "")
                                                                 text = "Time information is missing"
-                                                            else if (timeArrival <= timeNow){
+                                                            else if(timeArrival <= timeNow){
                                                                 text = "Please chose a later date and/or time"
                                                             } else {
 
@@ -253,7 +245,7 @@ class FragmentQuick : Fragment(){
                                                                 mListener!!.onFragmentInteraction(3, source)
 
                                                             }
-                                                            if (text != ""){
+                                                            if(text != ""){
                                                                 Toast.makeText(activity, text, Toast.LENGTH_LONG).show()
                                                                 source[0] = 1
                                                                 mListener!!.onFragmentInteraction(3, source)
@@ -267,32 +259,6 @@ class FragmentQuick : Fragment(){
                                                         true
                                                     )
                                                     timeDialog.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                                 }
                                             DatePickerDialog(
                                                 context,
@@ -305,7 +271,7 @@ class FragmentQuick : Fragment(){
                                             if((startXIcon > endXIcon)){
                                                 endX =
                                                     (endXIcon + (child2.width) / 2 + (25 * this.resources.displayMetrics.density) + 20)
-                                                endY = (endYIcon + -yLayout + child2.height / 2)
+                                                endY = (endYIcon - yLayout + child2.height / 2)
                                                 mCanvas!!.invalidate()
                                             }
                                             if((startXIcon < endXIcon)){
@@ -354,9 +320,6 @@ class FragmentQuick : Fragment(){
         imageView13.setOnTouchListener(listener)
         imageView14.setOnTouchListener(listener)
         imageView15.setOnTouchListener(listener)
-        //imageView16.setOnTouchListener(listener)
-        //imageView17.setOnTouchListener(listener)
-        //imageView18.setOnTouchListener(listener)
 
         imageView1.setOnClickListener(listener3)
         imageView2.setOnClickListener(listener3)
@@ -381,6 +344,7 @@ class FragmentQuick : Fragment(){
         super.onDetach()
         mListener = null
     }
+
     interface OnFragmentInteractionListener{
         fun onFragmentInteraction(
             fragmentCaller : Int,
