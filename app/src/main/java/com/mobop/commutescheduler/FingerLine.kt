@@ -23,7 +23,7 @@ class FingerLine @JvmOverloads constructor(
         mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         mPaint!!.style = Style.STROKE
         mPaint!!.color = Color.RED
-        mPaint!!.strokeWidth=3.toFloat()
+        mPaint!!.strokeWidth=10.toFloat()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -44,7 +44,7 @@ class FingerLine @JvmOverloads constructor(
     ) {
         paint.style = Paint.Style.STROKE
 
-        val arrowHeadLenght = 30
+        val arrowHeadLenght = 50
         val arrowHeadAngle = 45
         val linePts = floatArrayOf(x1 - arrowHeadLenght, y1, x1, y1)
         val linePts2 = floatArrayOf(x1, y1, x1, y1 + arrowHeadLenght)

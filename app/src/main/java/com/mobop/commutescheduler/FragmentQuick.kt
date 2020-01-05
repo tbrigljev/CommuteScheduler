@@ -84,6 +84,13 @@ class FragmentQuick : Fragment(){
         mPaint!!.color = Color.RED
 
         mCanvas = view.findViewById(R.id.fingerline)
+        startX = 0.toFloat()
+        startY =  0.toFloat()
+        endX =  0.toFloat()
+        endY =  0.toFloat()
+        mCanvas!!.invalidate()
+        var errorMessage = ""
+
         val imageView1 = view.findViewById<ImageView>(R.id.quick_1_1)
         val imageView2 = view.findViewById<ImageView>(R.id.quick_1_2)
         val imageView3 = view.findViewById<ImageView>(R.id.quick_1_3)
@@ -155,184 +162,166 @@ class FragmentQuick : Fragment(){
                                         }
                                     }
 
+                                    var cal = Calendar.getInstance()
+                                    val dateSetListener =
+                                        DatePickerDialog.OnDateSetListener { datePicker,
+                                                                             year, month, day ->
+                                            cal.set(Calendar.YEAR, year)
+                                            cal.set(Calendar.MONTH, month)
+                                            cal.set(Calendar.DAY_OF_MONTH, day)
+                                            chooseDate =
+                                                SimpleDateFormat("YYYY-MM-dd")
+                                                    .format(cal.time)
 
 
+                                            cal = Calendar.getInstance()
+                                            val timeSetListener =
+                                                TimePickerDialog.OnTimeSetListener { timePicker,
+                                                                                     hour, minute ->
+                                                    cal.set(Calendar.HOUR_OF_DAY, hour)
+                                                    cal.set(Calendar.MINUTE, minute)
+                                                    chooseTime =
+                                                        SimpleDateFormat("HH:mm")
+                                                            .format(cal.time) + ":00"
 
-                                            var cal = Calendar.getInstance()
-                                            val dateSetListener =
-                                                DatePickerDialog.OnDateSetListener { datePicker,
-                                                                                     year, month, day ->
-                                                    cal.set(Calendar.YEAR, year)
-                                                    cal.set(Calendar.MONTH, month)
-                                                    cal.set(Calendar.DAY_OF_MONTH, day)
-                                                    chooseDate =
-                                                        SimpleDateFormat("YYYY-MM-dd")
-                                                            .format(cal.time)
+                                                    commuteName = startIcon + "To" + endIcon
+                                                    val newCommute = Commute()
 
+                                                    //val startName = commuteOrigin.text.toString()
+                                                    //val arrivalName = commuteDestination.text.toString()
+                                                    val arrivalDate = chooseDate.toString()
+                                                    val arrivalTime = chooseTime.toString()
 
-                                                    cal = Calendar.getInstance()
-                                                    val timeSetListener =
-                                                        TimePickerDialog.OnTimeSetListener { timePicker,
-                                                                                             hour, minute ->
-                                                            cal.set(Calendar.HOUR_OF_DAY, hour)
-                                                            cal.set(Calendar.MINUTE, minute)
-                                                            chooseTime =
-                                                                SimpleDateFormat("HH:mm")
-                                                                    .format(cal.time) + ":00"
+                                                    val format = "yyyy-MM-dd hh:mm:ss"
+                                                    val sdf = SimpleDateFormat(format)
 
-                                                            commuteName = startIcon + "To" + endIcon
-                                                            val newCommute = Commute()
+                                                    val arrivalDateTime = arrivalDate + " " + arrivalTime
+                                                    val timeArrival = sdf.parse(arrivalDateTime)
+                                                    val timeNow = Calendar.getInstance().time
 
-                                                            //val startName = commuteOrigin.text.toString()
-                                                            //val arrivalName = commuteDestination.text.toString()
-                                                            val arrivalDate = chooseDate.toString()
-                                                            val arrivalTime = chooseTime.toString()
+                                                    errorMessage = ""
 
-                                                            val format = "yyyy-MM-dd hh:mm:ss"
-                                                            val sdf = SimpleDateFormat(format)
+                                                    if(commuteName.toString() == "")
+                                                        errorMessage = "Name of commute is missing"
+                                                    else if ((startIconAddress == null) or (startIconAddress==""))
+                                                        errorMessage = "Starting location is missing"
+                                                    else if ((endIconAddress == null) or (endIconAddress==""))
+                                                        errorMessage = "Destination is missing"
+                                                    else if (arrivalDate == "")
+                                                        errorMessage = "Date information is missing"
+                                                    else if (arrivalTime == "")
+                                                        errorMessage = "Time information is missing"
+                                                    else if (timeArrival <= timeNow){
+                                                        errorMessage = "Please chose a later date and/or time"
+                                                    } else {
+                                                        newCommute.name = commuteName.toString()
+                                                        newCommute.start = startIcon!!
+                                                        newCommute.start_address = startIconAddress!!
+                                                        newCommute.arrival = endIcon!!
+                                                        newCommute.arrival_address = endIconAddress!!
 
-                                                            val arrivalDateTime = arrivalDate + " " + arrivalTime
-                                                            val timeArrival = sdf.parse(arrivalDateTime)
-                                                            val timeNow = Calendar.getInstance().time
+                                                        val time = arrivalTime.split(":")
+                                                        val date = arrivalDate.split("-")
+                                                        newCommute.arrival_time_short =
+                                                            "on " + date[2] + "." + date[1] + "." + date[0] +
+                                                                    ", at " + time[0] + ":" + time[1]
+                                                        newCommute.arrival_time_long =
+                                                            arrivalDate +
+                                                                    " " + arrivalTime
 
-                                                            var text = ""
+                                                        errorMessage = "Commute added"
+                                                        //var arrival_time = "2019-12-31 23:00:00"
+                                                        commutesList!!.commutesItemsList.add(newCommute)
 
-                                                            if(commuteName.toString() == "")
-                                                                text = "Name of commute is missing"
-                                                            else if ((startIconAddress == null) or (startIconAddress==""))
-                                                                text = "Starting location is missing"
-                                                            else if ((endIconAddress == null) or (endIconAddress==""))
-                                                                text = "Destination is missing"
-                                                            else if (arrivalDate == "")
-                                                                text = "Date information is missing"
-                                                            else if (arrivalTime == "")
-                                                                text = "Time information is missing"
-                                                            else if (timeArrival <= timeNow){
-                                                                text = "Please chose a later date and/or time"
-                                                            } else {
+                                                        val pos = commutesList!!.commutesItemsList.size - 1
+                                                        MainActivity.mGoogleAPI!!.requestRoute(
+                                                            "Activity", pos, true
+                                                        )
 
-                                                                newCommute.name = commuteName.toString()
-                                                                newCommute.start = startIcon!!
-                                                                newCommute.start_address = startIconAddress!!
-                                                                newCommute.arrival = endIcon!!
-                                                                newCommute.arrival_address = endIconAddress!!
-
-                                                                val time = arrivalTime.split(":")
-                                                                val date = arrivalDate.split("-")
-                                                                newCommute.arrival_time_short =
-                                                                    "on " + date[2] + "." + date[1] + "." + date[0] +
-                                                                            ", at " + time[0] + ":" + time[1]
-                                                                newCommute.arrival_time_long =
-                                                                    arrivalDate +
-                                                                            " " + arrivalTime
-
-                                                                text = "Commute added"
-                                                                //var arrival_time = "2019-12-31 23:00:00"
-                                                                commutesList!!.commutesItemsList.add(newCommute)
-
-                                                                val pos = commutesList!!.commutesItemsList.size - 1
-                                                                MainActivity.mGoogleAPI!!.requestRoute(
-                                                                    "Activity", pos, true
-                                                                )
-
-                                                                var prevPos =
-                                                                    FragmentCommutes.mAdapter!!.previousPosition
-                                                                if(commutesList!!.commutesItemsList.count() < 2){
-                                                                    prevPos = -1
-                                                                }
-                                                                if((prevPos != -1) and
-                                                                    (prevPos < FragmentCommutes.mAdapter!!.commutesItemsList.size)
-                                                                ) {
-                                                                    FragmentCommutes.mAdapter!!.viewLayouts(
-                                                                        visibleLayoutButtons = false,
-                                                                        visibleLayoutExtended = false,
-                                                                        pos = FragmentCommutes.mAdapter!!.previousPosition
-                                                                    )
-                                                                }
-                                                                source[0] = 1
-                                                                mListener!!.onFragmentInteraction(3, source)
-
-                                                            }
-                                                            if (text != ""){
-                                                                Toast.makeText(activity, text, Toast.LENGTH_LONG).show()
-                                                                source[0] = 1
-                                                                mListener!!.onFragmentInteraction(3, source)
-                                                            }
+                                                        var prevPos =
+                                                            FragmentCommutes.mAdapter!!.previousPosition
+                                                        if(commutesList!!.commutesItemsList.count() < 2){
+                                                            prevPos = -1
                                                         }
-                                                    val timeDialog = TimePickerDialog(
-                                                        context,
-                                                        timeSetListener,
-                                                        cal.get(Calendar.HOUR_OF_DAY),
-                                                        cal.get(Calendar.MINUTE),
-                                                        true
-                                                    )
-                                                    timeDialog.show()
+                                                        if((prevPos != -1) and
+                                                            (prevPos < FragmentCommutes.mAdapter!!.commutesItemsList.size)
+                                                        ) {
+                                                            FragmentCommutes.mAdapter!!.viewLayouts(
+                                                                visibleLayoutButtons = false,
+                                                                visibleLayoutExtended = false,
+                                                                pos = FragmentCommutes.mAdapter!!.previousPosition
+                                                            )
+                                                        }
+                                                        source[0] = 1
+                                                        mListener!!.onFragmentInteraction(3, source)
 
+                                                    }
+                                                    if (errorMessage != ""){
+                                                        Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show()
+                                                        source[0] = 1
+                                                        mListener!!.onFragmentInteraction(3, source)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                                    }
                                                 }
-                                            DatePickerDialog(
+                                            val timeDialog = TimePickerDialog(
                                                 context,
-                                                dateSetListener,
-                                                cal.get(Calendar.YEAR),
-                                                cal.get(Calendar.MONTH),
-                                                cal.get(Calendar.DAY_OF_MONTH)
-                                            ).show()
+                                                timeSetListener,
+                                                cal.get(Calendar.HOUR_OF_DAY),
+                                                cal.get(Calendar.MINUTE),
+                                                true
+                                            )
+                                            timeDialog.show()
+                                        }
+                                        DatePickerDialog(
+                                            context,
+                                            dateSetListener,
+                                            cal.get(Calendar.YEAR),
+                                            cal.get(Calendar.MONTH),
+                                            cal.get(Calendar.DAY_OF_MONTH)
+                                        ).show()
 
-                                            if((startXIcon > endXIcon)){
-                                                endX =
-                                                    (endXIcon + (child2.width) / 2 + (25 * this.resources.displayMetrics.density) + 20)
-                                                endY = (endYIcon + -yLayout + child2.height / 2)
-                                                mCanvas!!.invalidate()
-                                            }
-                                            if((startXIcon < endXIcon)){
-                                                endX =
-                                                    (endXIcon + (child2.width) / 2 - (25 * this.resources.displayMetrics.density) - 20)
-                                                endY = (endYIcon - yLayout + child2.height / 2)
-                                                mCanvas!!.invalidate()
-                                            }
+                                        if((startXIcon > endXIcon)){
+                                            endX =
+                                                (endXIcon + (child2.width) / 2 + (25 * this.resources.displayMetrics.density) + 20)
+                                            endY = (endYIcon + -yLayout + child2.height / 2)
+                                            mCanvas!!.invalidate()
+                                        }
+                                        if((startXIcon < endXIcon)){
+                                            endX =
+                                                (endXIcon + (child2.width) / 2 - (25 * this.resources.displayMetrics.density) - 20)
+                                            endY = (endYIcon - yLayout + child2.height / 2)
+                                            mCanvas!!.invalidate()
+                                        }
 
-                                            if((startXIcon == endXIcon) and (startYIcon < endYIcon)){
-                                                endX = (endXIcon + (child2.width) / 2)
-                                                endY = (endYIcon - yLayout)
-                                                mCanvas!!.invalidate()
-                                            }
+                                        if((startXIcon == endXIcon) and (startYIcon < endYIcon)){
+                                            endX = (endXIcon + (child2.width) / 2)
+                                            endY = (endYIcon - yLayout)
+                                            mCanvas!!.invalidate()
+                                        }
 
-                                            if((startXIcon == endXIcon) and (startYIcon > endYIcon)){
-                                                endX = (endXIcon + (child2.width) / 2)
-                                                endY = (endYIcon - yLayout + child2.height)
-                                                mCanvas!!.invalidate()
-                                            }
-                                            break
-                                }
+                                        if((startXIcon == endXIcon) and (startYIcon > endYIcon)){
+                                            endX = (endXIcon + (child2.width) / 2)
+                                            endY = (endYIcon - yLayout + child2.height)
+                                            mCanvas!!.invalidate()
+                                        }
+                                        break
+                                    }
+
                             }
+
                         }
+
                     }
                 }
+                if (errorMessage!="Commute added") {
+                    startX = 0.toFloat()
+                    startY =  0.toFloat()
+                    endX =  0.toFloat()
+                    endY =  0.toFloat()
+                    mCanvas!!.invalidate()
+                }
             }
+
             true
         })
 
