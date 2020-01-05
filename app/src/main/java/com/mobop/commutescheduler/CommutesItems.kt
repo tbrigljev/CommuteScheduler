@@ -11,6 +11,7 @@ import androidx.room.*
 /* CommutesItems ************************************************* */
 /* Contents of the recycler view (list) of commutes items and **** */
 /* *** favorites items ******************************************* */
+
 class CommutesItemsList private constructor(context : Context){
 
     var commutesItemsList = ArrayList<Commute>()

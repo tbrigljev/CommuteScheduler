@@ -17,6 +17,7 @@ import org.jetbrains.anko.doAsync
 /* CommutesAdapter *********************************************** */
 /* Adapter for the recycler view managing the list of commutes *** */
 /* Contained in FragmentCommutes ********************************* */
+
 class CommutesAdapter(
     mRecyclerView: RecyclerView,
     viewRes : Int,

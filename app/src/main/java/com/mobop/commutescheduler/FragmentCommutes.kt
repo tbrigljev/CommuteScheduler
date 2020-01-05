@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 /* FragmentCommutes ********************************************** */
 /* Contains the list of commutes and the related buttons ********* */
 /* Contained in FragmentHome and in its standalone fragment ****** */
+
 class FragmentCommutes(screen : Int) : Fragment(){
     companion object{
         var mRecyclerView : RecyclerView? = null

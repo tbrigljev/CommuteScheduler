@@ -1,5 +1,4 @@
 package com.mobop.commutescheduler
-// comment
 
 /* Import ******************************************************** */
 import android.app.Activity
@@ -16,11 +15,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import org.jetbrains.anko.collections.forEachReversedByIndex
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-
 /* *************************************************************** */
 
 /* FragmentCommuteEdit ******************************************* */
@@ -30,7 +27,7 @@ import kotlin.collections.ArrayList
 class FragmentCommutesEdit(
     private var new : Boolean,
     private var pos : Int) :
-    Fragment(),AdapterView.OnItemSelectedListener{
+    Fragment(), AdapterView.OnItemSelectedListener{
 
     companion object {
         //var start: String = "Fribourg"
@@ -40,8 +37,8 @@ class FragmentCommutesEdit(
         var arrival_name : String = ""
         var arrival_address : String = ""
     }
-    val Origin_SPINNER_ID = 1
-    val Dest_SPINNER_ID = 2
+    private val Origin_SPINNER_ID = 1
+    private val Dest_SPINNER_ID = 2
 
     private var mListener : OnFragmentInteractionListener? = null
 
@@ -172,8 +169,6 @@ class FragmentCommutesEdit(
         fav.add("")
         commutesList!!.favoritesItemsList.forEach {fav.add(it.name)}
 
-
-
         var aa = ArrayAdapter(activity!!, android.R.layout.simple_spinner_item, fav)
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -184,7 +179,7 @@ class FragmentCommutesEdit(
             onItemSelectedListener = this@FragmentCommutesEdit
             prompt = "Select your favourite language"
             gravity = Gravity.CENTER
-            id=Origin_SPINNER_ID
+            id = Origin_SPINNER_ID
         }
 
         aa = ArrayAdapter(activity!!, android.R.layout.simple_spinner_item, fav)
@@ -197,7 +192,7 @@ class FragmentCommutesEdit(
             onItemSelectedListener = this@FragmentCommutesEdit
             prompt = "Select your favourite language"
             gravity = Gravity.CENTER
-            id=Dest_SPINNER_ID
+            id = Dest_SPINNER_ID
 
         }
 
@@ -212,15 +207,14 @@ class FragmentCommutesEdit(
             arrival_address = commutesList!!.commutesItemsList[pos].arrival_address
             alarmEnableSwitch.isChecked = commutesList!!.commutesItemsList[pos].alarm
 
-            var spinPos=fav.indexOf(start_name)
+            var spinPos = fav.indexOf(start_name)
 
             if (spinPos > -1) commuteOriginFavSpinner.setSelection(spinPos)
             else commuteOriginFavSpinner.setSelection(0)
 
-            spinPos=fav.indexOf(arrival_name)
+            spinPos = fav.indexOf(arrival_name)
             if (spinPos > -1) commuteDestinationFavSpinner.setSelection(spinPos)
             else commuteDestinationFavSpinner.setSelection(0)
-
 
             //commuteOrigin.setText(start_name)
             commuteOriginAddress.setText(start_address)
@@ -252,13 +246,10 @@ class FragmentCommutesEdit(
                     start_name=commutesList!!.favoritesItemsList[position-1].name
                     start_address=commutesList!!.favoritesItemsList[position-1].address
                     commuteOriginAddress.setText(start_address)
-
-                }
-                else {
+                } else {
                     commuteOriginAddress.setText("")
                     start_address=""
                 }
-
             }
             2 -> {
                 if (position > 0){
@@ -266,15 +257,12 @@ class FragmentCommutesEdit(
                     arrival_address=commutesList!!.favoritesItemsList[position-1].address
                     commuteDestinationAddress.setText(arrival_address)
 
-                }
-                else {
+                } else {
                     commuteDestinationAddress.setText("")
                     arrival_address=""
                 }
             }
         }
-
-
     }
 
     override fun onAttach(context : Context){
@@ -457,9 +445,4 @@ class FragmentCommutesEdit(
             fragmentCaller : Int,
             fragmentState : IntArray)
     }
-
-
-
-
-
 }

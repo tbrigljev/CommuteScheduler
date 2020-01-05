@@ -16,6 +16,7 @@ import org.jetbrains.anko.doAsync
 /* FavoritesAdapter ********************************************** */
 /* Adapter for the recycler view managing the list of favorites ** */
 /* Contained in FragmentFavorites ******************************** */
+
 class FavoritesAdapter(
     mRecyclerView: RecyclerView,
     viewRes : Int,
