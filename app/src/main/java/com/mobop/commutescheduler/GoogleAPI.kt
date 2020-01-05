@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat
 /* *************************************************************** */
 
 /* GoogleAPI ***************************************************** */
-/* Used for comminucation with the Map and Places Google services  */
+/* Used for communication with the Map and Places Google services  */
 
 class GoogleAPI{
 

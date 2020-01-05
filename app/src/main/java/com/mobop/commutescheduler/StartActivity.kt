@@ -58,15 +58,16 @@ class StartActivity : AppCompatActivity(){
         startSkip = findViewById(R.id.start_button_skip)
 
         slides = intArrayOf(
-            R.layout.start01_welcome,
-            R.layout.start02_mainview,
-            R.layout.start03_addcommute,
-            R.layout.start04_commutedetails,
-            R.layout.start05_seecommutes,
-            R.layout.start06_mapdetails,
-            R.layout.start07_addfavorite,
-            R.layout.start08_usefavorite,
-            R.layout.start09_comingsoon
+            R.layout.start80,
+            R.layout.start80,
+            R.layout.start80,
+            R.layout.start80,
+            R.layout.start80,
+            R.layout.start98,
+            R.layout.start80,
+            R.layout.start80,
+            R.layout.start80,
+            R.layout.start70
         )
 
         navigationDots(0)
@@ -80,8 +81,8 @@ class StartActivity : AppCompatActivity(){
         startSkip.setOnClickListener { launchHomeScreen() }
 
         startNext.setOnClickListener {
-            val current : Int = getItem(+1)
-            if (current < slides.count()) {
+            val current : Int = getItem(+ 1)
+            if(current < slides.count()){
                 viewSlides.currentItem = current
             } else {
                 launchHomeScreen()
@@ -117,9 +118,9 @@ class StartActivity : AppCompatActivity(){
     private var slideChangeListener :
             ViewPager.OnPageChangeListener = object :
         ViewPager.OnPageChangeListener {
-        override fun onPageSelected(position: Int) {
+        override fun onPageSelected(position: Int){
             navigationDots(position)
-            if (position == slides.count() - 1) {
+            if(position == slides.count() - 1){
                 startNext.text = getString(R.string.action_got)
                 startSkip.visibility = View.GONE
             } else {
@@ -128,14 +129,14 @@ class StartActivity : AppCompatActivity(){
             }
         }
 
-        override fun onPageScrolled(arg0 : Int, arg1 : Float, arg2 : Int) {}
-        override fun onPageScrollStateChanged(arg0 : Int) {}
+        override fun onPageScrolled(arg0 : Int, arg1 : Float, arg2 : Int){}
+        override fun onPageScrollStateChanged(arg0 : Int){}
     }
 
     class ViewPagerAdapter : PagerAdapter{
 
         private var layoutInflater : LayoutInflater? = null
-        private var mActivity: StartActivity? = null
+        private var mActivity : StartActivity? = null
         private var images : IntArray
         private var texts : IntArray
 
@@ -149,7 +150,8 @@ class StartActivity : AppCompatActivity(){
                 R.drawable.start06,
                 R.drawable.start07,
                 R.drawable.start08,
-                R.drawable.start09
+                R.drawable.start09,
+                R.drawable.start10
             )
             this.texts = intArrayOf(
                 R.string.start01,
@@ -160,7 +162,8 @@ class StartActivity : AppCompatActivity(){
                 R.string.start06,
                 R.string.start07,
                 R.string.start08,
-                R.string.start09
+                R.string.start09,
+                R.string.start10
             )
         }
 
@@ -199,7 +202,7 @@ class StartActivity : AppCompatActivity(){
             container : ViewGroup,
             position : Int,
             `object` : Any
-        ) {
+        ){
             val view : View = `object` as View
             container.removeView(view)
         }
