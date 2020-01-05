@@ -35,6 +35,7 @@ class GoogleAPI{
     private var mSender : String? = null
     private var mPosition : Int = -1
     private var isNew : Boolean? = null
+    //C2D
     private var routeName : String = ""
     private var routeStart : String = ""
     private var routeArrival : String = ""
@@ -87,13 +88,15 @@ class GoogleAPI{
         autocompleteFragmentStart
             .setPlaceFields(placeFields)
         autocompleteFragmentStart
+            //C2D
             //.setHint("Set the start point")
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
                         FragmentCommutesEdit.start_address = p0.address!!
                         FragmentCommutesEdit.commuteOriginFavSpinner.setSelection(0)
-                        // getPhotoAndDetail(p0.id!!.true)
+                        //C2D
+                        //getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}
                 }
@@ -106,14 +109,15 @@ class GoogleAPI{
         autocompleteFragmentArrival
             .setPlaceFields(placeFields)
         autocompleteFragmentArrival
+            //C2D
             //.setHint("Set the arrival point")
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
                         FragmentCommutesEdit.arrival_address = p0.address!!
                         FragmentCommutesEdit.commuteDestinationFavSpinner.setSelection(0)
-
-                        // getPhotoAndDetail(p0.id!!.true)
+                        //C2D
+                        //getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}
                 }
@@ -138,12 +142,14 @@ class GoogleAPI{
         autocompleteFragmentStart
             .setPlaceFields(placeFields)
         autocompleteFragmentStart
+            //C2D
             //.setHint("Set the start point")
             .setOnPlaceSelectedListener(
                 object : PlaceSelectionListener{
                     override fun onPlaceSelected(p0 : Place){
                         FragmentFavoritesEdit.address = p0.address!!
-                        // getPhotoAndDetail(p0.id!!.true)
+                        //C2D
+                        //getPhotoAndDetail(p0.id!!.true)
                     }
                     override fun onError(p0 : Status){}
                 }
@@ -161,7 +167,6 @@ class GoogleAPI{
 
         mSender = sender
         isNew = is_new
-
 
         if(mCommute.arrival_time_long != "Now"){
             routeArrivalTimeUTC =
@@ -265,6 +270,7 @@ class GoogleAPI{
                             "on " + date[2] +"."+ date[1] +"." + date[0] +
                                     ", at " + time[0] + ":" + time[1]
 
+                        //C2D
                         //commutesList!!.commutesItemsList[mPosition].name = routeName
                         mCommute.arrival_time_UTC = routeArrivalTimeUTC
                         if(mSender == "Service"){

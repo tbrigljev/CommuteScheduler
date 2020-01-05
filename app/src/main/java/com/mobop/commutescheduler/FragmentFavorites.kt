@@ -35,6 +35,7 @@ class FragmentFavorites : Fragment(){
     private lateinit var emptyFavorites : ConstraintLayout
     private lateinit var emptyFavoritesAdd : ImageButton
 
+    //C2D
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }
@@ -111,11 +112,11 @@ class FragmentFavorites : Fragment(){
                     " must implement OnFragmentInteractionListener")
         }
     }
+
     override fun onDetach(){
         super.onDetach()
         mListener = null
     }
-
 
     private fun doFavoritesAdd(fragmentCaller : Int,
                                empty : Boolean){

@@ -1,19 +1,26 @@
 package com.mobop.commutescheduler
-import android.content.Context;
-import android.graphics.*;
-import android.graphics.Paint.Style;
 
-import android.util.AttributeSet;
-import android.view.*;
+/* Import ******************************************************** */
+import android.content.Context
+import android.graphics.*
+import android.graphics.Paint.Style
+import android.util.AttributeSet
+import android.view.*
 import androidx.core.content.ContextCompat
 import com.mobop.commutescheduler.FragmentQuick.Companion.endX
 import com.mobop.commutescheduler.FragmentQuick.Companion.endY
 import com.mobop.commutescheduler.FragmentQuick.Companion.startX
 import com.mobop.commutescheduler.FragmentQuick.Companion.startY
+import kotlin.math.atan2
+/* *************************************************************** */
 
+/* FragLine ****************************************************** */
+/* Using for geometry drawing of an arrow in the quick route ***** */
 
 class FingerLine @JvmOverloads constructor(
-    context : Context, attrs : AttributeSet? = null, defStyleAttr : Int = 0) :
+    context : Context,
+    attrs : AttributeSet? = null,
+    defStyleAttr : Int = 0) :
     View(context, attrs, defStyleAttr){
     private var mPaint : Paint? = null
 
@@ -29,7 +36,7 @@ class FingerLine @JvmOverloads constructor(
         super.onDraw(canvas)
 
         canvas.drawLine(startX, startY, endX, endY, mPaint!!)
-        fillArrow(mPaint!!,canvas,startX, startY, endX, endY)
+        fillArrow(mPaint!!, canvas, startX, startY, endX, endY)
     }
 
     private fun fillArrow(
@@ -52,7 +59,7 @@ class FingerLine @JvmOverloads constructor(
 
         //Set the angle
         val angle =
-            Math.atan2((y1 - y0).toDouble(), (x1 - x0).toDouble()) * 180 / Math.PI + arrowHeadAngle
+            atan2((y1 - y0).toDouble(), (x1 - x0).toDouble()) * 180 / Math.PI + arrowHeadAngle
 
         //Rotate the matrix around the center
         rotateMat.setRotate(angle.toFloat(), x1, y1)

@@ -48,7 +48,6 @@ class FavoritesAdapter(
             parent,
             false
         )
-
         return ViewHolder(view)
     }
 

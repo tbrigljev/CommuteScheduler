@@ -31,6 +31,7 @@ class FragmentQuick : Fragment(){
 
     private var source : IntArray = intArrayOf(0, 0)
 
+    //C2D
     private val fragmentID = 6
     private var startIcon : String? = null
     private var endIcon : String? = null
@@ -39,6 +40,7 @@ class FragmentQuick : Fragment(){
     private var commuteName : String? = null
     private var chooseDate : String? = null
     private var chooseTime : String? = null
+    //C2D
     private var mPaint : Paint? = null
     private var mCanvas : FingerLine? = null
 
@@ -54,6 +56,7 @@ class FragmentQuick : Fragment(){
         var endYIcon : Float = 0.toFloat()
     }
 
+    //C2D
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }
@@ -62,13 +65,6 @@ class FragmentQuick : Fragment(){
         inflater : LayoutInflater,
         container : ViewGroup?,
         savedInstanceState : Bundle?) : View?{
-
-        /*
-        val view : View = inflater.inflate(
-            R.layout.fragment_quick,
-            container,
-            false
-        )*/
 
         val view : View = inflater.inflate(
             R.layout.fragment_quick,
@@ -100,7 +96,7 @@ class FragmentQuick : Fragment(){
         val imageView14 = view.findViewById<ImageView>(R.id.quick_5_2)
         val imageView15 = view.findViewById<ImageView>(R.id.quick_5_3)
 
-        var listener = View.OnTouchListener(function = { view, motionEvent ->
+        val listener = View.OnTouchListener(function = { view, motionEvent ->
             if(motionEvent.action == MotionEvent.ACTION_MOVE) {
                 val iconLoc = IntArray(2)
                 view.getLocationOnScreen(iconLoc)
@@ -109,6 +105,7 @@ class FragmentQuick : Fragment(){
 
                 val linearLayoutLoc = IntArray(2)
                 Layout1.getLocationOnScreen(linearLayoutLoc)
+                //C2D
                 val xLayout = linearLayoutLoc[0]
                 val yLayout = linearLayoutLoc[1]
                 startIcon = view.tag.toString()
@@ -135,6 +132,7 @@ class FragmentQuick : Fragment(){
 
                                 val linearLayoutLoc = IntArray(2)
                                 Layout1.getLocationOnScreen(linearLayoutLoc)
+                                //C2D
                                 val xLayout = linearLayoutLoc[0]
                                 val yLayout = linearLayoutLoc[1]
                                 if((endX >= endXIcon) and
@@ -163,7 +161,6 @@ class FragmentQuick : Fragment(){
                                             chooseDate =
                                                 SimpleDateFormat("YYYY-MM-dd")
                                                     .format(cal.time)
-
 
                                             cal = Calendar.getInstance()
                                             val timeSetListener =
@@ -269,7 +266,7 @@ class FragmentQuick : Fragment(){
                                         if((startXIcon > endXIcon)){
                                             endX =
                                                 (endXIcon + (child2.width) / 2 + (25 * this.resources.displayMetrics.density) + 20)
-                                            endY = (endYIcon + -yLayout + child2.height / 2)
+                                            endY = (endYIcon - yLayout + child2.height / 2)
                                             mCanvas!!.invalidate()
                                         }
                                         if((startXIcon < endXIcon)){
@@ -326,9 +323,6 @@ class FragmentQuick : Fragment(){
         imageView13.setOnTouchListener(listener)
         imageView14.setOnTouchListener(listener)
         imageView15.setOnTouchListener(listener)
-        //imageView16.setOnTouchListener(listener)
-        //imageView17.setOnTouchListener(listener)
-        //imageView18.setOnTouchListener(listener)
 
         imageView1.setOnClickListener(listener3)
         imageView2.setOnClickListener(listener3)
@@ -353,6 +347,8 @@ class FragmentQuick : Fragment(){
         super.onDetach()
         mListener = null
     }
+
+    //C2D
     interface OnFragmentInteractionListener{
         fun onFragmentInteraction(
             fragmentCaller : Int,

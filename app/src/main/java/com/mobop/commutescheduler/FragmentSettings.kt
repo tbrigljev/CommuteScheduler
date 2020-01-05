@@ -23,6 +23,7 @@ class FragmentSettings : Fragment(){
     private lateinit var quickStartButton : ImageButton
     private lateinit var returnSettingsButton : ImageButton
 
+    //C2D
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }

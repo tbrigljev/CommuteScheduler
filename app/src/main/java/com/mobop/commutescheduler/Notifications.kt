@@ -21,9 +21,11 @@ class Notifications {
     fun setNotification(mRoute : Commute, checkPoint : Int, activity : Activity){
         val alarmManager = activity.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
         val alarmIntent = Intent(activity.applicationContext, AlarmReceiver::class.java)
+        //C2D
         // AlarmReceiver1 = broadcast receiver
         val mNotificationTime = (mRoute.start_time_UTC!! - checkPoint*60) * 1000
-        //Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
+        //C2D
+        // Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
         Log.i("My debug",mNotificationTime.toString())
 
         alarmIntent.putExtra("checkPoint", checkPoint)
@@ -38,7 +40,7 @@ class Notifications {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = mNotificationTime
 
-        // the check point will have to be replaced by the unique ID of the route + checkpoint for each alarm
+        // The check point will have to be replaced by the unique ID of the route + checkpoint for each alarm
         val id : Int = (mRoute.pid.toString() + "000" + checkPoint.toString()).toInt()
         val pendingIntent = PendingIntent.getBroadcast(activity, id, alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT)
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)

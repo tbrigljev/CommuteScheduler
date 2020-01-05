@@ -32,7 +32,6 @@ open class OnSwipeTouchListener : View.OnTouchListener {
         }
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            //onClick()
             onTouch(e)
             return true
         }
@@ -68,7 +67,7 @@ open class OnSwipeTouchListener : View.OnTouchListener {
                         }
                     }
                 } else {
-                    // onTouch(e);
+                    // onTouch(e)
                 }
             } catch(exception: Exception) {
                 exception.printStackTrace()

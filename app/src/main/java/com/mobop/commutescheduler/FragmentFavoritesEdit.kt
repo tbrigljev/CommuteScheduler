@@ -26,9 +26,7 @@ class FragmentFavoritesEdit(
     Fragment(){
 
     companion object {
-        //var start: String = "Home"
         var name : String = ""
-        //var arrival: String = "Route des Arsenaux 29, 1700 Fribourg, Switzerland"
         var address : String = ""
     }
     private var mListener : OnFragmentInteractionListener? = null
@@ -42,6 +40,7 @@ class FragmentFavoritesEdit(
     private lateinit var favoriteName : EditText
     private lateinit var favoriteAddress : AutocompleteSupportFragment
 
+    //C2D
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }

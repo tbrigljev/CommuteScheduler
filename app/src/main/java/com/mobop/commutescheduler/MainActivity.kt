@@ -34,7 +34,7 @@ const val COMMUTES = 2
 const val EDIT = 3
 const val FAVORITES = 4
 const val FAVORITESEDIT = 5
-const val QUICK = 6
+//const val QUICK = 6
 const val SETTINGS = 99
 
 var commutesList : CommutesItemsList? = null
@@ -153,10 +153,12 @@ class MainActivity :
             doAsync{
                 mCommute.pid=commutesList!!.database.insertAll(mCommute)
             }
+            //C2D
             //commutesList!!.commutesItemsList.add(mCommute)
             FragmentCommutes.mRecyclerView!!.adapter!!.notifyDataSetChanged()
             val lastPos = commutesList!!.commutesItemsList.size - 1
             FragmentCommutes.mRecyclerView!!.smoothScrollToPosition(lastPos)
+            //C2D
             //FragmentCommutes.mAdapter!!.viewLayouts(false,true,lastPos) //Gives an execption ??
 
             if(mCommute.alarm){

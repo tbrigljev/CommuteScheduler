@@ -41,8 +41,10 @@ class CommutesItemsList private constructor(context : Context){
             commutesItemsList.addAll(database.getAll())
             favoritesItemsList.addAll(database.getAllFavorite())
 
+            /*C2D
             //commutesItemsList.add(Path(1,"PROFESSIONAL", "2020-01-15 08:00:00", "2020-01-15 08:00:00", "test1", "test2","101",  false, "2020-01-15 08:00:00",true))
             //commutesItemsList.add(Path(2,"PRIVATE", "2020-01-15 08:00:00", "2020-01-15 08:00:00", "test3","test4","20", false, "2020-01-15 08:00:00",true))
+            */
 
             // Arrangement of the Array to separate by categories. The typeItem is also used
             // to order the header, the noItems item and the rest of the items per category
@@ -50,127 +52,128 @@ class CommutesItemsList private constructor(context : Context){
                     { it.start_time_long },
                     { it.arrival_time_long }))
 
-        val homeToSchool = Commute(
-            name = "Home2School",
-            start = "",
-            start_address = "Route des Arsenaux 29, 1700 Fribourg",
-            arrival = "",
-            arrival_address = "Avenue de Provence 6, 1007 Lausanne",
-            arrival_time_short = "on 15.01.2020, at 08:00",
-            arrival_time_long = "2020-01-15 08:00:00",
-            days = mutableListOf(R.string.Tuesday, R.string.Thursday),
-            duration = "01:12",
-            duration_val = 999/*
-            reminder_on = true,
-            reminder_tune = "Kimmunicator",
-            alarm_on = false,
-            alarm_time = "20 min",
-            alarm_tune = "Ribbit"*/)
-        val homeToWork = Commute(
-            name = "Home2Work",
-            start = "Home",
-            start_address = "Route des Arsenaux 29, 1700 Fribourg",
-            arrival = "Work",
-            arrival_address = "Route de Morat 135, 1763 Granges-Paccot",
-            arrival_time_short = "on 20.02.2020, at 07:00",
-            arrival_time_long = "2020-02-20 07:00:00",
-            days = mutableListOf(R.string.Monday, R.string.Wednesday, R.string.Friday),
-            duration = "00:25",
-            duration_val = 999/*,
-            reminder_on = false,
-            reminder_tune = "Kimmunicator",
-            alarm_on = true,
-            alarm_time = "10 min",
-            alarm_tune = "Ribbit"*/)
-        val longNameTest = Commute(
-            name = "This should be long enough to " +
-                    "fill the screen to make sure ellipsis works",
-            start = "Wherever",
-            start_address = "Street of Road, 10000 City",
-            arrival = "Wherever",
-            arrival_address = "Avenue of Path, 20000 City",
-            arrival_time_short = "on 15.01.2020, at 08:24",
-            arrival_time_long = "2020-01-15 08:24:00",
-            days = mutableListOf(R.string.Saturday, R.string.Sunday),
-            duration = "00:00",
-            duration_val = 999/*,
-            reminder_on = false,
-            reminder_tune = "DING",
-            alarm_on = false,
-            alarm_time = "0 min",
-            alarm_tune = "DONG"*/)
-        val longParamTest = Commute(
-            name = "A test for parameters",
-            start = "That one place that has a very long name",
-            start_address = "Place of Bridge, 30000 City",
-            arrival = "That other place that has a very long name",
-            arrival_address = "Alley of Way, 40000 City",
-            days = mutableListOf(R.string.Sunday),
-            arrival_time_short = "on 15.01.2020, at 08:24",
-            arrival_time_long = "2020-01-15 08:24:00",
-            duration = "00:00",
-            duration_val = 999/*,
-            reminder_on = true,
-            reminder_tune = "DING",
-            alarm_on = false,
-            alarm_time = "0 min",
-            alarm_tune = "DONG"*/)
+            /*C2D
+            val homeToSchool = Commute(
+                name = "Home2School",
+                start = "",
+                start_address = "Route des Arsenaux 29, 1700 Fribourg",
+                arrival = "",
+                arrival_address = "Avenue de Provence 6, 1007 Lausanne",
+                arrival_time_short = "on 15.01.2020, at 08:00",
+                arrival_time_long = "2020-01-15 08:00:00",
+                days = mutableListOf(R.string.Tuesday, R.string.Thursday),
+                duration = "01:12",
+                duration_val = 999/*,C2D
+                reminder_on = true,
+                reminder_tune = "Kimmunicator",
+                alarm_on = false,
+                alarm_time = "20 min",
+                alarm_tune = "Ribbit"*/)
+            val homeToWork = Commute(
+                name = "Home2Work",
+                start = "Home",
+                start_address = "Route des Arsenaux 29, 1700 Fribourg",
+                arrival = "Work",
+                arrival_address = "Route de Morat 135, 1763 Granges-Paccot",
+                arrival_time_short = "on 20.02.2020, at 07:00",
+                arrival_time_long = "2020-02-20 07:00:00",
+                days = mutableListOf(R.string.Monday, R.string.Wednesday, R.string.Friday),
+                duration = "00:25",
+                duration_val = 999/*,C2D
+                reminder_on = false,
+                reminder_tune = "Kimmunicator",
+                alarm_on = true,
+                alarm_time = "10 min",
+                alarm_tune = "Ribbit"*/)
+            val longNameTest = Commute(
+                name = "This should be long enough to " +
+                        "fill the screen to make sure ellipsis works",
+                start = "Wherever",
+                start_address = "Street of Road, 10000 City",
+                arrival = "Wherever",
+                arrival_address = "Avenue of Path, 20000 City",
+                arrival_time_short = "on 15.01.2020, at 08:24",
+                arrival_time_long = "2020-01-15 08:24:00",
+                days = mutableListOf(R.string.Saturday, R.string.Sunday),
+                duration = "00:00",
+                duration_val = 999/*,
+                reminder_on = false,
+                reminder_tune = "DING",
+                alarm_on = false,
+                alarm_time = "0 min",
+                alarm_tune = "DONG"*/)
+            val longParamTest = Commute(
+                name = "A test for parameters",
+                start = "That one place that has a very long name",
+                start_address = "Place of Bridge, 30000 City",
+                arrival = "That other place that has a very long name",
+                arrival_address = "Alley of Way, 40000 City",
+                days = mutableListOf(R.string.Sunday),
+                arrival_time_short = "on 15.01.2020, at 08:24",
+                arrival_time_long = "2020-01-15 08:24:00",
+                duration = "00:00",
+                duration_val = 999/*,
+                reminder_on = true,
+                reminder_tune = "DING",
+                alarm_on = false,
+                alarm_time = "0 min",
+                alarm_tune = "DONG"*/)
 
-        //commutesItemsList.add(homeToWork)
-        //commutesItemsList.add(homeToSchool)
-        //commutesItemsList.add(longNameTest)
-        //commutesItemsList.add(longParamTest)
+            //commutesItemsList.add(homeToWork)
+            //commutesItemsList.add(homeToSchool)
+            //commutesItemsList.add(longNameTest)
+            //commutesItemsList.add(longParamTest)
+            */
 
-            val Home = Favorite(
+            //C2D
+            val home = Favorite(
                 name = "Home",
                 address = "Route des Arsenaux 29, 1700 Fribourg")
-            val School = Favorite(
+            val school = Favorite(
                 name = "School",
                 address = "Avenue de Provence 6, 1007 Lausanne")
-            val Work = Favorite(
+            val work = Favorite(
                 name = "Work",
                 address = "Route de Morat 135, 1763 Granges-Paccot"
             )
-            val Shopping = Favorite(
+            val shopping = Favorite(
                 name = "Shopping",
                 address = "Migros Balexert, Geneve"
             )
-            val Restaurant = Favorite(
+            val restaurant = Favorite(
                 name = "Restaurant",
                 address = "Buffalo Grill, Archamps"
             )
-            val Club = Favorite(name = "Club",address ="")
-            val Bar = Favorite(name = "Bar",address ="")
-            val Friends = Favorite(name = "Friends",address ="")
-            val Kids = Favorite(name = "Kids",address ="")
-            val Gym = Favorite(name = "Gym",address ="")
-            val GasStation = Favorite(name = "Gas Station",address ="")
-            val Train = Favorite(name = "Train",address ="")
-            val Bank = Favorite(name = "Bank",address ="")
-            val Vacation = Favorite(name = "Vacation",address ="")
-            val CurrentLocation = Favorite(name = "CurrentLocation",address ="")
 
+            val club = Favorite(name = "Club", address ="")
+            val bar = Favorite(name = "Bar", address ="")
+            val friends = Favorite(name = "Friends", address ="")
+            val kids = Favorite(name = "Kids", address ="")
+            val gym = Favorite(name = "Gym", address ="")
+            val gasStation = Favorite(name = "Gas Station", address ="")
+            val train = Favorite(name = "Train", address ="")
+            val bank = Favorite(name = "Bank", address ="")
+            val vacation = Favorite(name = "Vacation", address ="")
+            val currentLocation = Favorite(name = "CurrentLocation", address ="")
 
             val fav = ArrayList<String>()
             commutesList!!.favoritesItemsList.forEach {fav.add(it.name)}
 
-            if(fav!!.contains(Club.name)==false)favoritesItemsList.add(Club)
-            if(fav!!.contains(Bar.name)==false)favoritesItemsList.add(Bar)
-            if(fav!!.contains(Restaurant.name)==false)favoritesItemsList.add(Restaurant)
-            if(fav!!.contains(Friends.name)==false)favoritesItemsList.add(Friends)
-            if(fav!!.contains(Kids.name)==false)favoritesItemsList.add(Kids)
-            if(fav!!.contains(Gym.name)==false)favoritesItemsList.add(Gym)
-            if(fav!!.contains(GasStation.name)==false)favoritesItemsList.add(GasStation)
-            if(fav!!.contains(Shopping.name)==false)favoritesItemsList.add(Shopping)
-            if(fav!!.contains(Train.name)==false)favoritesItemsList.add(Train)
-            if(fav!!.contains(Bank.name)==false)favoritesItemsList.add(Bank)
-            if(fav!!.contains(Work.name)==false)favoritesItemsList.add(Work)
-            if(fav!!.contains(Home.name)==false)favoritesItemsList.add(Home)
-            if(fav!!.contains(Vacation.name)==false)favoritesItemsList.add(Vacation)
-            if(fav!!.contains(School.name)==false)favoritesItemsList.add(School)
-            if(fav!!.contains(CurrentLocation.name)==false)favoritesItemsList.add(CurrentLocation)
-
-
+            if(fav!!.contains(club.name) == false)favoritesItemsList.add(club)
+            if(fav!!.contains(bar.name) == false)favoritesItemsList.add(bar)
+            if(fav!!.contains(restaurant.name) == false)favoritesItemsList.add(restaurant)
+            if(fav!!.contains(friends.name) == false)favoritesItemsList.add(friends)
+            if(fav!!.contains(kids.name) == false)favoritesItemsList.add(kids)
+            if(fav!!.contains(gym.name) == false)favoritesItemsList.add(gym)
+            if(fav!!.contains(gasStation.name) == false)favoritesItemsList.add(gasStation)
+            if(fav!!.contains(shopping.name) == false)favoritesItemsList.add(shopping)
+            if(fav!!.contains(train.name) == false)favoritesItemsList.add(train)
+            if(fav!!.contains(bank.name) == false)favoritesItemsList.add(bank)
+            if(fav!!.contains(work.name) == false)favoritesItemsList.add(work)
+            if(fav!!.contains(home.name) == false)favoritesItemsList.add(home)
+            if(fav!!.contains(vacation.name) == false)favoritesItemsList.add(vacation)
+            if(fav!!.contains(school.name) == false)favoritesItemsList.add(school)
+            if(fav!!.contains(currentLocation.name) == false)favoritesItemsList.add(currentLocation)
         }
     }
 }
@@ -197,7 +200,6 @@ data class Commute(
     @ColumnInfo(name = "arrival_time_long") var arrival_time_long : String = "",
     @ColumnInfo(name = "arrival_time_UTC") var arrival_time_UTC : Long? = null,
 
-
     @ColumnInfo(name = "distance") var distance : String? = null,
     @ColumnInfo(name = "duration") var duration : String? = null,
     @ColumnInfo(name = "duration_val") var duration_val : Long? = null,
@@ -211,16 +213,18 @@ data class Commute(
     @ColumnInfo(name = "next_update") var next_update : String = "",
     @ColumnInfo(name = "active") var active : Boolean = true,
 
-   /* var reminder_on : Boolean = false,
+    /*C2D
+    var reminder_on : Boolean = false,
     var reminder_tune : String? = null,
 
     var alarm_on : Boolean = false,
     var alarm_time : String? = null,
     var alarm_tune : String? = null*/
 
-
+    /*C2D
     // @Relation(parentColumn = "aid", entityColumn = "adrId")
     // var address: List<Address>? = null,
+    */
 
     var typeItem : Int = 1,
     @Ignore var start_address_LatLng : LatLng? = null,
@@ -238,8 +242,6 @@ data class Favorite(
     var typeItem : Int = 1
 )
 
-
-
 @Dao
 interface RouteDao {
     // Commute
@@ -252,15 +254,16 @@ interface RouteDao {
     @Update
     fun updateAll(vararg path : Commute)
 
+    /*C2D
     //@Query("DELETE FROM todoitemcontent WHERE uid = :uid")
-    //fun deleteItem(vararg uid: Long): Int
+    //fun deleteItem(vararg uid: Long) : Int
+    */
 
     @Delete
     fun deleteAll(vararg path : Commute)
 
     @Query("SELECT * FROM Commute WHERE pid = :pathId")
-    fun getRoute(pathId: Long) : Commute
-
+    fun getRoute(pathId : Long) : Commute
 
     // Favorite
     @Query("SELECT * FROM Favorite")
@@ -283,6 +286,7 @@ interface RouteDao {
 }
 
 @Database(
+    //C2D
     //entities = arrayOf(Commute::class),
     entities = [Commute::class, Favorite::class],
     version = 1
@@ -315,7 +319,8 @@ abstract class AppDatabase : RoomDatabase() {
     }
 }
 
-/*data class Commute(
+/*C2D
+    data class Commute(
 
     var name : String = "",
 

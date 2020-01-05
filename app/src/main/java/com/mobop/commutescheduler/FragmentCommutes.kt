@@ -37,6 +37,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
     private lateinit var emptyCommutes : ConstraintLayout
     private lateinit var emptyCommutesAdd : ImageButton
 
+    //C2D
     override fun onCreate(savedInstanceState : Bundle?){
         super.onCreate(savedInstanceState)
     }
@@ -164,6 +165,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
 
     private fun doCommutesAdd(
         fragmentCaller : Int,
+        //C2D
         empty : Boolean){
         if (mListener != null){
             source[0] = 2
@@ -181,6 +183,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
         when(action){
             3 -> {
                  if(mListener != null){
+                     //C2D
                      //layoutButtons.visibility = View.GONE
                      source = intArrayOf(action, partItem)
                      mListener!!

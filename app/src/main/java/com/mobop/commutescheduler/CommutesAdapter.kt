@@ -1,7 +1,6 @@
 package com.mobop.commutescheduler
 
 /* Import ******************************************************** */
-import android.app.PendingIntent.getActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +16,6 @@ import org.jetbrains.anko.doAsync
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-
 /* *************************************************************** */
 
 /* CommutesAdapter *********************************************** */
@@ -217,12 +215,12 @@ class CommutesAdapter(
                     itemInList.arrival_address
                 extendedEnd.text =
                     elementExtendedEnd
-                var elementSimpleTime = 0
-                if (itemInList.duration_traffic_val != null){
-                    elementSimpleTime =
-                        itemInList.duration_traffic_val!!.toInt()/60
+                //C2D
+                //var elementSimpleTime = 0
+                val elementSimpleTime = if(itemInList.duration_traffic_val != null){
+                    itemInList.duration_traffic_val!!.toInt()/60
                 } else {
-                    elementSimpleTime = itemInList.duration_val!!.toInt()/60
+                    itemInList.duration_val!!.toInt()/60
                 }
 
                 var hoursText = ""
@@ -297,7 +295,7 @@ class CommutesAdapter(
                                 layoutExtended.visibility = View.VISIBLE
                                 layoutSimple.visibility = View.GONE
                                 val pos = adapterPosition
-                                var commute : Commute =
+                                val commute : Commute =
                                     commutesList!!.commutesItemsList[pos]
 
                                 val format = "yyyy-MM-dd HH:mm:ss"
@@ -314,7 +312,7 @@ class CommutesAdapter(
                                 }else{
                                     val duration = Toast.LENGTH_SHORT
                                     val toast = Toast.makeText(
-                                        itemView.getContext(),
+                                        itemView.context,
                                         "Route out of date",
                                         duration)
                                     toast.show()
