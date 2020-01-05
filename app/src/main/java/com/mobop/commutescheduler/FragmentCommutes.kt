@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 /* *************************************************************** */
 
-
 /* FragmentCommutes ********************************************** */
 /* Contains the list of commutes and the related buttons ********* */
 /* Contained in FragmentHome and in its standalone fragment ****** */
@@ -128,7 +127,7 @@ class FragmentCommutes(screen : Int) : Fragment(){
         if(context is OnFragmentInteractionListener){
             mListener = context
         } else{
-            throw RuntimeException(context!!.toString() +
+            throw RuntimeException(context.toString() +
                     " must implement OnFragmentInteractionListener")
         }
     }
