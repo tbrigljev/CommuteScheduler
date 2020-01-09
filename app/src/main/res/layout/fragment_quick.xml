@@ -170,7 +170,7 @@
                 android:layout_height="75dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:tag="Work"
+                android:tag="School"
                 app:srcCompat="@drawable/school" />
 
             <ImageView
@@ -215,7 +215,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
 
-                android:tag="School"
+                android:tag="Work"
                 app:srcCompat="@drawable/office" />
 
 
